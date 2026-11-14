@@ -8,7 +8,7 @@ How the planning package of 2026-11-05 compares with what was built is in [docs/
 
 ## Where it stands
 
-This is early software with very little use so far. Windows 11 installers (and a portable copy) are on the [Releases page](https://github.com/jasonswrench-beep/prismqda/releases); use the newest one. They are signed from alpha 54, with a SHA-256 file beside each download. Keep copies of your projects. What has and has not been checked is in [TESTING-TODO.md](TESTING-TODO.md): so far the installer, the window and the analyses have been run by scripts and automatic checks, and no screen-reader pass, real class, or second computer has been tried. Found a security problem? See [SECURITY.md](SECURITY.md). The program connects to nothing on its own; the one exception is the **Check for updates** button in Settings, which you press and which is described in [docs/UPDATES.md](docs/UPDATES.md).
+This is early software with very little use so far. Windows 11 installers (and a portable copy) are on the [Releases page](https://github.com/jasonswrench-beep/prismqda/releases); use the newest one. They are signed (the signer is Jason Wrench), with a SHA-256 file beside each download. Keep copies of your projects. What has and has not been checked is in [TESTING-TODO.md](TESTING-TODO.md): so far the installer, the window and the analyses have been run by scripts and automatic checks, and no screen-reader pass, real class, or second computer has been tried. Found a security problem? See [SECURITY.md](SECURITY.md). The program connects to nothing on its own; the one exception is the **Check for updates** button in Settings, which you press and which is described in [docs/UPDATES.md](docs/UPDATES.md).
 
 Built and tested:
 

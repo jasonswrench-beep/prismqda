@@ -475,6 +475,5 @@ PrismQDA is built to be used with the keyboard alone and with a screen reader.
 - For recordings: stepping through video frame by frame, a waveform that can be zoomed, saving a clip in the recording's own format (clips are WAV files), and a chart of codes over time for one recording. On a PDF page an area is a rectangle; coding the words where they sit on the page layout is not built.
 - For pseudonymizing: a check for details that together identify a person, and rules written as patterns. For encrypted projects: a recovery key, a hardware key, remembering the passphrase, and encrypting single documents.
 - In Team: a tie-breaker role with a sign-in.
-- A signed installer (Windows will ask you to confirm that you want to run it).
 
 If something here does not match what you see, the program is right and this guide is out of date. Please say so.
