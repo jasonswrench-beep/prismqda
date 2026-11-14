@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="prismqda-title">
+<title id="prismqda-title">PrismQDA application icon</title>
+<defs>
+<linearGradient id="prism-left" x1="256.0" y1="97.28" x2="103.76" y2="372.72" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#BAF4FF" />
+ <stop offset=".22" stop-color="#66D4FF" />
+ <stop offset=".56" stop-color="#2CBDF8" />
+ <stop offset=".84" stop-color="#13D8DE" />
+ <stop offset="1" stop-color="#4FF8E9" />
+</linearGradient>
+
+<linearGradient id="prism-core" x1="256.0" y1="98.16" x2="259.52" y2="305.84" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#72CBFF" />
+ <stop offset=".32" stop-color="#208EEB" />
+ <stop offset=".73" stop-color="#2857CC" />
+ <stop offset="1" stop-color="#3845AE" />
+</linearGradient>
+
+<linearGradient id="prism-right" x1="256.0" y1="97.28" x2="434.64" y2="371.84" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#A7CBFF" />
+ <stop offset=".25" stop-color="#7D6BFA" />
+ <stop offset=".46" stop-color="#B457D4" />
+ <stop offset=".65" stop-color="#EE6092" />
+ <stop offset=".83" stop-color="#FF9645" />
+ <stop offset="1" stop-color="#FFE34B" />
+</linearGradient>
+
+<linearGradient id="prism-base" x1="72.96000000000001" y1="341.04" x2="439.03999999999996" y2="360.4" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#11D5CE" />
+ <stop offset=".24" stop-color="#39ABC9" />
+ <stop offset=".47" stop-color="#9268C4" />
+ <stop offset=".65" stop-color="#DB6398" />
+ <stop offset=".83" stop-color="#FF8844" />
+ <stop offset="1" stop-color="#FFDA3D" />
+</linearGradient>
+
+<linearGradient id="prism-rim" x1="92.32" y1="197.6" x2="434.64" y2="371.84" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#C5FBFF" />
+ <stop offset=".25" stop-color="#A5E9FF" />
+ <stop offset=".54" stop-color="#CEB9FF" />
+ <stop offset=".78" stop-color="#FFD2B0" />
+ <stop offset="1" stop-color="#FFF391" />
+</linearGradient>
+
+<linearGradient id="prism-left-seam" x1="256.0" y1="97.28" x2="97.6" y2="365.68" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#D9F6FF" />
+ <stop offset=".6" stop-color="#8DEEFF" />
+ <stop offset="1" stop-color="#93FFF1" />
+</linearGradient>
+
+<linearGradient id="prism-right-seam" x1="256.0" y1="97.28" x2="430.24" y2="369.2" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#D0DFFF" />
+ <stop offset=".57" stop-color="#E5BAFF" />
+ <stop offset="1" stop-color="#FFF3A4" />
+</linearGradient>
+
+</defs>
+<path d="M112 0 H400 Q512 0 512 112 V400 Q512 512 400 512 H112 Q0 512 0 400 V112 Q0 0 112 0 Z" fill="#151A3D" /><path d="M256 97.28 439.04 378.88H72.96L256 97.28Z" fill="url(#prism-base)" />
+<path d="M256 97.28 218.16 295.28 72.96 378.88 256 97.28Z" fill="url(#prism-left)" />
+<path d="M256 97.28 439.04 378.88 293.84 295.28 256 97.28Z" fill="url(#prism-right)" />
+<path d="M256 97.28 293.84 295.28Q256 312.88 218.16 295.28L256 97.28Z" fill="url(#prism-core)" />
+<path d="M72.96 378.88 218.16 295.28Q256 312.88 293.84 295.28L439.04 378.88H72.96Z" fill="url(#prism-base)" />
+<path d="M256 97.28 218.16 295.28 72.96 378.88" fill="none" stroke="url(#prism-left-seam)" stroke-width="3.52" stroke-linecap="round" stroke-linejoin="round" opacity=".82" />
+<path d="M256 97.28 293.84 295.28 439.04 378.88" fill="none" stroke="url(#prism-right-seam)" stroke-width="3.52" stroke-linecap="round" stroke-linejoin="round" opacity=".82" />
+<path d="M218.16 295.28Q256 312.88 293.84 295.28" fill="none" stroke="#E3C8FF" stroke-width="3.52" stroke-linecap="round" opacity=".85" />
+<path d="M256 97.28 439.04 378.88H72.96L256 97.28Z" fill="none" stroke="url(#prism-rim)" stroke-width="2.64" stroke-linejoin="round" opacity=".9" />
+</svg>

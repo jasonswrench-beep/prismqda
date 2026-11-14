@@ -1,0 +1,41 @@
+[package]
+name = "prismqda-app"
+version = "0.1.0-beta.1"
+description = "The PrismQDA desktop app: a Tauri window around the engine and the React interface."
+edition = "2021"
+rust-version = "1.92"
+license = "Apache-2.0"
+authors = ["PrismQDA contributors"]
+publish = false
+
+# The desktop app is its own Cargo workspace. Tauri brings several hundred crates, and keeping it out of the
+# main workspace means `cargo test --workspace` stays fast and the engine never depends on a window toolkit.
+[workspace]
+
+# The SQLite that `rusqlite` bundles is SQLite3 Multiple Ciphers, so a project can be encrypted (see vendor/libsqlite3-sys/PATCHES.md).
+[patch.crates-io]
+libsqlite3-sys = { path = "../../vendor/libsqlite3-sys" }
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+prismqda-api = { path = "../../crates/prismqda-api" }
+serde_json = "1"
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+# Windows' own certificate store (schannel) instead of a bundled list of root certificates: fewer crates, and a company's own certificates work.
+tauri-plugin-updater = { version = "2", default-features = false, features = ["native-tls", "system-proxy", "zip"] }
+tauri-plugin-single-instance = "2"
+
+[dev-dependencies]
+# The mock runtime lets the tests send real IPC messages through the same command the window uses, with no window.
+tauri = { version = "2", features = ["test"] }
+tempfile = "3"
+tiny_http = "0.12"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+panic = "abort"
+strip = true

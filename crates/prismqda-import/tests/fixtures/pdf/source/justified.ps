@@ -1,0 +1,14 @@
+%!PS
+% Make the PDF: gswin64c -dBATCH -dNOPAUSE -dQUIET -dSAFER -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -sOutputFile=justified.pdf justified.ps
+% Synthetic document with word spacing that differs from line to line, as in justified text. All text is invented.
+/Times-Roman findfont 11 scalefont setfont
+/L { moveto 0 32 3 -1 roll widthshow } def   % usage: extra-space (text) x y L
+
+2.9 (The orchard behind the school was planted by the first head teacher, who believed) 72 700 L
+3.4 (that children learn more from a tree than from a textbook. Every autumn the) 72 686.6 L
+2.2 (older pupils pick the apples, sort them by size, and carry the best crates to) 72 673.2 L
+3.8 (the market stall that opens on Saturday mornings in the village square.) 72 659.8 L
+
+2.6 (A second paragraph starts after a clear gap and is justified the same way, so) 72 633 L
+0 (it is short.) 72 619.6 L
+showpage

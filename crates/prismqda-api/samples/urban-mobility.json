@@ -1,0 +1,81 @@
+{
+  "id": "urban-mobility",
+  "name": "Urban Mobility Study",
+  "description": "A small made-up study of how people get around a city: three interviews, a focus group, a survey comment, and two other documents, with a codebook, codings, two cases, a memo, and a rating. Every word is invented for practice.",
+  "research_question": "How do residents experience everyday public transit, and what would improve it?",
+  "coding_mode": "free_span",
+  "cases": [
+    { "name": "Urban Residents", "documents": ["INT-001 – Alex", "INT-002 – Priya"] },
+    { "name": "Commuters", "documents": ["INT-003 – Jordan", "FG-001 – Commuters"] }
+  ],
+  "documents": [
+    {
+      "name": "INT-001 – Alex",
+      "folder": "Interviews",
+      "text": "Interviewer: To start, can you tell me a bit about your daily travel routine?\nAlex: Sure. I usually commute to work in the city center, so I travel about 12 kilometers each way.\nMost days I take the bus because it's the most convenient option for me. The stops are close to my home, and I don't have to worry about parking, which would be a real hassle and expense downtown.\nInterviewer: How would you describe your overall experience with public transportation?\nAlex: It's generally okay, but reliability can be a problem. The bus is often late, especially in the mornings, and that can be stressful when I have a meeting. I've missed a few important things because of delays.\nInterviewer: That sounds frustrating. Are there any other challenges you've noticed?\nAlex: Cost is also a factor. The monthly pass is not cheap, and it adds up, especially with other living expenses. I think it's still better than owning a car, but it's something I have to budget for.\nInterviewer: And looking ahead, what would make your travel experience better?\nAlex: More frequent and reliable service would make a big difference. I'd also like to see more investment in sustainable options, like electric buses or better infrastructure for cycling. I think the city is moving in the right direction, but there's still a lot of room for improvement.\nInterviewer: Is there anything else you'd like to add about urban mobility?\nAlex: Just that it really affects quality of life. When it works well, it makes the city feel more accessible and livable. When it doesn't, it can be a daily source of stress. So it's an important area for the city to keep focusing on."
+    },
+    {
+      "name": "INT-002 – Priya",
+      "folder": "Interviews",
+      "text": "Interviewer: How do you get to work?\nPriya: I take the train most days. The trains are usually good, but when there's a signal failure everything stops and I have no backup plan.\nInterviewer: What would help?\nPriya: Clear announcements, and a bus that runs when the line is down."
+    },
+    {
+      "name": "INT-003 – Jordan",
+      "folder": "Interviews",
+      "text": "Interviewer: What do you use most?\nJordan: I switch between the bus and cycling depending on the weather and how early I need to be at the office.\nInterviewer: Is there anything that stops you from cycling more?\nJordan: Safe lanes. There are stretches where I do not feel safe at all."
+    },
+    {
+      "name": "FG-001 – Commuters",
+      "folder": "Focus Groups",
+      "text": "Moderator: What changed after the new line opened?\nParticipant A: Mostly the evenings felt safer, and the platforms are easier to reach.\nParticipant B: For me it is the cost. The fares went up in the same month."
+    },
+    {
+      "name": "SR-001 – Survey comments",
+      "folder": "Survey Responses",
+      "text": "Respondent 14: Bike lanes would make me ride more.\nRespondent 22: I would use the bus if it came more often."
+    },
+    {
+      "name": "LIT-001 – Transit equity",
+      "folder": "Literature",
+      "text": "Access to frequent service is unevenly spread across neighborhoods, and the cost of a monthly pass weighs more on lower incomes."
+    },
+    {
+      "name": "MED-001 – Council recording notes",
+      "folder": "Media",
+      "text": "Council meeting notes on the proposed bus priority lanes: speakers asked for safer crossings and for a trial of electric buses on two routes."
+    }
+  ],
+  "codes": [
+    { "name": "Mobility Experience", "color": "#5B5BE0", "children": [
+      { "name": "Daily Travel", "color": "#A78BFA" },
+      { "name": "Mode Choice", "color": "#4F8FF0" },
+      { "name": "Convenience", "color": "#7DD3FC" }
+    ] },
+    { "name": "Barriers & Challenges", "color": "#F472B6", "children": [
+      { "name": "Cost", "color": "#F5A524" },
+      { "name": "Reliability", "color": "#F06292", "definition": "Talk about services that are late, cancelled, or unpredictable, and what that does to daily life.", "rated": true, "rating_label": "Intensity", "rating_low": "Mentioned in passing", "rating_high": "Central to the account" },
+      { "name": "Accessibility", "color": "#FACC15" },
+      { "name": "Safety", "color": "#EF4444" }
+    ] },
+    { "name": "Perceptions & Attitudes", "color": "#22C55E", "children": [
+      { "name": "Sustainability", "color": "#84CC16" },
+      { "name": "Policy & Planning", "color": "#14B8A6" }
+    ] },
+    { "name": "Change & Future", "color": "#8B5CF6", "children": [
+      { "name": "Desired Improvements", "color": "#A78BFA" },
+      { "name": "Future Use", "color": "#C4B5FD" }
+    ] }
+  ],
+  "codings": [
+    { "document": "INT-001 – Alex", "phrase": "Most days I take the bus because it's the most convenient option for me. The stops are close to my home, and I don't have to worry about parking, which would be a real hassle and expense downtown.", "code": "Daily Travel", "note": "Everyday bus use" },
+    { "document": "INT-001 – Alex", "phrase": "It's generally okay, but reliability can be a problem. The bus is often late, especially in the mornings, and that can be stressful when I have a meeting. I've missed a few important things because of delays.", "code": "Reliability", "note": "Service reliability and daily stress", "rating": 4, "memo": { "title": "Service reliability and daily stress", "body": "Delays are tied to missed commitments, and the stress is named without being asked about. Compare with the train riders." } },
+    { "document": "INT-001 – Alex", "phrase": "Cost is also a factor. The monthly pass is not cheap, and it adds up, especially with other living expenses. I think it's still better than owning a car, but it's something I have to budget for.", "code": "Cost", "note": "Cost vs. car ownership", "counterexample_of": "Reliability" },
+    { "document": "INT-001 – Alex", "phrase": "More frequent and reliable service would make a big difference. I'd also like to see more investment in sustainable options, like electric buses or better infrastructure for cycling. I think the city is moving in the right direction, but there's still a lot of room for improvement.", "code": "Sustainability", "note": "Sustainability and future options" },
+    { "document": "INT-002 – Priya", "phrase": "The trains are usually good, but when there's a signal failure everything stops and I have no backup plan.", "code": "Reliability", "note": "Reliability (train) - similar theme" },
+    { "document": "INT-002 – Priya", "phrase": "Clear announcements, and a bus that runs when the line is down.", "code": "Desired Improvements", "note": "A backup plan" },
+    { "document": "INT-003 – Jordan", "phrase": "I switch between the bus and cycling depending on the weather and how early I need to be at the office.", "code": "Mode Choice", "note": "Flexible mode choice" },
+    { "document": "INT-003 – Jordan", "phrase": "There are stretches where I do not feel safe at all.", "code": "Safety", "note": "Cycling and safety" },
+    { "document": "FG-001 – Commuters", "phrase": "Mostly the evenings felt safer, and the platforms are easier to reach.", "code": "Accessibility", "note": "" },
+    { "document": "FG-001 – Commuters", "phrase": "For me it is the cost. The fares went up in the same month.", "code": "Cost", "note": "" }
+  ]
+}

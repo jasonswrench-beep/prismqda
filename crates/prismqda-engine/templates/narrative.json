@@ -1,0 +1,60 @@
+{
+  "id": "narrative",
+  "name": "Narrative analysis",
+  "summary": "Stories are treated as stories: divide each account into narrative segments, code their structure (after Labov and Waletzky), read for themes, and write a storyline for each case.",
+  "vocabulary": { "code": "code", "theme": "theme", "codebook": "codebook" },
+  "rules": {
+    "coding_mode": null,
+    "require_definition": false,
+    "require_inclusion_exclusion": false,
+    "require_anchor": false,
+    "reliability_tools": "shown",
+    "ai_coding": "off"
+  },
+  "seed_codes": [
+    { "name": "Abstract", "definition": "A summary of what the story is about, often at the start." },
+    { "name": "Orientation", "definition": "Who, when, where, and in what situation." },
+    { "name": "Complicating action", "definition": "What happened: the sequence of events that moves the story forward." },
+    { "name": "Evaluation", "definition": "Why the story is worth telling: the teller's stance on what happened." },
+    { "name": "Resolution", "definition": "How it turned out." },
+    { "name": "Coda", "definition": "A closing that brings the story back to the present." }
+  ],
+  "notes": [
+    "The six structural codes above are added when you choose this method.",
+    "Not yet built for this method: the timeline view for each case. The phases, prompts, and structural codes work now."
+  ],
+  "phases": [
+    {
+      "id": "segmentation",
+      "title": "Segmentation",
+      "goal": "Decide where each story begins and ends within the accounts.",
+      "tools": ["coding", "memos"],
+      "memo_prompts": ["What marks the edges of a story here: a change of time, place, or speaker?"],
+      "exit_checklist": ["Marked the stories in each account", "Memoed any stretch that was hard to divide"]
+    },
+    {
+      "id": "structural_coding",
+      "title": "Structural coding",
+      "goal": "Code the parts of each story with the structural codes.",
+      "tools": ["coding", "codebook"],
+      "memo_prompts": ["Where is the evaluation? What does it tell you about why this was told?"],
+      "exit_checklist": ["Coded every story's structure", "Checked stories that seem to lack a part"]
+    },
+    {
+      "id": "thematic_reading",
+      "title": "Thematic reading",
+      "goal": "Read the stories for what they are about, as well as how they are built.",
+      "tools": ["coding", "queries", "memos"],
+      "memo_prompts": ["What do the stories do for the people who tell them?"],
+      "exit_checklist": ["Coded the themes of each story", "Compared themes across cases"]
+    },
+    {
+      "id": "storylines",
+      "title": "Storyline per case",
+      "goal": "Write the storyline of each case in order, from the stories you found.",
+      "tools": ["memos", "reports"],
+      "memo_prompts": ["How does this person's story move from beginning to end?"],
+      "exit_checklist": ["Wrote a storyline for every case", "Filled the structure-by-case table"]
+    }
+  ]
+}

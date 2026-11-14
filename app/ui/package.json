@@ -1,0 +1,44 @@
+{
+  "name": "prismqda-ui",
+  "private": true,
+  "version": "0.1.0",
+  "description": "The PrismQDA interface: a React and TypeScript web UI that a Tauri window will wrap.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test \"src/**/*.test.ts\"",
+    "icons": "tsx scripts/build-icons.ts",
+    "icons:check": "tsx scripts/build-icons.ts --check",
+    "licenses": "node scripts/check-licenses.mjs",
+    "i18n:extract": "node scripts/i18n/engine-extract.mjs --write && node scripts/i18n/extract.mjs --write",
+    "i18n:engine": "node scripts/i18n/engine-extract.mjs --write",
+    "i18n:audit": "node scripts/i18n/audit.mjs",
+    "i18n:test": "node --test \"scripts/i18n/*.test.mjs\"",
+    "i18n:check": "node scripts/i18n/check.mjs",
+    "i18n:new": "node scripts/i18n/template.mjs",
+    "browser-check": "node tools/browser-check.mjs",
+    "check": "npm run icons:check && npm run typecheck && npm test && npm run i18n:test && npm run i18n:check && npm run licenses && npm run build && npm run browser-check"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.12.4",
+    "@tauri-apps/plugin-dialog": "^2.8.4",
+    "react": "^19.3.1",
+    "react-aria-components": "^1.22.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@tauri-apps/cli": "^2.12.4",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.2.1",
+    "axe-core": "^4.14.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5"
+  }
+}

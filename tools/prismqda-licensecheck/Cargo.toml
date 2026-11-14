@@ -1,0 +1,15 @@
+[package]
+name = "prismqda-licensecheck"
+description = "Build-time license rule checker: fails on any dependency whose license is not on the permissive list."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+publish = false
+
+[dependencies]
+serde_json = "1.0.154"
+spdx = "0.10.8"
+
+[dev-dependencies]

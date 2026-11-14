@@ -1,0 +1,64 @@
+%!PS
+% Make the PDF: gswin64c -dBATCH -dNOPAUSE -dQUIET -dSAFER -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -sOutputFile=three_pages.pdf three_pages.ps
+% Synthetic test document for PrismQDA's PDF import. All text is invented.
+% Letter page, 12 pt Times (Latin-1 re-encoded), 14.4 pt line spacing, extra space between paragraphs.
+
+% ISOLatin1Encoding puts a minus sign at 45 and accents where curly quotes belong; fix both.
+/Enc ISOLatin1Encoding 256 array copy def
+Enc 45 /hyphen put
+Enc 147 /quotedblleft put
+Enc 148 /quotedblright put
+
+/Body
+  /Times-Roman findfont dup length dict begin
+  { 1 index /FID ne { def } { pop pop } ifelse } forall
+  /Encoding Enc def currentdict end
+  /BodyLatin1 exch definefont pop
+/BodyLatin1 findfont 12 scalefont def
+
+/Head
+  /Times-Bold findfont 20 scalefont def
+
+/Line { 72 exch moveto show } def   % usage: (text) y Line
+
+% ---------------- page 1 ----------------
+Head setfont
+(Field Notes on a Neighbourhood Garden) 710 Line
+
+Body setfont
+(The garden opened in the spring of last year, after the council agreed to lease the) 670 Line
+(empty lot beside the library. Volunteers cleared the rubble over two weekends and) 655.6 Line
+(built raised beds from reclaimed timber. By June the first tomatoes were ripening,) 641.2 Line
+(and neighbours who had never spoken before were swapping seedlings over the fence.) 626.8 Line
+(The group also wrote a short guide with practical informa-) 612.4 Line
+(tion for newcomers, and aims to become self-) 598 Line
+(sufficient in compost by next year.) 583.6 Line
+
+(Zo\353 brought caf\351 con leche for the se\361or who waters the beds, and the na\357ve) 555 Line
+(plan to share one hose soon grew into a rota. Everyone agreed that the biggest) 540.6 Line
+(surprise was how much \(and how loudly\) people talked while they weeded.) 526.2 Line
+
+(\223It feels like a village inside the city,\224 said one volunteer.) 497.6 Line
+
+showpage
+
+% ---------------- page 2: blank apart from a thin ruled line (no text) ----------------
+0.5 setlinewidth
+72 400 moveto 540 400 lineto stroke
+showpage
+
+% ---------------- page 3 ----------------
+Head setfont
+(Second Season) 710 Line
+
+Body setfont
+(In the second season the focus moved from building to sharing. A seed library now) 670 Line
+(sits in a cabinet by the gate, and children from the primary school visit each) 655.6 Line
+(Thursday to measure the beans.) 641.2 Line
+
+(1. Seeds are shared on Saturdays.) 612.6 Line
+(2. Compost is turned each week.) 598.2 Line
+
+(The council has renewed the lease for five years.) 569.6 Line
+
+showpage

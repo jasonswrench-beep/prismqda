@@ -1,0 +1,54 @@
+%!PS
+% Make the PDF: gswin64c -dBATCH -dNOPAUSE -dQUIET -dSAFER -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -sOutputFile=layout.pdf layout.ps
+% Synthetic layout test document for PrismQDA's PDF import. All text is invented.
+% Page 1: two columns, read column by column. Page 2: ligatures, a superscript, a table, fake bold.
+
+/Enc ISOLatin1Encoding 256 array copy def
+Enc 45 /hyphen put
+Enc 12 /fi put
+Enc 13 /fl put
+
+/Body
+  /Times-Roman findfont dup length dict begin
+  { 1 index /FID ne { def } { pop pop } ifelse } forall
+  /Encoding Enc def currentdict end
+  /BodyL1 exch definefont pop
+/BodyL1 findfont 11 scalefont def
+/Small /BodyL1 findfont 7 scalefont def
+/Bold /Times-Bold findfont 11 scalefont def
+
+/At { moveto show } def   % usage: (text) x y At
+
+% ---------------- page 1: two columns ----------------
+Body setfont
+(Left column, first paragraph. The committee met on a Tuesday evening in the) 72 700 At
+(church hall and counted the chairs twice before anyone arrived.) 72 687 At
+
+(Left column, second paragraph. Nobody had brought a pen, so the minutes) 72 661 At
+(were written on the back of a tea towel.) 72 648 At
+
+(Right column, first paragraph. The harvest festival was held in the barn,) 320 700 At
+(and the youngest children were put in charge of the apples.) 320 687 At
+
+(Right column, second paragraph. By nine o'clock the last pie was gone.) 320 661 At
+showpage
+
+% ---------------- page 2 ----------------
+Body setfont
+(The \014nal \015oor plan was ready before the second meeting.) 72 700 At
+(The result was significant) 72 686 At
+Small setfont (2) show
+Body setfont ( in later tests, as the authors expected.) show
+
+Bold setfont
+(Overprinted heading) 72 660 At
+(Overprinted heading) 72.25 660 At
+
+Body setfont
+(Name) 72 620 At (Group) 200 620 At (Score) 330 620 At
+(Ana) 72 606 At (control) 200 606 At (41) 330 606 At
+(Ben) 72 592 At (treatment) 200 592 At (57) 330 592 At
+(Cleo) 72 578 At (treatment) 200 578 At (63) 330 578 At
+
+(Table 1 shows the scores for each group.) 72 540 At
+showpage

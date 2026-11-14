@@ -1,0 +1,24 @@
+%!PS
+% Make the PDF: gswin64c -dBATCH -dNOPAUSE -dQUIET -dSAFER -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -sOutputFile=continued.pdf continued.ps
+% Synthetic document whose sentence and whose hyphenated word run over a page break. All text is invented.
+
+/Enc ISOLatin1Encoding 256 array copy def
+Enc 45 /hyphen put
+/Body
+  /Times-Roman findfont dup length dict begin
+  { 1 index /FID ne { def } { pop pop } ifelse } forall
+  /Encoding Enc def currentdict end
+  /BodyL1 exch definefont pop
+/BodyL1 findfont 12 scalefont def
+/At { moveto show } def
+
+Body setfont
+(The first page ends with a complete sentence about the weather.) 72 90 At
+showpage
+Body setfont
+(The second page begins a new one, which stops in the middle of an impor-) 72 90 At
+showpage
+Body setfont
+(tant word and goes on across the page break until the committee agreed that the) 72 700 At
+(following steps would be taken.) 72 685.6 At
+showpage

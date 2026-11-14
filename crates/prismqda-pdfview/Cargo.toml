@@ -1,0 +1,15 @@
+[package]
+name = "prismqda-pdfview"
+description = "Draws the pages of a PDF as pictures, so a region of a page can be shown and coded."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+publish = false
+
+[dependencies]
+hayro = "0.9.0"
+
+[dev-dependencies]
+image = { version = "0.25", default-features = false, features = ["png"] }

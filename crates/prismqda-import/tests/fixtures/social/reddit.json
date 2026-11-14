@@ -1,0 +1,77 @@
+[
+  {
+    "kind": "Listing",
+    "data": {
+      "children": [
+        {
+          "kind": "t3",
+          "data": {
+            "id": "abc123",
+            "name": "t3_abc123",
+            "title": "Which tomato &amp; why?",
+            "selftext": "I planted 12 &lt;3 plants.\n\nAny tips?",
+            "author": "gardener1",
+            "created_utc": 1700000000.0,
+            "subreddit": "gardening",
+            "score": 42,
+            "permalink": "/r/gardening/comments/abc123/which_tomato_why/"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "kind": "Listing",
+    "data": {
+      "children": [
+        {
+          "kind": "t1",
+          "data": {
+            "id": "c1",
+            "body": "Try Roma",
+            "author": "u1",
+            "created_utc": 1700000100.0,
+            "score": 5,
+            "parent_id": "t3_abc123",
+            "replies": {
+              "kind": "Listing",
+              "data": {
+                "children": [
+                  {
+                    "kind": "t1",
+                    "data": {"id": "c2", "body": "Seconded, 好番茄 🍅", "author": "u2", "created_utc": 1700000200.0, "score": 2, "parent_id": "t1_c1", "replies": ""}
+                  },
+                  {
+                    "kind": "t1",
+                    "data": {
+                      "id": "c3",
+                      "body": "[deleted]",
+                      "author": "[deleted]",
+                      "created_utc": 1700000300.0,
+                      "score": -1,
+                      "parent_id": "t1_c1",
+                      "replies": {
+                        "kind": "Listing",
+                        "data": {
+                          "children": [
+                            {"kind": "t1", "data": {"id": "c4", "body": "Reply to a deleted comment", "author": "u4", "created_utc": 1700000400.0, "score": 1, "parent_id": "t1_c3", "replies": ""}}
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  {"kind": "more", "data": {"count": 7, "children": ["x1", "x2"], "parent_id": "t1_c1"}}
+                ]
+              }
+            }
+          }
+        },
+        {"kind": "t1", "data": {"id": "c5", "body": "Another top-level comment", "author": "u5", "created_utc": 1700000500.0, "score": 3, "parent_id": "t3_abc123", "replies": ""}},
+        {"kind": "t1", "data": {"id": "c6", "body": "[removed]", "author": "u6", "created_utc": 1700000600.0, "score": 0, "parent_id": "t3_abc123", "replies": ""}},
+        {"kind": "t1", "data": {"id": "c7", "body": "Reply to a comment that is not in the file", "author": "u7", "created_utc": 1700000700.0, "score": 0, "parent_id": "t1_zzz", "replies": ""}},
+        {"kind": "more", "data": {"count": 12, "children": ["y1"], "parent_id": "t3_abc123"}},
+        {"kind": "more", "data": {"count": 0, "children": [], "parent_id": "t3_abc123"}}
+      ]
+    }
+  }
+]

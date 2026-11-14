@@ -1,0 +1,96 @@
+{
+  "id": "content_analysis",
+  "name": "Qualitative content analysis",
+  "summary": "A codebook is developed and tested, agreement between coders is checked against a target, and only then is the full set coded and counted. Works for deductive, inductive, or mixed coding.",
+  "vocabulary": { "code": "code", "theme": "category", "codebook": "codebook" },
+  "rules": {
+    "coding_mode": "unit",
+    "require_definition": true,
+    "require_inclusion_exclusion": true,
+    "require_anchor": true,
+    "reliability_tools": "shown",
+    "ai_coding": "allowed"
+  },
+  "seed_codes": [],
+  "notes": [
+    "Coding is by predefined units, so every coding belongs to a unit and agreement can be counted unit by unit.",
+    "Every code needs a definition, inclusion criteria, exclusion criteria, and at least one anchor example before full coding starts."
+  ],
+  "phases": [
+    {
+      "id": "codebook_development",
+      "title": "Codebook development",
+      "goal": "Write the codes: what each means, what counts, what does not, and an example.",
+      "tools": ["codebook", "memos", "search"],
+      "memo_prompts": [
+        "What does the research question need the codes to separate?",
+        "Where could two coders reasonably disagree about this code?"
+      ],
+      "exit_checklist": [
+        "Chose the unit of analysis",
+        "Gave every code a definition, inclusion criteria, and exclusion criteria",
+        "Marked an anchor example for every code"
+      ]
+    },
+    {
+      "id": "pilot_coding",
+      "title": "Pilot coding",
+      "goal": "Try the codebook on a small sample drawn at random, and note where it was unclear.",
+      "tools": ["coding", "samples", "memos"],
+      "memo_prompts": ["Which definitions did you have to guess at?"],
+      "exit_checklist": [
+        "Drew a pilot sample and saved its seed",
+        "Coded the whole pilot sample",
+        "Noted where the codebook was unclear"
+      ]
+    },
+    {
+      "id": "agreement_check",
+      "title": "Agreement check",
+      "goal": "Have a second coder code the pilot sample without seeing yours, and measure agreement.",
+      "tools": ["reliability"],
+      "memo_prompts": ["Which codes fall below the target, and why?"],
+      "exit_checklist": [
+        "A second coder coded the pilot sample blind",
+        "Computed agreement and compared it with the target",
+        "Listed the codes under the target with their disagreements"
+      ]
+    },
+    {
+      "id": "codebook_revision",
+      "title": "Codebook revision",
+      "goal": "Fix unclear definitions and criteria, and save the result as a numbered version.",
+      "tools": ["codebook", "memos"],
+      "memo_prompts": ["What did the disagreements teach you about the codes?"],
+      "exit_checklist": [
+        "Revised unclear definitions and criteria",
+        "Saved a new codebook version with a note",
+        "Recoded the pilot sample wherever a code changed"
+      ]
+    },
+    {
+      "id": "full_coding",
+      "title": "Full coding",
+      "goal": "Code the remaining units with the settled codebook.",
+      "tools": ["coding", "reliability", "memos"],
+      "memo_prompts": ["Has your use of any code drifted since the pilot?"],
+      "exit_checklist": [
+        "Coded all remaining units",
+        "Checked agreement on a later sample to look for drift",
+        "Recorded every method decision as a memo"
+      ]
+    },
+    {
+      "id": "frequency_analysis",
+      "title": "Frequency analysis",
+      "goal": "Count the codes by case and by attribute, and test whether groups differ.",
+      "tools": ["queries", "statistics", "reports"],
+      "memo_prompts": ["What do the counts show that the quotes alone could not?"],
+      "exit_checklist": [
+        "Counted codes by case and attribute",
+        "Tested differences between groups where the design calls for it",
+        "Exported the tables for the report"
+      ]
+    }
+  ]
+}

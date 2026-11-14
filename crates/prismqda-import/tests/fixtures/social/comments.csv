@@ -1,0 +1,9 @@
+thread,id,reply_to,who,role,posted,text,votes
+Thread A,1,,ann,host,2024-03-05T10:00:00Z,"Welcome to the thread, ça va?",3
+Thread A,2,1,bob,audience,2024-03-05T11:30:00Z,"Thanks! 😀 and 日本語",1
+Thread B,10,,cy,audience,2024-04-01,"A different thread starts here",0
+Thread A,3,1,dee,audience,2024-03-06T08:00:00Z,"Second reply to the host",
+Thread A,4,2,ann,host,2024-03-06T09:00:00Z,"Reply to Bob",2
+Thread A,5,99,eli,audience,2024-03-06T10:00:00Z,"Reply to a comment that is not in the table",0
+Thread A,6,1,fay,audience,2024-03-06T11:00:00Z,"",0
+Thread B,11,10,gus,audience,2024-04-02,"Reply in thread B",5

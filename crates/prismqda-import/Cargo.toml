@@ -1,0 +1,33 @@
+[package]
+name = "prismqda-import"
+description = "Importers for PrismQDA: turn documents, spreadsheets, transcripts, and social media exports into units of analysis."
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+publish = false
+
+[dependencies]
+calamine = "0.38.0"
+csv = "1.4.0"
+encoding_rs = "0.8.35"
+flate2 = { version = "1.1.10", default-features = false, features = ["zlib-rs"] }
+html5ever = "0.39.0"
+markup5ever_rcdom = "0.39.0"
+pdf-extract = "0.12.1"
+prismqda-engine = { version = "0.1.0", path = "../prismqda-engine" }
+prismqda-pdfview = { version = "0.1.0", path = "../prismqda-pdfview" }
+pulldown-cmark = "0.13.6"
+quick-xml = "0.41.0"
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+thiserror = "2.0.21"
+unicode-normalization = "0.1.26"
+unicode-segmentation = "1.12.0"
+zip = { version = "9.0.5", default-features = false, features = ["deflate"] }
+
+[dev-dependencies]
+rusqlite = { version = "0.40.2", features = ["bundled"] }
+serde_json = { version = "1.0.154", features = ["float_roundtrip"] }
+tempfile = "3.27.0"

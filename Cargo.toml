@@ -1,0 +1,27 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/prismqda-engine",
+    "crates/prismqda-cli",
+    "crates/prismqda-import",
+    "crates/prismqda-api",
+    "crates/prismqda-stats",
+    "crates/prismqda-export",
+    "crates/prismqda-pdfview",
+    "tools/prismqda-licensecheck",
+]
+
+# The SQLite that `rusqlite` bundles is SQLite3 Multiple Ciphers, so a project can be encrypted (see vendor/libsqlite3-sys/PATCHES.md).
+[patch.crates-io]
+libsqlite3-sys = { path = "vendor/libsqlite3-sys" }
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.92"
+license = "Apache-2.0"
+authors = ["PrismQDA contributors"]
+
+[profile.release]
+lto = "thin"
+codegen-units = 1

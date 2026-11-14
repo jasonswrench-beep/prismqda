@@ -1,0 +1,52 @@
+{
+  "kind": "youtube#commentThreadListResponse",
+  "pageInfo": {"totalResults": 2, "resultsPerPage": 20},
+  "items": [
+    {
+      "kind": "youtube#commentThread",
+      "id": "T1",
+      "snippet": {
+        "videoId": "vidAPI",
+        "topLevelComment": {
+          "kind": "youtube#comment",
+          "id": "T1",
+          "snippet": {
+            "videoId": "vidAPI",
+            "textDisplay": "Nice &amp; clear<br>second line <a href=\"https://example.org/x?a=1&amp;b=2\">the link</a> it&#39;s fine",
+            "authorDisplayName": "Ana",
+            "likeCount": 5,
+            "publishedAt": "2024-03-05T10:20:30Z"
+          }
+        },
+        "totalReplyCount": 1
+      },
+      "replies": {
+        "comments": [
+          {
+            "kind": "youtube#comment",
+            "id": "T1.R1",
+            "snippet": {
+              "textOriginal": "plain reply 😀 with <3 and &amp; left alone",
+              "textDisplay": "ignored when textOriginal is there",
+              "parentId": "T1",
+              "authorDisplayName": "Ben",
+              "likeCount": 0,
+              "publishedAt": "2024-03-06T08:00:00Z"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "kind": "youtube#commentThread",
+      "id": "T2",
+      "snippet": {
+        "videoId": "vidAPI",
+        "topLevelComment": {
+          "id": "T2",
+          "snippet": {"textDisplay": "Second thread", "authorDisplayName": "Cy", "likeCount": 2, "publishedAt": "2024-03-07T09:00:00.123+01:00"}
+        }
+      }
+    }
+  ]
+}

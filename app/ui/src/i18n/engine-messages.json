@@ -1,0 +1,3933 @@
+{
+  "version": 1,
+  "count": 645,
+  "messages": [
+    {
+      "template": "'{c}' is not one of the groups.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1464"
+      ]
+    },
+    {
+      "template": "'{code_name}' is not a rated code, so its codings cannot be rated. Turn on Weighted / Rated for the code in the Codebook Editor first.",
+      "files": [
+        "prismqda-engine/src/codebook.rs:625"
+      ]
+    },
+    {
+      "template": "'{d}' is not a date; write dates year-month-day, such as 2024-03-14",
+      "files": [
+        "prismqda-engine/src/explore.rs:1362"
+      ]
+    },
+    {
+      "template": "'{d}' is not a date; write it as year-month-day, for example 2026-11-08",
+      "files": [
+        "prismqda-engine/src/integration.rs:527"
+      ]
+    },
+    {
+      "template": "'{e}' is not one of the two values of '{outcome}' among the cases used.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1948"
+      ]
+    },
+    {
+      "template": "'{format}' is not a format for the notebook: use docx, xlsx, or html",
+      "files": [
+        "prismqda-api/src/lib.rs:2186"
+      ]
+    },
+    {
+      "template": "'{index_name}' and '{value_name}' are names of columns of the table already; choose other names for the new columns",
+      "files": [
+        "prismqda-engine/src/datatable.rs:74"
+      ]
+    },
+    {
+      "template": "'{key}' is not a variable",
+      "files": [
+        "prismqda-engine/src/statistics.rs:367",
+        "prismqda-engine/src/statistics.rs:368",
+        "prismqda-engine/src/statistics.rs:372",
+        "prismqda-engine/src/statistics.rs:376"
+      ]
+    },
+    {
+      "template": "'{kind}' is not a kind of rule: use pseudonym or redact",
+      "files": [
+        "prismqda-engine/src/deid.rs:461"
+      ]
+    },
+    {
+      "template": "'{kind}' is not something a memo or link can point at",
+      "files": [
+        "prismqda-engine/src/memo.rs:87"
+      ]
+    },
+    {
+      "template": "'{mime}' is not a kind of picture PrismQDA keeps",
+      "files": [
+        "prismqda-engine/src/image.rs:420"
+      ]
+    },
+    {
+      "template": "'{n}' holds free text, which {what} cannot describe",
+      "files": [
+        "prismqda-engine/src/explore/contrast.rs:36"
+      ]
+    },
+    {
+      "template": "'{n}' holds free text, which a table of groups cannot describe",
+      "files": [
+        "prismqda-engine/src/explore/joint.rs:362"
+      ]
+    },
+    {
+      "template": "'{n}' holds free text, which cannot be compared; choose another variable",
+      "files": [
+        "prismqda-engine/src/explore/similarity.rs:119"
+      ]
+    },
+    {
+      "template": "'{n}' holds free text, which cannot put the cases in order; choose another variable",
+      "files": [
+        "prismqda-engine/src/explore/joint.rs:141"
+      ]
+    },
+    {
+      "template": "'{name}' has {count} different values, more than a plot can show along an axis; make groups of them first with Cut in the Data editor",
+      "files": [
+        "prismqda-engine/src/explore/bubble.rs:82"
+      ]
+    },
+    {
+      "template": "'{name}' has {count} different values, too many to make into codes. Choose the values you want, or group them first (Recode in the data editor).",
+      "files": [
+        "prismqda-engine/src/mixed.rs:128"
+      ]
+    },
+    {
+      "template": "'{name}' has {count} groups ({join}). This procedure compares exactly two: choose two of them, or use the analysis of variance (or Kruskal-Wallis) for more.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:953"
+      ]
+    },
+    {
+      "template": "'{name}' has {distinct} different values, too many to use as groups. Choose a variable with at most {MAX_CATEGORIES}.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:884"
+      ]
+    },
+    {
+      "template": "'{name}' has fewer than two groups among the cases that have both values, so there is nothing to compare.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:949"
+      ]
+    },
+    {
+      "template": "'{name}' has no comments with any text, so it was left out",
+      "files": [
+        "prismqda-import/src/social.rs:537"
+      ]
+    },
+    {
+      "template": "'{name}' has no values to cut.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1339"
+      ]
+    },
+    {
+      "template": "'{name}' has no values to test.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1319"
+      ]
+    },
+    {
+      "template": "'{name}' has only one value among the cases used, so it cannot explain anything.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1752"
+      ]
+    },
+    {
+      "template": "'{name}' has to be ordered, with values that are numbers (1, 2, 3, ...) so that the order is known; it is {value}.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1509"
+      ]
+    },
+    {
+      "template": "'{name}' holds {value}, which this transformation cannot use. It needs numbers.",
+      "files": [
+        "prismqda-engine/src/variables.rs:390"
+      ]
+    },
+    {
+      "template": "'{name}' holds dates or free text, so cases cannot be grouped by it.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1014"
+      ]
+    },
+    {
+      "template": "'{name}' holds dates or free text, which a logistic regression cannot explain.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1933"
+      ]
+    },
+    {
+      "template": "'{name}' holds dates or free text, which a regression cannot use.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1737"
+      ]
+    },
+    {
+      "template": "'{name}' holds dates or free text, which is not described here.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1043"
+      ]
+    },
+    {
+      "template": "'{name}' holds dates or free text, which this procedure cannot group by.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:881"
+      ]
+    },
+    {
+      "template": "'{name}' holds free text, which cannot be an axis; choose a variable of categories or numbers",
+      "files": [
+        "prismqda-engine/src/explore/bubble.rs:103"
+      ]
+    },
+    {
+      "template": "'{name}' holds free text, which has too many different values to be codes.",
+      "files": [
+        "prismqda-engine/src/mixed.rs:99"
+      ]
+    },
+    {
+      "template": "'{name}' is a date variable, so it takes a date written year-month-day (2024-03-14), and '{v}' is not one.",
+      "files": [
+        "prismqda-engine/src/variables.rs:720"
+      ]
+    },
+    {
+      "template": "'{name}' is a scale variable, so it takes a number, and '{v}' is not one. Clear the value to leave it missing.",
+      "files": [
+        "prismqda-engine/src/variables.rs:719"
+      ]
+    },
+    {
+      "template": "'{name}' is not a numeric variable, so this procedure cannot use it. {value}",
+      "files": [
+        "prismqda-engine/src/statistics.rs:866"
+      ]
+    },
+    {
+      "template": "'{name}' is not a rated code, so its codings cannot be rated. Turn on Weighted / Rated for the code in the Codebook Editor first.",
+      "files": [
+        "prismqda-engine/src/regions.rs:602"
+      ]
+    },
+    {
+      "template": "'{name}' is not a variable of numbers, so it cannot say how many times each case is counted",
+      "files": [
+        "prismqda-engine/src/statistics.rs:388"
+      ]
+    },
+    {
+      "template": "'{name}' is the key, so it cannot also be brought in as a variable",
+      "files": [
+        "prismqda-api/src/datatools.rs:217"
+      ]
+    },
+    {
+      "template": "'{name}' needs at least two cases whose values are not all the same.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1065"
+      ]
+    },
+    {
+      "template": "'{name}' was not made by a transformation, so there is nothing to make again",
+      "files": [
+        "prismqda-engine/src/variables.rs:655"
+      ]
+    },
+    {
+      "template": "'{other}' is not a design; the designs are {join}",
+      "files": [
+        "prismqda-engine/src/integration.rs:128"
+      ]
+    },
+    {
+      "template": "'{other}' is not a format for a picture: use png or svg",
+      "files": [
+        "prismqda-api/src/lib.rs:2233"
+      ]
+    },
+    {
+      "template": "'{outcome}' has the same value for every case used, so there is nothing for the predictors to explain.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1685",
+        "prismqda-engine/src/statistics.rs:1898"
+      ]
+    },
+    {
+      "template": "'{outcome}' must have exactly two values among the cases used.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1899"
+      ]
+    },
+    {
+      "template": "'{shared}' is both kept on every row and stood on end; it can only be one",
+      "files": [
+        "prismqda-engine/src/datatable.rs:79"
+      ]
+    },
+    {
+      "template": "'{source}' has fewer than two values, or all its values are the same, so it has no spread to standardize by",
+      "files": [
+        "prismqda-engine/src/variables.rs:473"
+      ]
+    },
+    {
+      "template": "'{source}' holds {value}, which a {word} cannot be worked out from. It needs numbers.",
+      "files": [
+        "prismqda-engine/src/datatable.rs:303"
+      ]
+    },
+    {
+      "template": "'{source}' is a variable of {value} and not of dates, so it has no year or month to take out. A variable of dates has the level 'date' in the variable view; its values are written year-month-day, like 2024-03-14.",
+      "files": [
+        "prismqda-engine/src/variables.rs:489"
+      ]
+    },
+    {
+      "template": "'{success}' is not a value of '{name}'.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1359"
+      ]
+    },
+    {
+      "template": "'{unwrap_or_else}' is the same for every case used, or can be worked out exactly from the other predictors, so the model cannot tell their effects apart. Leave it out, or leave out the predictor it repeats.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1691",
+        "prismqda-engine/src/statistics.rs:1905"
+      ]
+    },
+    {
+      "template": "'{value}' is asked for twice",
+      "files": [
+        "prismqda-engine/src/datatable.rs:340"
+      ]
+    },
+    {
+      "template": "'{value}' is not one of the choices for {what}: {join}",
+      "files": [
+        "prismqda-engine/src/integration.rs:39"
+      ]
+    },
+    {
+      "template": "'{variable}' has {count} different values, more than a table of groups can show; make groups of them first with Cut in the Data editor",
+      "files": [
+        "prismqda-engine/src/explore/contrast.rs:310"
+      ]
+    },
+    {
+      "template": "'{variable}' has {count} different values. Splitting makes a page for each, and {MAX_SPLIT_GROUPS} is the most; choose a variable with fewer, or cut it into ranges first.",
+      "files": [
+        "prismqda-engine/src/datatable.rs:413"
+      ]
+    },
+    {
+      "template": "'{variable}' holds {value}, which cannot make groups. Choose a variable of categories or of a few whole numbers.",
+      "files": [
+        "prismqda-engine/src/datatable.rs:395"
+      ]
+    },
+    {
+      "template": "'{variable}' holds free text, which cannot make groups; choose a variable of categories",
+      "files": [
+        "prismqda-engine/src/explore/contrast.rs:282"
+      ]
+    },
+    {
+      "template": "'{variable}' holds free text, which cannot stand for numbers; choose another variable",
+      "files": [
+        "prismqda-engine/src/integration.rs:346"
+      ]
+    },
+    {
+      "template": "'{variable}' needs at least two different values among the cases that hold text to make groups",
+      "files": [
+        "prismqda-engine/src/explore/contrast.rs:313"
+      ]
+    },
+    {
+      "template": "'{w}' should be NEAR/ and a number, such as NEAR/5",
+      "files": [
+        "prismqda-engine/src/search.rs:107"
+      ]
+    },
+    {
+      "template": "{blank} blank row(s) were skipped",
+      "files": [
+        "prismqda-import/src/spreadsheet.rs:84",
+        "prismqda-import/src/spreadsheet.rs:328"
+      ]
+    },
+    {
+      "template": "{cmd}: the arguments are not right: {e}",
+      "files": [
+        "prismqda-api/src/lib.rs:91"
+      ]
+    },
+    {
+      "template": "{cmd}: the rating must be a whole number from 1 to 5, or null, not {n}",
+      "files": [
+        "prismqda-api/src/lib.rs:1666"
+      ]
+    },
+    {
+      "template": "{cmd}: the rating must be a whole number from 1 to 5, or null, not {other}",
+      "files": [
+        "prismqda-api/src/lib.rs:1669"
+      ]
+    },
+    {
+      "template": "{conflicts} values differed between rows with the same ID; the first value was kept",
+      "files": [
+        "prismqda-import/src/table.rs:479"
+      ]
+    },
+    {
+      "template": "{copy} is not a file",
+      "files": [
+        "prismqda-engine/src/merge.rs:268"
+      ]
+    },
+    {
+      "template": "{count} coding{value} of this code {value2} a rating. Remove the ratings first, or turn rating off and clear them together.",
+      "files": [
+        "prismqda-engine/src/codebook.rs:372"
+      ]
+    },
+    {
+      "template": "{count} picture{value}, style sheet{value2}, or other file{value3} saved with the page {value4} not imported.",
+      "files": [
+        "prismqda-import/src/email.rs:587"
+      ]
+    },
+    {
+      "template": "{dir} is a file, not a folder.",
+      "files": [
+        "prismqda-engine/src/project.rs:507"
+      ]
+    },
+    {
+      "template": "{dir} was not found.",
+      "files": [
+        "prismqda-engine/src/project.rs:504"
+      ]
+    },
+    {
+      "template": "{errors} cell(s) held a formula error and were left empty",
+      "files": [
+        "prismqda-import/src/spreadsheet.rs:305"
+      ]
+    },
+    {
+      "template": "{extra} row(s) had more cells than the header; the extra cells were not imported. A comma inside unquoted text is the usual cause.",
+      "files": [
+        "prismqda-import/src/spreadsheet.rs:87"
+      ]
+    },
+    {
+      "template": "{file_name} is {value} MB, and PrismQDA keeps PDFs up to {value2} MB inside the project",
+      "files": [
+        "prismqda-engine/src/pdf.rs:71"
+      ]
+    },
+    {
+      "template": "{folder} is a file; choose a folder for the packets",
+      "files": [
+        "prismqda-engine/src/teaching.rs:104"
+      ]
+    },
+    {
+      "template": "{folder} is not a folder",
+      "files": [
+        "prismqda-engine/src/teaching.rs:168"
+      ]
+    },
+    {
+      "template": "{html} piece(s) of raw HTML inside the Markdown were not imported",
+      "files": [
+        "prismqda-import/src/text.rs:188"
+      ]
+    },
+    {
+      "template": "{images} image(s) were replaced by the placeholder [image]",
+      "files": [
+        "prismqda-import/src/text.rs:185",
+        "prismqda-import/src/text.rs:204"
+      ]
+    },
+    {
+      "template": "{label}: a format run {start}..{end} is outside the text",
+      "files": [
+        "prismqda-engine/src/import.rs:306"
+      ]
+    },
+    {
+      "template": "{label}: a source needs a name",
+      "files": [
+        "prismqda-engine/src/import.rs:290"
+      ]
+    },
+    {
+      "template": "{label}: the source has no text",
+      "files": [
+        "prismqda-engine/src/import.rs:302"
+      ]
+    },
+    {
+      "template": "{label}: the text contains a NUL character",
+      "files": [
+        "prismqda-engine/src/import.rs:293"
+      ]
+    },
+    {
+      "template": "{label}: the text is not in Unicode NFC, so the offsets would not match what is stored",
+      "files": [
+        "prismqda-engine/src/import.rs:296"
+      ]
+    },
+    {
+      "template": "{label}: unit {u} has a parent that does not come before it",
+      "files": [
+        "prismqda-engine/src/import.rs:320"
+      ]
+    },
+    {
+      "template": "{label}: unit {u} spans {start}..{end}, outside the text",
+      "files": [
+        "prismqda-engine/src/import.rs:312"
+      ]
+    },
+    {
+      "template": "{label}: unit {u} starts before the unit before it",
+      "files": [
+        "prismqda-engine/src/import.rs:315"
+      ]
+    },
+    {
+      "template": "{label}: unit attribute '{name}' has no definition",
+      "files": [
+        "prismqda-engine/src/import.rs:325"
+      ]
+    },
+    {
+      "template": "{list_names} {value} a length of time (TIME format); the values were kept as a number of seconds",
+      "files": [
+        "prismqda-import/src/sav.rs:806"
+      ]
+    },
+    {
+      "template": "{list_names} hold dates outside the years 0 to 9999; those values were kept as numbers of seconds",
+      "files": [
+        "prismqda-import/src/sav.rs:1272"
+      ]
+    },
+    {
+      "template": "{n} cases resampled {resamples} times is more than a bootstrap of the whole analysis will do ({resamples2} runs of the analysis in all). Use fewer resamples (at most {n2} for these cases).",
+      "files": [
+        "prismqda-engine/src/statistics.rs:2107"
+      ]
+    },
+    {
+      "template": "{name} applied {count} codes to unit {u}, so the codes cannot be compared one per unit; use the per-code view",
+      "files": [
+        "prismqda-engine/src/reliability.rs:325"
+      ]
+    },
+    {
+      "template": "{name} codes whole units, but this project already has {codings} free-span codings; start a new project to use this method",
+      "files": [
+        "prismqda-engine/src/template.rs:160"
+      ]
+    },
+    {
+      "template": "{name} has no picture",
+      "files": [
+        "prismqda-engine/src/merge.rs:419"
+      ]
+    },
+    {
+      "template": "{name} is a document, not a table of values. Choose a spreadsheet (.xlsx), a text file of values (.csv or .tsv), or an SPSS file (.sav).",
+      "files": [
+        "prismqda-api/src/datatools.rs:113"
+      ]
+    },
+    {
+      "template": "{p} already exists, so nothing was saved; choose another name",
+      "files": [
+        "prismqda-api/src/text_files.rs:79"
+      ]
+    },
+    {
+      "template": "{p} is larger than 16 MB, which is more than a translation file needs",
+      "files": [
+        "prismqda-api/src/text_files.rs:58"
+      ]
+    },
+    {
+      "template": "{p} is not a file",
+      "files": [
+        "prismqda-api/src/text_files.rs:55"
+      ]
+    },
+    {
+      "template": "{path} is not a PDF",
+      "files": [
+        "prismqda-api/src/lib.rs:1290"
+      ]
+    },
+    {
+      "template": "{plural} an ID that an earlier comment already had; replies to that ID were attached to the first comment with it",
+      "files": [
+        "prismqda-import/src/social.rs:642"
+      ]
+    },
+    {
+      "template": "{plural} in the file point at each other as replies; each loop was cut open at its first comment, which became a top-level comment",
+      "files": [
+        "prismqda-import/src/social.rs:633"
+      ]
+    },
+    {
+      "template": "{plural} in the likes column {value} not a number and {value2} left blank",
+      "files": [
+        "prismqda-import/src/social.rs:1249"
+      ]
+    },
+    {
+      "template": "{plural} no text and {value} skipped; replies to {value2} were attached to the nearest comment above {value3} that was kept",
+      "files": [
+        "prismqda-import/src/social.rs:651"
+      ]
+    },
+    {
+      "template": "{plural} no value in the container column, so they were put together in one source",
+      "files": [
+        "prismqda-import/src/social.rs:1240"
+      ]
+    },
+    {
+      "template": "{root} is not a folder",
+      "files": [
+        "prismqda-api/src/lib.rs:2521"
+      ]
+    },
+    {
+      "template": "{skipped} entr{value} in the mailbox had no message headers and {value2} left out.",
+      "files": [
+        "prismqda-import/src/email.rs:554"
+      ]
+    },
+    {
+      "template": "{skipped} rows had no text in this column and were skipped",
+      "files": [
+        "prismqda-import/src/table.rs:373"
+      ]
+    },
+    {
+      "template": "{subject} to a comment that is not in the file (it may have been deleted, or the export is incomplete); {verb} kept as top-level comments",
+      "files": [
+        "prismqda-import/src/social.rs:624"
+      ]
+    },
+    {
+      "template": "{target} already exists, so nothing was saved; choose another name",
+      "files": [
+        "prismqda-api/src/lib.rs:2637"
+      ]
+    },
+    {
+      "template": "{too_deep} deeply nested element(s) were not read",
+      "files": [
+        "prismqda-import/src/text.rs:207"
+      ]
+    },
+    {
+      "template": "{value} already exists, so nothing was created",
+      "files": [
+        "prismqda-engine/src/error.rs:18"
+      ]
+    },
+    {
+      "template": "{value} has the weight '{text}' in '{name}', which is not a number. A weight is how many times a case is counted: a whole number, 0 or more.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:395"
+      ]
+    },
+    {
+      "template": "{value} has the weight {show_number} in '{name}'. A weight is how many times a case is counted: a whole number, 0 or more. Round it, or make a variable of whole numbers.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:399"
+      ]
+    },
+    {
+      "template": "{value} is not a PrismQDA project",
+      "files": [
+        "prismqda-engine/src/error.rs:15"
+      ]
+    },
+    {
+      "template": "{variable} has {distinct} different values, which is too many for a table you can read (the limit is {MAX_VALUES}); group its numbers into ranges, or choose another variable",
+      "files": [
+        "prismqda-engine/src/crosstab.rs:185"
+      ]
+    },
+    {
+      "template": "{what} '[deleted]' or '[removed]': the author or a moderator took the text away. The placeholder was kept as the text, so these units say nothing about the topic; leave them out of coding.",
+      "files": [
+        "prismqda-import/src/social.rs:1063"
+      ]
+    },
+    {
+      "template": "{what} {id} does not exist",
+      "files": [
+        "prismqda-engine/src/error.rs:35"
+      ]
+    },
+    {
+      "template": "{what} can be at most {max} characters",
+      "files": [
+        "prismqda-engine/src/integration.rs:30",
+        "prismqda-engine/src/stat_notebook.rs:61"
+      ]
+    },
+    {
+      "template": "{what} cannot be undone any more because later changes depend on it",
+      "files": [
+        "prismqda-engine/src/undo.rs:113"
+      ]
+    },
+    {
+      "template": "{what} is at most {MAX_RATING_TEXT} characters",
+      "files": [
+        "prismqda-engine/src/codebook.rs:194"
+      ]
+    },
+    {
+      "template": "{what} must be between 0 and 1 (a fraction of the picture), not {v}",
+      "files": [
+        "prismqda-engine/src/regions.rs:51"
+      ]
+    },
+    {
+      "template": "{who} has two rows for {obs} (rows {first} and {r} of the table). Remove or merge one of them first, because a table laid across has room for one value.",
+      "files": [
+        "prismqda-engine/src/datatable.rs:159"
+      ]
+    },
+    {
+      "template": "a 'coded between' clause needs a first or a last day",
+      "files": [
+        "prismqda-engine/src/explore.rs:1358"
+      ]
+    },
+    {
+      "template": "a 'text contains' clause has no text to look for",
+      "files": [
+        "prismqda-engine/src/explore.rs:1346"
+      ]
+    },
+    {
+      "template": "a {name} cannot become a {name2}; draw a new area instead",
+      "files": [
+        "prismqda-engine/src/regions.rs:545"
+      ]
+    },
+    {
+      "template": "a {scope} memo is not attached to anything",
+      "files": [
+        "prismqda-engine/src/memo.rs:98"
+      ]
+    },
+    {
+      "template": "a {scope} memo needs something to attach to",
+      "files": [
+        "prismqda-engine/src/memo.rs:107"
+      ]
+    },
+    {
+      "template": "A bootstrap of the whole analysis is offered for up to {MAX_ANALYSIS_CASES} cases, and this analysis has {n}. Leave the bootstrap off, or analyze a smaller set of cases.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:2104"
+      ]
+    },
+    {
+      "template": "A bootstrap resamples cases, and a weighted analysis counts a case several times, so the two cannot be combined. Turn the weights off, or the bootstrap.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:988"
+      ]
+    },
+    {
+      "template": "a case needs a name",
+      "files": [
+        "prismqda-engine/src/cases.rs:36"
+      ]
+    },
+    {
+      "template": "A cell counts pairs of codings, one of each code, whose words or picture areas overlap and that were made by the same coder. The diagonal counts the codings of the code.",
+      "files": [
+        "prismqda-engine/src/explore.rs:801"
+      ]
+    },
+    {
+      "template": "A cell counts pairs of codings, one of each code, whose words or picture areas overlap, whoever made them. The diagonal counts the codings of the code.",
+      "files": [
+        "prismqda-engine/src/explore.rs:802"
+      ]
+    },
+    {
+      "template": "A cell counts the cases that have a coding of both codes. The diagonal counts the cases that have the code.",
+      "files": [
+        "prismqda-engine/src/explore.rs:804"
+      ]
+    },
+    {
+      "template": "A cell counts the documents that have a coding of both codes, wherever in the document. The diagonal counts the documents that have the code.",
+      "files": [
+        "prismqda-engine/src/explore.rs:803"
+      ]
+    },
+    {
+      "template": "a class of more than {MAX_STUDENTS} students was listed; split it, or check that the list holds names",
+      "files": [
+        "prismqda-engine/src/teaching.rs:101"
+      ]
+    },
+    {
+      "template": "a clause about the values of {name} between limits needs a lowest or a highest",
+      "files": [
+        "prismqda-engine/src/explore.rs:1375"
+      ]
+    },
+    {
+      "template": "a clause that looks for {what} has none chosen",
+      "files": [
+        "prismqda-engine/src/explore.rs:1337"
+      ]
+    },
+    {
+      "template": "A code also counts the codings of its sub-codes.",
+      "files": [
+        "prismqda-engine/src/explore.rs:806"
+      ]
+    },
+    {
+      "template": "a code cannot be merged into itself",
+      "files": [
+        "prismqda-engine/src/codebook.rs:472"
+      ]
+    },
+    {
+      "template": "a code cannot be merged into one of its own sub-codes",
+      "files": [
+        "prismqda-engine/src/codebook.rs:481"
+      ]
+    },
+    {
+      "template": "a code cannot be moved under itself or one of its own sub-codes",
+      "files": [
+        "prismqda-engine/src/codebook.rs:410"
+      ]
+    },
+    {
+      "template": "A code counts only its own codings.",
+      "files": [
+        "prismqda-engine/src/explore.rs:806"
+      ]
+    },
+    {
+      "template": "a code needs a name",
+      "files": [
+        "prismqda-engine/src/codebook.rs:323"
+      ]
+    },
+    {
+      "template": "a code set needs a name",
+      "files": [
+        "prismqda-engine/src/codebook.rs:782"
+      ]
+    },
+    {
+      "template": "a coder with the id '{local_id}' already exists",
+      "files": [
+        "prismqda-engine/src/ops.rs:210"
+      ]
+    },
+    {
+      "template": "a column can only be one of: who the row is about, which observation it is, or the values",
+      "files": [
+        "prismqda-engine/src/datatable.rs:131"
+      ]
+    },
+    {
+      "template": "A column counts only the codings of its own code, not those of its sub-codes.",
+      "files": [
+        "prismqda-engine/src/explore.rs:585"
+      ]
+    },
+    {
+      "template": "A column counts the codings of its code and of every sub-code. A parent's count looks at the codings themselves, so evidence two sub-codes share is counted once.",
+      "files": [
+        "prismqda-engine/src/explore.rs:583"
+      ]
+    },
+    {
+      "template": "a correlation needs at least three cases that have both values, and neither variable can be the same for every case.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1238"
+      ]
+    },
+    {
+      "template": "a decision needs its reason: say why these codes are the right ones",
+      "files": [
+        "prismqda-engine/src/adjudication.rs:185"
+      ]
+    },
+    {
+      "template": "a decision needs its reason: say why this area belongs in the final layer, or why it does not",
+      "files": [
+        "prismqda-engine/src/region_final.rs:227"
+      ]
+    },
+    {
+      "template": "A document that belongs to several cases is counted in each of them.",
+      "files": [
+        "prismqda-engine/src/explore.rs:589"
+      ]
+    },
+    {
+      "template": "a group name is at most {MAX_GROUP_NAME} characters",
+      "files": [
+        "prismqda-engine/src/codebook.rs:176"
+      ]
+    },
+    {
+      "template": "a layout is circle, grid, or layers, not '{how}'",
+      "files": [
+        "prismqda-engine/src/concept_map.rs:570"
+      ]
+    },
+    {
+      "template": "a link joins two different nodes",
+      "files": [
+        "prismqda-engine/src/concept_map.rs:376"
+      ]
+    },
+    {
+      "template": "A logistic regression explains an outcome with exactly two values, and '{outcome}' has {count} among the cases used. Use a variable with two values (or cut a number in two in the data editor first), or use another procedure.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1944"
+      ]
+    },
+    {
+      "template": "a map's name can be at most {MAX_NAME} characters",
+      "files": [
+        "prismqda-engine/src/concept_map.rs:87"
+      ]
+    },
+    {
+      "template": "a method template needs an id and a name",
+      "files": [
+        "prismqda-engine/src/template.rs:81"
+      ]
+    },
+    {
+      "template": "a model coder needs a model name so reports can name it",
+      "files": [
+        "prismqda-engine/src/ops.rs:200"
+      ]
+    },
+    {
+      "template": "a name for the project history is one to sixty characters, on one line",
+      "files": [
+        "prismqda-api/src/lib.rs:1202"
+      ]
+    },
+    {
+      "template": "a node is a code, a case, a memo, or a note, not '{other}'",
+      "files": [
+        "prismqda-engine/src/concept_map.rs:284"
+      ]
+    },
+    {
+      "template": "a page of notes has nothing to run",
+      "files": [
+        "prismqda-engine/src/stat_notebook.rs:222"
+      ]
+    },
+    {
+      "template": "a parenthesis is not closed",
+      "files": [
+        "prismqda-engine/src/search.rs:204"
+      ]
+    },
+    {
+      "template": "A part of this message did not say how it was written, so it was read as Windows-1252 (Western European).",
+      "files": [
+        "prismqda-import/src/email.rs:451"
+      ]
+    },
+    {
+      "template": "a partial correlation needs more cases than the variables plus three, numbers that are not constant, and controls that do not predict each other perfectly.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1536"
+      ]
+    },
+    {
+      "template": "a partial correlation needs two numbers and from 1 to {value} to hold constant, and {count} variable{value2} {value3} chosen",
+      "files": [
+        "prismqda-engine/src/statistics.rs:968"
+      ]
+    },
+    {
+      "template": "a passage cannot be linked to itself",
+      "files": [
+        "prismqda-engine/src/passage_links.rs:87"
+      ]
+    },
+    {
+      "template": "a passphrase can be at most {MAX_PASSPHRASE_CHARS} characters",
+      "files": [
+        "prismqda-engine/src/crypto.rs:78"
+      ]
+    },
+    {
+      "template": "a passphrase cannot begin with x' (it would be read as a raw key); begin it another way",
+      "files": [
+        "prismqda-engine/src/crypto.rs:82"
+      ]
+    },
+    {
+      "template": "a passphrase cannot contain a NUL character",
+      "files": [
+        "prismqda-engine/src/crypto.rs:75"
+      ]
+    },
+    {
+      "template": "a PDF belongs to source {value} which is not in the batch",
+      "files": [
+        "prismqda-engine/src/import.rs:339"
+      ]
+    },
+    {
+      "template": "a phase memo needs the name of the phase",
+      "files": [
+        "prismqda-engine/src/memo.rs:103"
+      ]
+    },
+    {
+      "template": "a picture belongs to source {value} which is not in the batch",
+      "files": [
+        "prismqda-engine/src/import.rs:334"
+      ]
+    },
+    {
+      "template": "a picture cannot be the new version of a document of words, and a picture's coded areas are tied to the picture they were drawn on; import it as a new document",
+      "files": [
+        "prismqda-api/src/lib.rs:2493"
+      ]
+    },
+    {
+      "template": "a picture has one page",
+      "files": [
+        "prismqda-engine/src/regions.rs:455"
+      ]
+    },
+    {
+      "template": "a picture in the document has no part to show or no size",
+      "files": [
+        "prismqda-export/src/docx.rs:305"
+      ]
+    },
+    {
+      "template": "a picture in the document names a file that was not given",
+      "files": [
+        "prismqda-export/src/docx.rs:302"
+      ]
+    },
+    {
+      "template": "a picture on a sheet has no part to show, no size, or no cell",
+      "files": [
+        "prismqda-export/src/xlsx.rs:240"
+      ]
+    },
+    {
+      "template": "a picture on a sheet names a file that was not given",
+      "files": [
+        "prismqda-export/src/xlsx.rs:237"
+      ]
+    },
+    {
+      "template": "a project needs a name",
+      "files": [
+        "prismqda-engine/src/project.rs:141"
+      ]
+    },
+    {
+      "template": "a query's groups are nested too deeply",
+      "files": [
+        "prismqda-engine/src/explore.rs:1335"
+      ]
+    },
+    {
+      "template": "a query's name can be at most {MAX_NAME} characters",
+      "files": [
+        "prismqda-engine/src/saved.rs:85"
+      ]
+    },
+    {
+      "template": "a quotation mark is not closed",
+      "files": [
+        "prismqda-engine/src/search.rs:71"
+      ]
+    },
+    {
+      "template": "a quoted phrase is empty",
+      "files": [
+        "prismqda-engine/src/search.rs:212"
+      ]
+    },
+    {
+      "template": "a rating clause needs a lowest or a highest rating",
+      "files": [
+        "prismqda-engine/src/explore.rs:1351"
+      ]
+    },
+    {
+      "template": "a rating is a whole number from 1 to 5 (or none), not {r}",
+      "files": [
+        "prismqda-engine/src/codebook.rs:609",
+        "prismqda-engine/src/regions.rs:590"
+      ]
+    },
+    {
+      "template": "a recording has no pages",
+      "files": [
+        "prismqda-engine/src/regions.rs:434"
+      ]
+    },
+    {
+      "template": "a regression needs an outcome and from 1 to {MAX_PREDICTORS} predictors, and {count} variable{value} {value2} chosen",
+      "files": [
+        "prismqda-engine/src/statistics.rs:962"
+      ]
+    },
+    {
+      "template": "a regular expression is empty",
+      "files": [
+        "prismqda-engine/src/search.rs:218"
+      ]
+    },
+    {
+      "template": "a regular expression is not closed with a second /",
+      "files": [
+        "prismqda-engine/src/search.rs:80"
+      ]
+    },
+    {
+      "template": "a relation is at most {MAX_RELATION_CHARS} characters",
+      "files": [
+        "prismqda-engine/src/passage_links.rs:47"
+      ]
+    },
+    {
+      "template": "a rule must give true or false for each case, like age >= 18 or site == \"North\", and this formula gives other values",
+      "files": [
+        "prismqda-engine/src/variables.rs:670"
+      ]
+    },
+    {
+      "template": "a sample needs at least one unit",
+      "files": [
+        "prismqda-engine/src/reliability.rs:189"
+      ]
+    },
+    {
+      "template": "a search can have at most {MAX_TERMS} terms",
+      "files": [
+        "prismqda-engine/src/search.rs:229"
+      ]
+    },
+    {
+      "template": "a search term was expected here, but found {describe}",
+      "files": [
+        "prismqda-engine/src/search.rs:222"
+      ]
+    },
+    {
+      "template": "a spreadsheet becomes several documents and cases, so it cannot be the new version of one document",
+      "files": [
+        "prismqda-api/src/lib.rs:2486"
+      ]
+    },
+    {
+      "template": "a spreadsheet or data file needs its columns set up; import it on its own",
+      "files": [
+        "prismqda-api/src/lib.rs:2564"
+      ]
+    },
+    {
+      "template": "a stretch of a recording cannot start before the recording does",
+      "files": [
+        "prismqda-engine/src/regions.rs:127"
+      ]
+    },
+    {
+      "template": "a stretch of a recording must end after it starts",
+      "files": [
+        "prismqda-engine/src/regions.rs:130"
+      ]
+    },
+    {
+      "template": "a table is saved as CSV or Excel",
+      "files": [
+        "prismqda-export/src/lib.rs:490"
+      ]
+    },
+    {
+      "template": "a table is saved as csv or xlsx, not {other}",
+      "files": [
+        "prismqda-api/src/datatools.rs:170"
+      ]
+    },
+    {
+      "template": "a term to find can be at most {MAX_TERM_CHARS} characters; for a longer passage, select less of it",
+      "files": [
+        "prismqda-engine/src/deid.rs:449"
+      ]
+    },
+    {
+      "template": "a term to find cannot be empty",
+      "files": [
+        "prismqda-engine/src/deid.rs:446"
+      ]
+    },
+    {
+      "template": "a theme is a candidate, reviewed, or defined, not '{other}'",
+      "files": [
+        "prismqda-engine/src/codebook.rs:345"
+      ]
+    },
+    {
+      "template": "a topic needs a name",
+      "files": [
+        "prismqda-engine/src/integration.rs:335"
+      ]
+    },
+    {
+      "template": "a value in the logistic regression is missing or not a number",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1910"
+      ]
+    },
+    {
+      "template": "a value in the regression is missing or not a number",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1696"
+      ]
+    },
+    {
+      "template": "a variable can have up to 3 values that mean missing, and {count} were given",
+      "files": [
+        "prismqda-engine/src/variables.rs:288"
+      ]
+    },
+    {
+      "template": "a variable needs a name",
+      "files": [
+        "prismqda-engine/src/variables.rs:271"
+      ]
+    },
+    {
+      "template": "a variable's name can be up to 100 characters, with no backtick or line break in it",
+      "files": [
+        "prismqda-engine/src/variables.rs:274"
+      ]
+    },
+    {
+      "template": "A whole project cannot be exported while the list of names to replace is applied to exports: the text of each document goes into the file whole, and replacing a name changes its length and so the place of every coding. Turn the switch off for this export, or apply the list to the project itself first (Privacy > Pseudonymize and redact).",
+      "files": [
+        "prismqda-export/src/qdpx.rs:235"
+      ]
+    },
+    {
+      "template": "a workbook needs at least one sheet",
+      "files": [
+        "prismqda-export/src/xlsx.rs:229"
+      ]
+    },
+    {
+      "template": "adding a unit",
+      "files": [
+        "prismqda-engine/src/undo.rs:240"
+      ]
+    },
+    {
+      "template": "AI is off in this project, so no packet can be built; it can be turned back on in Settings",
+      "files": [
+        "prismqda-engine/src/ai.rs:379",
+        "prismqda-engine/src/theme_ai.rs:141"
+      ]
+    },
+    {
+      "template": "an area of a PDF page is a rectangle",
+      "files": [
+        "prismqda-engine/src/regions.rs:450"
+      ]
+    },
+    {
+      "template": "an attribute needs a name",
+      "files": [
+        "prismqda-engine/src/import.rs:366"
+      ]
+    },
+    {
+      "template": "an entry needs to say what was done",
+      "files": [
+        "prismqda-engine/src/integration.rs:521"
+      ]
+    },
+    {
+      "template": "an outline has at most {MAX_POINTS} points",
+      "files": [
+        "prismqda-engine/src/regions.rs:112"
+      ]
+    },
+    {
+      "template": "an outline needs at least {MIN_POINTS} points",
+      "files": [
+        "prismqda-engine/src/regions.rs:109"
+      ]
+    },
+    {
+      "template": "anchor examples are not available for coded areas of pictures yet",
+      "files": [
+        "prismqda-api/src/lib.rs:1637"
+      ]
+    },
+    {
+      "template": "Assignments count codings. Excerpts count distinct stretches of text or areas of a picture, so two coders or two codes on the same words or the same area count once. Documents and cases count how many have at least one coding.",
+      "files": [
+        "prismqda-engine/src/explore.rs:581"
+      ]
+    },
+    {
+      "template": "at least two cases that hold text are needed to compare them",
+      "files": [
+        "prismqda-engine/src/explore/similarity.rs:131"
+      ]
+    },
+    {
+      "template": "attribute '{name}' already exists as {level}, so it cannot be imported as {level2}",
+      "files": [
+        "prismqda-engine/src/import.rs:437"
+      ]
+    },
+    {
+      "template": "attribute '{name}' has {count} missing-value codes; at most 3 are allowed",
+      "files": [
+        "prismqda-engine/src/import.rs:369"
+      ]
+    },
+    {
+      "template": "autocode: the method '{other}' should be words, speakers, or headings",
+      "files": [
+        "prismqda-api/src/autocode.rs:269"
+      ]
+    },
+    {
+      "template": "autocode: the number of words around should be 1 to {MAX_AROUND}",
+      "files": [
+        "prismqda-api/src/autocode.rs:308"
+      ]
+    },
+    {
+      "template": "autocode: the target '{target}' should be hit, words, sentence, paragraph, or unit",
+      "files": [
+        "prismqda-api/src/autocode.rs:174"
+      ]
+    },
+    {
+      "template": "Bootstrap intervals are offered for up to {limit} cases, and this analysis has {n}. Leave the bootstrap off, or analyze a smaller set of cases.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:2197"
+      ]
+    },
+    {
+      "template": "both ends of a link must be on the same map",
+      "files": [
+        "prismqda-engine/src/concept_map.rs:381"
+      ]
+    },
+    {
+      "template": "Brought the retired code back",
+      "files": [
+        "prismqda-engine/src/undo.rs:58"
+      ]
+    },
+    {
+      "template": "cannot look at {path}: {e}",
+      "files": [
+        "prismqda-api/src/files.rs:33"
+      ]
+    },
+    {
+      "template": "cannot read {p}: {e}",
+      "files": [
+        "prismqda-api/src/datatools.rs:109",
+        "prismqda-api/src/text_files.rs:53",
+        "prismqda-api/src/text_files.rs:60"
+      ]
+    },
+    {
+      "template": "cannot read {path}: {e}",
+      "files": [
+        "prismqda-api/src/lib.rs:2322"
+      ]
+    },
+    {
+      "template": "cannot read {source}: {e}",
+      "files": [
+        "prismqda-api/src/lib.rs:1928",
+        "prismqda-api/src/lib.rs:1932",
+        "prismqda-api/src/lib.rs:1939",
+        "prismqda-api/src/lib.rs:1943"
+      ]
+    },
+    {
+      "template": "cannot read the folder {dir}: {e}",
+      "files": [
+        "prismqda-api/src/lib.rs:2528"
+      ]
+    },
+    {
+      "template": "cannot save {p}: {e}",
+      "files": [
+        "prismqda-api/src/text_files.rs:81"
+      ]
+    },
+    {
+      "template": "cannot save {target}: {e}",
+      "files": [
+        "prismqda-api/src/lib.rs:2661"
+      ]
+    },
+    {
+      "template": "cannot write {target}: {e}",
+      "files": [
+        "prismqda-api/src/lib.rs:2658"
+      ]
+    },
+    {
+      "template": "case '{name}' refers to source {source} which is not in the batch",
+      "files": [
+        "prismqda-engine/src/import.rs:352"
+      ]
+    },
+    {
+      "template": "case '{name}' refers to unit {u} which does not exist",
+      "files": [
+        "prismqda-engine/src/import.rs:355"
+      ]
+    },
+    {
+      "template": "case '{name}': attribute '{name}' has no definition",
+      "files": [
+        "prismqda-engine/src/import.rs:345"
+      ]
+    },
+    {
+      "template": "Changed the coded area back to its earlier code",
+      "files": [
+        "prismqda-engine/src/undo.rs:47"
+      ]
+    },
+    {
+      "template": "Changed the coding back to its earlier code",
+      "files": [
+        "prismqda-engine/src/undo.rs:42"
+      ]
+    },
+    {
+      "template": "Changed the offline lock back",
+      "files": [
+        "prismqda-engine/src/undo.rs:63"
+      ]
+    },
+    {
+      "template": "Changed the project's AI setting back",
+      "files": [
+        "prismqda-engine/src/undo.rs:78"
+      ]
+    },
+    {
+      "template": "choose a code, or give a name for a new one",
+      "files": [
+        "prismqda-api/src/autocode.rs:107"
+      ]
+    },
+    {
+      "template": "choose an active code",
+      "files": [
+        "prismqda-engine/src/proposal.rs:291"
+      ]
+    },
+    {
+      "template": "choose at least one code",
+      "files": [
+        "prismqda-engine/src/variables.rs:441"
+      ]
+    },
+    {
+      "template": "choose at least one code or variable to compare the cases on",
+      "files": [
+        "prismqda-engine/src/explore/similarity.rs:112"
+      ]
+    },
+    {
+      "template": "choose at least one code to be a topic",
+      "files": [
+        "prismqda-engine/src/explore/contrast.rs:114",
+        "prismqda-engine/src/explore/contrast.rs:126"
+      ]
+    },
+    {
+      "template": "choose at least one code to look at",
+      "files": [
+        "prismqda-engine/src/explore/contrast.rs:277"
+      ]
+    },
+    {
+      "template": "choose at least one code to make the groups",
+      "files": [
+        "prismqda-engine/src/explore/joint.rs:352"
+      ]
+    },
+    {
+      "template": "choose at least one code to put on the map",
+      "files": [
+        "prismqda-engine/src/concept_map.rs:473"
+      ]
+    },
+    {
+      "template": "choose at least one code to show",
+      "files": [
+        "prismqda-engine/src/explore/joint.rs:128"
+      ]
+    },
+    {
+      "template": "choose at least one coding to move to the new code",
+      "files": [
+        "prismqda-engine/src/codebook.rs:518"
+      ]
+    },
+    {
+      "template": "choose at least one column to bring in",
+      "files": [
+        "prismqda-engine/src/datatable.rs:491"
+      ]
+    },
+    {
+      "template": "choose at least one section for the report",
+      "files": [
+        "prismqda-export/src/report.rs:719"
+      ]
+    },
+    {
+      "template": "choose at least one speaker",
+      "files": [
+        "prismqda-api/src/autocode.rs:203"
+      ]
+    },
+    {
+      "template": "choose at least one variable that makes the groups",
+      "files": [
+        "prismqda-engine/src/datatable.rs:283",
+        "prismqda-engine/src/variables.rs:529"
+      ]
+    },
+    {
+      "template": "choose at least one variable to describe the groups",
+      "files": [
+        "prismqda-engine/src/explore/joint.rs:355"
+      ]
+    },
+    {
+      "template": "choose at least one variable to stand for the numbers",
+      "files": [
+        "prismqda-engine/src/explore/contrast.rs:117"
+      ]
+    },
+    {
+      "template": "choose at least two coders to compare",
+      "files": [
+        "prismqda-engine/src/adjudication.rs:98",
+        "prismqda-engine/src/reliability.rs:251"
+      ]
+    },
+    {
+      "template": "choose at least two columns to stand on end: the columns that are the same thing measured more than once",
+      "files": [
+        "prismqda-engine/src/datatable.rs:67"
+      ]
+    },
+    {
+      "template": "choose the column that says who a row is about, the column that says which observation it is, and the column of values",
+      "files": [
+        "prismqda-engine/src/datatable.rs:125"
+      ]
+    },
+    {
+      "template": "choose two different variables for the two axes",
+      "files": [
+        "prismqda-engine/src/explore/bubble.rs:96"
+      ]
+    },
+    {
+      "template": "choose which heading levels to use (1 to 6)",
+      "files": [
+        "prismqda-api/src/autocode.rs:235"
+      ]
+    },
+    {
+      "template": "code {code_id} is {other}, so it cannot be applied",
+      "files": [
+        "prismqda-engine/src/ops.rs:514",
+        "prismqda-engine/src/regions.rs:464"
+      ]
+    },
+    {
+      "template": "code {id} does not exist",
+      "files": [
+        "prismqda-api/src/autocode.rs:101"
+      ]
+    },
+    {
+      "template": "code {id} is {other}, so a decision cannot use it",
+      "files": [
+        "prismqda-engine/src/adjudication.rs:208"
+      ]
+    },
+    {
+      "template": "code {new_code_id} is {status}, so it cannot be applied",
+      "files": [
+        "prismqda-engine/src/codebook.rs:570",
+        "prismqda-engine/src/regions.rs:517"
+      ]
+    },
+    {
+      "template": "coding {cid} does not use code {from}",
+      "files": [
+        "prismqda-engine/src/codebook.rs:531"
+      ]
+    },
+    {
+      "template": "coding {i} of {count}: {e}",
+      "files": [
+        "prismqda-engine/src/ops.rs:397"
+      ]
+    },
+    {
+      "template": "column '{name}' has no text",
+      "files": [
+        "prismqda-import/src/table.rs:387"
+      ]
+    },
+    {
+      "template": "could not build the file: {value}",
+      "files": [
+        "prismqda-export/src/lib.rs:42"
+      ]
+    },
+    {
+      "template": "counterexamples are not available for coded areas of pictures yet",
+      "files": [
+        "prismqda-api/src/lib.rs:1645"
+      ]
+    },
+    {
+      "template": "Cronbach's alpha needs at least three cases that have a value for every item, and a sum of the items that is not the same for every case.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1611"
+      ]
+    },
+    {
+      "template": "Cronbach's alpha needs from 2 to {MAX_PREDICTORS} items (numbers measured on the same cases), and {count} {value} chosen",
+      "files": [
+        "prismqda-engine/src/statistics.rs:971"
+      ]
+    },
+    {
+      "template": "database error: {describe}",
+      "files": [
+        "prismqda-engine/src/error.rs:6"
+      ]
+    },
+    {
+      "template": "each group needs at least one value.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1453"
+      ]
+    },
+    {
+      "template": "each group needs at least two cases, and the values cannot all be the same.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1130"
+      ]
+    },
+    {
+      "template": "Each row is a month in which codings were made, by the date of each coding in UTC. A month with no coding is a row of zeros.",
+      "files": [
+        "prismqda-engine/src/explore.rs:592"
+      ]
+    },
+    {
+      "template": "Each row is a value of {name}. A case with no value is in (no value), and N is how many cases have the value.",
+      "files": [
+        "prismqda-engine/src/explore.rs:591"
+      ]
+    },
+    {
+      "template": "each variable needs at least two different values among the cases that have both, so there is no table to test.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1182"
+      ]
+    },
+    {
+      "template": "each variable needs at least two different values among the cases that have both.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1516"
+      ]
+    },
+    {
+      "template": "editing a source's text",
+      "files": [
+        "prismqda-engine/src/undo.rs:235"
+      ]
+    },
+    {
+      "template": "every case falls on the same side, so there is no change of value to count: try another cut.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1347"
+      ]
+    },
+    {
+      "template": "every pair has the same two values, so there is no difference to rank.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1085"
+      ]
+    },
+    {
+      "template": "every pair has the same two values, so there is no sign to count.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1408"
+      ]
+    },
+    {
+      "template": "every value equals the value compared with, so there is no sign to count.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1419"
+      ]
+    },
+    {
+      "template": "every value equals the value compared with, so there is nothing to rank.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1101"
+      ]
+    },
+    {
+      "template": "every value is the same, so there is nothing to rank.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1123",
+        "prismqda-engine/src/statistics.rs:1151"
+      ]
+    },
+    {
+      "template": "file error: {value}",
+      "files": [
+        "prismqda-engine/src/error.rs:9",
+        "prismqda-import/src/error.rs:4"
+      ]
+    },
+    {
+      "template": "Fisher's exact test is built for tables with two rows and two columns. This table is larger; use the chi-square test, and combine categories if the expected counts are small.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1206"
+      ]
+    },
+    {
+      "template": "Friedman's test compares from 2 to {MAX_PREDICTORS} numbers measured on the same cases, and {count} {value} chosen",
+      "files": [
+        "prismqda-engine/src/statistics.rs:965"
+      ]
+    },
+    {
+      "template": "Friedman's test needs at least two cases that have every value, and values that are not all the same within each case.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1434"
+      ]
+    },
+    {
+      "template": "Froze the query again",
+      "files": [
+        "prismqda-engine/src/undo.rs:77"
+      ]
+    },
+    {
+      "template": "give a step (1, 2, ...) for each predictor, or none at all",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1719"
+      ]
+    },
+    {
+      "template": "give a word for each column stood on end, or none at all",
+      "files": [
+        "prismqda-engine/src/datatable.rs:82"
+      ]
+    },
+    {
+      "template": "give a word, or the words of a phrase, to look for",
+      "files": [
+        "prismqda-engine/src/text_analytics.rs:264"
+      ]
+    },
+    {
+      "template": "give at least one word or phrase to find",
+      "files": [
+        "prismqda-engine/src/deid.rs:519",
+        "prismqda-engine/src/deid.rs:529"
+      ]
+    },
+    {
+      "template": "give the map a name",
+      "files": [
+        "prismqda-engine/src/concept_map.rs:84"
+      ]
+    },
+    {
+      "template": "give the query a name",
+      "files": [
+        "prismqda-engine/src/saved.rs:82"
+      ]
+    },
+    {
+      "template": "importing a source",
+      "files": [
+        "prismqda-engine/src/undo.rs:234"
+      ]
+    },
+    {
+      "template": "importing cases",
+      "files": [
+        "prismqda-engine/src/undo.rs:239"
+      ]
+    },
+    {
+      "template": "it was made by a newer version of PrismQDA",
+      "files": [
+        "prismqda-engine/src/project.rs:457"
+      ]
+    },
+    {
+      "template": "JSON error: {value}",
+      "files": [
+        "prismqda-engine/src/error.rs:12"
+      ]
+    },
+    {
+      "template": "keep between 1 and 50 backups",
+      "files": [
+        "prismqda-api/src/lib.rs:1187"
+      ]
+    },
+    {
+      "template": "Kendall's tau is bootstrapped for up to {MAX_BOOTSTRAP_CASES_KENDALL} cases, and this analysis has {n}.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:2110"
+      ]
+    },
+    {
+      "template": "laying the table across would make two columns named '{value}'",
+      "files": [
+        "prismqda-engine/src/datatable.rs:177"
+      ]
+    },
+    {
+      "template": "Linked the recording to the document again",
+      "files": [
+        "prismqda-engine/src/undo.rs:81"
+      ]
+    },
+    {
+      "template": "linking a revised file to a document",
+      "files": [
+        "prismqda-engine/src/undo.rs:236"
+      ]
+    },
+    {
+      "template": "list at least one student",
+      "files": [
+        "prismqda-engine/src/teaching.rs:98"
+      ]
+    },
+    {
+      "template": "Made it a counterexample again",
+      "files": [
+        "prismqda-engine/src/undo.rs:54"
+      ]
+    },
+    {
+      "template": "Made it an anchor example again",
+      "files": [
+        "prismqda-engine/src/undo.rs:52"
+      ]
+    },
+    {
+      "template": "making suggestions",
+      "files": [
+        "prismqda-engine/src/undo.rs:241"
+      ]
+    },
+    {
+      "template": "McNemar's test compares two answers with the same two values (such as yes and no) given by the same cases, and these have {count} values between them.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1490"
+      ]
+    },
+    {
+      "template": "merging codes",
+      "files": [
+        "prismqda-engine/src/undo.rs:237"
+      ]
+    },
+    {
+      "template": "more than {MAX_STUDENTS} students were chosen",
+      "files": [
+        "prismqda-engine/src/teaching.rs:453"
+      ]
+    },
+    {
+      "template": "Moved every node back to where it was",
+      "files": [
+        "prismqda-engine/src/undo.rs:92"
+      ]
+    },
+    {
+      "template": "Moved the code back",
+      "files": [
+        "prismqda-engine/src/undo.rs:57"
+      ]
+    },
+    {
+      "template": "Moved the coded area back",
+      "files": [
+        "prismqda-engine/src/undo.rs:48"
+      ]
+    },
+    {
+      "template": "Moved the node back",
+      "files": [
+        "prismqda-engine/src/undo.rs:86"
+      ]
+    },
+    {
+      "template": "Much of the text on page {number} could not be turned into readable characters (the PDF's fonts do not say which letters they hold). Check this page against the original before coding it.",
+      "files": [
+        "prismqda-import/src/pdf.rs:766"
+      ]
+    },
+    {
+      "template": "no case changed its answer between the two, so there is nothing to test.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1498"
+      ]
+    },
+    {
+      "template": "no case has a value in '{variable}', so there are no groups",
+      "files": [
+        "prismqda-engine/src/datatable.rs:410"
+      ]
+    },
+    {
+      "template": "no case has a value of '{name}', so there are no codes to make",
+      "files": [
+        "prismqda-engine/src/mixed.rs:125"
+      ]
+    },
+    {
+      "template": "no case has a weight of 1 or more in '{name}', so there is nothing to analyze",
+      "files": [
+        "prismqda-engine/src/statistics.rs:412"
+      ]
+    },
+    {
+      "template": "no case has the value '{c}' of '{name}'",
+      "files": [
+        "prismqda-engine/src/mixed.rs:113"
+      ]
+    },
+    {
+      "template": "no case variable is named '{name}'",
+      "files": [
+        "prismqda-engine/src/crosstab.rs:117",
+        "prismqda-engine/src/datatable.rs:287",
+        "prismqda-engine/src/datatable.rs:503",
+        "prismqda-engine/src/explore.rs:441",
+        "prismqda-engine/src/explore/joint.rs:46",
+        "prismqda-engine/src/statistics.rs:210",
+        "prismqda-engine/src/variables.rs:230",
+        "prismqda-engine/src/variables.rs:384"
+      ]
+    },
+    {
+      "template": "no case variable is named '{variable}'",
+      "files": [
+        "prismqda-engine/src/datatable.rs:240",
+        "prismqda-engine/src/datatable.rs:393",
+        "prismqda-engine/src/integration.rs:344",
+        "prismqda-engine/src/mixed.rs:96"
+      ]
+    },
+    {
+      "template": "no expected share was given for '{label}'.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1379"
+      ]
+    },
+    {
+      "template": "no pair of cases differs on both variables, so there is no order to measure.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1518"
+      ]
+    },
+    {
+      "template": "no project is open; create or open one first",
+      "files": [
+        "prismqda-api/src/lib.rs:1075"
+      ]
+    },
+    {
+      "template": "No speaker labels such as \"Interviewer:\" were found, so the text was split into paragraphs instead of turns.",
+      "files": [
+        "prismqda-import/src/transcript.rs:53"
+      ]
+    },
+    {
+      "template": "no unit was coded by at least two of these coders, so there is nothing to compare",
+      "files": [
+        "prismqda-engine/src/reliability.rs:285"
+      ]
+    },
+    {
+      "template": "none of the {count} rows of the file matches a case. The keys of the file ({join}) are matched with {value}; check that the column and the spelling are the ones that name the cases.",
+      "files": [
+        "prismqda-engine/src/datatable.rs:549"
+      ]
+    },
+    {
+      "template": "none of the cases with these values holds a document, so there is no text to code.",
+      "files": [
+        "prismqda-engine/src/mixed.rs:209"
+      ]
+    },
+    {
+      "template": "Nothing can be written in {dir} ({e}).",
+      "files": [
+        "prismqda-engine/src/project.rs:515"
+      ]
+    },
+    {
+      "template": "only a document that was imported from a PDF can have a PDF attached",
+      "files": [
+        "prismqda-engine/src/pdf.rs:143"
+      ]
+    },
+    {
+      "template": "only a note has words of its own; a code, case, or memo shows its own name",
+      "files": [
+        "prismqda-engine/src/concept_map.rs:326"
+      ]
+    },
+    {
+      "template": "only a page of notes has a title; an analysis is titled by what it is",
+      "files": [
+        "prismqda-engine/src/stat_notebook.rs:152"
+      ]
+    },
+    {
+      "template": "only a prompt packet takes an answer pasted back",
+      "files": [
+        "prismqda-engine/src/ai.rs:500"
+      ]
+    },
+    {
+      "template": "only active codes can be merged",
+      "files": [
+        "prismqda-engine/src/codebook.rs:478"
+      ]
+    },
+    {
+      "template": "only an active code can be split",
+      "files": [
+        "prismqda-engine/src/codebook.rs:522"
+      ]
+    },
+    {
+      "template": "Only the sheet '{chosen}' was imported. Other sheets: {join}.",
+      "files": [
+        "prismqda-import/src/spreadsheet.rs:266"
+      ]
+    },
+    {
+      "template": "Page {number} could only be read in part; some of its text may be missing.",
+      "files": [
+        "prismqda-import/src/pdf.rs:757"
+      ]
+    },
+    {
+      "template": "paste the answer first",
+      "files": [
+        "prismqda-engine/src/ai.rs:266",
+        "prismqda-engine/src/theme_ai.rs:114"
+      ]
+    },
+    {
+      "template": "phase '{id}' has no title",
+      "files": [
+        "prismqda-engine/src/template.rs:89"
+      ]
+    },
+    {
+      "template": "phase '{phase_id}' has only {count} checklist items",
+      "files": [
+        "prismqda-engine/src/template.rs:230"
+      ]
+    },
+    {
+      "template": "PrismQDA plays a recording only from a drive with a letter, such as C: or a network folder that has been given a letter such as Z:, and not from a network address that starts with two slashes; give the folder a drive letter in Windows and choose the recording again",
+      "files": [
+        "prismqda-api/src/media.rs:150"
+      ]
+    },
+    {
+      "template": "PrismQDA plays a recording only from a drive with a letter, such as C: or a network folder that has been given a letter such as Z:, and not from a network address that starts with two slashes; give the folder a drive letter in Windows and link the recording again",
+      "files": [
+        "prismqda-engine/src/media.rs:114"
+      ]
+    },
+    {
+      "template": "PrismQDA plays MP3, WAV, M4A, AAC, FLAC, OGG, and WMA audio and MP4, MOV, AVI, MKV, WebM, and M4V video",
+      "files": [
+        "prismqda-engine/src/media.rs:210"
+      ]
+    },
+    {
+      "template": "Put a rejected suggestion back in the queue",
+      "files": [
+        "prismqda-engine/src/undo.rs:70"
+      ]
+    },
+    {
+      "template": "Put back the coded area you removed",
+      "files": [
+        "prismqda-engine/src/undo.rs:46"
+      ]
+    },
+    {
+      "template": "Put back the coding you removed",
+      "files": [
+        "prismqda-engine/src/undo.rs:41"
+      ]
+    },
+    {
+      "template": "Put back the link you deleted",
+      "files": [
+        "prismqda-engine/src/undo.rs:66"
+      ]
+    },
+    {
+      "template": "Put back the map you deleted, with everything on it",
+      "files": [
+        "prismqda-engine/src/undo.rs:84"
+      ]
+    },
+    {
+      "template": "Put back the memo you deleted",
+      "files": [
+        "prismqda-engine/src/undo.rs:62"
+      ]
+    },
+    {
+      "template": "Put back the saved query you deleted",
+      "files": [
+        "prismqda-engine/src/undo.rs:75"
+      ]
+    },
+    {
+      "template": "Put the link back",
+      "files": [
+        "prismqda-engine/src/undo.rs:91"
+      ]
+    },
+    {
+      "template": "Put the node back on the map, with its links",
+      "files": [
+        "prismqda-engine/src/undo.rs:88"
+      ]
+    },
+    {
+      "template": "Put the source back in the case",
+      "files": [
+        "prismqda-engine/src/undo.rs:98"
+      ]
+    },
+    {
+      "template": "query.update: to change what the query asks, give the draft and the spec together",
+      "files": [
+        "prismqda-api/src/lib.rs:1467"
+      ]
+    },
+    {
+      "template": "Removed the case you added",
+      "files": [
+        "prismqda-engine/src/undo.rs:95"
+      ]
+    },
+    {
+      "template": "Removed the code you added",
+      "files": [
+        "prismqda-engine/src/undo.rs:55"
+      ]
+    },
+    {
+      "template": "Removed the codebook version you saved",
+      "files": [
+        "prismqda-engine/src/undo.rs:94"
+      ]
+    },
+    {
+      "template": "Removed the coded area you added",
+      "files": [
+        "prismqda-engine/src/undo.rs:45"
+      ]
+    },
+    {
+      "template": "Removed the coding you added",
+      "files": [
+        "prismqda-engine/src/undo.rs:40"
+      ]
+    },
+    {
+      "template": "Removed the link",
+      "files": [
+        "prismqda-engine/src/undo.rs:89"
+      ]
+    },
+    {
+      "template": "Removed the link you added",
+      "files": [
+        "prismqda-engine/src/undo.rs:64"
+      ]
+    },
+    {
+      "template": "Removed the map you made",
+      "files": [
+        "prismqda-engine/src/undo.rs:82"
+      ]
+    },
+    {
+      "template": "Removed the memo you added",
+      "files": [
+        "prismqda-engine/src/undo.rs:60"
+      ]
+    },
+    {
+      "template": "Removed the saved query",
+      "files": [
+        "prismqda-engine/src/undo.rs:73"
+      ]
+    },
+    {
+      "template": "replacing names for good",
+      "files": [
+        "prismqda-engine/src/undo.rs:242"
+      ]
+    },
+    {
+      "template": "Resampling whole groups of cases needs at least {MIN_CLUSTERS} groups, and '{name}' gives {count} among the cases used.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1021"
+      ]
+    },
+    {
+      "template": "Restored the code's earlier name and definition",
+      "files": [
+        "prismqda-engine/src/undo.rs:56"
+      ]
+    },
+    {
+      "template": "Restored the coded area's earlier note",
+      "files": [
+        "prismqda-engine/src/undo.rs:49"
+      ]
+    },
+    {
+      "template": "Restored the coded area's earlier rating",
+      "files": [
+        "prismqda-engine/src/undo.rs:50"
+      ]
+    },
+    {
+      "template": "Restored the coding's earlier note",
+      "files": [
+        "prismqda-engine/src/undo.rs:43"
+      ]
+    },
+    {
+      "template": "Restored the coding's earlier rating",
+      "files": [
+        "prismqda-engine/src/undo.rs:44"
+      ]
+    },
+    {
+      "template": "Restored the link's earlier relation",
+      "files": [
+        "prismqda-engine/src/undo.rs:65"
+      ]
+    },
+    {
+      "template": "Restored the link's earlier words",
+      "files": [
+        "prismqda-engine/src/undo.rs:90"
+      ]
+    },
+    {
+      "template": "Restored the map's earlier name and notes",
+      "files": [
+        "prismqda-engine/src/undo.rs:83"
+      ]
+    },
+    {
+      "template": "Restored the memo's earlier words",
+      "files": [
+        "prismqda-engine/src/undo.rs:61"
+      ]
+    },
+    {
+      "template": "Restored the note's earlier words",
+      "files": [
+        "prismqda-engine/src/undo.rs:87"
+      ]
+    },
+    {
+      "template": "Restored the saved query's earlier name, note, and question",
+      "files": [
+        "prismqda-engine/src/undo.rs:74"
+      ]
+    },
+    {
+      "template": "Restored the suggestion's earlier words and code",
+      "files": [
+        "prismqda-engine/src/undo.rs:72"
+      ]
+    },
+    {
+      "template": "Restored whether the document may be sent to an AI",
+      "files": [
+        "prismqda-engine/src/undo.rs:79"
+      ]
+    },
+    {
+      "template": "Retired the code again",
+      "files": [
+        "prismqda-engine/src/undo.rs:59"
+      ]
+    },
+    {
+      "template": "sample '{id}': {what}",
+      "files": [
+        "prismqda-api/src/samples.rs:274"
+      ]
+    },
+    {
+      "template": "sample '{id}': the phrase {quoted} in '{document}' does not fall inside one unit, and this sample codes whole units",
+      "files": [
+        "prismqda-api/src/samples.rs:417"
+      ]
+    },
+    {
+      "template": "say how the two passages are related, in a word or two",
+      "files": [
+        "prismqda-engine/src/passage_links.rs:44"
+      ]
+    },
+    {
+      "template": "say what takes the place of the words: it cannot be empty, because an empty replacement would delete words",
+      "files": [
+        "prismqda-engine/src/deid.rs:422"
+      ]
+    },
+    {
+      "template": "say where the new project should go",
+      "files": [
+        "prismqda-api/src/lib.rs:1946"
+      ]
+    },
+    {
+      "template": "say where the packet should go",
+      "files": [
+        "prismqda-api/src/lib.rs:1914"
+      ]
+    },
+    {
+      "template": "say where to save the file",
+      "files": [
+        "prismqda-api/src/lib.rs:2623"
+      ]
+    },
+    {
+      "template": "say where to save the new project",
+      "files": [
+        "prismqda-api/src/samples.rs:173"
+      ]
+    },
+    {
+      "template": "say which {kind} to put on the map",
+      "files": [
+        "prismqda-engine/src/concept_map.rs:276"
+      ]
+    },
+    {
+      "template": "say which file to look at",
+      "files": [
+        "prismqda-api/src/files.rs:20"
+      ]
+    },
+    {
+      "template": "say which folder the packets should go in",
+      "files": [
+        "prismqda-api/src/class.rs:125"
+      ]
+    },
+    {
+      "template": "say which folder the students' packets are in",
+      "files": [
+        "prismqda-api/src/class.rs:135"
+      ]
+    },
+    {
+      "template": "say which model gave the answer (for example the chatbot's name and version); it is kept with the run",
+      "files": [
+        "prismqda-engine/src/ai.rs:510",
+        "prismqda-engine/src/theme_ai.rs:198"
+      ]
+    },
+    {
+      "template": "say who the packet is for",
+      "files": [
+        "prismqda-engine/src/packet.rs:73"
+      ]
+    },
+    {
+      "template": "some text in the file could not be read in the file's own character set and was replaced by a placeholder character",
+      "files": [
+        "prismqda-import/src/sav.rs:92"
+      ]
+    },
+    {
+      "template": "Some text uses the old code page {join} that cannot be decoded exactly; it was read as Windows-1252, so some characters may be wrong.",
+      "files": [
+        "prismqda-import/src/rtf.rs:960"
+      ]
+    },
+    {
+      "template": "splitting a code",
+      "files": [
+        "prismqda-engine/src/undo.rs:238"
+      ]
+    },
+    {
+      "template": "standing the table on end would make more than {MAX_TABLE_ROWS} rows",
+      "files": [
+        "prismqda-engine/src/datatable.rs:100"
+      ]
+    },
+    {
+      "template": "suggestion {i}: code {code_id} is not an active code",
+      "files": [
+        "prismqda-engine/src/proposal.rs:174"
+      ]
+    },
+    {
+      "template": "suggestion {i}: the span {start}..{end} does not fit source {source_id}",
+      "files": [
+        "prismqda-engine/src/proposal.rs:170"
+      ]
+    },
+    {
+      "template": "that {kind} is already on this map",
+      "files": [
+        "prismqda-engine/src/concept_map.rs:280"
+      ]
+    },
+    {
+      "template": "that area or stretch is not in disagreement: every coder of its document marked it, or only one coder worked on the document",
+      "files": [
+        "prismqda-engine/src/region_final.rs:230"
+      ]
+    },
+    {
+      "template": "that file is this project itself; choose a copy of it",
+      "files": [
+        "prismqda-engine/src/merge.rs:259"
+      ]
+    },
+    {
+      "template": "that is already in the list",
+      "files": [
+        "prismqda-engine/src/deid.rs:587"
+      ]
+    },
+    {
+      "template": "that is not a recording: it is a folder or an empty file",
+      "files": [
+        "prismqda-engine/src/media.rs:214"
+      ]
+    },
+    {
+      "template": "that passphrase does not open this project (or the file is not a PrismQDA project)",
+      "files": [
+        "prismqda-engine/src/error.rs:32"
+      ]
+    },
+    {
+      "template": "that run does not exist or is already archived",
+      "files": [
+        "prismqda-engine/src/reliability.rs:447"
+      ]
+    },
+    {
+      "template": "that search could not be understood: {unwrap_or}",
+      "files": [
+        "prismqda-engine/src/search.rs:141"
+      ]
+    },
+    {
+      "template": "the AI setting is packet or off, not '{mode}'",
+      "files": [
+        "prismqda-engine/src/project.rs:419"
+      ]
+    },
+    {
+      "template": "the analysis cannot be run: {e}",
+      "files": [
+        "prismqda-engine/src/stat_notebook.rs:113",
+        "prismqda-engine/src/stat_notebook.rs:225"
+      ]
+    },
+    {
+      "template": "The analysis could not be run on {failed} of the {resamples} resamples (for example, a group was left out of every one of them), so there is nothing sound to report. Use more cases, or leave the bootstrap off.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:2148"
+      ]
+    },
+    {
+      "template": "the analysis of variance needs more cases than groups, and values that are not all the same within the groups.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1156"
+      ]
+    },
+    {
+      "template": "the answer has no list in it: the packet asked for a JSON list such as [{\"passage\"}]",
+      "files": [
+        "prismqda-engine/src/ai.rs:291"
+      ]
+    },
+    {
+      "template": "the answer has no list in it: the packet asked for a JSON list such as [{\"theme\"}]",
+      "files": [
+        "prismqda-engine/src/theme_ai.rs:131"
+      ]
+    },
+    {
+      "template": "the area is too small to code: each side must be at least 0.2% of the picture",
+      "files": [
+        "prismqda-engine/src/regions.rs:99"
+      ]
+    },
+    {
+      "template": "the area reaches past the edge of the picture",
+      "files": [
+        "prismqda-engine/src/regions.rs:102"
+      ]
+    },
+    {
+      "template": "The backup {dest} was written but did not pass its check ({why}), so it was removed. The project itself is not changed. Try again, and if it keeps happening, tell the maintainer.",
+      "files": [
+        "prismqda-engine/src/project.rs:542"
+      ]
+    },
+    {
+      "template": "the binomial test needs at least one case and a share between 0 and 1.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1362"
+      ]
+    },
+    {
+      "template": "the bootstrap needs between 100 and 100,000 resamples",
+      "files": [
+        "prismqda-engine/src/statistics.rs:994"
+      ]
+    },
+    {
+      "template": "The bootstrap of the whole analysis took longer than {value} minutes and was stopped. Use fewer resamples or fewer cases.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:2144"
+      ]
+    },
+    {
+      "template": "the bundled sample '{id}' is damaged: {e}",
+      "files": [
+        "prismqda-api/src/samples.rs:135"
+      ]
+    },
+    {
+      "template": "the bundled sample '{id}' says its id is '{id2}'",
+      "files": [
+        "prismqda-api/src/samples.rs:137"
+      ]
+    },
+    {
+      "template": "the captions made no document",
+      "files": [
+        "prismqda-api/src/lib.rs:2431"
+      ]
+    },
+    {
+      "template": "the case you added already has sources, memos, or attribute values in it, so it cannot be removed by undo",
+      "files": [
+        "prismqda-engine/src/undo.rs:684"
+      ]
+    },
+    {
+      "template": "the chart '{title}' has no usable size",
+      "files": [
+        "prismqda-export/src/notebook.rs:154"
+      ]
+    },
+    {
+      "template": "the clip is not a WAV file",
+      "files": [
+        "prismqda-api/src/lib.rs:2247"
+      ]
+    },
+    {
+      "template": "the clip is not valid base 64",
+      "files": [
+        "prismqda-api/src/lib.rs:2245"
+      ]
+    },
+    {
+      "template": "the code {name} is {status}, so it cannot be in a packet",
+      "files": [
+        "prismqda-engine/src/ai.rs:395"
+      ]
+    },
+    {
+      "template": "the code {name} is {status}, so it cannot be suggested",
+      "files": [
+        "prismqda-api/src/autocode.rs:103"
+      ]
+    },
+    {
+      "template": "the code you added is already in use (it has codings or sub-codes), so it cannot be removed by undo",
+      "files": [
+        "prismqda-engine/src/undo.rs:376"
+      ]
+    },
+    {
+      "template": "the codebook has a loop in it",
+      "files": [
+        "prismqda-engine/src/codebook.rs:215"
+      ]
+    },
+    {
+      "template": "the coder's name is longer than 100 characters",
+      "files": [
+        "prismqda-engine/src/packet.rs:76"
+      ]
+    },
+    {
+      "template": "the coders used fewer than two different codes, so there is nothing to measure",
+      "files": [
+        "prismqda-engine/src/reliability.rs:315"
+      ]
+    },
+    {
+      "template": "the coding numbers must be in ascending order, each once",
+      "files": [
+        "prismqda-engine/src/explore.rs:1386"
+      ]
+    },
+    {
+      "template": "the column '{name}' does not have a value for each row of the file",
+      "files": [
+        "prismqda-engine/src/datatable.rs:495"
+      ]
+    },
+    {
+      "template": "the column '{name}' has values that are not dates written year-month-day ({join}), so it cannot be a variable of dates.",
+      "files": [
+        "prismqda-engine/src/datatable.rs:572"
+      ]
+    },
+    {
+      "template": "the column '{name}' has values that are not numbers ({join}), so it cannot be a variable of numbers. Bring it in as categories or as text, or correct the file.",
+      "files": [
+        "prismqda-engine/src/datatable.rs:566"
+      ]
+    },
+    {
+      "template": "the confidence level must be between 0 and 1",
+      "files": [
+        "prismqda-engine/src/statistics.rs:985"
+      ]
+    },
+    {
+      "template": "the differences between the two variables are all the same, so a t test cannot be done.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1091"
+      ]
+    },
+    {
+      "template": "the drawing is not an SVG",
+      "files": [
+        "prismqda-api/src/lib.rs:2229"
+      ]
+    },
+    {
+      "template": "the drawing of the chart '{title}' is not an SVG",
+      "files": [
+        "prismqda-export/src/notebook.rs:157"
+      ]
+    },
+    {
+      "template": "the expected share of '{label}' must be above zero.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1381"
+      ]
+    },
+    {
+      "template": "The export has {plural} ('load more comments' links) standing for {value}{value2} that were not saved in the file. They are not in the import.",
+      "files": [
+        "prismqda-import/src/social.rs:1072"
+      ]
+    },
+    {
+      "template": "the file has more than {MAX_TABLE_ROWS} rows",
+      "files": [
+        "prismqda-api/src/datatools.rs:208"
+      ]
+    },
+    {
+      "template": "the file has no column named '{key_column}'",
+      "files": [
+        "prismqda-api/src/datatools.rs:210"
+      ]
+    },
+    {
+      "template": "the file has no column named '{name}'",
+      "files": [
+        "prismqda-api/src/datatools.rs:215"
+      ]
+    },
+    {
+      "template": "The file is not valid UTF-8, so it was read as Windows-1252 (Western European). Accented letters may look wrong if it was saved in another encoding.",
+      "files": [
+        "prismqda-import/src/text.rs:31"
+      ]
+    },
+    {
+      "template": "the file is weighted by variable '{value}'; PrismQDA does not apply weights, so counts and percentages are unweighted",
+      "files": [
+        "prismqda-import/src/sav.rs:877"
+      ]
+    },
+    {
+      "template": "the file lists its variables but holds no cases",
+      "files": [
+        "prismqda-import/src/sav.rs:89"
+      ]
+    },
+    {
+      "template": "the file says its text is stored as '{name}', which PrismQDA does not know; the text was read as Windows-1252, so accented or non-Latin letters may look wrong",
+      "files": [
+        "prismqda-import/src/sav.rs:497"
+      ]
+    },
+    {
+      "template": "the file uses the same variable name more than once ({list_names}); later ones were renamed with a number",
+      "files": [
+        "prismqda-import/src/sav.rs:720"
+      ]
+    },
+    {
+      "template": "the first date is after the last date",
+      "files": [
+        "prismqda-engine/src/explore.rs:1378"
+      ]
+    },
+    {
+      "template": "the first day is after the last day",
+      "files": [
+        "prismqda-engine/src/explore.rs:1365"
+      ]
+    },
+    {
+      "template": "the folder {dir} does not exist",
+      "files": [
+        "prismqda-api/src/lib.rs:2641",
+        "prismqda-api/src/text_files.rs:75"
+      ]
+    },
+    {
+      "template": "the format '{name}' should be xlsx, docx, csv{value}",
+      "files": [
+        "prismqda-api/src/lib.rs:2606"
+      ]
+    },
+    {
+      "template": "the formula cannot be worked out: {message}",
+      "files": [
+        "prismqda-engine/src/variables.rs:418"
+      ]
+    },
+    {
+      "template": "the formula uses '{missing}', which is not a variable of the cases. Variables with spaces in their names are written in backticks, like `Stat age`.",
+      "files": [
+        "prismqda-engine/src/variables.rs:412"
+      ]
+    },
+    {
+      "template": "the instructor cannot be one of the students",
+      "files": [
+        "prismqda-engine/src/teaching.rs:443"
+      ]
+    },
+    {
+      "template": "the instructor has not coded any passage of these documents, so there is nothing to compare the students with",
+      "files": [
+        "prismqda-engine/src/teaching.rs:497"
+      ]
+    },
+    {
+      "template": "the key file has no rows with both an original and a replacement",
+      "files": [
+        "prismqda-api/src/deid.rs:172"
+      ]
+    },
+    {
+      "template": "the level of measurement must be one of {join}",
+      "files": [
+        "prismqda-engine/src/variables.rs:277",
+        "prismqda-engine/src/variables.rs:397"
+      ]
+    },
+    {
+      "template": "the limits must both be dates written year-month-day (2024-03-14) or both be numbers",
+      "files": [
+        "prismqda-engine/src/explore.rs:1381"
+      ]
+    },
+    {
+      "template": "the list can hold at most {MAX_RULES} things to find",
+      "files": [
+        "prismqda-engine/src/deid.rs:535"
+      ]
+    },
+    {
+      "template": "the list in the answer cannot be read as JSON; ask the model to reply with only the list",
+      "files": [
+        "prismqda-engine/src/ai.rs:289",
+        "prismqda-engine/src/theme_ai.rs:129"
+      ]
+    },
+    {
+      "template": "the list is empty, so there is no key to save",
+      "files": [
+        "prismqda-api/src/deid.rs:134"
+      ]
+    },
+    {
+      "template": "the list is empty, so there is nothing to apply to what you export; add the names to find first",
+      "files": [
+        "prismqda-engine/src/deid.rs:618"
+      ]
+    },
+    {
+      "template": "the list is empty, so there is nothing to replace; add the names to find first",
+      "files": [
+        "prismqda-api/src/deid.rs:186",
+        "prismqda-api/src/deid.rs:206",
+        "prismqda-engine/src/deid.rs:1029",
+        "prismqda-engine/src/deid.rs:1237"
+      ]
+    },
+    {
+      "template": "the list of names to replace is applied to exports, and a packet holds the documents whole; turn that switch off, or replace the names in the project itself first",
+      "files": [
+        "prismqda-api/src/class.rs:118",
+        "prismqda-api/src/lib.rs:1907"
+      ]
+    },
+    {
+      "template": "the lowest number is above the highest",
+      "files": [
+        "prismqda-engine/src/explore.rs:1379"
+      ]
+    },
+    {
+      "template": "the median test needs some cases above the pooled median and some at or below it.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1458"
+      ]
+    },
+    {
+      "template": "the mode should be single_label or per_code",
+      "files": [
+        "prismqda-engine/src/reliability.rs:258"
+      ]
+    },
+    {
+      "template": "the Moses test needs at least 3 cases in the control group (more if you trim) and 1 in the other.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1468"
+      ]
+    },
+    {
+      "template": "the new file did not pass the check ({ok}), so nothing was changed",
+      "files": [
+        "prismqda-engine/src/crypto.rs:273"
+      ]
+    },
+    {
+      "template": "the new file has {here} rows of {table} where the project has {there}, so nothing was changed",
+      "files": [
+        "prismqda-engine/src/crypto.rs:279"
+      ]
+    },
+    {
+      "template": "the new file has another format version, so nothing was changed",
+      "files": [
+        "prismqda-engine/src/crypto.rs:287"
+      ]
+    },
+    {
+      "template": "the new file is not in the form it should be in, so nothing was changed",
+      "files": [
+        "prismqda-engine/src/crypto.rs:268"
+      ]
+    },
+    {
+      "template": "the new passphrase is the same as the old one",
+      "files": [
+        "prismqda-engine/src/crypto.rs:232"
+      ]
+    },
+    {
+      "template": "the newest change ({describe}) is too large to undo automatically; earlier changes cannot be undone past it",
+      "files": [
+        "prismqda-engine/src/undo.rs:141"
+      ]
+    },
+    {
+      "template": "the normal distribution needs a standard deviation above zero, and '{name}' has values that are not all the same only if it has at least two cases.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1317"
+      ]
+    },
+    {
+      "template": "the notebook has {count} pages, and at most {MAX_PAGES} can be exported at once",
+      "files": [
+        "prismqda-export/src/notebook.rs:138"
+      ]
+    },
+    {
+      "template": "the offline lock is on for this project, so {what}; turn the lock off in Privacy if you want to",
+      "files": [
+        "prismqda-engine/src/privacy.rs:89"
+      ]
+    },
+    {
+      "template": "the one-sample chi-square needs at least two categories with cases.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1389"
+      ]
+    },
+    {
+      "template": "the outline is too thin to code: it must enclose some area",
+      "files": [
+        "prismqda-engine/src/regions.rs:121"
+      ]
+    },
+    {
+      "template": "the part of the file that holds {what} for long text variables could not be read and was skipped",
+      "files": [
+        "prismqda-import/src/sav.rs:867"
+      ]
+    },
+    {
+      "template": "the passphrase is empty (a passphrase of only spaces counts as empty)",
+      "files": [
+        "prismqda-engine/src/crypto.rs:72"
+      ]
+    },
+    {
+      "template": "the passphrase is too short: it needs at least {MIN_PASSPHRASE_CHARS} characters, and twelve or more (or four unrelated words) is much safer",
+      "files": [
+        "prismqda-engine/src/crypto.rs:91"
+      ]
+    },
+    {
+      "template": "the PDF {file_name} has {count} pages; PrismQDA keeps from 1 to {MAX_PDF_PAGES}",
+      "files": [
+        "prismqda-engine/src/pdf.rs:79"
+      ]
+    },
+    {
+      "template": "the PDF {file_name} has a page with no usable size",
+      "files": [
+        "prismqda-engine/src/pdf.rs:82"
+      ]
+    },
+    {
+      "template": "the PDF {file_name} has no bytes",
+      "files": [
+        "prismqda-engine/src/pdf.rs:68"
+      ]
+    },
+    {
+      "template": "the PDF {path} cannot be read: {e}",
+      "files": [
+        "prismqda-api/src/lib.rs:1288"
+      ]
+    },
+    {
+      "template": "the PDF {path} cannot be read: it is missing, empty, or a folder",
+      "files": [
+        "prismqda-api/src/lib.rs:1286"
+      ]
+    },
+    {
+      "template": "the picture {file_name} has no size or no bytes",
+      "files": [
+        "prismqda-engine/src/image.rs:423"
+      ]
+    },
+    {
+      "template": "the picture is not a PNG",
+      "files": [
+        "prismqda-api/src/lib.rs:2223"
+      ]
+    },
+    {
+      "template": "the picture is not valid base 64",
+      "files": [
+        "prismqda-api/src/lib.rs:2221"
+      ]
+    },
+    {
+      "template": "the picture of the chart '{title}' is not a PNG",
+      "files": [
+        "prismqda-export/src/notebook.rs:165"
+      ]
+    },
+    {
+      "template": "the picture of the chart '{title}' is not valid base 64",
+      "files": [
+        "prismqda-export/src/notebook.rs:163"
+      ]
+    },
+    {
+      "template": "the place on the map is not a number",
+      "files": [
+        "prismqda-engine/src/concept_map.rs:287",
+        "prismqda-engine/src/concept_map.rs:307"
+      ]
+    },
+    {
+      "template": "The predictors separate the two outcomes perfectly, or almost perfectly (for example, every case in one category has the same outcome), so the coefficients have no best value and any estimate would be meaningless. Leave out the predictor that does it, join categories, or use more cases.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1911"
+      ]
+    },
+    {
+      "template": "the project has no document to put in a packet",
+      "files": [
+        "prismqda-engine/src/packet.rs:97"
+      ]
+    },
+    {
+      "template": "the QDC format holds a codebook, not coded segments",
+      "files": [
+        "prismqda-api/src/lib.rs:2608",
+        "prismqda-export/src/lib.rs:498"
+      ]
+    },
+    {
+      "template": "the query cannot be run: {e}",
+      "files": [
+        "prismqda-engine/src/saved.rs:92"
+      ]
+    },
+    {
+      "template": "the query has no conditions yet",
+      "files": [
+        "prismqda-engine/src/explore.rs:1341"
+      ]
+    },
+    {
+      "template": "the recording {file_name} is not at {path} any more; link it again from its new place",
+      "files": [
+        "prismqda-engine/src/media.rs:255",
+        "prismqda-engine/src/media.rs:257"
+      ]
+    },
+    {
+      "template": "the recording {path} cannot be read: it is missing, empty, or a folder",
+      "files": [
+        "prismqda-api/src/media.rs:153"
+      ]
+    },
+    {
+      "template": "the recording cannot be opened: {e}",
+      "files": [
+        "prismqda-engine/src/media.rs:121",
+        "prismqda-engine/src/media.rs:211"
+      ]
+    },
+    {
+      "template": "the recording has {total} bytes, so it has nothing from byte {start}",
+      "files": [
+        "prismqda-engine/src/media.rs:260"
+      ]
+    },
+    {
+      "template": "the recording made no document",
+      "files": [
+        "prismqda-api/src/lib.rs:2452"
+      ]
+    },
+    {
+      "template": "the replacement cannot begin or end with an accent or other combining mark",
+      "files": [
+        "prismqda-engine/src/deid.rs:438"
+      ]
+    },
+    {
+      "template": "the replacement contains a NUL character, which cannot be stored",
+      "files": [
+        "prismqda-engine/src/deid.rs:428"
+      ]
+    },
+    {
+      "template": "the reporting term should be intercoder_reliability or concordance",
+      "files": [
+        "prismqda-engine/src/reliability.rs:262"
+      ]
+    },
+    {
+      "template": "the rule {rule} picks no cases, so there is nothing to analyze",
+      "files": [
+        "prismqda-engine/src/statistics.rs:345"
+      ]
+    },
+    {
+      "template": "the runs test needs a number (which it cuts in two) or a variable with exactly two values, and '{name}' is neither.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1345"
+      ]
+    },
+    {
+      "template": "the same coder was chosen twice",
+      "files": [
+        "prismqda-engine/src/adjudication.rs:102",
+        "prismqda-engine/src/reliability.rs:255"
+      ]
+    },
+    {
+      "template": "the sample asked for {size} units, but only {pool} are available",
+      "files": [
+        "prismqda-engine/src/reliability.rs:209"
+      ]
+    },
+    {
+      "template": "the script does not say where its data is",
+      "files": [
+        "prismqda-api/src/lib.rs:2197"
+      ]
+    },
+    {
+      "template": "the search ends where a term was expected",
+      "files": [
+        "prismqda-engine/src/search.rs:223"
+      ]
+    },
+    {
+      "template": "the search has {describe} where it should end",
+      "files": [
+        "prismqda-engine/src/search.rs:257"
+      ]
+    },
+    {
+      "template": "the Shapiro-Wilk test needs from 3 to 5,000 values that are not all the same, and '{name}' has {count}.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1297"
+      ]
+    },
+    {
+      "template": "the sheet '{name}' would have {value} rows, but Excel allows {MAX_ROWS}; export as CSV instead",
+      "files": [
+        "prismqda-export/src/xlsx.rs:233"
+      ]
+    },
+    {
+      "template": "the source has no text",
+      "files": [
+        "prismqda-engine/src/ops.rs:244"
+      ]
+    },
+    {
+      "template": "the source would have no text; remove the source instead",
+      "files": [
+        "prismqda-engine/src/edit.rs:325"
+      ]
+    },
+    {
+      "template": "the span {start}..{end} does not fit {what} {id}, which has {len} characters (a span needs 0 <= start < end <= {len})",
+      "files": [
+        "prismqda-engine/src/ops.rs:496"
+      ]
+    },
+    {
+      "template": "the span {start}..{end} is outside unit {unit_id} ({unit_start}..{unit_end})",
+      "files": [
+        "prismqda-engine/src/ops.rs:546"
+      ]
+    },
+    {
+      "template": "the stretch ends more than seven days into the recording, which is not a time on any recording",
+      "files": [
+        "prismqda-engine/src/regions.rs:136"
+      ]
+    },
+    {
+      "template": "the stretch is too short to code: it must be at least a tenth of a second",
+      "files": [
+        "prismqda-engine/src/regions.rs:133"
+      ]
+    },
+    {
+      "template": "The style definitions in this document could not be read, so headings and emphasis defined by named styles may be missing.",
+      "files": [
+        "prismqda-import/src/odt.rs:39"
+      ]
+    },
+    {
+      "template": "The style definitions in this document could not be read, so headings may not have been recognised.",
+      "files": [
+        "prismqda-import/src/docx.rs:860",
+        "prismqda-import/src/docx.rs:871"
+      ]
+    },
+    {
+      "template": "the suggestion was already {status}, so it cannot be changed",
+      "files": [
+        "prismqda-engine/src/proposal.rs:283"
+      ]
+    },
+    {
+      "template": "the table has no column named '{name}'",
+      "files": [
+        "prismqda-engine/src/datatable.rs:28"
+      ]
+    },
+    {
+      "template": "the template has two phases called '{id}'",
+      "files": [
+        "prismqda-engine/src/template.rs:86"
+      ]
+    },
+    {
+      "template": "the template's rules use a setting this version does not know",
+      "files": [
+        "prismqda-engine/src/template.rs:93"
+      ]
+    },
+    {
+      "template": "the term contains a NUL character, which cannot be stored",
+      "files": [
+        "prismqda-engine/src/deid.rs:452"
+      ]
+    },
+    {
+      "template": "the text contains a NUL character, which cannot be stored",
+      "files": [
+        "prismqda-engine/src/edit.rs:320",
+        "prismqda-engine/src/ops.rs:239"
+      ]
+    },
+    {
+      "template": "the text is larger than 32 MB, which is more than a translation file needs",
+      "files": [
+        "prismqda-api/src/text_files.rs:71"
+      ]
+    },
+    {
+      "template": "the two new columns need names that differ",
+      "files": [
+        "prismqda-engine/src/datatable.rs:71"
+      ]
+    },
+    {
+      "template": "the weights in '{name}' add up to more than {MAX_WEIGHTED} cases, which is more than an analysis here counts",
+      "files": [
+        "prismqda-engine/src/statistics.rs:403"
+      ]
+    },
+    {
+      "template": "the words {start}..{end} do not fit the document",
+      "files": [
+        "prismqda-engine/src/proposal.rs:287"
+      ]
+    },
+    {
+      "template": "the words must stay inside the unit this suggestion belongs to",
+      "files": [
+        "prismqda-engine/src/proposal.rs:299"
+      ]
+    },
+    {
+      "template": "the words of a note or a link can be at most {MAX_LABEL} characters",
+      "files": [
+        "prismqda-engine/src/concept_map.rs:95"
+      ]
+    },
+    {
+      "template": "The words were read, but the pages of this PDF were not kept, so an area of a page cannot be coded: {why}.",
+      "files": [
+        "prismqda-import/src/pdf.rs:69"
+      ]
+    },
+    {
+      "template": "There are {n} cases and the model has {parameters} parameters to estimate (the intercept and each predictor). A logistic regression needs more cases than parameters, and in practice at least ten cases of the rarer outcome for each predictor; remove predictors, or use more cases.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1897"
+      ]
+    },
+    {
+      "template": "There are {n} cases and the model has {parameters} parameters to estimate (the intercept and each predictor). A regression needs more cases than parameters; remove predictors, or use more cases.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:1684"
+      ]
+    },
+    {
+      "template": "there are only {count} codes that can be sent, and grouping them into themes needs at least {MIN_CODES}",
+      "files": [
+        "prismqda-engine/src/theme_ai.rs:163"
+      ]
+    },
+    {
+      "template": "there are only {total} passages to send, so there is nothing after the first {skip}",
+      "files": [
+        "prismqda-engine/src/ai.rs:432"
+      ]
+    },
+    {
+      "template": "there are too many maps named like '{name}'",
+      "files": [
+        "prismqda-engine/src/themes.rs:219"
+      ]
+    },
+    {
+      "template": "there is already a case named '{clash}'",
+      "files": [
+        "prismqda-engine/src/cases.rs:47"
+      ]
+    },
+    {
+      "template": "there is already a code named '{n}' at this place in the codebook",
+      "files": [
+        "prismqda-engine/src/codebook.rs:326"
+      ]
+    },
+    {
+      "template": "there is already a code named '{name}' at the new place",
+      "files": [
+        "prismqda-engine/src/codebook.rs:414"
+      ]
+    },
+    {
+      "template": "there is already a code named '{name}' at this place in the codebook",
+      "files": [
+        "prismqda-engine/src/ops.rs:338"
+      ]
+    },
+    {
+      "template": "there is already a map named '{name}'",
+      "files": [
+        "prismqda-engine/src/concept_map.rs:181"
+      ]
+    },
+    {
+      "template": "there is already a map named '{new_name}'",
+      "files": [
+        "prismqda-engine/src/concept_map.rs:206"
+      ]
+    },
+    {
+      "template": "there is already a saved query named '{name}'",
+      "files": [
+        "prismqda-engine/src/saved.rs:153"
+      ]
+    },
+    {
+      "template": "there is already a saved query named '{new_name}'",
+      "files": [
+        "prismqda-engine/src/saved.rs:177"
+      ]
+    },
+    {
+      "template": "there is already a variable named '{map_or}'. Choose another name, or ask to replace it.",
+      "files": [
+        "prismqda-engine/src/variables.rs:611"
+      ]
+    },
+    {
+      "template": "there is already a variable named '{name}'",
+      "files": [
+        "prismqda-engine/src/variables.rs:281"
+      ]
+    },
+    {
+      "template": "there is already a variable named '{name}'. Rename the column to bring it in, or ask to fill the variable in.",
+      "files": [
+        "prismqda-engine/src/datatable.rs:561"
+      ]
+    },
+    {
+      "template": "there is already an active code named '{name}' at this place",
+      "files": [
+        "prismqda-engine/src/codebook.rs:459"
+      ]
+    },
+    {
+      "template": "there is no code that can be sent: every code chosen is marked do not share or not suggestible",
+      "files": [
+        "prismqda-engine/src/ai.rs:424"
+      ]
+    },
+    {
+      "template": "there is no command named '{other}'",
+      "files": [
+        "prismqda-api/src/lib.rs:2301"
+      ]
+    },
+    {
+      "template": "there is no document to change",
+      "files": [
+        "prismqda-engine/src/deid.rs:1034"
+      ]
+    },
+    {
+      "template": "there is no method template called '{id}'",
+      "files": [
+        "prismqda-engine/src/template.rs:153"
+      ]
+    },
+    {
+      "template": "there is no passage to send: every passage is already coded, marked do not share, or too long",
+      "files": [
+        "prismqda-engine/src/ai.rs:436"
+      ]
+    },
+    {
+      "template": "there is no sample named '{id}'",
+      "files": [
+        "prismqda-api/src/samples.rs:170"
+      ]
+    },
+    {
+      "template": "there is no student to compare: a student is a human coder other than the instructor, so bring the students' packets in first",
+      "files": [
+        "prismqda-engine/src/teaching.rs:450"
+      ]
+    },
+    {
+      "template": "there is no theme yet, so there is nothing to draw; add a theme and move some codes under it",
+      "files": [
+        "prismqda-engine/src/themes.rs:194"
+      ]
+    },
+    {
+      "template": "there is nothing in the notebook to export",
+      "files": [
+        "prismqda-export/src/notebook.rs:135"
+      ]
+    },
+    {
+      "template": "there is nothing to suggest",
+      "files": [
+        "prismqda-engine/src/proposal.rs:161"
+      ]
+    },
+    {
+      "template": "these two nodes are already joined by a link with those words",
+      "files": [
+        "prismqda-engine/src/concept_map.rs:394"
+      ]
+    },
+    {
+      "template": "these two passages are already linked in that direction with that relation",
+      "files": [
+        "prismqda-engine/src/passage_links.rs:98",
+        "prismqda-engine/src/passage_links.rs:123"
+      ]
+    },
+    {
+      "template": "these variables make more than {MAX_TABLE_ROWS} groups",
+      "files": [
+        "prismqda-engine/src/datatable.rs:331"
+      ]
+    },
+    {
+      "template": "this code was merged into another one, so it cannot be changed",
+      "files": [
+        "prismqda-engine/src/codebook.rs:456"
+      ]
+    },
+    {
+      "template": "this document already keeps its PDF",
+      "files": [
+        "prismqda-engine/src/pdf.rs:147"
+      ]
+    },
+    {
+      "template": "this document has no PDF kept with it",
+      "files": [
+        "prismqda-engine/src/pdf.rs:118"
+      ]
+    },
+    {
+      "template": "this document has no recording linked",
+      "files": [
+        "prismqda-engine/src/media.rs:241",
+        "prismqda-engine/src/media.rs:252"
+      ]
+    },
+    {
+      "template": "this document has no recording linked, so a stretch of it cannot be coded; link the recording to it first, or select words instead",
+      "files": [
+        "prismqda-engine/src/regions.rs:431"
+      ]
+    },
+    {
+      "template": "this document is not a picture",
+      "files": [
+        "prismqda-engine/src/image.rs:458"
+      ]
+    },
+    {
+      "template": "this document is not a picture or a PDF whose pages are kept, so an area cannot be coded; select words instead",
+      "files": [
+        "prismqda-engine/src/regions.rs:442"
+      ]
+    },
+    {
+      "template": "this document keeps its PDF, and the areas coded on its pages are tied to that file's pages, so another file cannot replace its words; import the new PDF as a new document",
+      "files": [
+        "prismqda-api/src/lib.rs:2498"
+      ]
+    },
+    {
+      "template": "this does not look like a key file: it needs the columns Original and Replacement",
+      "files": [
+        "prismqda-api/src/deid.rs:146"
+      ]
+    },
+    {
+      "template": "this file is over 1.5 GB, more than PrismQDA reads into memory at once",
+      "files": [
+        "prismqda-api/src/lib.rs:1941"
+      ]
+    },
+    {
+      "template": "this file is over 64 MB, far more than a codebook holds",
+      "files": [
+        "prismqda-api/src/lib.rs:1930"
+      ]
+    },
+    {
+      "template": "this file makes {count} documents, so it cannot be the new version of one document",
+      "files": [
+        "prismqda-api/src/lib.rs:2490"
+      ]
+    },
+    {
+      "template": "this file was already imported as source {existing}; import it again only if that is what you mean",
+      "files": [
+        "prismqda-api/src/lib.rs:2462"
+      ]
+    },
+    {
+      "template": "this is not a packet that asked for themes",
+      "files": [
+        "prismqda-engine/src/theme_ai.rs:191",
+        "prismqda-engine/src/theme_ai.rs:296"
+      ]
+    },
+    {
+      "template": "this is the file the document came from, so there is nothing new to carry over",
+      "files": [
+        "prismqda-api/src/lib.rs:2504"
+      ]
+    },
+    {
+      "template": "This item has only a title; the feed gave no text for it. Feeds often carry a summary instead of the whole article.",
+      "files": [
+        "prismqda-import/src/feed.rs:217"
+      ]
+    },
+    {
+      "template": "this location cannot keep a project safely (journal mode {mode})",
+      "files": [
+        "prismqda-engine/src/project.rs:468"
+      ]
+    },
+    {
+      "template": "This message has no readable text. Its header lines were imported.",
+      "files": [
+        "prismqda-import/src/email.rs:448"
+      ]
+    },
+    {
+      "template": "this method has no phase called '{phase_id}'",
+      "files": [
+        "prismqda-engine/src/template.rs:228",
+        "prismqda-engine/src/template.rs:256"
+      ]
+    },
+    {
+      "template": "this packet already has an answer; build a new packet to ask again",
+      "files": [
+        "prismqda-engine/src/ai.rs:506",
+        "prismqda-engine/src/theme_ai.rs:194"
+      ]
+    },
+    {
+      "template": "this packet asked for themes; paste its answer on the Themes page",
+      "files": [
+        "prismqda-engine/src/ai.rs:503"
+      ]
+    },
+    {
+      "template": "this packet has no coder",
+      "files": [
+        "prismqda-engine/src/ai.rs:516"
+      ]
+    },
+    {
+      "template": "this passage is coded with the code itself, so it is an example of it, not a counterexample",
+      "files": [
+        "prismqda-engine/src/codebook.rs:679"
+      ]
+    },
+    {
+      "template": "this PDF has {count} pages, but the document's words came from page {highest_page}; it is not the same file",
+      "files": [
+        "prismqda-engine/src/pdf.rs:158"
+      ]
+    },
+    {
+      "template": "this PDF has {count} pages, so there is no page {page}",
+      "files": [
+        "prismqda-engine/src/regions.rs:447"
+      ]
+    },
+    {
+      "template": "this procedure needs {expected} variable{value}, and {count} {value2} chosen",
+      "files": [
+        "prismqda-engine/src/statistics.rs:981"
+      ]
+    },
+    {
+      "template": "this project codes whole units, and a section under a heading is a stretch of words, not a unit",
+      "files": [
+        "prismqda-api/src/autocode.rs:238"
+      ]
+    },
+    {
+      "template": "this project codes whole units, so a suggestion can cover the matched words or the whole unit, not a sentence, paragraph, or number of words",
+      "files": [
+        "prismqda-api/src/autocode.rs:178"
+      ]
+    },
+    {
+      "template": "this project codes whole units, so every coding needs a unit",
+      "files": [
+        "prismqda-engine/src/ops.rs:525"
+      ]
+    },
+    {
+      "template": "this project follows a method called '{id}' that this version does not have",
+      "files": [
+        "prismqda-engine/src/template.rs:145"
+      ]
+    },
+    {
+      "template": "This project has no cases to analyze. Statistics works on cases (a person, a site, a family) and the variables they carry; add cases when importing a spreadsheet, or on the Data page.",
+      "files": [
+        "prismqda-engine/src/statistics.rs:360"
+      ]
+    },
+    {
+      "template": "this project is already encrypted; to use another passphrase, change it",
+      "files": [
+        "prismqda-engine/src/crypto.rs:213"
+      ]
+    },
+    {
+      "template": "this project is encrypted: type its passphrase to open it",
+      "files": [
+        "prismqda-engine/src/error.rs:28"
+      ]
+    },
+    {
+      "template": "this project is not encrypted",
+      "files": [
+        "prismqda-engine/src/crypto.rs:239"
+      ]
+    },
+    {
+      "template": "this project is open read-only: {value}",
+      "files": [
+        "prismqda-engine/src/error.rs:21"
+      ]
+    },
+    {
+      "template": "this query is frozen, so what it asks cannot be changed; unfreeze it first",
+      "files": [
+        "prismqda-engine/src/saved.rs:183"
+      ]
+    },
+    {
+      "template": "this query is not frozen, so there is nothing to compare",
+      "files": [
+        "prismqda-engine/src/saved.rs:303"
+      ]
+    },
+    {
+      "template": "this recording was already imported as source {existing}; import it again only if that is what you mean",
+      "files": [
+        "prismqda-api/src/lib.rs:2444"
+      ]
+    },
+    {
+      "template": "This reference has no abstract, so there is little text to code. Its details are kept as variables of its case.",
+      "files": [
+        "prismqda-import/src/reference.rs:849"
+      ]
+    },
+    {
+      "template": "this source has units in reliability run {run}, which has not been archived, so its text cannot change; archive the run first",
+      "files": [
+        "prismqda-engine/src/edit.rs:315"
+      ]
+    },
+    {
+      "template": "this suggestion has already been decided",
+      "files": [
+        "prismqda-engine/src/theme_ai.rs:317"
+      ]
+    },
+    {
+      "template": "Took away the anchor example",
+      "files": [
+        "prismqda-engine/src/undo.rs:51"
+      ]
+    },
+    {
+      "template": "Took away the counterexample",
+      "files": [
+        "prismqda-engine/src/undo.rs:53"
+      ]
+    },
+    {
+      "template": "Took back an accepted suggestion",
+      "files": [
+        "prismqda-engine/src/undo.rs:69"
+      ]
+    },
+    {
+      "template": "Took back the change to the variable",
+      "files": [
+        "prismqda-engine/src/undo.rs:96"
+      ]
+    },
+    {
+      "template": "Took back the decision on the area or stretch",
+      "files": [
+        "prismqda-engine/src/undo.rs:68"
+      ]
+    },
+    {
+      "template": "Took back the decision on the unit",
+      "files": [
+        "prismqda-engine/src/undo.rs:67"
+      ]
+    },
+    {
+      "template": "Took back the freeze of the query",
+      "files": [
+        "prismqda-engine/src/undo.rs:76"
+      ]
+    },
+    {
+      "template": "Took back the link to the recording",
+      "files": [
+        "prismqda-engine/src/undo.rs:80"
+      ]
+    },
+    {
+      "template": "Took back the suggestions that were made",
+      "files": [
+        "prismqda-engine/src/undo.rs:71"
+      ]
+    },
+    {
+      "template": "Took the codes off the map",
+      "files": [
+        "prismqda-engine/src/undo.rs:93"
+      ]
+    },
+    {
+      "template": "Took the node off the map",
+      "files": [
+        "prismqda-engine/src/undo.rs:85"
+      ]
+    },
+    {
+      "template": "Took the source out of the case",
+      "files": [
+        "prismqda-engine/src/undo.rs:97"
+      ]
+    },
+    {
+      "template": "type something to search for",
+      "files": [
+        "prismqda-engine/src/search.rs:252"
+      ]
+    },
+    {
+      "template": "type the full path of the file to write, for example C:\\Documents\\report.pdf",
+      "files": [
+        "prismqda-api/src/lib.rs:1301"
+      ]
+    },
+    {
+      "template": "type the full path of the file to write, for example C:\\Pictures\\street.png",
+      "files": [
+        "prismqda-api/src/lib.rs:1269"
+      ]
+    },
+    {
+      "template": "type the full path of the file, for example C:\\Data\\wave2.xlsx",
+      "files": [
+        "prismqda-api/src/datatools.rs:107"
+      ]
+    },
+    {
+      "template": "type the full path of the file, for example C:\\Translations\\fr.csv",
+      "files": [
+        "prismqda-api/src/text_files.rs:23"
+      ]
+    },
+    {
+      "template": "type the full path of the PDF, for example C:\\Documents\\report.pdf",
+      "files": [
+        "prismqda-api/src/lib.rs:1283"
+      ]
+    },
+    {
+      "template": "type the full path of the recording, for example C:\\Recordings\\interview-1.mp3",
+      "files": [
+        "prismqda-api/src/media.rs:147",
+        "prismqda-engine/src/media.rs:206"
+      ]
+    },
+    {
+      "template": "unit {unit_id} belongs to a different source",
+      "files": [
+        "prismqda-engine/src/ops.rs:540"
+      ]
+    },
+    {
+      "template": "unit {unit_id} is excluded from coding",
+      "files": [
+        "prismqda-engine/src/ops.rs:543"
+      ]
+    },
+    {
+      "template": "variable '{name}' declares more than three missing values; only the first three were carried over",
+      "files": [
+        "prismqda-import/src/sav.rs:963"
+      ]
+    },
+    {
+      "template": "variable '{value}' declares the range {lo} through {hi} as missing; PrismQDA keeps single missing values only, so {kept} was carried over and values inside the range are not marked as missing",
+      "files": [
+        "prismqda-import/src/sav.rs:792"
+      ]
+    },
+    {
+      "template": "what takes the place of the words can be at most {MAX_REPLACEMENT_CHARS} characters",
+      "files": [
+        "prismqda-engine/src/deid.rs:425"
+      ]
+    },
+    {
+      "template": "what takes the place of the words cannot contain a comma, a double quote, a tab, or a line break, because it could break the columns of a spreadsheet",
+      "files": [
+        "prismqda-engine/src/deid.rs:432"
+      ]
+    },
+    {
+      "template": "whether a case has a code, and how many excerpts carry it, are measures of one code; to put a set of codes in one variable, choose the code each case has most",
+      "files": [
+        "prismqda-engine/src/variables.rs:444"
+      ]
+    },
+    {
+      "template": "write the words of the note",
+      "files": [
+        "prismqda-engine/src/concept_map.rs:271",
+        "prismqda-engine/src/concept_map.rs:330"
+      ]
+    }
+  ]
+}

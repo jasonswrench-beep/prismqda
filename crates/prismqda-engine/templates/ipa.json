@@ -1,0 +1,57 @@
+{
+  "id": "ipa",
+  "name": "Interpretative phenomenological analysis",
+  "summary": "A close reading of one person's account at a time, moving from notes to experiential statements to themes for that person, and only then looking across people.",
+  "vocabulary": { "code": "note", "theme": "experiential theme", "codebook": "list of themes" },
+  "rules": {
+    "coding_mode": null,
+    "require_definition": false,
+    "require_inclusion_exclusion": false,
+    "require_anchor": false,
+    "reliability_tools": "hidden",
+    "ai_coding": "off"
+  },
+  "seed_codes": [
+    { "name": "Descriptive note", "definition": "A note about the content: what the person said, the events and things they talk about." },
+    { "name": "Linguistic note", "definition": "A note about how it is said: word choice, metaphor, tone, pauses, repetition." },
+    { "name": "Conceptual note", "definition": "A note about your interpretation: what it might mean to the person, at a more abstract level." }
+  ],
+  "notes": [
+    "The three note types above are added as codes when you choose this method. Use them on each line of the account.",
+    "Not yet built for this method: keeping one case open at a time until its themes are set, and holding back the cross-case table until every case is done. Work through the phases in order to keep to the method."
+  ],
+  "phases": [
+    {
+      "id": "exploratory_notes",
+      "title": "Case by case: exploratory notes",
+      "goal": "Read one account closely and annotate it with descriptive, linguistic, and conceptual notes.",
+      "tools": ["coding", "memos"],
+      "memo_prompts": ["What is this person's world like, in their own terms?"],
+      "exit_checklist": ["Read the account several times", "Added all three kinds of notes to each part of it"]
+    },
+    {
+      "id": "experiential_statements",
+      "title": "Experiential statements",
+      "goal": "Turn the notes into short statements that capture what the person's experience was like.",
+      "tools": ["codebook", "memos"],
+      "memo_prompts": ["Does each statement stay close to the person's words and still say something interpretive?"],
+      "exit_checklist": ["Wrote experiential statements for this case", "Kept the link from each statement to its extract"]
+    },
+    {
+      "id": "personal_themes",
+      "title": "Personal experiential themes",
+      "goal": "Cluster the statements into themes for this one person.",
+      "tools": ["canvas", "codebook", "memos"],
+      "memo_prompts": ["Which statements belong together, and what names them?"],
+      "exit_checklist": ["Clustered the statements", "Named the personal themes", "Tabled each theme with its extracts"]
+    },
+    {
+      "id": "group_themes",
+      "title": "Group experiential themes",
+      "goal": "Only after every case is done, look for patterns across the cases while keeping each person's account visible.",
+      "tools": ["queries", "canvas", "memos"],
+      "memo_prompts": ["Where do accounts converge, and where do they differ?"],
+      "exit_checklist": ["Finished every case first", "Built the cross-case table", "Kept extracts from each case in every group theme"]
+    }
+  ]
+}

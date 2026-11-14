@@ -1,0 +1,30 @@
+/target
+*.log
+test-log.txt
+# Test and scratch projects
+*.pqda
+*.pqda-wal
+*.pqda-shm
+*.backups/
+
+# Helper worktrees made while building
+/.claude/
+
+# The desktop app builds in its own workspace.
+/app/src-tauri/target/
+/app/src-tauri/gen/
+/app/ui/node_modules/
+/app/ui/dist/
+/app/ui/test-results/
+
+# Local AI-assistant files and credentials: never commit these
+CLAUDE.local.md
+.env
+.env.*
+*.pem
+*.key
+!.env.example
+__pycache__/
+
+# The website session's working files: not part of the program's repository.
+/website/

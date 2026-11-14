@@ -1,0 +1,407 @@
+{
+  "comment": "Strings that look like words and are not words for the person. Each says why.",
+  "entries": [
+    {
+      "file": "components/Waveform.tsx",
+      "text": "ArrowRight",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/Waveform.tsx",
+      "text": "ArrowUp",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/Waveform.tsx",
+      "text": "ArrowLeft",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/Waveform.tsx",
+      "text": "ArrowDown",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/Waveform.tsx",
+      "text": "Home",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/Waveform.tsx",
+      "text": "End",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "App.tsx",
+      "text": "INPUT",
+      "why": "the name of an HTML tag, compared with the tag of the element that has the focus"
+    },
+    {
+      "file": "App.tsx",
+      "text": "TEXTAREA",
+      "why": "the name of an HTML tag, compared with the tag of the element that has the focus"
+    },
+    {
+      "file": "App.tsx",
+      "text": "SELECT",
+      "why": "the name of an HTML tag, compared with the tag of the element that has the focus"
+    },
+    {
+      "file": "components/CodePickerDialog.tsx",
+      "text": "Enter",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/DetailPanel.tsx",
+      "text": "ArrowRight",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/DetailPanel.tsx",
+      "text": "ArrowUp",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/DetailPanel.tsx",
+      "text": "ArrowLeft",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/DetailPanel.tsx",
+      "text": "ArrowDown",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/DetailPanel.tsx",
+      "text": "Home",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/DetailPanel.tsx",
+      "text": "End",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/DetailPanel.tsx",
+      "text": "Delete",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/DetailPanel.tsx",
+      "text": "Backspace",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/ImageView.tsx",
+      "text": "PageDown",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/Reader.tsx",
+      "text": "ArrowRight",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/Reader.tsx",
+      "text": "ArrowLeft",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/Reader.tsx",
+      "text": "Home",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/Reader.tsx",
+      "text": "End",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/Reader.tsx",
+      "text": "Delete",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/SettingsView.tsx",
+      "text": "Enter",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/Splitter.tsx",
+      "text": "ArrowUp",
+      "why": "the name of a key"
+    },
+    {
+      "file": "components/Splitter.tsx",
+      "text": "ArrowDown",
+      "why": "the name of a key"
+    },
+    {
+      "file": "components/Splitter.tsx",
+      "text": "ArrowLeft",
+      "why": "the name of a key"
+    },
+    {
+      "file": "components/Splitter.tsx",
+      "text": "ArrowRight",
+      "why": "the name of a key"
+    },
+    {
+      "file": "components/Splitter.tsx",
+      "text": "Home",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/Splitter.tsx",
+      "text": "End",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/StartScreen.tsx",
+      "text": "Home",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/explore/ConceptMap.tsx",
+      "text": "Enter",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/explore/ConceptMap.tsx",
+      "text": "Delete",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/explore/ConceptMap.tsx",
+      "text": "Backspace",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "lib/shortcuts.ts",
+      "text": "Enter",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "surface/TextSurface.tsx",
+      "text": "Escape",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "bridge.ts",
+      "text": "ApiError",
+      "why": "the name of an error class"
+    },
+    {
+      "file": "main.tsx",
+      "text": "The page has no #root element.",
+      "why": "a developer error, never shown in a working program"
+    },
+    {
+      "file": "App.tsx",
+      "text": "PrismQDA",
+      "why": "the program's name, which is not translated"
+    },
+    {
+      "file": "components/ExportDialog.tsx",
+      "text": "PrismQDA",
+      "why": "the program's name, which is not translated"
+    },
+    {
+      "file": "components/RetrievedPane.tsx",
+      "text": "source",
+      "why": "a sort key, matched against the key of a column"
+    },
+    {
+      "file": "components/RetrievedPane.tsx",
+      "text": "code",
+      "why": "a sort key, matched against the key of a column"
+    },
+    {
+      "file": "components/RetrievedPane.tsx",
+      "text": "case",
+      "why": "a sort key, matched against the key of a column"
+    },
+    {
+      "file": "components/RetrievedPane.tsx",
+      "text": "excerpt",
+      "why": "a sort key, matched against the key of a column"
+    },
+    {
+      "file": "components/RetrievedPane.tsx",
+      "text": "notes",
+      "why": "a sort key, matched against the key of a column"
+    },
+    {
+      "file": "components/common.tsx",
+      "text": "src-text",
+      "why": "the name of an icon"
+    },
+    {
+      "file": "components/common.tsx",
+      "text": "src-pdf",
+      "why": "the name of an icon"
+    },
+    {
+      "file": "components/common.tsx",
+      "text": "src-survey",
+      "why": "the name of an icon"
+    },
+    {
+      "file": "components/common.tsx",
+      "text": "src-transcript",
+      "why": "the name of an icon"
+    },
+    {
+      "file": "components/common.tsx",
+      "text": "src-social",
+      "why": "the name of an icon"
+    },
+    {
+      "file": "App.tsx",
+      "text": "${} - PrismQDA",
+      "why": "the window title: the project's name and the program's name"
+    },
+    {
+      "file": "App.tsx",
+      "text": "PrismQDA",
+      "why": "the program's name"
+    },
+    {
+      "file": "components/FloatingCodeBar.tsx",
+      "text": "R",
+      "why": "the letter on a key"
+    },
+    {
+      "file": "components/explore/Matrix.tsx",
+      "text": "var:${}",
+      "why": "an identifier that tells the table which variable the rows come from"
+    },
+    {
+      "file": "state/commands.ts",
+      "text": "no command ${}",
+      "why": "a developer error, never shown in a working program"
+    },
+    {
+      "file": "components/VariablesView.tsx",
+      "text": "Enter",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/VariablesView.tsx",
+      "text": "Tab",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/VariablesView.tsx",
+      "text": "Escape",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/StatExportDialog.tsx",
+      "text": "PrismQDA",
+      "why": "the name of the product, used as the name of a file when nothing else names it"
+    },
+    {
+      "file": "lib/statExport.ts",
+      "text": "'Segoe UI', Arial, Helvetica, sans-serif",
+      "why": "the names of fonts, written into a chart saved as a picture"
+    },
+    {
+      "file": "components/StatNotebookParts.tsx",
+      "text": "Enter",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/ImageView.tsx",
+      "text": "PageUp",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/ImageView.tsx",
+      "text": "Home",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/ImageView.tsx",
+      "text": "Enter",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/ImageView.tsx",
+      "text": "Escape",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/DataTools.tsx",
+      "text": "Case",
+      "why": "the engine's name for the column that holds the name of each case"
+    },
+    {
+      "file": "components/DataTools.tsx",
+      "text": "table.${}",
+      "why": "a file name suggested to the save window, made of a name and the ending of the kind of file"
+    },
+    {
+      "file": "components/VariablesView.tsx",
+      "text": "Case",
+      "why": "the engine's name for the column that holds the name of each case, used as a key of a sort"
+    },
+    {
+      "file": "components/ClipTools.tsx",
+      "text": "Enter",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/PrivacyView.tsx",
+      "text": "C:\\Private\\key.csv",
+      "why": "an example of a Windows path, shown in an empty field; not words"
+    },
+    {
+      "file": "components/explore/Portrait.tsx",
+      "text": "ArrowRight",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/explore/Portrait.tsx",
+      "text": "ArrowLeft",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/explore/Portrait.tsx",
+      "text": "Home",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "components/explore/Portrait.tsx",
+      "text": "End",
+      "why": "the name of a key, compared with the key that was pressed"
+    },
+    {
+      "file": "lib/workingSet.ts",
+      "text": "the working set leaves no code to ask about",
+      "why": "the internal message of an error that is caught and replaced with the sentence for the person (state/workingSet.ts)"
+    },
+    {
+      "file": "lib/workingSet.ts",
+      "text": "WorkingSetEmpty",
+      "why": "the name of an error class"
+    },
+    {
+      "file": "components/pointerDrag.ts",
+      "text": "Escape",
+      "why": "the name of a key, compared with the key that was pressed"
+    }
+  ],
+  "dynamic": [
+    {
+      "file": "components/HomeView.tsx",
+      "code": "t(label)",
+      "why": "label is one of the two values marked with N_() in the same file"
+    },
+    {
+      "file": "state/commands.ts",
+      "code": "t(label)",
+      "why": "label is one of the four values marked with N_() in the same table"
+    }
+  ]
+}

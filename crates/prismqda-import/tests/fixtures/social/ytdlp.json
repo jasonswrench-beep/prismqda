@@ -1,0 +1,18 @@
+{
+  "id": "vid001",
+  "title": "Garden tour: spring beds",
+  "channel": "Green Thumb Club",
+  "upload_date": "20240305",
+  "comment_count": 8,
+  "comments": [
+    {"id": "c1", "parent": "root", "text": "Great tour, merci beaucoup! 🌱", "author": "@zoe", "author_id": "UC1", "timestamp": 1709640000, "_time_text": "1 year ago", "like_count": 12},
+    {"id": "c1.r1", "parent": "c1", "text": "Merci à toi 你好", "author": "@marc", "author_id": "UC2", "timestamp": 1709650000, "_time_text": "11 months ago", "like_count": 3},
+    {"id": "c2", "parent": "root", "text": "First line\r\nsecond line   ", "author": "@ana", "author_id": "UC3", "timestamp": 1709660000, "_time_text": "1 year ago", "like_count": null},
+    {"id": "c1.r2", "parent": "c1", "text": "Reply two", "author": "@ben", "author_id": "UC4", "timestamp": 1709670000, "_time_text": "10 months ago (edited)", "like_count": 0},
+    {"id": "c1.r1.r1", "parent": "c1.r1", "text": "Nested reply", "author": "@zoe", "author_id": "UC1", "timestamp": 1709680000, "_time_text": "10 months ago", "like_count": 1},
+    {"id": "c3", "parent": "ghost", "text": "Reply to a comment that is not in the file", "author": "@cy", "author_id": "UC5", "timestamp": 1709690000, "_time_text": "9 months ago", "like_count": 2},
+    {"id": "c4", "parent": "root", "text": "   ", "author": "@dee", "author_id": "UC6", "timestamp": 1709700000, "_time_text": "9 months ago", "like_count": 0},
+    {"id": "c5", "parent": "c4", "text": "Reply to the comment without text", "author": "@eli", "author_id": "UC7", "timestamp": 1709710000, "_time_text": "8 months ago", "like_count": 4},
+    "this entry is not a comment"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "free",
+  "name": "Free mode",
+  "summary": "Every tool is on, with no phases and no required fields. Use this when no named method fits, or when you want to work your own way.",
+  "vocabulary": { "code": "code", "theme": "theme", "codebook": "codebook" },
+  "rules": {
+    "coding_mode": null,
+    "require_definition": false,
+    "require_inclusion_exclusion": false,
+    "require_anchor": false,
+    "reliability_tools": "shown",
+    "ai_coding": "allowed"
+  },
+  "seed_codes": [],
+  "notes": [],
+  "phases": []
+}

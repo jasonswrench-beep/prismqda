@@ -1,0 +1,109 @@
+{
+  "id": "reflexive_ta",
+  "name": "Reflexive thematic analysis",
+  "summary": "Braun and Clarke's six phases. Codes stay close to the data and may change as you read; themes are patterns of shared meaning that you construct. The method does not rely on coder agreement.",
+  "vocabulary": { "code": "code", "theme": "theme", "codebook": "codebook" },
+  "rules": {
+    "coding_mode": null,
+    "require_definition": false,
+    "require_inclusion_exclusion": false,
+    "require_anchor": false,
+    "reliability_tools": "hidden",
+    "ai_coding": "off"
+  },
+  "seed_codes": [],
+  "notes": [
+    "Agreement between coders is hidden by default because reflexive thematic analysis does not treat coding as something to be reproduced. It is still available if your design needs it.",
+    "AI coding starts switched off. Turn it on only if you can explain in your write-up how it fits a reflexive approach."
+  ],
+  "phases": [
+    {
+      "id": "familiarization",
+      "title": "Familiarization with the data",
+      "goal": "Read and re-read the material, noting first impressions without coding yet.",
+      "tools": ["memos", "search"],
+      "memo_prompts": [
+        "What stands out to you, and why might it stand out to you in particular?",
+        "What assumptions are you bringing to this material?"
+      ],
+      "exit_checklist": [
+        "Read every source at least once",
+        "Wrote a familiarization note for each source",
+        "Wrote a reflexive journal entry about your starting assumptions"
+      ]
+    },
+    {
+      "id": "initial_coding",
+      "title": "Initial coding",
+      "goal": "Code anything that seems interesting about the data, keeping codes close to the participants' words.",
+      "tools": ["coding", "codebook", "memos"],
+      "memo_prompts": [
+        "How is your own position shaping what you code?",
+        "Which codes are you unsure about, and what would help you decide?"
+      ],
+      "exit_checklist": [
+        "Coded the whole dataset",
+        "Gave each settled code a short definition",
+        "Wrote a reflexive memo about how your position shapes your coding"
+      ]
+    },
+    {
+      "id": "constructing_themes",
+      "title": "Constructing themes",
+      "goal": "Group codes into candidate themes: patterns of shared meaning organised around a central idea.",
+      "tools": ["codebook", "canvas", "memos"],
+      "memo_prompts": [
+        "What is the central idea that holds this candidate theme together?",
+        "Which codes did not fit anywhere, and what might that tell you?"
+      ],
+      "exit_checklist": [
+        "Drafted candidate themes on the canvas",
+        "Gathered the coded extracts for each candidate theme",
+        "Wrote a memo on why you grouped codes this way"
+      ]
+    },
+    {
+      "id": "reviewing_themes",
+      "title": "Reviewing themes",
+      "goal": "Check the candidate themes against the coded extracts and against the whole dataset.",
+      "tools": ["queries", "canvas", "memos"],
+      "memo_prompts": [
+        "Does each theme tell a coherent story? Where does it break down?",
+        "What does the dataset say that no theme captures?"
+      ],
+      "exit_checklist": [
+        "Checked each theme against its coded extracts",
+        "Checked the themes against the whole dataset",
+        "Merged, split, or dropped themes where needed"
+      ]
+    },
+    {
+      "id": "defining_themes",
+      "title": "Defining and naming themes",
+      "goal": "Say what each theme is about, how it fits the larger story, and give it a name that carries its meaning.",
+      "tools": ["codebook", "memos"],
+      "memo_prompts": [
+        "In a few sentences, what is this theme, and what is it not?"
+      ],
+      "exit_checklist": [
+        "Wrote a definition for every theme",
+        "Chose a name for every theme",
+        "Chose vivid extracts for every theme"
+      ]
+    },
+    {
+      "id": "writing_up",
+      "title": "Writing up",
+      "goal": "Weave the analysis and the extracts into a report that tells the story.",
+      "tools": ["reports", "memos"],
+      "memo_prompts": [
+        "What would a reader need to know about you to judge this analysis?"
+      ],
+      "exit_checklist": [
+        "Drafted the methods section from the record",
+        "Wrote the reflexivity statement",
+        "Selected the final extracts"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "id": "grounded_theory",
+  "name": "Grounded theory",
+  "summary": "Theory is built from the data through constant comparison: code closely, raise the important codes into categories, link the categories, collect more data to test them, and stop when new material adds nothing.",
+  "vocabulary": { "code": "code", "theme": "category", "codebook": "codebook" },
+  "rules": {
+    "coding_mode": null,
+    "require_definition": false,
+    "require_inclusion_exclusion": false,
+    "require_anchor": false,
+    "reliability_tools": "hidden",
+    "ai_coding": "off"
+  },
+  "seed_codes": [],
+  "notes": [
+    "Choose your tradition at the start (constructivist or Straussian) and say so in your write-up; the phases below are the same, but how you treat your own interpretation differs.",
+    "Not yet built for this method: the in-vivo shortcut prompts, constant-comparison prompts when a code is applied, labeled links between categories, and the saturation chart. The phases, prompts, and checklists work now."
+  ],
+  "phases": [
+    {
+      "id": "initial_coding",
+      "title": "Initial coding",
+      "goal": "Code line by line or incident by incident, using the participants' own words where you can.",
+      "tools": ["coding", "memos"],
+      "memo_prompts": ["What is happening here? What does this person seem to be doing or facing?"],
+      "exit_checklist": ["Coded the first sources closely", "Wrote memos on the most puzzling incidents"]
+    },
+    {
+      "id": "focused_coding",
+      "title": "Focused coding",
+      "goal": "Use the most frequent and most telling codes to sort through large amounts of data.",
+      "tools": ["coding", "codebook", "queries", "memos"],
+      "memo_prompts": ["Which codes explain the most? Which ones are doing the same work under different names?"],
+      "exit_checklist": ["Chose the focused codes", "Compared incidents within each focused code", "Memoed the properties of each"]
+    },
+    {
+      "id": "theoretical_coding",
+      "title": "Theoretical (axial) coding",
+      "goal": "Relate categories to one another: conditions, actions, and consequences.",
+      "tools": ["codebook", "canvas", "memos"],
+      "memo_prompts": ["How does this category relate to the others? Under what conditions?"],
+      "exit_checklist": ["Linked the categories", "Drafted a map of the categories", "Memoed the relationships"]
+    },
+    {
+      "id": "theoretical_sampling",
+      "title": "Theoretical sampling",
+      "goal": "Decide what to collect next in order to test and fill out the categories.",
+      "tools": ["memos", "queries"],
+      "memo_prompts": ["What do you not know yet? Who or what could tell you?"],
+      "exit_checklist": ["Listed the gaps in each category", "Chose the next cases or sources to collect"]
+    },
+    {
+      "id": "saturation",
+      "title": "Saturation",
+      "goal": "Judge whether new material is still changing your categories, and say how you decided.",
+      "tools": ["queries", "memos"],
+      "memo_prompts": ["What did the latest sources add that was new?"],
+      "exit_checklist": ["Checked that recent sources raised no new categories", "Recorded your reasoning about saturation"]
+    }
+  ]
+}

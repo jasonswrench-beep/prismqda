@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 432" role="img" aria-labelledby="prismqda-title">
+<title id="prismqda-title">PrismQDA logo</title>
+<defs>
+<linearGradient id="prism-left" x1="256" y1="56" x2="83" y2="369" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#BAF4FF" />
+ <stop offset=".22" stop-color="#66D4FF" />
+ <stop offset=".56" stop-color="#2CBDF8" />
+ <stop offset=".84" stop-color="#13D8DE" />
+ <stop offset="1" stop-color="#4FF8E9" />
+</linearGradient>
+
+<linearGradient id="prism-core" x1="256" y1="57" x2="260" y2="293" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#72CBFF" />
+ <stop offset=".32" stop-color="#208EEB" />
+ <stop offset=".73" stop-color="#2857CC" />
+ <stop offset="1" stop-color="#3845AE" />
+</linearGradient>
+
+<linearGradient id="prism-right" x1="256" y1="56" x2="459" y2="368" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#A7CBFF" />
+ <stop offset=".25" stop-color="#7D6BFA" />
+ <stop offset=".46" stop-color="#B457D4" />
+ <stop offset=".65" stop-color="#EE6092" />
+ <stop offset=".83" stop-color="#FF9645" />
+ <stop offset="1" stop-color="#FFE34B" />
+</linearGradient>
+
+<linearGradient id="prism-base" x1="48" y1="333" x2="464" y2="355" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#11D5CE" />
+ <stop offset=".24" stop-color="#39ABC9" />
+ <stop offset=".47" stop-color="#9268C4" />
+ <stop offset=".65" stop-color="#DB6398" />
+ <stop offset=".83" stop-color="#FF8844" />
+ <stop offset="1" stop-color="#FFDA3D" />
+</linearGradient>
+
+<radialGradient id="prism-base-sheen" cx="257" cy="298" r="187" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#EACFFF" stop-opacity=".16" />
+ <stop offset=".62" stop-color="#D7BFFF" stop-opacity=".05" />
+ <stop offset="1" stop-color="#D7BFFF" stop-opacity="0" />
+</radialGradient>
+
+<linearGradient id="prism-rim" x1="70" y1="170" x2="459" y2="368" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#C5FBFF" />
+ <stop offset=".25" stop-color="#A5E9FF" />
+ <stop offset=".54" stop-color="#CEB9FF" />
+ <stop offset=".78" stop-color="#FFD2B0" />
+ <stop offset="1" stop-color="#FFF391" />
+</linearGradient>
+
+<linearGradient id="prism-left-seam" x1="256" y1="56" x2="76" y2="361" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#D9F6FF" />
+ <stop offset=".6" stop-color="#8DEEFF" />
+ <stop offset="1" stop-color="#93FFF1" />
+</linearGradient>
+
+<linearGradient id="prism-right-seam" x1="256" y1="56" x2="454" y2="365" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#D0DFFF" />
+ <stop offset=".57" stop-color="#E5BAFF" />
+ <stop offset="1" stop-color="#FFF3A4" />
+</linearGradient>
+
+<linearGradient id="prism-base-edge" x1="48" y1="376" x2="464" y2="376" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#7FFFF1" />
+ <stop offset=".4" stop-color="#72C2F3" />
+ <stop offset=".64" stop-color="#F3ADDE" />
+ <stop offset="1" stop-color="#FFF479" />
+</linearGradient>
+
+<radialGradient id="prism-cyan-halo" cx="77" cy="364" r="65" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#19DCDC" stop-opacity=".14" />
+ <stop offset=".45" stop-color="#19DCDC" stop-opacity=".06" />
+ <stop offset="1" stop-color="#19DCDC" stop-opacity="0" />
+</radialGradient>
+
+<radialGradient id="prism-gold-halo" cx="438" cy="363" r="62" gradientUnits="userSpaceOnUse">
+ <stop offset="0" stop-color="#FFC54D" stop-opacity=".14" />
+ <stop offset=".45" stop-color="#FFC54D" stop-opacity=".05" />
+ <stop offset="1" stop-color="#FFC54D" stop-opacity="0" />
+</radialGradient>
+</defs>
+<path d="M0 275 H166 V432 H0 Z" fill="url(#prism-cyan-halo)"/>
+<path d="M360 285 H512 V432 H360 Z" fill="url(#prism-gold-halo)"/>
+<path d="M256 56 L464 376 L48 376 Z" fill="none" stroke="url(#prism-rim)" stroke-width="16" stroke-linejoin="round" opacity=".018"/>
+<path d="M256 56 L464 376 L48 376 Z" fill="none" stroke="url(#prism-rim)" stroke-width="10" stroke-linejoin="round" opacity=".028"/>
+<path d="M256 56 L464 376 L48 376 Z" fill="none" stroke="url(#prism-rim)" stroke-width="6" stroke-linejoin="round" opacity=".065"/>
+<path d="M256 56 L464 376 L48 376 Z" fill="url(#prism-base)"/>
+<path d="M256 56 L213 281 L48 376 Z" fill="url(#prism-left)"/>
+<path d="M256 56 L464 376 L299 281 Z" fill="url(#prism-right)"/>
+<path d="M256 56 L299 281 Q256 301 213 281 Z" fill="url(#prism-core)"/>
+<path d="M48 376 L213 281 Q256 301 299 281 L464 376 Z" fill="url(#prism-base)"/>
+<path d="M48 376 L213 281 Q256 301 299 281 L464 376 Z" fill="url(#prism-base-sheen)"/>
+<path d="M256 56 L213 281 L48 376" fill="none" stroke="url(#prism-left-seam)" stroke-width="13" stroke-linejoin="round" stroke-linecap="round" opacity=".055"/>
+<path d="M256 56 L213 281 L48 376" fill="none" stroke="url(#prism-left-seam)" stroke-width="8" stroke-linejoin="round" stroke-linecap="round" opacity=".10"/>
+<path d="M256 56 L213 281 L48 376" fill="none" stroke="url(#prism-left-seam)" stroke-width="4.2" stroke-linejoin="round" stroke-linecap="round" opacity=".24"/>
+<path d="M256 56 L213 281 L48 376" fill="none" stroke="url(#prism-left-seam)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" opacity=".82"/>
+<path d="M256 56 L299 281 L464 376" fill="none" stroke="url(#prism-right-seam)" stroke-width="13" stroke-linejoin="round" stroke-linecap="round" opacity=".055"/>
+<path d="M256 56 L299 281 L464 376" fill="none" stroke="url(#prism-right-seam)" stroke-width="8" stroke-linejoin="round" stroke-linecap="round" opacity=".10"/>
+<path d="M256 56 L299 281 L464 376" fill="none" stroke="url(#prism-right-seam)" stroke-width="4.2" stroke-linejoin="round" stroke-linecap="round" opacity=".24"/>
+<path d="M256 56 L299 281 L464 376" fill="none" stroke="url(#prism-right-seam)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" opacity=".82"/>
+<path d="M213 281 Q256 301 299 281" fill="none" stroke="url(#prism-right-seam)" stroke-width="13" stroke-linejoin="round" stroke-linecap="round" opacity=".055"/>
+<path d="M213 281 Q256 301 299 281" fill="none" stroke="url(#prism-right-seam)" stroke-width="8" stroke-linejoin="round" stroke-linecap="round" opacity=".10"/>
+<path d="M213 281 Q256 301 299 281" fill="none" stroke="url(#prism-right-seam)" stroke-width="4.2" stroke-linejoin="round" stroke-linecap="round" opacity=".24"/>
+<path d="M213 281 Q256 301 299 281" fill="none" stroke="url(#prism-right-seam)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" opacity=".82"/>
+<path d="M48 376 H464" fill="none" stroke="url(#prism-base-edge)" stroke-width="5" stroke-linecap="round" opacity=".26"/>
+<path d="M256 56 L464 376 L48 376 Z" fill="none" stroke="url(#prism-rim)" stroke-width="2.5" stroke-linejoin="round" opacity=".91"/>
+<path d="M502.957 307H530.543V250.992H561.891C596.06 250.992 618.003 231.661 618.003 201.045C618.003 170.533 596.582 151.307 562.413 151.307H502.957ZM530.543 227.377V174.922H560.846C579.445 174.922 590.835 184.849 590.835 201.045C590.835 217.346 579.445 227.377 560.846 227.377Z" fill="#F8F9FF"/>
+<path d="M634.253 307H660.585V244.514C660.585 227.272 670.303 218.6 682.842 218.6C688.067 218.6 693.291 219.122 695.277 219.436V196.029C693.187 195.82 690.261 195.611 686.708 195.611C672.497 195.611 664.033 202.299 659.958 214.942H659.645V196.656H634.253Z" fill="#F8F9FF"/>
+<path d="M709.228 307H735.56V196.656H709.228ZM722.394 180.251C731.38 180.251 738.172 173.772 738.172 165.204C738.172 156.74 731.38 150.262 722.394 150.262C713.408 150.262 706.616 156.74 706.616 165.204C706.616 173.772 713.408 180.251 722.394 180.251Z" fill="#F8F9FF"/>
+<path d="M801.026 309.612C828.298 309.612 847.838 296.028 847.838 274.503C847.838 258.307 837.703 248.693 815.864 244.096L796.01 240.021C786.815 238.035 781.381 233.96 781.381 227.377C781.381 219.854 788.487 214.002 800.086 214.002C812.102 214.002 820.148 221.212 820.357 231.034H845.122C844.495 208.359 826.209 194.253 799.459 194.253C772.5 194.253 755.049 207.941 755.049 228.213C755.049 244.932 766.126 255.694 787.233 260.083L806.042 263.949C815.341 265.935 821.088 269.801 821.088 276.488C821.088 284.325 813.356 289.863 800.608 289.863C787.442 289.863 779.71 283.698 778.56 272.936H752.542C754.213 296.655 774.171 309.612 801.026 309.612Z" fill="#F8F9FF"/>
+<path d="M864.611 307H890.943V241.17C890.943 225.392 901.079 216.823 912.991 216.823C924.694 216.823 933.054 224.66 933.054 236.677V307H958.654V239.289C958.654 226.123 966.909 216.823 980.284 216.823C991.569 216.823 1000.764 223.302 1000.764 237.931V307H1027.201V234.169C1027.201 208.255 1011.109 194.462 990.211 194.462C974.119 194.462 960.953 202.612 955.101 215.36C950.504 202.717 938.278 194.462 923.336 194.462C909.438 194.462 896.795 201.567 890.107 215.778V196.656H864.611Z" fill="#F8F9FF"/>
+<path d="M1114.446 309.194C1125.418 309.194 1135.449 306.791 1144.331 302.298L1158.751 321.629H1174.634L1154.989 295.506C1172.439 281.608 1183.098 258.098 1183.098 229.258C1183.098 182.132 1154.78 149.112 1114.446 149.112C1074.112 149.112 1045.795 182.132 1045.795 229.258C1045.795 276.175 1074.112 309.194 1114.446 309.194ZM1111.103 258.307 1136.076 291.326C1129.493 294.356 1122.179 295.924 1114.446 295.924C1083.621 295.924 1059.901 270.95 1059.901 229.258C1059.901 187.252 1083.83 162.383 1114.446 162.383C1145.062 162.383 1168.991 187.356 1168.991 229.258C1168.991 254.336 1160.318 273.354 1146.839 284.534L1126.985 258.307Z" fill="#F8F9FF"/>
+<path d="M1252.948 307C1299.865 307 1326.824 277.742 1326.824 228.735C1326.824 180.46 1300.283 151.307 1255.665 151.307H1207.389V307ZM1221.496 294.252V164.055H1254.829C1292.759 164.055 1312.717 188.506 1312.717 228.735C1312.717 269.487 1292.341 294.252 1252.112 294.252Z" fill="#F8F9FF"/>
+<path d="M1337.009 307H1351.847L1368.67 260.814H1436.799L1453.413 307H1468.46L1411.094 151.307H1394.689ZM1373.268 248.066 1389.255 204.284C1393.121 193.521 1397.196 181.818 1402.944 164.473C1408.586 181.818 1412.661 193.521 1416.528 204.284L1432.201 248.066Z" fill="#F8F9FF"/>
+</svg>
