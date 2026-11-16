@@ -1892,7 +1892,18 @@ export interface FolderImportResult {
   units_created: number;
 }
 
-export type ExportFormat = 'xlsx' | 'docx' | 'csv' | 'qdc' | 'qdpx';
+export type ExportFormat = 'xlsx' | 'docx' | 'csv' | 'qdc' | 'qdpx' | 'pstat';
+
+/** What the case table for PrismStatistics holds (decision 193): the numbers, and plain sentences about what was left out or changed. */
+export interface PstatReport {
+  cases: number;
+  variables: number;
+  attributes: number;
+  codes: number;
+  /** An attribute's name and the variable name made from it, for each name that had to change. */
+  renamed: [string, string][];
+  notes: string[];
+}
 
 /** What a codebook file (.qdc) brought into the codebook (decision 160). */
 export interface QdcImportReport {
@@ -3364,6 +3375,7 @@ export interface Commands {
   'export.segments': { args: ExportArgs; result: ExportResult };
   'export.report': { args: ReportArgs; result: ExportResult };
   'export.qdpx': { args: { path: string; overwrite?: boolean; include_recordings?: boolean }; result: ExportResult };
+  'export.pstat': { args: { path: string; overwrite?: boolean; leave_out_names?: boolean; include_descendants?: boolean; app_version?: string }; result: { path: string; bytes: number; report: PstatReport } };
   'import.qdc': { args: { path: string }; result: { report: QdcImportReport } };
   'import.qdpx': { args: { path: string; project_path: string; name?: string }; result: { project_path: string; report: QdpxReport } };
   'export.notebook': { args: { path: string; overwrite?: boolean; format: NotebookFileFormat; notebook: NotebookPayload }; result: ExportResult };

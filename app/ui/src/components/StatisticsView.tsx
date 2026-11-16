@@ -5,12 +5,13 @@ import {
   assumptionLine,
   canBootstrap,
   categoryOptions,
-  goals,
+  goalsInScope,
   isCategorical,
   chosenCasesLine,
   levelText,
   measureWord,
   methodsFor,
+  methodsInScope,
   predictorAccepts,
   resultReading,
   resultSentence,
@@ -23,9 +24,9 @@ import {
   type Goal,
   type GoalInfo,
 } from '../lib/statistics';
-import { goTo } from '../state/actions';
+import { goTo, updateSettings } from '../state/actions';
 import { announce } from '../state/announce';
-import { useApp } from '../state/app';
+import { appStore, useApp } from '../state/app';
 import { analyses, loadNotebook, newSeed, removeFromNotebook, resetStats, runIntoNotebook, statsStore, useStats, type NotebookEntry } from '../state/statistics';
 import type { StatAdjustment, StatOptions, StatPostHoc, StatProcedure, StatRequest, StatResult, StatVariable, StatVariables } from '../types';
 import { Notice } from './common';
@@ -45,6 +46,7 @@ import { compareText, dateTime, num, t, tn } from '../i18n';
  * variables chosen.
  */
 export function StatisticsView() {
+  const scope = useApp((s) => s.settings.statisticsScope);
   const project = useApp((s) => s.project);
   const cases = useApp((s) => s.cases);
   const codes = useApp((s) => s.codes);
@@ -81,8 +83,11 @@ export function StatisticsView() {
     <main id="main-content" tabIndex={-1} className="view-page stats-page" aria-labelledby="h-stats">
       <h2 id="h-stats">{t('Statistics')}</h2>
       <p className="help">
-        {t('Tests on the variables of your cases. Each row is one case, a person or a site or a family, and never a coding: many codings come from one person, and a test would count that person many times. What a case said about a theme enters as one value, whether its documents carry the code, or on how many excerpts.')}
+        {scope === 'tests'
+          ? t('Tests on the variables of your cases. Each row is one case, a person or a site or a family, and never a coding: many codings come from one person, and a test would count that person many times. What a case said about a theme enters as one value, whether its documents carry the code, or on how many excerpts.')
+          : t('Counts, shares, averages, spread, and charts for the variables of your cases. Each row is one case, a person or a site or a family, and never a coding: many codings come from one person. What a case said about a theme enters as one value, whether its documents carry the code, or on how many excerpts.')}
       </p>
+      <ScopeCard />
       <div className="actions">
         <Button onPress={() => goTo('variables')} data-testid="stats-to-editor">{t('Open the data editor')}</Button>
       </div>
@@ -96,6 +101,35 @@ export function StatisticsView() {
         <Chooser data={data} />
       </div>
     </main>
+  );
+}
+
+// ---------------------------------------------------------------- describing here, testing in PrismStatistics
+
+/**
+ * Says what this page is for and where the rest is done (decision 193). PrismQDA describes what is in a study; the tests of difference,
+ * association, and prediction are PrismStatistics's, which opens the case table this page's variables make. A person who wants the tests
+ * here can ask for them, and the page offers them as before.
+ */
+function ScopeCard() {
+  const scope = useApp((s) => s.settings.statisticsScope);
+  return (
+    <section className="ac-card stats-scope" aria-labelledby="h-stats-scope" data-testid="stats-scope">
+      <h3 id="h-stats-scope" className="bk-h3">{t('Describing here, testing in PrismStatistics')}</h3>
+      <p>
+        {scope === 'descriptive'
+          ? t('This page describes: counts and shares for categories, and the mean, spread, and shape of numbers, with charts. The tests of difference, association, and prediction are done in PrismStatistics. Make the case table, open it there, and the variables you see here, and a variable for every code, are ready to test.')
+          : t('This page is also set to offer the tests of difference, association, and prediction. PrismStatistics does them with more to check and report, and opens the case table made from this project: the variables you see here, and a variable for every code.')}
+      </p>
+      <div className="actions">
+        <Button onPress={() => appStore.set({ dialog: { kind: 'export', what: 'casetable' } })} data-testid="stats-send-table">{t('Make the case table for PrismStatistics')}</Button>
+        {scope === 'descriptive' ? (
+          <Button onPress={() => updateSettings({ statisticsScope: 'tests' })} data-testid="stats-show-tests">{t('Show the tests here too')}</Button>
+        ) : (
+          <Button onPress={() => updateSettings({ statisticsScope: 'descriptive' })} data-testid="stats-hide-tests">{t('Only describe here')}</Button>
+        )}
+      </div>
+    </section>
   );
 }
 
@@ -172,7 +206,8 @@ const MAX_PREDICTORS = 20;
 
 function Chooser({ data }: { data: StatVariables | null }) {
   const s = useStats((x) => x);
-  const info = goals();
+  const scope = useApp((x) => x.settings.statisticsScope);
+  const info = goalsInScope(scope);
   const goal = info.find((g) => g.id === s.goal) ?? info[0];
   const byKey = useMemo(() => new Map((data?.variables ?? []).map((v) => [v.key, v])), [data]);
   const picked = goal.roles.map((r) => byKey.get(s.picks[r.id] ?? ''));
@@ -184,7 +219,7 @@ function Chooser({ data }: { data: StatVariables | null }) {
   const groupVar = goal.id === 'compare_groups' ? picked[1] : undefined;
   const allGroups = groupVar?.categories.map((c) => c.value) ?? [];
   const ticked = s.groups === null ? allGroups : s.groups.filter((g) => allGroups.includes(g));
-  const methods = methodsFor(goal.id, picked, goal.id === 'compare_groups' ? ticked.length : listing ? chosenList.length : chosenPredictors.length);
+  const methods = methodsInScope(scope, methodsFor(goal.id, picked, goal.id === 'compare_groups' ? ticked.length : listing ? chosenList.length : chosenPredictors.length));
   const method: StatProcedure | null = methods.find((m) => m.procedure === s.method)?.procedure ?? methods[0]?.procedure ?? null;
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);

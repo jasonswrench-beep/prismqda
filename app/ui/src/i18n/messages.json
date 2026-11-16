@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 5668,
+  "count": 5692,
   "messages": [
     {
       "id": " and {n} more",
@@ -157,7 +157,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2186"
+        "prismqda-api/src/lib.rs:2224"
       ]
     },
     {
@@ -544,7 +544,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2233"
+        "prismqda-api/src/lib.rs:2271"
       ]
     },
     {
@@ -1171,7 +1171,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1666"
+        "prismqda-api/src/lib.rs:1683"
       ]
     },
     {
@@ -1182,7 +1182,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1669"
+        "prismqda-api/src/lib.rs:1686"
       ]
     },
     {
@@ -5431,7 +5431,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1290"
+        "prismqda-api/src/lib.rs:1307"
       ]
     },
     {
@@ -5654,7 +5654,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2521"
+        "prismqda-api/src/lib.rs:2559"
       ]
     },
     {
@@ -5946,7 +5946,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2637"
+        "prismqda-api/src/lib.rs:2675"
       ]
     },
     {
@@ -6708,6 +6708,16 @@
       ]
     },
     {
+      "id": "<span>The case table for PrismStatistics</span><span2>One row for each case, with its variables and, for each code, whether the case has it and how many excerpts carry it. For the tests PrismQDA leaves to PrismStatistics. No passage, memo, or coder is written.</span2>",
+      "marks": [
+        "span",
+        "span2"
+      ],
+      "files": [
+        "components/ExportDialog.tsx"
+      ]
+    },
+    {
       "id": "<span>The codebook</span><span2>Every code with its definition, criteria, and examples.</span2>",
       "marks": [
         "span",
@@ -7156,6 +7166,12 @@
       ],
       "files": [
         "lib/statistics.ts"
+      ]
+    },
+    {
+      "id": "A case is a person, a site, or a family, and never a coding: many codings come from one person. For each code the file says whether any document of the case carries it and on how many excerpts. A case that holds no document has no value for a code.",
+      "files": [
+        "components/ExportDialog.tsx"
       ]
     },
     {
@@ -7635,6 +7651,12 @@
       ]
     },
     {
+      "id": "A file PrismStatistics opens with a double click: one row for each case, and one column for each variable of the cases and for each code.",
+      "files": [
+        "components/ExportDialog.tsx"
+      ]
+    },
+    {
       "id": "A fingerprint of the packet text (SHA-256): <code>{prompt_hash}</code>",
       "blanks": [
         "prompt_hash"
@@ -7802,7 +7824,7 @@
       "id": "a name for the project history is one to sixty characters, on one line",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1202"
+        "prismqda-api/src/lib.rs:1219"
       ]
     },
     {
@@ -8071,7 +8093,7 @@
       "id": "a picture cannot be the new version of a document of words, and a picture's coded areas are tied to the picture they were drawn on; import it as a new document",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2493"
+        "prismqda-api/src/lib.rs:2531"
       ]
     },
     {
@@ -8484,14 +8506,14 @@
       "id": "a spreadsheet becomes several documents and cases, so it cannot be the new version of one document",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2486"
+        "prismqda-api/src/lib.rs:2524"
       ]
     },
     {
       "id": "a spreadsheet or data file needs its columns set up; import it on its own",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2564"
+        "prismqda-api/src/lib.rs:2602"
       ]
     },
     {
@@ -8548,7 +8570,7 @@
       "id": "a table is saved as CSV or Excel",
       "engine": true,
       "files": [
-        "prismqda-export/src/lib.rs:490"
+        "prismqda-export/src/lib.rs:492"
       ]
     },
     {
@@ -10126,6 +10148,12 @@
       ]
     },
     {
+      "id": "Also the tests of difference, association, and prediction (t tests, analysis of variance, regression, and the rest), as before.",
+      "files": [
+        "components/SettingsView.tsx"
+      ]
+    },
+    {
       "id": "Also written: {list}",
       "blanks": [
         "list"
@@ -10230,6 +10258,12 @@
       ]
     },
     {
+      "id": "An excerpt counts for the codes above its code",
+      "files": [
+        "components/ExportDialog.tsx"
+      ]
+    },
+    {
       "id": "An odds ratio above 1 means the odds of {event} rise with the predictor, below 1 that they fall, and 1 means no change. Odds are not probabilities: an odds ratio of 2 doubles the odds, and it doubles the probability only when the outcome is rare. The area under the curve is {auc}, which is {word} at telling the cases with {event} from the others. It shows how the variables go together, not that one causes the other.",
       "blanks": [
         "event",
@@ -10323,7 +10357,7 @@
       "id": "anchor examples are not available for coded areas of pictures yet",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1637"
+        "prismqda-api/src/lib.rs:1654"
       ]
     },
     {
@@ -11736,7 +11770,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2322"
+        "prismqda-api/src/lib.rs:2360"
       ]
     },
     {
@@ -11747,10 +11781,10 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1928",
-        "prismqda-api/src/lib.rs:1932",
-        "prismqda-api/src/lib.rs:1939",
-        "prismqda-api/src/lib.rs:1943"
+        "prismqda-api/src/lib.rs:1966",
+        "prismqda-api/src/lib.rs:1970",
+        "prismqda-api/src/lib.rs:1977",
+        "prismqda-api/src/lib.rs:1981"
       ]
     },
     {
@@ -11761,7 +11795,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2528"
+        "prismqda-api/src/lib.rs:2566"
       ]
     },
     {
@@ -11783,7 +11817,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2661"
+        "prismqda-api/src/lib.rs:2699"
       ]
     },
     {
@@ -11794,7 +11828,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2658"
+        "prismqda-api/src/lib.rs:2696"
       ]
     },
     {
@@ -11900,6 +11934,12 @@
       "id": "Case name",
       "files": [
         "lib/deid.ts"
+      ]
+    },
+    {
+      "id": "case table",
+      "files": [
+        "components/ExportDialog.tsx"
       ]
     },
     {
@@ -13731,7 +13771,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/ops.rs:514",
+        "prismqda-engine/src/ops.rs:516",
         "prismqda-engine/src/regions.rs:464"
       ]
     },
@@ -14483,7 +14523,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/ops.rs:397"
+        "prismqda-engine/src/ops.rs:399"
       ]
     },
     {
@@ -15186,7 +15226,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-export/src/lib.rs:42"
+        "prismqda-export/src/lib.rs:44"
       ]
     },
     {
@@ -15238,7 +15278,7 @@
       "id": "counterexamples are not available for coded areas of pictures yet",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1645"
+        "prismqda-api/src/lib.rs:1662"
       ]
     },
     {
@@ -15312,6 +15352,18 @@
       ],
       "files": [
         "lib/statistics2.ts"
+      ]
+    },
+    {
+      "id": "Counts, shares, averages, spread, and charts for the variables of your cases. Each row is one case, a person or a site or a family, and never a coding: many codings come from one person. What a case said about a theme enters as one value, whether its documents carry the code, or on how many excerpts.",
+      "files": [
+        "components/StatisticsView.tsx"
+      ]
+    },
+    {
+      "id": "Counts, shares, averages, spread, and charts. The tests are done in PrismStatistics, to which Export sends the case table.",
+      "files": [
+        "components/SettingsView.tsx"
       ]
     },
     {
@@ -15874,6 +15926,24 @@
       "id": "Describe one variable",
       "files": [
         "lib/statistics.ts"
+      ]
+    },
+    {
+      "id": "Describing and testing",
+      "files": [
+        "components/SettingsView.tsx"
+      ]
+    },
+    {
+      "id": "Describing here, testing in PrismStatistics",
+      "files": [
+        "components/StatisticsView.tsx"
+      ]
+    },
+    {
+      "id": "Describing the data (the usual)",
+      "files": [
+        "components/SettingsView.tsx"
       ]
     },
     {
@@ -16578,6 +16648,12 @@
       ],
       "files": [
         "components/StatisticsView.tsx"
+      ]
+    },
+    {
+      "id": "Each case is then known by its number only, which PrismQDA also keeps in the file so that a table made later can be matched to this one.",
+      "files": [
+        "components/ExportDialog.tsx"
       ]
     },
     {
@@ -20472,7 +20548,7 @@
       "id": "keep between 1 and 50 backups",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1187"
+        "prismqda-api/src/lib.rs:1204"
       ]
     },
     {
@@ -20831,6 +20907,12 @@
       "id": "Leave out passages I have already coded",
       "files": [
         "components/ai/Packet.tsx"
+      ]
+    },
+    {
+      "id": "Leave out the names of the cases",
+      "files": [
+        "components/ExportDialog.tsx"
       ]
     },
     {
@@ -21910,6 +21992,12 @@
       "id": "Make the area as small or as large as it can be",
       "files": [
         "lib/shortcuts.ts"
+      ]
+    },
+    {
+      "id": "Make the case table for PrismStatistics",
+      "files": [
+        "components/StatisticsView.tsx"
       ]
     },
     {
@@ -23287,6 +23375,15 @@
       ]
     },
     {
+      "id": "Names made from the names of variables: {list}.",
+      "blanks": [
+        "list"
+      ],
+      "files": [
+        "components/ExportDialog.tsx"
+      ]
+    },
+    {
       "id": "Names were last replaced for good on {date}: {count} replacements in {documents}.",
       "forms": {
         "one": "Names were last replaced for good on {date}: {count} replacement in {documents}.",
@@ -24047,7 +24144,7 @@
       "id": "no project is open; create or open one first",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1075"
+        "prismqda-api/src/lib.rs:1092"
       ]
     },
     {
@@ -25293,6 +25390,12 @@
       "files": [
         "components/StatisticsView.tsx",
         "lib/statExport.ts"
+      ]
+    },
+    {
+      "id": "Only describe here",
+      "files": [
+        "components/StatisticsView.tsx"
       ]
     },
     {
@@ -27247,6 +27350,12 @@
       ]
     },
     {
+      "id": "PrismStatistics project",
+      "files": [
+        "components/ExportDialog.tsx"
+      ]
+    },
+    {
       "id": "Privacy & Security",
       "files": [
         "components/SettingsView.tsx"
@@ -27666,7 +27775,7 @@
       "id": "query.update: to change what the query asks, give the draft and the spec together",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1467"
+        "prismqda-api/src/lib.rs:1484"
       ]
     },
     {
@@ -30335,21 +30444,21 @@
       "id": "say where the new project should go",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1946"
+        "prismqda-api/src/lib.rs:1984"
       ]
     },
     {
       "id": "say where the packet should go",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1914"
+        "prismqda-api/src/lib.rs:1952"
       ]
     },
     {
       "id": "say where to save the file",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2623"
+        "prismqda-api/src/lib.rs:2661"
       ]
     },
     {
@@ -31314,6 +31423,12 @@
       "id": "Show the table of every pair",
       "files": [
         "components/JointMore.tsx"
+      ]
+    },
+    {
+      "id": "Show the tests here too",
+      "files": [
+        "components/StatisticsView.tsx"
       ]
     },
     {
@@ -33081,7 +33196,7 @@
       "id": "the captions made no document",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2431"
+        "prismqda-api/src/lib.rs:2469"
       ]
     },
     {
@@ -33283,14 +33398,14 @@
       "id": "the clip is not a WAV file",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2247"
+        "prismqda-api/src/lib.rs:2285"
       ]
     },
     {
       "id": "the clip is not valid base 64",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2245"
+        "prismqda-api/src/lib.rs:2283"
       ]
     },
     {
@@ -33940,7 +34055,7 @@
       "id": "the drawing is not an SVG",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2229"
+        "prismqda-api/src/lib.rs:2267"
       ]
     },
     {
@@ -34066,6 +34181,18 @@
       "engine": true,
       "files": [
         "prismqda-api/src/datatools.rs:215"
+      ]
+    },
+    {
+      "id": "The file holds {cases} cases and {variables} variables: {attributes} variables of the cases and {codes} codes, each with whether a case has it and on how many excerpts.",
+      "blanks": [
+        "cases",
+        "variables",
+        "attributes",
+        "codes"
+      ],
+      "files": [
+        "components/ExportDialog.tsx"
       ]
     },
     {
@@ -34252,7 +34379,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2641",
+        "prismqda-api/src/lib.rs:2679",
         "prismqda-api/src/text_files.rs:75"
       ]
     },
@@ -34270,7 +34397,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2606"
+        "prismqda-api/src/lib.rs:2644"
       ]
     },
     {
@@ -34692,7 +34819,7 @@
       "engine": true,
       "files": [
         "prismqda-api/src/class.rs:118",
-        "prismqda-api/src/lib.rs:1907"
+        "prismqda-api/src/lib.rs:1945"
       ]
     },
     {
@@ -35669,7 +35796,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1288"
+        "prismqda-api/src/lib.rs:1305"
       ]
     },
     {
@@ -35679,7 +35806,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1286"
+        "prismqda-api/src/lib.rs:1303"
       ]
     },
     {
@@ -35702,14 +35829,14 @@
       "id": "the picture is not a PNG",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2223"
+        "prismqda-api/src/lib.rs:2261"
       ]
     },
     {
       "id": "the picture is not valid base 64",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2221"
+        "prismqda-api/src/lib.rs:2259"
       ]
     },
     {
@@ -35908,8 +36035,8 @@
       "id": "the QDC format holds a codebook, not coded segments",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2608",
-        "prismqda-export/src/lib.rs:498"
+        "prismqda-api/src/lib.rs:2646",
+        "prismqda-export/src/lib.rs:500"
       ]
     },
     {
@@ -36096,7 +36223,7 @@
       "id": "the recording made no document",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2452"
+        "prismqda-api/src/lib.rs:2490"
       ]
     },
     {
@@ -36352,7 +36479,7 @@
       "id": "the script does not say where its data is",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2197"
+        "prismqda-api/src/lib.rs:2235"
       ]
     },
     {
@@ -36629,7 +36756,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/ops.rs:496"
+        "prismqda-engine/src/ops.rs:498"
       ]
     },
     {
@@ -36643,7 +36770,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/ops.rs:546"
+        "prismqda-engine/src/ops.rs:548"
       ]
     },
     {
@@ -37828,7 +37955,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2301"
+        "prismqda-api/src/lib.rs:2339"
       ]
     },
     {
@@ -38259,7 +38386,7 @@
       "id": "this document keeps its PDF, and the areas coded on its pages are tied to that file's pages, so another file cannot replace its words; import the new PDF as a new document",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2498"
+        "prismqda-api/src/lib.rs:2536"
       ]
     },
     {
@@ -38298,14 +38425,14 @@
       "id": "this file is over 1.5 GB, more than PrismQDA reads into memory at once",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1941"
+        "prismqda-api/src/lib.rs:1979"
       ]
     },
     {
       "id": "this file is over 64 MB, far more than a codebook holds",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1930"
+        "prismqda-api/src/lib.rs:1968"
       ]
     },
     {
@@ -38315,7 +38442,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2490"
+        "prismqda-api/src/lib.rs:2528"
       ]
     },
     {
@@ -38325,7 +38452,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2462"
+        "prismqda-api/src/lib.rs:2500"
       ]
     },
     {
@@ -38388,7 +38515,7 @@
       "id": "this is the file the document came from, so there is nothing new to carry over",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2504"
+        "prismqda-api/src/lib.rs:2542"
       ]
     },
     {
@@ -38546,6 +38673,18 @@
       ]
     },
     {
+      "id": "This page describes: counts and shares for categories, and the mean, spread, and shape of numbers, with charts. The tests of difference, association, and prediction are done in PrismStatistics. Make the case table, open it there, and the variables you see here, and a variable for every code, are ready to test.",
+      "files": [
+        "components/StatisticsView.tsx"
+      ]
+    },
+    {
+      "id": "This page is also set to offer the tests of difference, association, and prediction. PrismStatistics does them with more to check and report, and opens the case table made from this project: the variables you see here, and a variable for every code.",
+      "files": [
+        "components/StatisticsView.tsx"
+      ]
+    },
+    {
       "id": "This passage … the one I choose",
       "files": [
         "components/PassageLinks.tsx"
@@ -38675,7 +38814,7 @@
       "id": "this project codes whole units, so every coding needs a unit",
       "engine": true,
       "files": [
-        "prismqda-engine/src/ops.rs:525"
+        "prismqda-engine/src/ops.rs:527"
       ]
     },
     {
@@ -38711,6 +38850,13 @@
       "id": "This project has no cases yet. Statistics works on cases and the variables they carry; add cases when you import a spreadsheet, or on the Data page.",
       "files": [
         "components/StatisticsView.tsx"
+      ]
+    },
+    {
+      "id": "This project has no cases, so there is no case table to send. A case is a person, a site or a family: add cases when you import a spreadsheet, or on the Data page.",
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/case_table.rs:81"
       ]
     },
     {
@@ -38909,7 +39055,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2444"
+        "prismqda-api/src/lib.rs:2482"
       ]
     },
     {
@@ -39731,14 +39877,14 @@
       "id": "type the full path of the file to write, for example C:\\Documents\\report.pdf",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1301"
+        "prismqda-api/src/lib.rs:1318"
       ]
     },
     {
       "id": "type the full path of the file to write, for example C:\\Pictures\\street.png",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1269"
+        "prismqda-api/src/lib.rs:1286"
       ]
     },
     {
@@ -39789,7 +39935,7 @@
       "id": "type the full path of the PDF, for example C:\\Documents\\report.pdf",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1283"
+        "prismqda-api/src/lib.rs:1300"
       ]
     },
     {
@@ -40131,7 +40277,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/ops.rs:540"
+        "prismqda-engine/src/ops.rs:542"
       ]
     },
     {
@@ -40141,7 +40287,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/ops.rs:543"
+        "prismqda-engine/src/ops.rs:545"
       ]
     },
     {
@@ -41196,6 +41342,12 @@
       ]
     },
     {
+      "id": "What the Statistics page offers",
+      "files": [
+        "components/SettingsView.tsx"
+      ]
+    },
+    {
       "id": "What the template would make",
       "files": [
         "components/MixedDesign.tsx"
@@ -41744,6 +41896,12 @@
       "id": "with any code",
       "files": [
         "lib/retrieval.ts"
+      ]
+    },
+    {
+      "id": "With this on, an excerpt coded with a sub-code also counts for the code it is under. The file says which you chose.",
+      "files": [
+        "components/ExportDialog.tsx"
       ]
     },
     {

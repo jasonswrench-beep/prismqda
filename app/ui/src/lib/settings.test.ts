@@ -10,7 +10,7 @@ test('nothing stored gives the defaults', () => {
 });
 
 test('good values are kept', () => {
-  const good = { theme: 'dark', textSize: 130, announceCaret: false, lineNumbers: false, textWidth: 'comfortable', showUnits: false, keepBackups: 5, backupFolder: 'D:\Backups', floatingBar: false, codingMode: 'unit', language: 'pt-BR', historyName: 'Ada Lovelace', confidenceLevel: 0.99, bootstrapResamples: 5000, pairMethod: 'tukey', fixedSeed: 17, subcodes: false };
+  const good = { theme: 'dark', textSize: 130, announceCaret: false, lineNumbers: false, textWidth: 'comfortable', showUnits: false, keepBackups: 5, backupFolder: 'D:\Backups', floatingBar: false, codingMode: 'unit', language: 'pt-BR', historyName: 'Ada Lovelace', confidenceLevel: 0.99, bootstrapResamples: 5000, pairMethod: 'tukey', fixedSeed: 17, subcodes: false, statisticsScope: 'tests' };
   assert.deepEqual(normalizeSettings(good), good);
 });
 
@@ -119,4 +119,12 @@ test('the name for the project history is kept on one line and short, and is emp
   assert.equal(normalizeSettings({}).historyName, '');
   assert.equal(cleanHistoryName('Ada \u0000 Lovelace'), 'Ada Lovelace', 'a control character is a space');
   assert.equal(Array.from(cleanHistoryName('\u{1F600}'.repeat(70))).length, 60, 'sixty characters, not sixty code units');
+});
+
+test('the Statistics page describes unless the person asks for the tests, and anything else falls back to describing', () => {
+  assert.equal(DEFAULT_SETTINGS.statisticsScope, 'descriptive');
+  assert.equal(normalizeSettings({}).statisticsScope, 'descriptive');
+  assert.equal(normalizeSettings({ statisticsScope: 'tests' }).statisticsScope, 'tests');
+  assert.equal(normalizeSettings({ statisticsScope: 'descriptive' }).statisticsScope, 'descriptive');
+  for (const bad of ['everything', 7, null, true, undefined]) assert.equal(normalizeSettings({ statisticsScope: bad }).statisticsScope, 'descriptive', String(bad));
 });

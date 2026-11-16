@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { Button, Checkbox, Input, Label, Radio, RadioGroup, Text, TextField } from 'react-aria-components';
 import { call, toApiError } from '../bridge';
-import { cleanHistoryName, CONFIDENCE_LEVELS, KEEP_BACKUP_CHOICES, PAIR_METHOD_IDS, RESAMPLE_CHOICES, TEXT_SIZES, THEMES, type PairMethod, type TextWidth, type Theme } from '../lib/settings';
+import { cleanHistoryName, CONFIDENCE_LEVELS, KEEP_BACKUP_CHOICES, PAIR_METHOD_IDS, RESAMPLE_CHOICES, TEXT_SIZES, THEMES, type PairMethod, type StatisticsScope, type TextWidth, type Theme } from '../lib/settings';
 import { levelText } from '../lib/statistics';
 import { readJson, writeJson } from '../lib/storage';
 import { browsePath, cleanTypedPath, nativeDialogsAvailable } from '../pickFile';
@@ -130,6 +130,18 @@ function AnalysisSection() {
   return (
     <>
       <p className="muted">{t('These are the choices the analysis pages begin with. Each page lets you change them for the analysis in front of you; here you change where it begins. They belong to this computer and not to a project.')}</p>
+      <Group id="h-set-scope" title={t('What the Statistics page offers')} scope={t('This computer')}>
+        <RadioGroup value={settings.statisticsScope} onChange={(v) => updateSettings({ statisticsScope: v as StatisticsScope })} className="field" aria-labelledby="h-set-scope" data-testid="analysis-scope">
+          <Radio value="descriptive">
+            <span className="radio-title">{t('Describing the data (the usual)')}</span>
+            <span className="radio-help">{t('Counts, shares, averages, spread, and charts. The tests are done in PrismStatistics, to which Export sends the case table.')}</span>
+          </Radio>
+          <Radio value="tests">
+            <span className="radio-title">{t('Describing and testing')}</span>
+            <span className="radio-help">{t('Also the tests of difference, association, and prediction (t tests, analysis of variance, regression, and the rest), as before.')}</span>
+          </Radio>
+        </RadioGroup>
+      </Group>
       <Group id="h-set-level" title={t('Confidence level of intervals')} scope={t('This computer')}>
         <RadioGroup value={String(settings.confidenceLevel)} onChange={(v) => updateSettings({ confidenceLevel: Number(v) })} className="field" aria-labelledby="h-set-level" data-testid="analysis-level">
           {CONFIDENCE_LEVELS.map((l) => (

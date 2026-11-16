@@ -342,10 +342,12 @@ impl Project {
         let rating_label = crate::codebook::clean_rating_text(&code.rating_label, "the name of the rating")?;
         let rating_low = crate::codebook::clean_rating_text(&code.rating_low, "the meaning of a 1")?;
         let rating_high = crate::codebook::clean_rating_text(&code.rating_high, "the meaning of a 5")?;
+        // A code's number is never given to another code afterwards, even when Undo removes the code (project format 16).
+        let id = crate::ids::next_id(&tx, crate::ids::Kind::Code)?;
         tx.execute(
-            "INSERT INTO code (name, parent_id, kind, color, definition, inclusion_criteria, exclusion_criteria,
+            "INSERT INTO code (id, name, parent_id, kind, color, definition, inclusion_criteria, exclusion_criteria,
                                exclusive_group, rated, rating_label, rating_low, rating_high, created_at)
-             VALUES (?1, ?2, ?3, COALESCE(?4, '#808080'), ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))",
+             VALUES (?13, ?1, ?2, ?3, COALESCE(?4, '#808080'), ?5, ?6, ?7, ?8, ?9, ?10, ?11, ?12, strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))",
             params![
                 name,
                 code.parent_id,
@@ -358,10 +360,10 @@ impl Project {
                 code.rated as i64,
                 rating_label,
                 rating_low,
-                rating_high
+                rating_high,
+                id
             ],
         )?;
-        let id = tx.last_insert_rowid();
         event::insert(
             &tx,
             &self.actor,

@@ -12,6 +12,7 @@
 mod ai;
 mod autocode;
 mod calendar;
+mod case_table;
 mod cases;
 mod codebook;
 mod concept_map;
@@ -28,6 +29,7 @@ mod explore;
 mod adjudication;
 mod image;
 mod final_layer;
+mod ids;
 mod region_final;
 mod merge;
 mod packet;
@@ -90,6 +92,7 @@ pub use explore::{
 pub use concept_map::{AddedCodes, ConceptMap, MapLink, MapNode, MapRow};
 pub use crosstab::{CaseRef, Crosstab, CrosstabAxis, CrosstabSpec, CrosstabValue};
 pub use calendar::{day_text, month_text, parse_day, parse_number};
+pub use case_table::{CaseTable, CaseTableAttribute, CaseTableCode};
 pub use saved::{Frozen, FrozenComparison, SavedQuery, SavedQueryRow};
 pub use stat_notebook::{NotebookPage, Rerun};
 pub use integration::{

@@ -241,8 +241,8 @@ impl Project {
         }
 
         for case in &batch.cases {
-            tx.execute("INSERT INTO research_case (name) VALUES (?1)", [&case.name])?;
-            let case_id = tx.last_insert_rowid();
+            let case_id = crate::ids::next_id(&tx, crate::ids::Kind::Case)?;
+            tx.execute("INSERT INTO research_case (id, name) VALUES (?1, ?2)", params![case_id, &case.name])?;
             outcome.case_ids.push(case_id);
             for (name, value) in &case.attrs {
                 let spec = batch.case_attributes.iter().find(|a| &a.name == name).expect("validated");

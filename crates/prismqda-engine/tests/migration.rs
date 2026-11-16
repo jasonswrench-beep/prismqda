@@ -56,9 +56,10 @@ fn the_helper_really_builds_a_version_1_file_without_a_rating_column() {
 }
 
 #[test]
-fn schema_version_fifteen_adds_fourteen_migrations_ratings_code_properties_saved_queries_and_maps_ai_recordings_images_adjudication_the_notebook_mixed_methods_pdf_pages_coded_stretches_then_the_list_of_names_then_where_a_theme_stands_then_decisions_on_areas() {
-    assert_eq!(schema::MIGRATIONS.len(), 14);
-    assert_eq!(schema::SCHEMA_VERSION, 15);
+fn schema_version_sixteen_adds_fifteen_migrations_ratings_code_properties_saved_queries_and_maps_ai_recordings_images_adjudication_the_notebook_mixed_methods_pdf_pages_coded_stretches_then_the_list_of_names_then_where_a_theme_stands_then_decisions_on_areas_then_ids_that_are_never_given_again() {
+    assert_eq!(schema::MIGRATIONS.len(), 15);
+    assert_eq!(schema::SCHEMA_VERSION, 16);
+    assert!(schema::MIGRATIONS[14].contains("CREATE TABLE id_floor"));
     assert!(schema::MIGRATIONS[13].contains("CREATE TABLE region_decision"));
     assert!(schema::MIGRATIONS[12].contains("ALTER TABLE code ADD COLUMN theme_stage"));
     assert!(schema::MIGRATIONS[0].contains("ALTER TABLE coding ADD COLUMN rating"));
@@ -319,7 +320,7 @@ fn a_version_3_file_gains_the_saved_query_and_concept_map_tables_and_keeps_an_un
     drop(p);
     // Make it a version 3 file: no saved queries or maps yet, and none of version 5's AI settings.
     let c = Connection::open(&path).unwrap();
-    c.execute_batch("DROP TABLE IF EXISTS region_decision; DROP TABLE IF EXISTS deid_rule; ALTER TABLE project DROP COLUMN deid_exports; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
+    c.execute_batch("DROP TABLE IF EXISTS id_floor; DROP TABLE IF EXISTS region_decision; DROP TABLE IF EXISTS deid_rule; ALTER TABLE project DROP COLUMN deid_exports; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
     c.execute_batch("DROP TABLE IF EXISTS pdf_page; DROP TABLE IF EXISTS pdf_file; DROP TABLE IF EXISTS integration_entry; DROP TABLE IF EXISTS triangulation; DROP TABLE IF EXISTS mixed_design; DROP TABLE IF EXISTS stat_page_run; DROP TABLE IF EXISTS stat_page; DROP TABLE IF EXISTS adjudication_code; DROP TABLE IF EXISTS adjudication; DROP TABLE map_link; DROP TABLE map_node; DROP TABLE concept_map; DROP TABLE saved_query;").unwrap();
     c.execute_batch("ALTER TABLE code DROP COLUMN ai_suggestible; ALTER TABLE project DROP COLUMN ai_mode;").unwrap();
     c.execute_batch("DROP TABLE IF EXISTS pdf_page; DROP TABLE IF EXISTS pdf_file; DROP TABLE IF EXISTS integration_entry; DROP TABLE IF EXISTS triangulation; DROP TABLE IF EXISTS mixed_design; DROP TABLE IF EXISTS stat_page_run; DROP TABLE IF EXISTS stat_page; DROP TABLE IF EXISTS adjudication_code; DROP TABLE IF EXISTS adjudication; DROP TABLE region; DROP TABLE image; DROP TABLE media; ALTER TABLE unit DROP COLUMN time_start_ms; ALTER TABLE unit DROP COLUMN time_end_ms;").unwrap();
@@ -350,7 +351,7 @@ fn a_version_4_file_gains_the_ai_settings_with_nothing_changed_for_the_researche
     drop(p);
     // Make it a version 4 file: no AI columns.
     let c = Connection::open(&path).unwrap();
-    c.execute_batch("DROP TABLE IF EXISTS region_decision; DROP TABLE IF EXISTS deid_rule; ALTER TABLE project DROP COLUMN deid_exports; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
+    c.execute_batch("DROP TABLE IF EXISTS id_floor; DROP TABLE IF EXISTS region_decision; DROP TABLE IF EXISTS deid_rule; ALTER TABLE project DROP COLUMN deid_exports; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
     c.execute_batch("ALTER TABLE code DROP COLUMN ai_suggestible; ALTER TABLE project DROP COLUMN ai_mode;").unwrap();
     c.execute_batch("DROP TABLE IF EXISTS pdf_page; DROP TABLE IF EXISTS pdf_file; DROP TABLE IF EXISTS integration_entry; DROP TABLE IF EXISTS triangulation; DROP TABLE IF EXISTS mixed_design; DROP TABLE IF EXISTS stat_page_run; DROP TABLE IF EXISTS stat_page; DROP TABLE IF EXISTS adjudication_code; DROP TABLE IF EXISTS adjudication; DROP TABLE region; DROP TABLE image; DROP TABLE media; ALTER TABLE unit DROP COLUMN time_start_ms; ALTER TABLE unit DROP COLUMN time_end_ms;").unwrap();
     c.pragma_update(None, "user_version", 4).unwrap();
@@ -378,7 +379,7 @@ fn a_version_5_file_gains_recordings_and_unit_times_and_keeps_what_it_had() {
     drop(p);
     // Make it a version 5 file: no recordings, and no times on units.
     let c = Connection::open(&path).unwrap();
-    c.execute_batch("DROP TABLE IF EXISTS region_decision; DROP TABLE IF EXISTS deid_rule; ALTER TABLE project DROP COLUMN deid_exports; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
+    c.execute_batch("DROP TABLE IF EXISTS id_floor; DROP TABLE IF EXISTS region_decision; DROP TABLE IF EXISTS deid_rule; ALTER TABLE project DROP COLUMN deid_exports; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
     c.execute_batch("DROP TABLE IF EXISTS pdf_page; DROP TABLE IF EXISTS pdf_file; DROP TABLE IF EXISTS integration_entry; DROP TABLE IF EXISTS triangulation; DROP TABLE IF EXISTS mixed_design; DROP TABLE IF EXISTS stat_page_run; DROP TABLE IF EXISTS stat_page; DROP TABLE IF EXISTS adjudication_code; DROP TABLE IF EXISTS adjudication; DROP TABLE region; DROP TABLE image; DROP TABLE media; ALTER TABLE unit DROP COLUMN time_start_ms; ALTER TABLE unit DROP COLUMN time_end_ms;").unwrap();
     c.pragma_update(None, "user_version", 5).unwrap();
     drop(c);
@@ -402,7 +403,7 @@ fn a_version_6_file_gains_pictures_and_coded_areas_and_keeps_what_it_had() {
     drop(p);
     // Make it a version 6 file: no pictures and no coded areas.
     let c = Connection::open(&path).unwrap();
-    c.execute_batch("DROP TABLE IF EXISTS region_decision; DROP TABLE IF EXISTS deid_rule; ALTER TABLE project DROP COLUMN deid_exports; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
+    c.execute_batch("DROP TABLE IF EXISTS id_floor; DROP TABLE IF EXISTS region_decision; DROP TABLE IF EXISTS deid_rule; ALTER TABLE project DROP COLUMN deid_exports; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
     c.execute_batch("ALTER TABLE media DROP COLUMN stands_alone; DROP TABLE IF EXISTS pdf_page; DROP TABLE IF EXISTS pdf_file; DROP TABLE IF EXISTS integration_entry; DROP TABLE IF EXISTS triangulation; DROP TABLE IF EXISTS mixed_design; DROP TABLE IF EXISTS stat_page_run; DROP TABLE IF EXISTS stat_page; DROP TABLE IF EXISTS adjudication_code; DROP TABLE IF EXISTS adjudication; DROP TABLE region; DROP TABLE image;").unwrap();
     c.pragma_update(None, "user_version", 6).unwrap();
     drop(c);
@@ -453,7 +454,7 @@ fn a_version_10_file_gains_pdf_pages_and_every_coded_area_it_had_is_on_page_one(
     drop(p);
     // Make it a version 10 file: no PDFs, and no page on a coded area.
     let c = Connection::open(&path).unwrap();
-    c.execute_batch("DROP TABLE IF EXISTS region_decision; DROP TABLE IF EXISTS deid_rule; ALTER TABLE project DROP COLUMN deid_exports; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
+    c.execute_batch("DROP TABLE IF EXISTS id_floor; DROP TABLE IF EXISTS region_decision; DROP TABLE IF EXISTS deid_rule; ALTER TABLE project DROP COLUMN deid_exports; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
     c.execute_batch("ALTER TABLE media DROP COLUMN stands_alone; DROP INDEX region_page; ALTER TABLE region DROP COLUMN page; DROP TABLE pdf_page; DROP TABLE pdf_file;").unwrap();
     c.pragma_update(None, "user_version", 10).unwrap();
     drop(c);
@@ -510,7 +511,7 @@ fn a_version_11_file_gains_coded_stretches_and_every_coded_area_it_had_is_kept_a
     drop(p);
     // Make it a version 11 file: the old region table (three shapes, boxes inside 0 to 1) and no mark on a recording.
     let c = Connection::open(&path).unwrap();
-    c.execute_batch("DROP TABLE IF EXISTS region_decision; DROP TABLE IF EXISTS deid_rule; ALTER TABLE project DROP COLUMN deid_exports; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
+    c.execute_batch("DROP TABLE IF EXISTS id_floor; DROP TABLE IF EXISTS region_decision; DROP TABLE IF EXISTS deid_rule; ALTER TABLE project DROP COLUMN deid_exports; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
     c.execute_batch(
         "ALTER TABLE media DROP COLUMN stands_alone;
          DROP INDEX region_source; DROP INDEX region_code; DROP INDEX region_coder; DROP INDEX region_page;
@@ -555,7 +556,7 @@ fn a_version_12_file_gains_the_list_of_names_and_the_switch_and_keeps_what_it_ha
     drop(p);
     // Make it a version 12 file: no list of names and no switch for exports.
     let c = Connection::open(&path).unwrap();
-    c.execute_batch("DROP TABLE region_decision; DROP TABLE deid_rule; ALTER TABLE project DROP COLUMN deid_exports; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
+    c.execute_batch("DROP TABLE id_floor; DROP TABLE region_decision; DROP TABLE deid_rule; ALTER TABLE project DROP COLUMN deid_exports; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
     c.pragma_update(None, "user_version", 12).unwrap();
     drop(c);
 
@@ -581,7 +582,7 @@ fn a_version_13_file_gains_where_a_theme_stands_and_every_theme_begins_as_a_cand
     drop(p);
     // Make it a version 13 file: no stage for a theme.
     let c = Connection::open(&path).unwrap();
-    c.execute_batch("DROP TABLE region_decision; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
+    c.execute_batch("DROP TABLE id_floor; DROP TABLE region_decision; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
     c.pragma_update(None, "user_version", 13).unwrap();
     drop(c);
 
@@ -593,4 +594,32 @@ fn a_version_13_file_gains_where_a_theme_stands_and_every_theme_begins_as_a_cand
     p.update_code(theme_id, &prismqda_engine::CodeEdit { theme_stage: Some("reviewed".into()), ..Default::default() }).unwrap();
     assert_eq!(p.get_code(theme_id).unwrap().theme_stage, "reviewed");
     assert!(p.update_code(theme_id, &prismqda_engine::CodeEdit { theme_stage: Some("finished".into()), ..Default::default() }).is_err());
+}
+
+#[test]
+fn a_version_15_file_gains_the_id_floor_and_starts_from_the_highest_ids_it_holds() {
+    let dir = TempDir::new().unwrap();
+    let path = dir.path().join("fifteen.pqda");
+    let mut p = Project::create(&path, &NewProject::new("Fifteen"), &opts()).unwrap();
+    let a = p.add_code(&prismqda_engine::NewCode::new("Welcome")).unwrap();
+    let b = p.add_code(&prismqda_engine::NewCode::new("Cost")).unwrap();
+    let case = p.add_case("Maria", "").unwrap();
+    drop(p);
+    // Make it a version 15 file: no table of the highest ids given.
+    let c = Connection::open(&path).unwrap();
+    c.execute_batch("DROP TABLE id_floor;").unwrap();
+    c.pragma_update(None, "user_version", 15).unwrap();
+    drop(c);
+
+    let mut p = Project::open(&path, &opts()).unwrap();
+    assert!(p.notices()[0].contains(&format!("upgraded from format 15 to {}", schema::SCHEMA_VERSION)), "{:?}", p.notices());
+    let floor: Vec<(String, i64)> = {
+        let c = Connection::open(&path).unwrap();
+        let mut s = c.prepare("SELECT table_name, last_id FROM id_floor ORDER BY table_name").unwrap();
+        s.query_map([], |r| Ok((r.get(0)?, r.get(1)?))).unwrap().map(|r| r.unwrap()).collect()
+    };
+    assert_eq!(floor, vec![("code".to_string(), b), ("research_case".to_string(), case.id)]);
+    assert!(b > a);
+    let next = p.add_code(&prismqda_engine::NewCode::new("Safety")).unwrap();
+    assert_eq!(next, b + 1, "a code added after the upgrade takes the number above the highest held");
 }

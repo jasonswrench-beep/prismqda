@@ -10,10 +10,12 @@ import {
   fmtNoZero,
   fmtOdds,
   goals,
+  goalsInScope,
   groupable,
   isCategorical,
   magnitude,
   methodsFor,
+  methodsInScope,
   numericUse,
   pText,
   predictorAccepts,
@@ -1063,4 +1065,20 @@ test('the bootstrap of a whole analysis leads with the numbers of these two proc
   assert.equal(rows[6].label, 'F for Site × Group');
   assert.ok(rows.filter((r) => r.p).length === 3);
   assert.deepEqual(analysisRows(reliability()).map((r) => r.path), ['alpha/alpha', 'alpha/standardized_alpha', 'alpha/mean_inter_item_r']);
+});
+
+test('while the page describes, it offers describing one variable and no test; with the tests on, it offers every goal', () => {
+  const describing = goalsInScope('descriptive');
+  assert.deepEqual(describing.map((g) => g.id), ['describe']);
+  assert.deepEqual(goalsInScope('tests').map((g) => g.id), goals().map((g) => g.id));
+  assert.ok(goalsInScope('tests').length > 10, 'every goal there is');
+
+  // For a number, the page would offer the tests of normality, runs, and the rest beside describing; describing offers only describing.
+  const number = { key: 'attr:Score', name: 'Score', kind: 'attribute', code_id: null, measure: 'scale', valid: 20, missing: 0, not_a_number: 0, numeric: true, distinct: 15, categories: [] } as unknown as StatVariable;
+  const all = methodsFor('describe', [number], 0);
+  assert.ok(all.length > 1, 'a number has tests beside describing');
+  assert.deepEqual(methodsInScope('descriptive', all).map((m) => m.procedure), ['describe']);
+  assert.deepEqual(methodsInScope('tests', all).map((m) => m.procedure), all.map((m) => m.procedure));
+  // With no variable chosen there is nothing to offer in either scope.
+  assert.deepEqual(methodsInScope('descriptive', methodsFor('describe', [undefined], 0)), []);
 });

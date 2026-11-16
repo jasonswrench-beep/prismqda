@@ -47,6 +47,14 @@ export async function runShots(ctx, api) {
   const [W, H] = (process.env.PRISMQDA_SHOTS_SIZE ?? '1440x900').split('x').map(Number);
   const SCALE = Number(process.env.PRISMQDA_SHOTS_SCALE ?? 2);
   const context = await browser.newContext({ viewport: { width: W, height: H }, deviceScaleFactor: SCALE, locale: 'en-US', colorScheme: 'light', reducedMotion: 'reduce' });
+  // The pictures of the Statistics page show a test being run, so this browser begins with the tests turned on (the page describes unless a person asks for them).
+  await context.addInitScript(() => {
+    try {
+      if (!localStorage.getItem('prismqda.settings')) localStorage.setItem('prismqda.settings', JSON.stringify({ statisticsScope: 'tests' }));
+    } catch {
+      // A browser without storage shows the page as it begins.
+    }
+  });
   const page = await context.newPage();
   page.setDefaultTimeout(15000);
   const made = [];

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 645,
+  "count": 646,
   "messages": [
     {
       "template": "'{c}' is not one of the groups.",
@@ -35,7 +35,7 @@
     {
       "template": "'{format}' is not a format for the notebook: use docx, xlsx, or html",
       "files": [
-        "prismqda-api/src/lib.rs:2186"
+        "prismqda-api/src/lib.rs:2224"
       ]
     },
     {
@@ -260,7 +260,7 @@
     {
       "template": "'{other}' is not a format for a picture: use png or svg",
       "files": [
-        "prismqda-api/src/lib.rs:2233"
+        "prismqda-api/src/lib.rs:2271"
       ]
     },
     {
@@ -383,13 +383,13 @@
     {
       "template": "{cmd}: the rating must be a whole number from 1 to 5, or null, not {n}",
       "files": [
-        "prismqda-api/src/lib.rs:1666"
+        "prismqda-api/src/lib.rs:1683"
       ]
     },
     {
       "template": "{cmd}: the rating must be a whole number from 1 to 5, or null, not {other}",
       "files": [
-        "prismqda-api/src/lib.rs:1669"
+        "prismqda-api/src/lib.rs:1686"
       ]
     },
     {
@@ -588,7 +588,7 @@
     {
       "template": "{path} is not a PDF",
       "files": [
-        "prismqda-api/src/lib.rs:1290"
+        "prismqda-api/src/lib.rs:1307"
       ]
     },
     {
@@ -624,7 +624,7 @@
     {
       "template": "{root} is not a folder",
       "files": [
-        "prismqda-api/src/lib.rs:2521"
+        "prismqda-api/src/lib.rs:2559"
       ]
     },
     {
@@ -648,7 +648,7 @@
     {
       "template": "{target} already exists, so nothing was saved; choose another name",
       "files": [
-        "prismqda-api/src/lib.rs:2637"
+        "prismqda-api/src/lib.rs:2675"
       ]
     },
     {
@@ -955,7 +955,7 @@
     {
       "template": "a name for the project history is one to sixty characters, on one line",
       "files": [
-        "prismqda-api/src/lib.rs:1202"
+        "prismqda-api/src/lib.rs:1219"
       ]
     },
     {
@@ -1039,7 +1039,7 @@
     {
       "template": "a picture cannot be the new version of a document of words, and a picture's coded areas are tied to the picture they were drawn on; import it as a new document",
       "files": [
-        "prismqda-api/src/lib.rs:2493"
+        "prismqda-api/src/lib.rs:2531"
       ]
     },
     {
@@ -1172,13 +1172,13 @@
     {
       "template": "a spreadsheet becomes several documents and cases, so it cannot be the new version of one document",
       "files": [
-        "prismqda-api/src/lib.rs:2486"
+        "prismqda-api/src/lib.rs:2524"
       ]
     },
     {
       "template": "a spreadsheet or data file needs its columns set up; import it on its own",
       "files": [
-        "prismqda-api/src/lib.rs:2564"
+        "prismqda-api/src/lib.rs:2602"
       ]
     },
     {
@@ -1196,7 +1196,7 @@
     {
       "template": "a table is saved as CSV or Excel",
       "files": [
-        "prismqda-export/src/lib.rs:490"
+        "prismqda-export/src/lib.rs:492"
       ]
     },
     {
@@ -1317,7 +1317,7 @@
     {
       "template": "anchor examples are not available for coded areas of pictures yet",
       "files": [
-        "prismqda-api/src/lib.rs:1637"
+        "prismqda-api/src/lib.rs:1654"
       ]
     },
     {
@@ -1397,22 +1397,22 @@
     {
       "template": "cannot read {path}: {e}",
       "files": [
-        "prismqda-api/src/lib.rs:2322"
+        "prismqda-api/src/lib.rs:2360"
       ]
     },
     {
       "template": "cannot read {source}: {e}",
       "files": [
-        "prismqda-api/src/lib.rs:1928",
-        "prismqda-api/src/lib.rs:1932",
-        "prismqda-api/src/lib.rs:1939",
-        "prismqda-api/src/lib.rs:1943"
+        "prismqda-api/src/lib.rs:1966",
+        "prismqda-api/src/lib.rs:1970",
+        "prismqda-api/src/lib.rs:1977",
+        "prismqda-api/src/lib.rs:1981"
       ]
     },
     {
       "template": "cannot read the folder {dir}: {e}",
       "files": [
-        "prismqda-api/src/lib.rs:2528"
+        "prismqda-api/src/lib.rs:2566"
       ]
     },
     {
@@ -1424,13 +1424,13 @@
     {
       "template": "cannot save {target}: {e}",
       "files": [
-        "prismqda-api/src/lib.rs:2661"
+        "prismqda-api/src/lib.rs:2699"
       ]
     },
     {
       "template": "cannot write {target}: {e}",
       "files": [
-        "prismqda-api/src/lib.rs:2658"
+        "prismqda-api/src/lib.rs:2696"
       ]
     },
     {
@@ -1607,7 +1607,7 @@
     {
       "template": "code {code_id} is {other}, so it cannot be applied",
       "files": [
-        "prismqda-engine/src/ops.rs:514",
+        "prismqda-engine/src/ops.rs:516",
         "prismqda-engine/src/regions.rs:464"
       ]
     },
@@ -1639,7 +1639,7 @@
     {
       "template": "coding {i} of {count}: {e}",
       "files": [
-        "prismqda-engine/src/ops.rs:397"
+        "prismqda-engine/src/ops.rs:399"
       ]
     },
     {
@@ -1651,13 +1651,13 @@
     {
       "template": "could not build the file: {value}",
       "files": [
-        "prismqda-export/src/lib.rs:42"
+        "prismqda-export/src/lib.rs:44"
       ]
     },
     {
       "template": "counterexamples are not available for coded areas of pictures yet",
       "files": [
-        "prismqda-api/src/lib.rs:1645"
+        "prismqda-api/src/lib.rs:1662"
       ]
     },
     {
@@ -1852,7 +1852,7 @@
     {
       "template": "keep between 1 and 50 backups",
       "files": [
-        "prismqda-api/src/lib.rs:1187"
+        "prismqda-api/src/lib.rs:1204"
       ]
     },
     {
@@ -2018,7 +2018,7 @@
     {
       "template": "no project is open; create or open one first",
       "files": [
-        "prismqda-api/src/lib.rs:1075"
+        "prismqda-api/src/lib.rs:1092"
       ]
     },
     {
@@ -2199,7 +2199,7 @@
     {
       "template": "query.update: to change what the query asks, give the draft and the spec together",
       "files": [
-        "prismqda-api/src/lib.rs:1467"
+        "prismqda-api/src/lib.rs:1484"
       ]
     },
     {
@@ -2385,19 +2385,19 @@
     {
       "template": "say where the new project should go",
       "files": [
-        "prismqda-api/src/lib.rs:1946"
+        "prismqda-api/src/lib.rs:1984"
       ]
     },
     {
       "template": "say where the packet should go",
       "files": [
-        "prismqda-api/src/lib.rs:1914"
+        "prismqda-api/src/lib.rs:1952"
       ]
     },
     {
       "template": "say where to save the file",
       "files": [
-        "prismqda-api/src/lib.rs:2623"
+        "prismqda-api/src/lib.rs:2661"
       ]
     },
     {
@@ -2615,7 +2615,7 @@
     {
       "template": "the captions made no document",
       "files": [
-        "prismqda-api/src/lib.rs:2431"
+        "prismqda-api/src/lib.rs:2469"
       ]
     },
     {
@@ -2633,13 +2633,13 @@
     {
       "template": "the clip is not a WAV file",
       "files": [
-        "prismqda-api/src/lib.rs:2247"
+        "prismqda-api/src/lib.rs:2285"
       ]
     },
     {
       "template": "the clip is not valid base 64",
       "files": [
-        "prismqda-api/src/lib.rs:2245"
+        "prismqda-api/src/lib.rs:2283"
       ]
     },
     {
@@ -2717,7 +2717,7 @@
     {
       "template": "the drawing is not an SVG",
       "files": [
-        "prismqda-api/src/lib.rs:2229"
+        "prismqda-api/src/lib.rs:2267"
       ]
     },
     {
@@ -2801,14 +2801,14 @@
     {
       "template": "the folder {dir} does not exist",
       "files": [
-        "prismqda-api/src/lib.rs:2641",
+        "prismqda-api/src/lib.rs:2679",
         "prismqda-api/src/text_files.rs:75"
       ]
     },
     {
       "template": "the format '{name}' should be xlsx, docx, csv{value}",
       "files": [
-        "prismqda-api/src/lib.rs:2606"
+        "prismqda-api/src/lib.rs:2644"
       ]
     },
     {
@@ -2892,7 +2892,7 @@
       "template": "the list of names to replace is applied to exports, and a packet holds the documents whole; turn that switch off, or replace the names in the project itself first",
       "files": [
         "prismqda-api/src/class.rs:118",
-        "prismqda-api/src/lib.rs:1907"
+        "prismqda-api/src/lib.rs:1945"
       ]
     },
     {
@@ -3024,13 +3024,13 @@
     {
       "template": "the PDF {path} cannot be read: {e}",
       "files": [
-        "prismqda-api/src/lib.rs:1288"
+        "prismqda-api/src/lib.rs:1305"
       ]
     },
     {
       "template": "the PDF {path} cannot be read: it is missing, empty, or a folder",
       "files": [
-        "prismqda-api/src/lib.rs:1286"
+        "prismqda-api/src/lib.rs:1303"
       ]
     },
     {
@@ -3042,13 +3042,13 @@
     {
       "template": "the picture is not a PNG",
       "files": [
-        "prismqda-api/src/lib.rs:2223"
+        "prismqda-api/src/lib.rs:2261"
       ]
     },
     {
       "template": "the picture is not valid base 64",
       "files": [
-        "prismqda-api/src/lib.rs:2221"
+        "prismqda-api/src/lib.rs:2259"
       ]
     },
     {
@@ -3085,8 +3085,8 @@
     {
       "template": "the QDC format holds a codebook, not coded segments",
       "files": [
-        "prismqda-api/src/lib.rs:2608",
-        "prismqda-export/src/lib.rs:498"
+        "prismqda-api/src/lib.rs:2646",
+        "prismqda-export/src/lib.rs:500"
       ]
     },
     {
@@ -3130,7 +3130,7 @@
     {
       "template": "the recording made no document",
       "files": [
-        "prismqda-api/src/lib.rs:2452"
+        "prismqda-api/src/lib.rs:2490"
       ]
     },
     {
@@ -3179,7 +3179,7 @@
     {
       "template": "the script does not say where its data is",
       "files": [
-        "prismqda-api/src/lib.rs:2197"
+        "prismqda-api/src/lib.rs:2235"
       ]
     },
     {
@@ -3221,13 +3221,13 @@
     {
       "template": "the span {start}..{end} does not fit {what} {id}, which has {len} characters (a span needs 0 <= start < end <= {len})",
       "files": [
-        "prismqda-engine/src/ops.rs:496"
+        "prismqda-engine/src/ops.rs:498"
       ]
     },
     {
       "template": "the span {start}..{end} is outside unit {unit_id} ({unit_start}..{unit_end})",
       "files": [
-        "prismqda-engine/src/ops.rs:546"
+        "prismqda-engine/src/ops.rs:548"
       ]
     },
     {
@@ -3445,7 +3445,7 @@
     {
       "template": "there is no command named '{other}'",
       "files": [
-        "prismqda-api/src/lib.rs:2301"
+        "prismqda-api/src/lib.rs:2339"
       ]
     },
     {
@@ -3561,7 +3561,7 @@
     {
       "template": "this document keeps its PDF, and the areas coded on its pages are tied to that file's pages, so another file cannot replace its words; import the new PDF as a new document",
       "files": [
-        "prismqda-api/src/lib.rs:2498"
+        "prismqda-api/src/lib.rs:2536"
       ]
     },
     {
@@ -3573,25 +3573,25 @@
     {
       "template": "this file is over 1.5 GB, more than PrismQDA reads into memory at once",
       "files": [
-        "prismqda-api/src/lib.rs:1941"
+        "prismqda-api/src/lib.rs:1979"
       ]
     },
     {
       "template": "this file is over 64 MB, far more than a codebook holds",
       "files": [
-        "prismqda-api/src/lib.rs:1930"
+        "prismqda-api/src/lib.rs:1968"
       ]
     },
     {
       "template": "this file makes {count} documents, so it cannot be the new version of one document",
       "files": [
-        "prismqda-api/src/lib.rs:2490"
+        "prismqda-api/src/lib.rs:2528"
       ]
     },
     {
       "template": "this file was already imported as source {existing}; import it again only if that is what you mean",
       "files": [
-        "prismqda-api/src/lib.rs:2462"
+        "prismqda-api/src/lib.rs:2500"
       ]
     },
     {
@@ -3604,7 +3604,7 @@
     {
       "template": "this is the file the document came from, so there is nothing new to carry over",
       "files": [
-        "prismqda-api/src/lib.rs:2504"
+        "prismqda-api/src/lib.rs:2542"
       ]
     },
     {
@@ -3690,7 +3690,7 @@
     {
       "template": "this project codes whole units, so every coding needs a unit",
       "files": [
-        "prismqda-engine/src/ops.rs:525"
+        "prismqda-engine/src/ops.rs:527"
       ]
     },
     {
@@ -3703,6 +3703,12 @@
       "template": "This project has no cases to analyze. Statistics works on cases (a person, a site, a family) and the variables they carry; add cases when importing a spreadsheet, or on the Data page.",
       "files": [
         "prismqda-engine/src/statistics.rs:360"
+      ]
+    },
+    {
+      "template": "This project has no cases, so there is no case table to send. A case is a person, a site or a family: add cases when you import a spreadsheet, or on the Data page.",
+      "files": [
+        "prismqda-engine/src/case_table.rs:81"
       ]
     },
     {
@@ -3744,7 +3750,7 @@
     {
       "template": "this recording was already imported as source {existing}; import it again only if that is what you mean",
       "files": [
-        "prismqda-api/src/lib.rs:2444"
+        "prismqda-api/src/lib.rs:2482"
       ]
     },
     {
@@ -3846,13 +3852,13 @@
     {
       "template": "type the full path of the file to write, for example C:\\Documents\\report.pdf",
       "files": [
-        "prismqda-api/src/lib.rs:1301"
+        "prismqda-api/src/lib.rs:1318"
       ]
     },
     {
       "template": "type the full path of the file to write, for example C:\\Pictures\\street.png",
       "files": [
-        "prismqda-api/src/lib.rs:1269"
+        "prismqda-api/src/lib.rs:1286"
       ]
     },
     {
@@ -3870,7 +3876,7 @@
     {
       "template": "type the full path of the PDF, for example C:\\Documents\\report.pdf",
       "files": [
-        "prismqda-api/src/lib.rs:1283"
+        "prismqda-api/src/lib.rs:1300"
       ]
     },
     {
@@ -3883,13 +3889,13 @@
     {
       "template": "unit {unit_id} belongs to a different source",
       "files": [
-        "prismqda-engine/src/ops.rs:540"
+        "prismqda-engine/src/ops.rs:542"
       ]
     },
     {
       "template": "unit {unit_id} is excluded from coding",
       "files": [
-        "prismqda-engine/src/ops.rs:543"
+        "prismqda-engine/src/ops.rs:545"
       ]
     },
     {

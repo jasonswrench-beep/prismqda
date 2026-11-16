@@ -4,14 +4,23 @@ import { call, toApiError } from '../bridge';
 import { browsePath, cleanTypedPath, nativeDialogsAvailable } from '../pickFile';
 import { announce } from '../state/announce';
 import { appStore, useApp } from '../state/app';
-import type { ExportFormat, QdpxReport, ReportSectionId } from '../types';
+import type { ExportFormat, PstatReport, QdpxReport, ReportSectionId } from '../types';
 import { Notice } from './common';
 import { QdpxReportView } from './QdpxReport';
 import { NamesNotice } from './NamesNotice';
 import { Tick } from './Tick';
 import { num, rich, t } from '../i18n';
 
-type What = 'codebook' | 'segments' | 'report' | 'project';
+type What = 'codebook' | 'segments' | 'report' | 'project' | 'casetable';
+
+/** The release the window is (for the file that names who made it), or nothing when the window cannot say. */
+async function programRelease(): Promise<string | undefined> {
+  try {
+    return (await call('update.state', {})).version || undefined;
+  } catch {
+    return undefined;
+  }
+}
 
 /** The parts of a report, in the order the report keeps them, with what each holds and whether it is in the report to begin with. */
 const REPORT_SECTIONS: { id: ReportSectionId; label: string; help: string; on: boolean }[] = [
@@ -32,6 +41,7 @@ const REPORT_SECTIONS: { id: ReportSectionId; label: string; help: string; on: b
 
 const FORMATS: Record<What, { id: ExportFormat; label: string; help: string }[]> = {
   project: [{ id: 'qdpx', label: 'QDPX', get help() { return t('The REFI-QDA project exchange format: a ZIP of the project in XML and the files of its documents.'); } }],
+  casetable: [{ id: 'pstat', get label() { return t('PrismStatistics project'); }, get help() { return t('A file PrismStatistics opens with a double click: one row for each case, and one column for each variable of the cases and for each code.'); } }],
   codebook: [
     { id: 'xlsx', get label() { return t('Excel'); }, get help() { return t('One row per code, with definitions, criteria, examples, and how often each is used.'); } },
     { id: 'docx', get label() { return t('Word'); }, get help() { return t('A readable document with a heading for each code, for sharing with a team or a committee.'); } },
@@ -59,6 +69,9 @@ export function ExportDialog() {
   const [coderId, setCoderId] = useState('');
   const [finalLayer, setFinalLayer] = useState(false);
   const [withRecordings, setWithRecordings] = useState(false);
+  const [leaveNames, setLeaveNames] = useState(false);
+  const [countUp, setCountUp] = useState(true);
+  const [table, setTable] = useState<PstatReport | null>(null);
   const [inactive, setInactive] = useState(false);
   const [title, setTitle] = useState('');
   const [sections, setSections] = useState<ReportSectionId[]>(() => presetSections ?? REPORT_SECTIONS.filter((s) => s.on).map((s) => s.id));
@@ -70,7 +83,7 @@ export function ExportDialog() {
   const formats = FORMATS[what];
   const chosenFormat = formats.some((f) => f.id === format) ? format : formats[0].id;
   const activeCodes = useMemo(() => codes.filter((c) => c.status === 'active'), [codes]);
-  const suggestion = `${(project?.name ?? 'PrismQDA').replace(/[\\/:*?"<>|]/g, '-')} ${what === 'project' ? t('project') : what === 'codebook' ? t('codebook') : what === 'report' ? t('report') : t('coded segments')}.${chosenFormat}`;
+  const suggestion = `${(project?.name ?? 'PrismQDA').replace(/[\\/:*?"<>|]/g, '-')} ${what === 'project' ? t('project') : what === 'codebook' ? t('codebook') : what === 'report' ? t('report') : what === 'casetable' ? t('case table') : t('coded segments')}.${chosenFormat}`;
 
   const changeWhat = (w: What) => {
     setWhat(w);
@@ -80,6 +93,7 @@ export function ExportDialog() {
   const save = async (typed?: string, fromDialog = false) => {
     setError(null);
     setSaved(null);
+    setTable(null);
     const target = cleanTypedPath(typed ?? path);
     if (target === '') {
       const picked = await browsePath('export-file', suggestion, chosenFormat);
@@ -97,6 +111,21 @@ export function ExportDialog() {
       if (what === 'report' && sections.length === 0) {
         setBusy(false);
         return setError(t('Choose at least one section for the report.'));
+      }
+      if (what === 'casetable') {
+        const release = await programRelease();
+        const made = await call('export.pstat', {
+          path: target,
+          overwrite: fromDialog,
+          leave_out_names: leaveNames,
+          include_descendants: countUp,
+          ...(release ? { app_version: release } : {}),
+        });
+        setSaved({ path: made.path, bytes: made.bytes });
+        setTable(made.report);
+        setPath(made.path);
+        announce(t('Saved {path}.', { path: made.path }));
+        return;
       }
       const r =
         what === 'project'
@@ -141,6 +170,15 @@ export function ExportDialog() {
           {error ? <Notice>{error}</Notice> : null}
           {saved ? <Notice kind="info">{t('Saved {path} ({size} KB).', { path: saved.path, size: num(Math.max(1, Math.round(saved.bytes / 1024))) })}</Notice> : null}
           {saved?.report ? <QdpxReportView report={saved.report} direction="out" /> : null}
+          {table ? (
+            <div className="ac-card" data-testid="casetable-report">
+              <p>{t('The file holds {cases} cases and {variables} variables: {attributes} variables of the cases and {codes} codes, each with whether a case has it and on how many excerpts.', { cases: num(table.cases), variables: num(table.variables), attributes: num(table.attributes), codes: num(table.codes) })}</p>
+              <ul>
+                {table.notes.map((n, i) => <li key={i}>{n}</li>)}
+                {table.renamed.length > 0 ? <li>{t('Names made from the names of variables: {list}.', { list: table.renamed.map(([from, to]) => `${from} → ${to}`).join('; ') })}</li> : null}
+              </ul>
+            </div>
+          ) : null}
           <form onSubmit={submit} noValidate>
             <RadioGroup value={what} onChange={(v) => changeWhat(v as What)} className="field">
               <Label>{t('What to export')}</Label>
@@ -155,6 +193,9 @@ export function ExportDialog() {
               </Radio>
               <Radio value="report">
                 {rich('<span>A report</span><span2>A Word document made from the project records: the codebook, agreement, a draft methods appendix, and more.</span2>', { span: (inside) => <span className="radio-title">{inside}</span>, span2: (inside) => <span className="radio-help">{inside}</span> })}
+              </Radio>
+              <Radio value="casetable">
+                {rich('<span>The case table for PrismStatistics</span><span2>One row for each case, with its variables and, for each code, whether the case has it and how many excerpts carry it. For the tests PrismQDA leaves to PrismStatistics. No passage, memo, or coder is written.</span2>', { span: (inside) => <span className="radio-title">{inside}</span>, span2: (inside) => <span className="radio-help">{inside}</span> })}
               </Radio>
             </RadioGroup>
 
@@ -193,6 +234,16 @@ export function ExportDialog() {
               <polyline points="1 9 7 14 15 4" fill="none" stroke="currentColor" strokeWidth="2.4" />
             </svg>
           </div>{t('Include merged and retired codes')}</Checkbox>
+            ) : what === 'casetable' ? (
+              <>
+                <p className="help" data-testid="casetable-note">{t('A case is a person, a site, or a family, and never a coding: many codings come from one person. For each code the file says whether any document of the case carries it and on how many excerpts. A case that holds no document has no value for a code.')}</p>
+                <Tick isSelected={leaveNames} onChange={setLeaveNames} testId="export-casetable-names">
+                  <span className="radio-title">{t('Leave out the names of the cases')}</span> <span className="radio-help">{t('Each case is then known by its number only, which PrismQDA also keeps in the file so that a table made later can be matched to this one.')}</span>
+                </Tick>
+                <Tick isSelected={countUp} onChange={setCountUp} testId="export-casetable-subcodes">
+                  <span className="radio-title">{t('An excerpt counts for the codes above its code')}</span> <span className="radio-help">{t('With this on, an excerpt coded with a sub-code also counts for the code it is under. The file says which you chose.')}</span>
+                </Tick>
+              </>
             ) : what === 'project' ? (
               <>
                 <p className="help" data-testid="qdpx-note">{t('The documents go into the file whole, with any names in them. The file is not encrypted, even if the project is.')}</p>

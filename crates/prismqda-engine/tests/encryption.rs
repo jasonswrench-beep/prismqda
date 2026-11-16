@@ -257,7 +257,7 @@ fn an_older_file_in_an_encrypted_project_is_brought_forward_and_its_kept_copy_is
     c.pragma_update(None, "cipher", "sqlcipher").unwrap();
     c.pragma_update(None, "legacy", 4).unwrap();
     c.pragma_update(None, "key", PASS).unwrap();
-    c.execute_batch("DROP TABLE region_decision; DROP TABLE deid_rule; ALTER TABLE project DROP COLUMN deid_exports; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
+    c.execute_batch("DROP TABLE id_floor; DROP TABLE region_decision; DROP TABLE deid_rule; ALTER TABLE project DROP COLUMN deid_exports; ALTER TABLE code DROP COLUMN theme_stage;").unwrap();
     c.pragma_update(None, "user_version", 12).unwrap();
     drop(c);
 

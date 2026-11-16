@@ -151,7 +151,7 @@ export type DialogState =
   | { kind: 'import-folder' }
   | { kind: 'replace-exclusive'; pending: PendingReplace }
   | { kind: 'counterexample'; codeId: number }
-  | { kind: 'export'; what?: 'codebook' | 'segments' | 'report' | 'project'; sections?: ReportSectionId[] }
+  | { kind: 'export'; what?: 'codebook' | 'segments' | 'report' | 'project' | 'casetable'; sections?: ReportSectionId[] }
   | { kind: 'import-qdpx' }
   | { kind: 'import-qdc' }
   | { kind: 'link-passage'; codingId: number }

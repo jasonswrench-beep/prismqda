@@ -886,6 +886,23 @@ struct QdpxExportArgs {
     include_recordings: bool,
 }
 
+/// What `export.pstat` takes: the case table for PrismStatistics (list item 3, PSTAT-1 section 7.3).
+#[derive(Deserialize)]
+struct PstatExportArgs {
+    path: String,
+    #[serde(default)]
+    overwrite: bool,
+    /// Leave the cases' names out; each case is then known by its number.
+    #[serde(default)]
+    leave_out_names: bool,
+    /// An excerpt coded with a sub-code also counts for the codes above it.
+    #[serde(default = "yes")]
+    include_descendants: bool,
+    /// The program's release (`0.1.0-beta.2`), which the engine does not know; the window says it. Anything but letters, digits and `.+-` is ignored.
+    #[serde(default)]
+    app_version: Option<String>,
+}
+
 #[derive(Deserialize)]
 struct DecideRegionArgs {
     /// The number the case goes by (`key` of a case in the queue).
@@ -1840,6 +1857,27 @@ impl Api {
                 let _scrub = self.scrub_scope()?;
                 let (bytes, report) = prismqda_export::export_qdpx_with(self.project()?, &prismqda_export::QdpxOptions { include_recordings: a.include_recordings })?;
                 let mut out = write_export_as(&a.path, "qdpx", a.overwrite, &bytes)?;
+                out["report"] = to_json(&report)?;
+                Ok(out)
+            }
+            // ---- the case table for PrismStatistics: a `.pstat` file (PSTAT-1, section 7.3) ----
+            "export.pstat" => {
+                let a: PstatExportArgs = parse(cmd, args)?;
+                // The list of names to replace is applied to the names and texts written, as it is to the other exports.
+                let _scrub = self.scrub_scope()?;
+                let release = a
+                    .app_version
+                    .as_deref()
+                    .map(str::trim)
+                    .filter(|v| !v.is_empty() && v.len() <= 40 && v.chars().all(|c| c.is_ascii_alphanumeric() || matches!(c, '.' | '+' | '-')))
+                    .unwrap_or(env!("CARGO_PKG_VERSION"));
+                let options = prismqda_export::PstatOptions {
+                    leave_out_names: a.leave_out_names,
+                    include_descendants: a.include_descendants,
+                    app_version: format!("PrismQDA {release}"),
+                };
+                let (bytes, report) = prismqda_export::export_case_table(self.project()?, &options)?;
+                let mut out = write_export_as(&a.path, "pstat", a.overwrite, &bytes)?;
                 out["report"] = to_json(&report)?;
                 Ok(out)
             }

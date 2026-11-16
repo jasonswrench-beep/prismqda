@@ -46,8 +46,9 @@ impl Project {
         if let Some(clash) = existing.iter().find(|n| n.trim().to_lowercase() == wanted) {
             return Err(Error::Invalid(format!("there is already a case named '{clash}'")));
         }
-        tx.execute("INSERT INTO research_case (name, notes) VALUES (?1, ?2)", params![name, notes])?;
-        let id = tx.last_insert_rowid();
+        // A case's number is never given to another case afterwards, even when Undo removes the case (project format 16).
+        let id = crate::ids::next_id(&tx, crate::ids::Kind::Case)?;
+        tx.execute("INSERT INTO research_case (id, name, notes) VALUES (?1, ?2, ?3)", params![id, name, notes])?;
         event::insert(&tx, &self.actor, &self.session, "case.add", Some(("case", id)), None, Some(&json!({ "name": name, "notes": notes })))?;
         tx.commit()?;
         self.get_case(id)

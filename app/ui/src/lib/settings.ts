@@ -4,6 +4,9 @@ import { t } from '../i18n';
 
 export type Theme = 'system' | 'light' | 'dark' | 'contrast';
 
+/** What the Statistics page offers: describing the data only, or also the tests of difference, association and prediction (decision 193). */
+export type StatisticsScope = 'descriptive' | 'tests';
+
 /** How far the lines of text run: across all the room there is, or no longer than is comfortable to read. */
 export type TextWidth = 'fill' | 'comfortable';
 
@@ -42,6 +45,8 @@ export interface Settings {
   fixedSeed: number | null;
   /** Queries, matrices, and relations: a code also stands for its sub-codes, to begin with. */
   subcodes: boolean;
+  /** What the Statistics page offers. PrismQDA describes; the tests are PrismStatistics's, so the page describes unless this says 'tests'. */
+  statisticsScope: StatisticsScope;
 }
 
 /** How pairs of groups can be compared: three tests made for pairs after an analysis of variance, and the adjustments of p-values. */
@@ -71,7 +76,7 @@ export const STANDARD_FONT_PERCENT = 87.5;
 
 export const SETTINGS_KEY = 'prismqda.settings';
 
-export const DEFAULT_SETTINGS: Settings = { confidenceLevel: 0.95, bootstrapResamples: 2000, pairMethod: 'holm', fixedSeed: null, subcodes: true, theme: 'system', textSize: 100, announceCaret: true, lineNumbers: true, textWidth: 'fill', showUnits: false, keepBackups: 10, backupFolder: '', floatingBar: true, codingMode: 'free_span', language: 'auto', historyName: '' };
+export const DEFAULT_SETTINGS: Settings = { confidenceLevel: 0.95, bootstrapResamples: 2000, pairMethod: 'holm', fixedSeed: null, subcodes: true, statisticsScope: 'descriptive', theme: 'system', textSize: 100, announceCaret: true, lineNumbers: true, textWidth: 'fill', showUnits: false, keepBackups: 10, backupFolder: '', floatingBar: true, codingMode: 'free_span', language: 'auto', historyName: '' };
 
 /** Cleans what was read from storage: anything unknown falls back to the default, and a size snaps to one that is offered. */
 export function normalizeSettings(raw: unknown): Settings {
@@ -103,7 +108,8 @@ export function normalizeSettings(raw: unknown): Settings {
   const fixedSeed = typeof r.fixedSeed === 'number' && Number.isInteger(r.fixedSeed) && r.fixedSeed >= 0 && r.fixedSeed <= 4_000_000_000 ? r.fixedSeed : null;
   const subcodes = typeof r.subcodes === 'boolean' ? r.subcodes : DEFAULT_SETTINGS.subcodes;
   const historyName = typeof r.historyName === 'string' ? cleanHistoryName(r.historyName) : DEFAULT_SETTINGS.historyName;
-  return { theme, textSize, announceCaret, lineNumbers, textWidth, showUnits, keepBackups, backupFolder, floatingBar, codingMode, language, historyName, confidenceLevel, bootstrapResamples, pairMethod, fixedSeed, subcodes };
+  const statisticsScope: StatisticsScope = r.statisticsScope === 'tests' || r.statisticsScope === 'descriptive' ? r.statisticsScope : DEFAULT_SETTINGS.statisticsScope;
+  return { theme, textSize, announceCaret, lineNumbers, textWidth, showUnits, keepBackups, backupFolder, floatingBar, codingMode, language, historyName, confidenceLevel, bootstrapResamples, pairMethod, fixedSeed, subcodes, statisticsScope };
 }
 
 /** A name for the project history as it is kept: on one line, with the spaces tidied, and at most sixty characters. */

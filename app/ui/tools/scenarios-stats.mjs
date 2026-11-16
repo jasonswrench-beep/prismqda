@@ -16,6 +16,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { unzipEntry } from './scenarios-export.mjs';
+import { useTests } from './scenarios-scope.mjs';
 
 const ROWS = [
   ['R1', 'A', 10, 21], ['R2', 'A', 12, 25], ['R3', 'A', 11, 33], ['R4', 'A', 13, 41],
@@ -68,6 +69,11 @@ export async function runStats(ctx, api) {
     fs.mkdirSync(dir, { recursive: true });
     for (const f of files) fs.copyFileSync(f, path.join(dir, path.basename(f)));
   };
+
+  // The Statistics page describes unless the person turns the tests on; the steps below use the tests.
+  await S('the tests are turned on in Settings for the steps that follow', async () => {
+    await useTests(api);
+  });
 
   await S('Statistics opens from its tab, lists the variables of cases with their levels, and says how many cases there are', async () => {
     let csv = 'id,Stat group,Stat score,Stat age,Stat site,Stat hours,Stat rate,Stat grade,Stat later,Stat team,answer\n';

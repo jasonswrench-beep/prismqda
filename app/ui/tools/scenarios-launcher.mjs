@@ -22,6 +22,7 @@ import { runClass } from './scenarios-class.mjs';
 import { runThemes } from './scenarios-themes.mjs';
 import { runText } from './scenarios-text.mjs';
 import { runStats } from './scenarios-stats.mjs';
+import { runScope } from './scenarios-scope.mjs';
 import { runDataEditor } from './scenarios-dataeditor.mjs';
 import { runMixed } from './scenarios-mixed.mjs';
 import { runLanguage } from './scenarios-language.mjs';
@@ -198,6 +199,9 @@ export async function runLauncher(ctx, api) {
 
   // Text Analytics: word frequencies and keywords in context.
   await runText(ctx, api);
+
+  // What the Statistics page offers: it describes to begin with, the tests can be turned on, and the case table for PrismStatistics is made from Export.
+  await runScope(ctx, api);
 
   // Statistics: the variables of cases, the test chooser, and the output notebook.
   await runStats(ctx, api);

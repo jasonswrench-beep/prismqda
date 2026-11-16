@@ -41,6 +41,8 @@ pub const MIGRATIONS: &[&str] = &[
     include_str!("../schema/v14.sql"),
     // Version 15: deciding where coders differ on an area or a stretch. Published as `schema/v15.sql`.
     include_str!("../schema/v15.sql"),
+    // Version 16: codes and cases keep their numbers for good (the highest number given is remembered). Published as `schema/v16.sql`.
+    include_str!("../schema/v16.sql"),
 ];
 
 /// The schema version this build writes and understands.

@@ -15,6 +15,7 @@ import type {
   StatVariableKind,
 } from '../types';
 import { num, t, tn } from '../i18n';
+import type { StatisticsScope } from './settings';
 import { analysisTables } from './statBoot';
 import { extraGoals, extraMethods, extraProcedureName, extraReading, extraSentence, extraTables, extraTitle } from './statistics2';
 
@@ -228,6 +229,21 @@ export function goals(): GoalInfo[] {
   base.splice(at('predict') + 1, 0, binary);
   base.splice(at('predict_binary') + 1, 0, curve);
   return base;
+}
+
+/**
+ * The goals the Statistics page offers in a scope. PrismQDA describes (decision 193): counts and shares for categories, and the mean,
+ * spread, and shape of numbers, with charts. The tests of difference, association, and prediction are PrismStatistics's, and the page
+ * offers them only when the person chose `tests` in Settings.
+ */
+export function goalsInScope(scope: StatisticsScope): GoalInfo[] {
+  const all = goals();
+  return scope === 'tests' ? all : all.filter((g) => g.id === 'describe');
+}
+
+/** The ways of working on the variables chosen, in a scope: describing is the `describe` procedure alone, and everything else is a test. */
+export function methodsInScope(scope: StatisticsScope, methods: Method[]): Method[] {
+  return scope === 'tests' ? methods : methods.filter((m) => m.procedure === 'describe');
 }
 
 /** True for a variable that can be a predictor in a regression: a number, or a categorical variable turned into 0/1 columns. */
