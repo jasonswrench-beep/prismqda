@@ -2,6 +2,18 @@
 
 The one list of what is left. Updated 2026-11-10, after alpha 45 (the section *Not built yet from the 1.0 cut* was added from a check against the code). `[ ]` is open and `[x]` is done; an item is checked off when it is built, checked, and pushed. The details of what only a person can try are in [TESTING-TODO.md](TESTING-TODO.md); the plan for 1.0 is in [docs/ROADMAP.md](docs/ROADMAP.md); what each screen of the design book still lacks is in [docs/SCREEN-SPEC-GAP.md](docs/SCREEN-SPEC-GAP.md).
 
+## The development list of 2026-11-15 (PrismQDA's six items)
+
+Worked through in order, on the shared core as published (`CORE-NOTES.md`; what PrismQDA needs from it is in [CORE-REQUESTS.md](CORE-REQUESTS.md)). Nothing here is released: the last release is v0.1.0-beta.1, and a rebuild with the signing and update keys comes first.
+
+- [x] **The statistics crate comes from the core.** `prismqda-stats` at the tag `prismqda-stats-v1.0.0`; PrismQDA's own copy is gone (decision 191).
+- [ ] **1. Its person-only tests** (installer pages, a second computer, a screen reader, a real second coder, project exchange with another QDA program): listed in [TESTING-TODO.md](TESTING-TODO.md) under *Before beta 2*; only a person can run them.
+- [x] **2. How much statistics stays.** The Statistics page describes by default and offers the tests only when asked; nothing was removed (decision 193). *The author's word is open*: keep it so, remove the tests for good, or put them back on by default (TESTING-TODO.md).
+- [x] **3. The case table for PrismStatistics.** `export.pstat`, the profile `PrismQDA case table 1`; ids never given again (project format 16); checked against the core's own checker and PrismStatistics's program (decisions 192 and 194). Asked of the core: a test set for it, a Rust crate for `.pstat`, test vectors for the naming rule, a revised warning in 7.3 (CORE-REQUESTS.md R1 to R4).
+- [x] **4. Prism Reference Manager's exchange file** is read: a document for each source with its excerpts as paragraphs, and a case for each source (decision 195). Built from the Reference Manager's code and made-up files; a real file and a specification are asked of the core (R5).
+- [x] **5. Open comments of evaluations and course surveys, coded beside the results.** A `.pstat` file opens like a spreadsheet, with value labels and missing codes, and the case table carries the ratings and the codes back (decision 196); the core's 33 conformance files all give the answer the specification asks for. Not built: PrismStatistics's training-evaluation module itself (its own list, item 7), and a way for a file to say which variable is the respondent (R6).
+- [ ] **6. Release 1.5: teaching mode first, then media, text analytics, and an assistant server.** Part: teaching mode's second slice, a Word file of feedback for each student (decision 197). Still to do in teaching mode: coach mode, an assignment file with locked settings, an answer key kept apart, a heat map, a side-by-side view of several students, and pictures, PDF areas, and recordings in the review. Then media (waveform, frame stepping), text analytics (stems, topics, sentiment), and an assistant server (which touches decision 91, the author's).
+
 ## What I can build next
 
 - [x] **Sentences built from clauses.** About 90 messages were joined in English word order (the readbacks of a query, parts of history lines, announcements). They are whole sentences now, so a translator can translate them (decision 117). Short labels that add a phrase after a comma ("Name, a person") are left, and a translator is asked which read badly.

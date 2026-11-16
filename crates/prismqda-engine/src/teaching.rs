@@ -678,3 +678,117 @@ impl Project {
         })
     }
 }
+
+// ---- feedback for each student ------------------------------------------------------------------------------------------------
+
+/// One passage of a student's feedback: what the instructor gave it, what the student gave it, and how the two compare.
+#[derive(Debug, Clone, PartialEq, Serialize)]
+pub struct FeedbackPassage {
+    pub source_name: String,
+    pub start: i64,
+    pub end: i64,
+    /// The passage's words (cut when long).
+    pub text: String,
+    pub instructor_codes: Vec<CodeRef>,
+    pub student_codes: Vec<CodeRef>,
+    /// `partly` (some of the same codes), `different` (other codes only), `left_uncoded` (the instructor coded it and the student did not), or
+    /// `extra` (the student coded a passage the instructor did not).
+    pub status: String,
+}
+
+/// What one student is told: the same figures the class review has for them, and the passages to look at again, in the order of the documents.
+#[derive(Debug, Clone, PartialEq, Serialize)]
+pub struct StudentFeedback {
+    pub coder_id: i64,
+    /// The student's name as the project holds it (feedback is for the student, so it is never anonymous).
+    pub name: String,
+    pub summary: StudentReview,
+    /// Passages the student's codes did not match the instructor's. Passages coded the same are counted in `summary` and not listed.
+    pub passages: Vec<FeedbackPassage>,
+}
+
+/// The feedback for every student of a class.
+#[derive(Debug, Clone, PartialEq, Serialize)]
+pub struct ClassFeedback {
+    pub instructor: CoderInfo,
+    /// The passages the instructor coded.
+    pub instructor_passages: usize,
+    /// The passages anyone coded, which the comparison is made on.
+    pub passages_compared: usize,
+    pub students: Vec<StudentFeedback>,
+    pub notes: Vec<String>,
+}
+
+impl Project {
+    /// The feedback each student would be given on the documents chosen, worked out from the same comparison as [`Project::class_review`]
+    /// (the figures come from it), with the passages the student coded differently from the instructor. A student is addressed by name:
+    /// a review made anonymous is made again with the names, since a person reads their own feedback.
+    pub fn class_feedback(&self, spec: &ClassReviewSpec) -> Result<ClassFeedback> {
+        let mut named = spec.clone();
+        named.anonymous = false;
+        let review = self.class_review(&named)?;
+        let student_ids: Vec<i64> = review.students.iter().filter_map(|s| s.coder_id).collect();
+
+        let in_scope: Option<HashSet<i64>> = (!spec.source_ids.is_empty()).then(|| spec.source_ids.iter().copied().collect());
+        let mut unit_stmt = self.conn.prepare("SELECT id, source_id, start_offset, end_offset FROM unit WHERE excluded = 0")?;
+        let mut units: HashMap<i64, (i64, i64, i64)> = HashMap::new();
+        for row in unit_stmt.query_map([], |r| Ok((r.get::<_, i64>(0)?, r.get::<_, i64>(1)?, r.get::<_, i64>(2)?, r.get::<_, i64>(3)?)))? {
+            let (id, source, start, end) = row?;
+            if in_scope.as_ref().is_none_or(|s| s.contains(&source)) {
+                units.insert(id, (source, start, end));
+            }
+        }
+        let mut ids = vec![spec.instructor_id];
+        ids.extend(&student_ids);
+        let given = self.codes_by_unit(&ids, false)?;
+        let empty: HashSet<i64> = HashSet::new();
+        let by = |who: usize, unit: i64| -> &HashSet<i64> { given[who].get(&unit).unwrap_or(&empty) };
+
+        // The passages anyone coded, in the order of the documents.
+        let mut compared: Vec<i64> = units.keys().copied().filter(|u| given.iter().any(|g| g.get(u).is_some_and(|s| !s.is_empty()))).collect();
+        compared.sort_by_key(|u| (units[u].0, units[u].1, *u));
+        let names: HashMap<i64, String> = self.list_codes()?.into_iter().map(|c| (c.id, c.name)).collect();
+        let refs = |set: &HashSet<i64>| -> Vec<CodeRef> {
+            let mut v: Vec<i64> = set.iter().copied().collect();
+            v.sort_unstable();
+            v.into_iter().map(|id| CodeRef { id, name: names.get(&id).cloned().unwrap_or_else(|| id.to_string()) }).collect()
+        };
+        let source_name: HashMap<i64, String> = self.list_sources()?.into_iter().map(|s| (s.id, s.name)).collect();
+
+        let mut students = Vec::new();
+        for (i, summary) in review.students.iter().enumerate() {
+            let Some(coder_id) = summary.coder_id else { continue };
+            let who = i + 1;
+            let mut passages = Vec::new();
+            for u in &compared {
+                let (mine, theirs) = (by(0, *u), by(who, *u));
+                let status = if mine.is_empty() {
+                    if theirs.is_empty() {
+                        continue;
+                    }
+                    "extra"
+                } else if theirs.is_empty() {
+                    "left_uncoded"
+                } else if mine == theirs {
+                    continue;
+                } else if mine.intersection(theirs).count() > 0 {
+                    "partly"
+                } else {
+                    "different"
+                };
+                let (source_id, start, end) = units[u];
+                passages.push(FeedbackPassage {
+                    source_name: source_name.get(&source_id).cloned().unwrap_or_default(),
+                    start,
+                    end,
+                    text: cut(&self.text_of_span(source_id, start, end)?),
+                    instructor_codes: refs(mine),
+                    student_codes: refs(theirs),
+                    status: status.to_string(),
+                });
+            }
+            students.push(StudentFeedback { coder_id, name: summary.label.clone(), summary: summary.clone(), passages });
+        }
+        Ok(ClassFeedback { instructor: review.instructor, instructor_passages: review.instructor_passages, passages_compared: review.passages_compared, students, notes: review.notes })
+    }
+}

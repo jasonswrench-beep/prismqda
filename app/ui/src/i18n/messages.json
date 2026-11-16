@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 5701,
+  "count": 5714,
   "messages": [
     {
       "id": " and {n} more",
@@ -2399,6 +2399,16 @@
       ]
     },
     {
+      "id": "{count} feedback files were made.",
+      "forms": {
+        "one": "{count} feedback file was made.",
+        "other": "{count} feedback files were made."
+      },
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "{count} files",
       "forms": {
         "one": "{count} file",
@@ -2417,6 +2427,19 @@
       },
       "files": [
         "lib/importQueue.ts"
+      ]
+    },
+    {
+      "id": "{count} files were made in {folder}.",
+      "forms": {
+        "one": "{count} file was made in {folder}.",
+        "other": "{count} files were made in {folder}."
+      },
+      "blanks": [
+        "folder"
+      ],
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -3393,6 +3416,16 @@
       ],
       "files": [
         "lib/statistics.ts"
+      ]
+    },
+    {
+      "id": "{existing} already exists, so nothing was saved; choose another folder, or say that files may be replaced",
+      "blanks": [
+        "existing"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-api/src/class.rs:190"
       ]
     },
     {
@@ -5930,6 +5963,19 @@
       ],
       "files": [
         "lib/classroom.ts"
+      ]
+    },
+    {
+      "id": "{student}: {count} passages to look at again.",
+      "forms": {
+        "one": "{student}: {count} passage to look at again.",
+        "other": "{student}: {count} passages to look at again."
+      },
+      "blanks": [
+        "student"
+      ],
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -8618,7 +8664,7 @@
       "id": "a table is saved as CSV or Excel",
       "engine": true,
       "files": [
-        "prismqda-export/src/lib.rs:492"
+        "prismqda-export/src/lib.rs:494"
       ]
     },
     {
@@ -8843,6 +8889,12 @@
       "id": "A Word document that states what an ethics board or a protocol amendment asks for: where the data is kept, whether it is encrypted, the offline lock, every prompt packet that was built and whether it was answered, what is marked do not share, whether names were replaced, who coded, and the length of the record of what was done. It is made from the project and says nothing else.",
       "files": [
         "components/OfflineEthics.tsx"
+      ]
+    },
+    {
+      "id": "A Word file for each student to read: how their coding compares with yours, and the passages where their codes were not yours, with the words of each, yours and theirs. A student’s file holds their name and nobody else’s. It is made by name, even when the review above is set to call the students by number.",
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -11431,6 +11483,12 @@
       ]
     },
     {
+      "id": "Browse for the feedback folder",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "Browse for the folder to save in",
       "files": [
         "components/NewProjectForm.tsx"
@@ -11795,6 +11853,17 @@
       "engine": true,
       "files": [
         "prismqda-api/src/files.rs:33"
+      ]
+    },
+    {
+      "id": "cannot make the folder {folder}: {e}",
+      "blanks": [
+        "folder",
+        "e"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-api/src/class.rs:193"
       ]
     },
     {
@@ -15274,7 +15343,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-export/src/lib.rs:44"
+        "prismqda-export/src/lib.rs:46"
       ]
     },
     {
@@ -17981,6 +18050,12 @@
       "id": "Feature",
       "files": [
         "components/JointMore.tsx"
+      ]
+    },
+    {
+      "id": "Feedback for each student",
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -21967,6 +22042,12 @@
       ]
     },
     {
+      "id": "Make a feedback file for each student",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "Make a map",
       "files": [
         "components/explore/ConceptMap.tsx"
@@ -22118,6 +22199,12 @@
       "id": "Making the copy…",
       "files": [
         "components/PrivacyView.tsx"
+      ]
+    },
+    {
+      "id": "Making the files…",
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -30556,17 +30643,24 @@
       ]
     },
     {
+      "id": "say which folder the feedback files should go in",
+      "engine": true,
+      "files": [
+        "prismqda-api/src/class.rs:173"
+      ]
+    },
+    {
       "id": "say which folder the packets should go in",
       "engine": true,
       "files": [
-        "prismqda-api/src/class.rs:125"
+        "prismqda-api/src/class.rs:135"
       ]
     },
     {
       "id": "say which folder the students' packets are in",
       "engine": true,
       "files": [
-        "prismqda-api/src/class.rs:135"
+        "prismqda-api/src/class.rs:145"
       ]
     },
     {
@@ -34455,9 +34549,21 @@
       ]
     },
     {
+      "id": "The folder for the feedback files",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "The folder in Documents that the new document goes into. Empty means none.",
       "files": [
         "components/ImportPage.tsx"
+      ]
+    },
+    {
+      "id": "The folder is made when it is not there. A file that is already there is not replaced.",
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -34889,7 +34995,7 @@
       "id": "the list of names to replace is applied to exports, and a packet holds the documents whole; turn that switch off, or replace the names in the project itself first",
       "engine": true,
       "files": [
-        "prismqda-api/src/class.rs:118",
+        "prismqda-api/src/class.rs:128",
         "prismqda-api/src/lib.rs:1945"
       ]
     },
@@ -36107,7 +36213,7 @@
       "engine": true,
       "files": [
         "prismqda-api/src/lib.rs:2646",
-        "prismqda-export/src/lib.rs:500"
+        "prismqda-export/src/lib.rs:502"
       ]
     },
     {

@@ -114,7 +114,7 @@ pub use final_layer::FinalSummary;
 pub use region_final::{RegionCase, RegionCounts, RegionDecision, RegionMember};
 pub use merge::{CodeConflict, MergeChoices, MergeReport, Skipped, ValueConflict, ValueKey};
 pub use packet::{CoderPacketInfo, CoderPacketReport, CoderPacketSpec};
-pub use teaching::{kappa_2x2, tidy_students, ClassCollectOutcome, ClassCollectReport, ClassPacketOutcome, ClassPacketsReport, ClassPacketsSpec, ClassReview, ClassReviewSpec, CodeReview, HardPassage, StudentReview, MAX_STUDENTS};
+pub use teaching::{kappa_2x2, tidy_students, ClassCollectOutcome, ClassCollectReport, ClassPacketOutcome, ClassPacketsReport, ClassPacketsSpec, ClassReview, ClassReviewSpec, ClassFeedback, CodeReview, FeedbackPassage, HardPassage, StudentFeedback, StudentReview, MAX_STUDENTS};
 pub use passage_links::{PassageLink, Relation, COMMON_RELATIONS, MAX_RELATION_CHARS};
 pub use privacy::{CoderFact, NotShared, PrivacyFacts};
 pub use theme_ai::{ThemeAnswerOutcome, ThemePacket, ThemeRun, ThemeSuggestion, MIN_CODES as MIN_THEME_CODES};

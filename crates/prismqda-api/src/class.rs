@@ -49,6 +49,16 @@ struct SaveArgs {
     review: ReviewArgs,
 }
 
+#[derive(Deserialize)]
+struct FeedbackArgs {
+    /// The folder the files go in; it is made when it is not there.
+    folder: String,
+    #[serde(default)]
+    overwrite: bool,
+    #[serde(flatten)]
+    review: ReviewArgs,
+}
+
 /// The columns of the table of students, in order.
 const STUDENT_HEADER: [&str; 13] = [
     "Student",
@@ -147,6 +157,48 @@ impl Api {
                 let mut saved = write_file(&target, &students_csv(&review))?;
                 saved["rows"] = json!(review.students.len());
                 Ok(saved)
+            })(),
+            // A Word file of feedback for each student (decision 197): the figures of the review and the passages coded differently, one file each.
+            "export.class_feedback" => (|| {
+                let a: FeedbackArgs = parse(cmd, args)?;
+                let instructor_id = match a.review.instructor_id {
+                    Some(id) => id,
+                    None => self.me()?,
+                };
+                // A student reads their own feedback, by name, so the review's own choice to call students by number does not apply here.
+                let spec = ClassReviewSpec { instructor_id, student_ids: a.review.student_ids.clone(), source_ids: a.review.source_ids.clone(), anonymous: false, hardest: 0 };
+                let feedback = self.project()?.class_feedback(&spec)?;
+                let folder = PathBuf::from(a.folder.trim());
+                if folder.as_os_str().is_empty() {
+                    return Err(ApiError::new("invalid", "say which folder the feedback files should go in"));
+                }
+                // One file for each student, each named for them; two students of one name get a number.
+                let mut used: Vec<String> = Vec::new();
+                let mut plan: Vec<(usize, PathBuf)> = Vec::new();
+                for (i, student) in feedback.students.iter().enumerate() {
+                    let mut name = prismqda_export::feedback_file_name(&student.name);
+                    let mut k = 2;
+                    while used.contains(&name.to_lowercase()) {
+                        name = prismqda_export::feedback_file_name(&format!("{} ({k})", student.name));
+                        k += 1;
+                    }
+                    used.push(name.to_lowercase());
+                    plan.push((i, folder.join(name)));
+                }
+                if !a.overwrite {
+                    if let Some((_, existing)) = plan.iter().find(|(_, p)| p.exists()) {
+                        return Err(ApiError::new("already_exists", format!("{} already exists, so nothing was saved; choose another folder, or say that files may be replaced", existing.display())));
+                    }
+                }
+                std::fs::create_dir_all(&folder).map_err(|e| ApiError::new("io", format!("cannot make the folder {}: {e}", folder.display())))?;
+                let mut files = Vec::new();
+                for (i, path) in &plan {
+                    let student = &feedback.students[*i];
+                    let bytes = prismqda_export::student_feedback_docx(&feedback, student)?;
+                    write_file(path, &bytes)?;
+                    files.push(json!({ "student": student.name, "path": path.display().to_string(), "bytes": bytes.len(), "passages": student.passages.len() }));
+                }
+                Ok(json!({ "folder": folder.display().to_string(), "written": files.len(), "files": files, "notes": feedback.notes }))
             })(),
             _ => return None,
         })

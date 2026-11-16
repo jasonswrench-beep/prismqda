@@ -89,4 +89,21 @@ fn a_class_is_given_packets_brings_them_back_and_is_reviewed() {
     assert!(written.contains("Annika,3,3,0,0,0,0,3,0,0,100.0,100.0,0.0"), "{written}");
     assert!(written.contains("Bohdan,2,1,0,1,1,0,1,2,1,33.3,33.3,50.0"), "{written}");
     assert_eq!(api.call("export.class_review", json!({ "path": csv })).unwrap_err().code, "already_exists");
+
+    // A Word file of feedback for each student (decision 197), in a folder that is made; a student reads only their own.
+    let feedback = dir.path().join("feedback");
+    let made = ok(&mut api, "export.class_feedback", json!({ "folder": feedback, "anonymous": true }));
+    assert_eq!(made["written"], 2);
+    let files: Vec<(String, i64)> = made["files"].as_array().unwrap().iter().map(|f| (f["student"].as_str().unwrap().to_string(), f["passages"].as_i64().unwrap())).collect();
+    assert_eq!(files, [("Annika".to_string(), 0), ("Bohdan".to_string(), 2)], "named for the student although the review may be anonymous; Annika matched on every passage, Bohdan on one");
+    let bohdan = feedback.join("Bohdan - feedback.docx");
+    assert!(bohdan.is_file() && feedback.join("Annika - feedback.docx").is_file());
+    let text = prismqda_import::docx::parse(&std::fs::read(&bohdan).unwrap(), &prismqda_import::ImportOptions::default()).unwrap().text;
+    assert!(text.contains("For Bohdan") && text.contains("The stop is far from my house.") && text.contains("Your codes: Cost") && text.contains("The instructor's codes: Access"), "{text}");
+    assert!(!text.contains("Annika"), "a student's file holds nobody else's name");
+    // A file that is there is not replaced, and nothing at all is written when one is.
+    let refused = api.call("export.class_feedback", json!({ "folder": feedback })).unwrap_err();
+    assert_eq!(refused.code, "already_exists");
+    assert_eq!(ok(&mut api, "export.class_feedback", json!({ "folder": feedback, "overwrite": true }))["written"], 2);
+    assert_eq!(api.call("export.class_feedback", json!({ "folder": "" })).unwrap_err().code, "invalid");
 }

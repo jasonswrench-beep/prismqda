@@ -6,6 +6,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { unzipEntry } from './scenarios-export.mjs';
 
 const PARAGRAPHS = ['Fares are too high for me.', 'The stop is far from my house.', 'I love the new buses.'];
 
@@ -155,6 +156,31 @@ export async function runClass(ctx, api) {
     await page.getByTestId('class-save').click();
     await page.getByRole('alert').filter({ hasText: 'already exists' }).waitFor();
     h.equal(fs.readFileSync(csv, 'utf8'), written, 'a second save was refused and the file is as it was');
+  });
+
+  await S('a Word file of feedback is made for each student, by name, holding nobody else\'s', async () => {
+    // The review is on the page with the students named; the files are made by name whatever the review shows.
+    await page.getByTestId('class-anonymous').click();
+    await page.getByTestId('class-anonymous').click();
+    await page.getByTestId('class-review').click();
+    await page.getByTestId('class-feedback-field').waitFor();
+    const target = path.join(workDir, 'class-feedback');
+    await page.getByTestId('class-feedback-folder').fill(target);
+    await page.getByTestId('class-feedback').click();
+    const made = page.getByTestId('class-feedback-made');
+    await made.waitFor();
+    const said = await text(made);
+    h.check(/3 files were made/.test(said) && /Annika: 0 passages/.test(said) && /Bohdan: 2 passages/.test(said) && /Cyrus: 3 passages/.test(said), `the page says what was made: ${said}`);
+    const names = fs.readdirSync(target).sort();
+    h.equal(names, ['Annika - feedback.docx', 'Bohdan - feedback.docx', 'Cyrus - feedback.docx'], 'one file for each student, named for them');
+    // Read Bohdan's file back as the Word file it is: his name, the passages he left uncoded and coded otherwise, and no other name.
+    const xml = unzipEntry(path.join(target, 'Bohdan - feedback.docx'), 'word/document.xml').toString('utf8').replace(/<[^>]+>/g, ' ').replace(/&apos;|&#39;/g, "'").replace(/\s+/g, ' ');
+    h.check(/For\s+Bohdan/.test(xml) && /The stop is far from my house\./.test(xml) && /The instructor's codes:\s+Access/.test(xml) && /Your codes:\s+Cost/.test(xml), `the file says what he was given: ${xml.slice(0, 300)}`);
+    h.check(!/Annika|Cyrus/.test(xml), 'and holds no other student\'s name');
+    // A file that is there is not replaced.
+    await page.getByTestId('class-feedback').click();
+    await page.getByRole('alert').filter({ hasText: 'already exists' }).waitFor();
+    await axe('the Class tab with the feedback files made');
   });
 
   await S('the instructor\'s own project is open again afterwards', async () => {

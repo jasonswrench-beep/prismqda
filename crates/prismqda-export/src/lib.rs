@@ -7,6 +7,7 @@
 pub mod base64;
 mod csv;
 mod docx;
+mod feedback;
 mod notebook;
 mod pstat;
 mod qdc;
@@ -25,6 +26,7 @@ use prismqda_engine::{exif_orientation, CodeRow, CodedSegment, Project, SegmentF
 
 pub use crate::csv::write_csv;
 pub use crate::docx::{write_docx, write_docx_with_media, Block, Crop, Media, Run};
+pub use crate::feedback::{feedback_file_name, student_feedback_docx};
 pub use crate::notebook::{export_notebook, Labels as NotebookLabels, Notebook, NotebookChart, NotebookFormat, NotebookPage, NotebookTable};
 pub use crate::pstat::{attribute_name, attribute_names, export_case_table, PstatOptions, PstatReport, PROFILE as PSTAT_CASE_TABLE_PROFILE};
 pub use crate::qdc::{guid, write_qdc, QdcCode};

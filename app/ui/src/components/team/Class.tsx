@@ -105,6 +105,9 @@ export function ClassTab() {
   const [review, setReview] = useState<ClassReview | null>(null);
   const [savePath, setSavePath] = useState('');
   const [saved, setSaved] = useState<string | null>(null);
+  const [feedbackFolder, setFeedbackFolder] = useState('');
+  const [feedbackBusy, setFeedbackBusy] = useState(false);
+  const [feedback, setFeedback] = useState<{ folder: string; written: number; files: { student: string; path: string; passages: number }[] } | null>(null);
 
   const reviewArgs = (): ClassReviewArgs => ({ ...(instructor !== null ? { instructor_id: instructor } : {}), student_ids: students, source_ids: reviewDocs, anonymous, hardest: Number(hardest) });
   const run = async () => {
@@ -143,6 +146,28 @@ export function ClassTab() {
       announce(t('Saved {path}.', { path: r.path }));
     } catch (e) {
       setReviewError(toApiError(e).message);
+    }
+  };
+
+  // A Word file of feedback for each student, in a folder of its own beside the packets (decision 197).
+  const feedbackWhere = () => cleanTypedPath(feedbackFolder) || `${where()}\\Feedback`;
+  const chooseFeedbackFolder = async () => {
+    const picked = await browsePath('class-folder');
+    if (picked) setFeedbackFolder(picked);
+  };
+  const makeFeedback = async () => {
+    setReviewError(null);
+    setFeedback(null);
+    if (instructor === null || students.length === 0) return setReviewError(t('Choose the instructor and at least one student first.'));
+    setFeedbackBusy(true);
+    try {
+      const r = await call('export.class_feedback', { ...reviewArgs(), folder: feedbackWhere() });
+      setFeedback(r);
+      announce(tn(r.written, { one: '{count} feedback file was made.', other: '{count} feedback files were made.' }));
+    } catch (e) {
+      setReviewError(toApiError(e).message);
+    } finally {
+      setFeedbackBusy(false);
     }
   };
 
@@ -379,6 +404,32 @@ export function ClassTab() {
               </div>
               <span className="help">{t('A CSV file with one row for each student, to open in a spreadsheet. A file that is already there is not replaced. The names in it are the students’ names, whatever list of names is applied to other exports.')}</span>
               {saved ? <p role="status" data-testid="class-saved">{t('Saved {path}.', { path: saved })}</p> : null}
+            </div>
+
+            <div className="field" data-testid="class-feedback-field">
+              <h4 className="bk-h4" id="class-feedback-h">{t('Feedback for each student')}</h4>
+              <p className="help">{t('A Word file for each student to read: how their coding compares with yours, and the passages where their codes were not yours, with the words of each, yours and theirs. A student’s file holds their name and nobody else’s. It is made by name, even when the review above is set to call the students by number.')}</p>
+              <TextField value={feedbackFolder} onChange={(v) => { setFeedbackFolder(v); setFeedback(null); }} className="field">
+                <Label>{t('The folder for the feedback files')}</Label>
+                <div className="bk-location-row">
+                  <Input placeholder={`${where()}\\Feedback`} data-testid="class-feedback-folder" />
+                  {nativeDialogsAvailable ? <Button type="button" aria-label={t('Browse for the feedback folder')} onPress={() => void chooseFeedbackFolder()}>{t('Browse…')}</Button> : null}
+                </div>
+                <Text slot="description">{t('The folder is made when it is not there. A file that is already there is not replaced.')}</Text>
+              </TextField>
+              <div className="actions">
+                <Button onPress={() => void makeFeedback()} isDisabled={feedbackBusy} data-testid="class-feedback">{feedbackBusy ? t('Making the files…') : t('Make a feedback file for each student')}</Button>
+              </div>
+              {feedback ? (
+                <div role="status" data-testid="class-feedback-made">
+                  <p>{tn(feedback.written, { one: '{count} file was made in {folder}.', other: '{count} files were made in {folder}.' }, { folder: feedback.folder })}</p>
+                  <ul>
+                    {feedback.files.map((f) => (
+                      <li key={f.path}>{tn(f.passages, { one: '{student}: {count} passage to look at again.', other: '{student}: {count} passages to look at again.' }, { student: f.student })}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
             </div>
           </div>
         ) : null}

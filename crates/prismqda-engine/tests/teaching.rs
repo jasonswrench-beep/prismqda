@@ -396,3 +396,35 @@ fn a_document_that_changed_and_a_code_a_student_added_are_said_when_the_packets_
     let annika = second.files.iter().find(|f| f.file.contains("Annika")).unwrap();
     assert_eq!(annika.status, "nothing_new", "the first packet is not brought in twice");
 }
+
+#[test]
+fn a_students_feedback_lists_the_passages_coded_differently_in_the_order_of_the_text_and_uses_the_reviews_figures() {
+    let mut w = world();
+    // The instructor coded paragraphs 0 to 3 (Cost; Access; Cost and Access; Cost) and not paragraph 4.
+    // Ada: 0 the same, 1 left uncoded, 2 some of the same, 3 other codes, 4 coded where the instructor did not.
+    let ada = student(&mut w, "Ada", &[(0, &["Cost"]), (2, &["Cost"]), (3, &["Access"]), (4, &["Access"])]);
+    let bo = student(&mut w, "Bo", &[]);
+    let spec = ClassReviewSpec { instructor_id: w.teacher, student_ids: vec![], source_ids: vec![w.source], anonymous: true, hardest: 5 };
+    let feedback = w.p.class_feedback(&spec).unwrap();
+    assert_eq!(feedback.students.iter().map(|s| (s.name.as_str(), s.coder_id)).collect::<Vec<_>>(), [("Ada", ada), ("Bo", bo)], "named, although the review asked for was anonymous");
+    assert_eq!(feedback.instructor_passages, 4);
+
+    let a = &feedback.students[0];
+    let listed: Vec<(&str, &str)> = a.passages.iter().map(|p| (p.status.as_str(), p.text.as_str())).collect();
+    assert_eq!(
+        listed,
+        [("left_uncoded", RIDERS[1]), ("partly", RIDERS[2]), ("different", RIDERS[3]), ("extra", RIDERS[4])],
+        "the passage Ada coded as the instructor did is counted and not listed; the others are in the order of the document"
+    );
+    let partly = &a.passages[1];
+    assert_eq!(partly.instructor_codes.iter().map(|c| c.name.as_str()).collect::<Vec<_>>(), ["Cost", "Access"]);
+    assert_eq!(partly.student_codes.iter().map(|c| c.name.as_str()).collect::<Vec<_>>(), ["Cost"]);
+    assert_eq!(partly.source_name, "Riders");
+
+    // The figures are the review's, not a second count.
+    let review = w.p.class_review(&ClassReviewSpec { anonymous: false, ..spec.clone() }).unwrap();
+    assert_eq!(a.summary, review.students[0]);
+    assert_eq!(feedback.students[1].summary, review.students[1]);
+    // A student who coded nothing is told of every passage the instructor coded.
+    assert_eq!(feedback.students[1].passages.iter().map(|p| p.status.as_str()).collect::<Vec<_>>(), ["left_uncoded"; 4]);
+}

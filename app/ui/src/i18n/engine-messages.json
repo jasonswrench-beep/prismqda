@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 653,
+  "count": 656,
   "messages": [
     {
       "template": "'{c}' is not one of the groups.",
@@ -432,6 +432,12 @@
       "template": "{errors} cell(s) held a formula error and were left empty",
       "files": [
         "prismqda-import/src/spreadsheet.rs:305"
+      ]
+    },
+    {
+      "template": "{existing} already exists, so nothing was saved; choose another folder, or say that files may be replaced",
+      "files": [
+        "prismqda-api/src/class.rs:190"
       ]
     },
     {
@@ -1220,7 +1226,7 @@
     {
       "template": "a table is saved as CSV or Excel",
       "files": [
-        "prismqda-export/src/lib.rs:492"
+        "prismqda-export/src/lib.rs:494"
       ]
     },
     {
@@ -1408,6 +1414,12 @@
       "template": "cannot look at {path}: {e}",
       "files": [
         "prismqda-api/src/files.rs:33"
+      ]
+    },
+    {
+      "template": "cannot make the folder {folder}: {e}",
+      "files": [
+        "prismqda-api/src/class.rs:193"
       ]
     },
     {
@@ -1675,7 +1687,7 @@
     {
       "template": "could not build the file: {value}",
       "files": [
-        "prismqda-export/src/lib.rs:44"
+        "prismqda-export/src/lib.rs:46"
       ]
     },
     {
@@ -2443,15 +2455,21 @@
       ]
     },
     {
+      "template": "say which folder the feedback files should go in",
+      "files": [
+        "prismqda-api/src/class.rs:173"
+      ]
+    },
+    {
       "template": "say which folder the packets should go in",
       "files": [
-        "prismqda-api/src/class.rs:125"
+        "prismqda-api/src/class.rs:135"
       ]
     },
     {
       "template": "say which folder the students' packets are in",
       "files": [
-        "prismqda-api/src/class.rs:135"
+        "prismqda-api/src/class.rs:145"
       ]
     },
     {
@@ -2921,7 +2939,7 @@
     {
       "template": "the list of names to replace is applied to exports, and a packet holds the documents whole; turn that switch off, or replace the names in the project itself first",
       "files": [
-        "prismqda-api/src/class.rs:118",
+        "prismqda-api/src/class.rs:128",
         "prismqda-api/src/lib.rs:1945"
       ]
     },
@@ -3116,7 +3134,7 @@
       "template": "the QDC format holds a codebook, not coded segments",
       "files": [
         "prismqda-api/src/lib.rs:2646",
-        "prismqda-export/src/lib.rs:500"
+        "prismqda-export/src/lib.rs:502"
       ]
     },
     {

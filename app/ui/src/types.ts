@@ -3384,6 +3384,7 @@ export interface Commands {
   'class.collect': { args: { folder: string; passphrase?: string }; result: ClassCollectReport };
   'class.review': { args: ClassReviewArgs; result: ClassReview };
   'export.class_review': { args: ClassReviewArgs & { path: string; overwrite?: boolean }; result: ExportResult & { rows: number } };
+  'export.class_feedback': { args: ClassReviewArgs & { folder: string; overwrite?: boolean }; result: { folder: string; written: number; files: { student: string; path: string; bytes: number; passages: number }[]; notes: string[] } };
   /** One coded stretch of a recording saved as a WAV file; `data` is the file, as base 64 (the window cuts it from the decoded sound). */
   'export.clip': { args: { path: string; overwrite?: boolean; data: string }; result: ExportResult };
   'deid.state': { args: Record<string, never>; result: DeidState };
