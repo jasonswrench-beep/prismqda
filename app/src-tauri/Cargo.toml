@@ -1,6 +1,6 @@
 [package]
 name = "prismqda-app"
-version = "0.1.0-beta.1"
+version = "0.1.0-beta.2"
 description = "The PrismQDA desktop app: a Tauri window around the engine and the React interface."
 edition = "2021"
 rust-version = "1.92"

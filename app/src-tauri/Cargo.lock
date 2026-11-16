@@ -3400,7 +3400,7 @@ dependencies = [
 
 [[package]]
 name = "prismqda-app"
-version = "0.1.0-beta.1"
+version = "0.1.0-beta.2"
 dependencies = [
  "prismqda-api",
  "serde_json",
