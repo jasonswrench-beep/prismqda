@@ -26,6 +26,31 @@ export function formatClock(ms: number | null | undefined): string {
   return h > 0 ? `${h}:${two(m)}:${two(s)}` : `${m}:${two(s)}`;
 }
 
+/** The frame rates a person can say a video has (a page cannot read the rate from every file). */
+export const FRAME_RATES = [24, 25, 30, 50, 60] as const;
+
+/**
+ * Where the video is after stepping `frames` frames (a negative number steps back) at `fps` frames a second, in milliseconds: on the frame
+ * grid, so a step from between two frames lands on a frame, and never before the start or after the last frame of a video whose length is known.
+ */
+export function stepFrames(ms: number, frames: number, fps: number, durationMs: number | null): number {
+  const rate = Number.isFinite(fps) && fps > 0 ? fps : 30;
+  const here = Math.round((Number.isFinite(ms) ? Math.max(0, ms) : 0) / 1000 * rate);
+  const last = durationMs !== null && Number.isFinite(durationMs) && durationMs > 0 ? Math.max(0, Math.ceil(durationMs / 1000 * rate) - 1) : Number.POSITIVE_INFINITY;
+  const to = Math.min(last, Math.max(0, here + Math.trunc(frames)));
+  return (to * 1000) / rate;
+}
+
+/** A time as `hours:minutes:seconds:frame` at `fps` frames a second (`0:01:02:07`), the frame counted from 0 within the second. */
+export function timecode(ms: number, fps: number): string {
+  const rate = Number.isFinite(fps) && fps > 0 ? Math.round(fps) : 30;
+  const frames = Math.max(0, Math.floor((Number.isFinite(ms) ? ms : 0) / 1000 * rate + 1e-6));
+  const f = frames % rate;
+  const secs = Math.floor(frames / rate);
+  const two = (n: number) => String(n).padStart(2, '0');
+  return `${Math.floor(secs / 3600)}:${two(Math.floor((secs % 3600) / 60))}:${two(secs % 60)}:${two(f)}`;
+}
+
 /**
  * The unit being spoken at `ms`: the last one that has started by then (a pause between two turns still belongs to the turn before it).
  * `null` before the first turn starts, and when there are no times.

@@ -418,6 +418,10 @@ impl Project {
         if !matches!(mode, "packet" | "off") {
             return Err(Error::Invalid(format!("the AI setting is packet or off, not '{mode}'")));
         }
+        // An instructor's assignment (decision 200) can close AI prompt packets in the packet it hands out; they stay closed there.
+        if mode == "packet" && self.coder_packet_info()?.and_then(|p| p.assignment).is_some_and(|a| !a.ai_allowed) {
+            return Err(Error::Invalid("your instructor has turned AI prompt packets off for this assignment, so they cannot be turned on here".to_string()));
+        }
         let before: String = self.conn.query_row("SELECT ai_mode FROM project WHERE id = 1", [], |r| r.get(0))?;
         if before == mode {
             return Ok(());

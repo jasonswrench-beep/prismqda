@@ -299,7 +299,7 @@ impl Project {
     }
 
     /// True when the project codes whole units: a suggestion then covers a whole unit, never a part of it.
-    fn codes_whole_units(&self) -> Result<bool> {
+    pub(crate) fn codes_whole_units(&self) -> Result<bool> {
         let mode: String = self.conn.query_row("SELECT coding_mode FROM project WHERE id = 1", [], |r| r.get(0))?;
         Ok(mode == "unit")
     }

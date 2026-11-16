@@ -226,6 +226,10 @@ export async function runClass(ctx, api) {
     await axe('the Class tab with the feedback files made');
   });
 
+  // Coach mode, an assignment's settings, and the answer key (decisions 199 and 200).
+  const { runCoach } = await import('./scenarios-coach.mjs');
+  await runCoach(ctx, api);
+
   await S('the instructor\'s own project is open again afterwards', async () => {
     await rpc('project.close', {});
     await rpc('project.open', { path: ourPath, backup: false });

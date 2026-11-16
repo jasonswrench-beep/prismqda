@@ -121,4 +121,8 @@ export async function runText(ctx, api) {
     await count();
     h.equal(await page.getByTestId('stale-set').count(), 0, 'and so does counting after showing everything again');
   });
+
+  // Stems, topics and sentiment (decision 202), and how an assistant is connected (decision 203).
+  const { runTextModels } = await import('./scenarios-textmodels.mjs');
+  await runTextModels(ctx, api);
 }

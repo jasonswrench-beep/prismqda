@@ -40,6 +40,9 @@ pub struct ClassPacketsSpec {
     /// What every student should do and how; they see it as a memo.
     #[serde(default)]
     pub instructions: String,
+    /// What the instructor settled for the assignment (decision 200): AI allowed or not, the coach kept on, pages closed. None for none.
+    #[serde(default)]
+    pub assignment: Option<crate::packet::Assignment>,
 }
 
 /// What became of one student's packet.
@@ -100,6 +103,10 @@ impl Project {
         if students.len() > MAX_STUDENTS {
             return Err(Error::Invalid(format!("a class of more than {MAX_STUDENTS} students was listed; split it, or check that the list holds names")));
         }
+        // The settings of the assignment are checked once, before any packet is made.
+        if let Some(a) = &spec.assignment {
+            a.clone().checked()?;
+        }
         if folder.is_file() {
             return Err(Error::Invalid(format!("{} is a file; choose a folder for the packets", folder.display())));
         }
@@ -110,7 +117,7 @@ impl Project {
             let who = file_part(student);
             let who = if who.is_empty() { format!("student {}", packets.len() + 1) } else { who };
             let path = folder.join(format!("{stem} - packet for {who}.pqda"));
-            let made = self.make_coder_packet(&path, &CoderPacketSpec { coder_name: student.clone(), source_ids: spec.source_ids.clone(), instructions: spec.instructions.clone(), include_codings: false });
+            let made = self.make_coder_packet(&path, &CoderPacketSpec { coder_name: student.clone(), source_ids: spec.source_ids.clone(), instructions: spec.instructions.clone(), include_codings: false, assignment: spec.assignment.clone(), keep_coder: None });
             match made {
                 Ok(report) => {
                     documents = report.documents;
@@ -208,7 +215,7 @@ impl Project {
             let (path, _) = self.backup_now_noted()?;
             backup = Some(path.display().to_string());
         }
-        let scope = || MergeScope { sources: None, codings: true, memos: false, recordings: false, cases: false, choices: MergeChoices::default() };
+        let scope = || MergeScope { sources: None, codings: true, coders: None, memos: false, recordings: false, cases: false, choices: MergeChoices::default() };
         let (mut brought, mut added_total) = (0, 0);
         for (at, file) in to_bring {
             let scratch = scratch_path("class");
@@ -952,5 +959,28 @@ impl Project {
             students.push(StudentFeedback { coder_id, name: summary.label.clone(), summary: summary.clone(), passages });
         }
         Ok(ClassFeedback { instructor: review.instructor, instructor_passages: review.instructor_passages, passages_compared: review.passages_compared, students, notes: review.notes })
+    }
+}
+
+// ---- the answer key, kept apart --------------------------------------------------------------------------------------------------
+
+impl Project {
+    /// Writes the instructor's coding of the documents chosen, and nothing else, to `path` (which must not exist): a file to keep apart from the
+    /// packets students are given (decision 200). It is a packet for the instructor that holds only the instructor's coding, so it comes back
+    /// into a project the way a student's packet does (Class > Bring the students' work in), which lets the same exercise be reviewed again
+    /// next term in a project that never held the key.
+    pub fn make_class_key(&self, path: &Path, instructor_id: i64, source_ids: &[i64]) -> Result<crate::CoderPacketReport> {
+        let coders = self.list_coders()?;
+        let instructor = coders.iter().find(|c| c.id == instructor_id).ok_or(Error::NotFound { what: "coder", id: instructor_id })?;
+        if instructor.role != "human" {
+            return Err(Error::Invalid("the answer key is a person's coding, and this coder is a model".to_string()));
+        }
+        let spec = CoderPacketSpec { coder_name: instructor.name.clone(), source_ids: source_ids.to_vec(), instructions: String::new(), include_codings: true, assignment: None, keep_coder: Some(instructor_id) };
+        let report = self.make_coder_packet(path, &spec)?;
+        if report.codings == 0 {
+            remove_scratch(path);
+            return Err(Error::Invalid("the instructor has not coded any passage of these documents, so there is no key to keep".to_string()));
+        }
+        Ok(report)
     }
 }

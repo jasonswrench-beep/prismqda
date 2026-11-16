@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
 import { Button, Input, Label, Text, TextArea, TextField } from 'react-aria-components';
 import { call, toApiError } from '../../bridge';
-import { heatLevel, kappaText, parseStudents, percentText, suggestedClassFolder, suggestedClassTable, suggestedReviewFile } from '../../lib/classroom';
+import { closablePages, heatLevel, kappaText, parseStudents, percentText, suggestedClassFolder, suggestedClassTable, suggestedKeyFile, suggestedReviewFile } from '../../lib/classroom';
 import { browsePath, cleanTypedPath, nativeDialogsAvailable } from '../../pickFile';
 import { announce } from '../../state/announce';
 import { refreshEverything } from '../../state/actions';
 import { useApp } from '../../state/app';
-import type { ClassCollectReport, ClassPacketsReport, ClassReview, ClassReviewArgs, ClassSideBySide, SourceRow } from '../../types';
+import type { Assignment, ClassCollectReport, ClassPacketsReport, ClassReview, ClassReviewArgs, ClassSideBySide, SourceRow } from '../../types';
 import { Notice } from '../common';
 import { Tick } from '../Tick';
 import { num, t, tn } from '../../i18n';
@@ -85,6 +85,10 @@ export function ClassTab() {
   const [list, setList] = useState('');
   const [packetDocs, setPacketDocs] = useState<number[]>([]);
   const [instructions, setInstructions] = useState('');
+  const [title, setTitle] = useState('');
+  const [aiAllowed, setAiAllowed] = useState(true);
+  const [coachLocked, setCoachLocked] = useState(false);
+  const [closedPages, setClosedPages] = useState<string[]>([]);
   const [making, setMaking] = useState(false);
   const [makeError, setMakeError] = useState<string | null>(null);
   const [made, setMade] = useState<ClassPacketsReport | null>(null);
@@ -96,7 +100,9 @@ export function ClassTab() {
     if (parsed.names.length === 0) return setMakeError(t('Type the names of the students, one on each line.'));
     setMaking(true);
     try {
-      const r = await call('class.packets', { folder: where(), students: parsed.names, source_ids: packetDocs, instructions });
+      // The settings go into each packet only when something was chosen (decision 200).
+      const settings: Partial<Assignment> | undefined = title.trim() !== '' || !aiAllowed || coachLocked || closedPages.length > 0 ? { title, ai_allowed: aiAllowed, coach_locked: coachLocked, closed: closedPages } : undefined;
+      const r = await call('class.packets', { folder: where(), students: parsed.names, source_ids: packetDocs, instructions, ...(settings ? { assignment: settings } : {}) });
       setMade(r);
       announce(tn(r.made, { one: '{count} packet was made.', other: '{count} packets were made.' }));
     } catch (e) {
@@ -142,6 +148,8 @@ export function ClassTab() {
   const [review, setReview] = useState<ClassReview | null>(null);
   const [savePath, setSavePath] = useState('');
   const [saved, setSaved] = useState<string | null>(null);
+  const [keyBusy, setKeyBusy] = useState(false);
+  const [keyMade, setKeyMade] = useState<{ path: string; codings: number } | null>(null);
   const [side, setSide] = useState<ClassSideBySide | null>(null);
   const [sideBusy, setSideBusy] = useState(false);
   const [feedbackFolder, setFeedbackFolder] = useState('');
@@ -149,6 +157,22 @@ export function ClassTab() {
   const [feedback, setFeedback] = useState<{ folder: string; written: number; files: { student: string; path: string; passages: number }[] } | null>(null);
 
   const reviewArgs = (): ClassReviewArgs => ({ ...(instructor !== null ? { instructor_id: instructor } : {}), student_ids: students, source_ids: reviewDocs, anonymous, hardest: Number(hardest) });
+  // The instructor's coding, kept in a file of its own, apart from the packets and from the students' work (decision 200).
+  const makeKey = async () => {
+    setReviewError(null);
+    setKeyMade(null);
+    if (instructor === null) return setReviewError(t('Choose the instructor, whose coding is the answer.'));
+    setKeyBusy(true);
+    try {
+      const r = await call('export.class_key', { path: `${where()}\\${suggestedKeyFile(project?.name ?? '')}`, instructor_id: instructor, source_ids: reviewDocs });
+      setKeyMade({ path: r.path, codings: r.codings });
+      announce(t('The answer key was saved.'));
+    } catch (e) {
+      setReviewError(toApiError(e).message);
+    } finally {
+      setKeyBusy(false);
+    }
+  };
   const showSide = async () => {
     setReviewError(null);
     setSideBusy(true);
@@ -254,6 +278,22 @@ export function ClassTab() {
           <TextArea rows={3} data-testid="class-instructions" />
           <Text slot="description">{t('Each student sees this as a memo in their packet: which codes to use, how many to give a passage, when to send it back.')}</Text>
         </TextField>
+        <fieldset className="field team-coders class-assignment" data-testid="class-assignment">
+          <legend>{t('Settings for this assignment (optional)')}</legend>
+          <TextField value={title} onChange={setTitle} className="field">
+            <Label>{t('The name of the assignment')}</Label>
+            <Input data-testid="class-assignment-title" />
+          </TextField>
+          <Tick isSelected={aiAllowed} onChange={setAiAllowed} testId="class-assignment-ai">{t('Allow AI prompt packets in the packets')}</Tick>
+          <Tick isSelected={coachLocked} onChange={(on) => { setCoachLocked(on); if (on) setClosedPages(closedPages.filter((p) => p !== 'team')); }} testId="class-assignment-coach">{t('Keep the coach on while the students code')}</Tick>
+          <fieldset className="field team-coders class-closed" data-testid="class-assignment-closed">
+            <legend>{t('Close these pages to the students')}</legend>
+            {closablePages().map((p) => (
+              <Tick key={p.id} isSelected={closedPages.includes(p.id)} isDisabled={coachLocked && p.id === 'team'} onChange={(on) => setClosedPages(on ? [...closedPages, p.id] : closedPages.filter((x) => x !== p.id))} testId={`class-closed-${p.id}`}>{p.label}</Tick>
+            ))}
+          </fieldset>
+          <p className="help">{t('These settings are written into each packet, and the student is told what they are. They guide a class; they are not a lock against a student who is determined to open the file another way. The coach is on the Team page, so that page stays open while the coach is kept on.')}</p>
+        </fieldset>
         <div className="actions">
           <Button className="primary" onPress={() => void make()} isDisabled={making} data-testid="class-make">{making ? t('Making…') : t('Make the packets')}</Button>
         </div>
@@ -357,6 +397,14 @@ export function ClassTab() {
               <option key={n} value={n}>{n}</option>
             ))}
           </select>
+        </div>
+        <div className="field" data-testid="class-key-field">
+          <h4 className="bk-h4" id="class-key-h">{t('Keep your coding as an answer key')}</h4>
+          <p className="help">{t('Saves your coding of the documents chosen above, and nothing else, as a file of its own to keep apart from the packets. Next term, put it in the folder with the new students’ files and bring them all in together to review the same exercise.')}</p>
+          <div className="actions">
+            <Button onPress={() => void makeKey()} isDisabled={keyBusy} data-testid="class-key">{keyBusy ? t('Saving…') : t('Save the answer key')}</Button>
+          </div>
+          {keyMade ? <p role="status" data-testid="class-key-made">{tn(keyMade.codings, { one: 'Saved {path}: {count} coding of yours.', other: 'Saved {path}: {count} codings of yours.' }, { path: keyMade.path })}</p> : null}
         </div>
         <div className="actions">
           <Button className="primary" onPress={() => void run()} isDisabled={reviewing} data-testid="class-review">{reviewing ? t('Reviewing…') : t('Review the class')}</Button>

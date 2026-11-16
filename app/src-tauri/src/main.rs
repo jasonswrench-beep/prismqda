@@ -25,6 +25,10 @@ async fn call<R: tauri::Runtime>(app: tauri::AppHandle<R>, cmd: String, args: Op
     if let Some(what) = cmd.strip_prefix("update.") {
         return handle_update(&app, what, &engine).await;
     }
+    // Where this program is, so the page that explains how to connect an assistant can show the command an assistant application should start.
+    if cmd == "assistant.command" {
+        return std::env::current_exe().map(|exe| serde_json::json!({ "command": exe.display().to_string() })).map_err(|e| ApiError::new("io", e.to_string()));
+    }
     let mut api = engine.0.lock().map_err(|_| ApiError::new("internal", "the engine stopped after an earlier failure; close and reopen PrismQDA"))?;
     api.call(&cmd, args.unwrap_or(Value::Null))
 }
@@ -194,7 +198,51 @@ fn portable_data_dir(program_dir: &std::path::Path) -> Option<std::path::PathBuf
     program_dir.join(PORTABLE_MARKER).is_file().then(|| program_dir.join("PrismQDAData"))
 }
 
+/// `PrismQDA.exe mcp <project> [--permission read|propose] [--actor <name>]` (decision 203): an assistant application started the program as its
+/// pipe to a project. There is no window, no port and no network connection, and it runs before anything of the window starts (so the
+/// single-instance plug-in never sees it). Returns the exit code.
+fn assistant_server(args: &[String]) -> i32 {
+    let (mut project, mut permission, mut actor) = (None::<PathBuf>, "read".to_string(), None::<String>);
+    let mut it = args.iter();
+    while let Some(a) = it.next() {
+        match a.as_str() {
+            "--permission" => permission = it.next().cloned().unwrap_or_default(),
+            "--actor" => actor = it.next().cloned(),
+            other if !other.starts_with("--") && project.is_none() => project = Some(PathBuf::from(other)),
+            other => {
+                eprintln!("error: I do not know '{other}'");
+                return 2;
+            }
+        }
+    }
+    let Some(project) = project else {
+        eprintln!("error: say which project file the assistant may read");
+        return 2;
+    };
+    let passphrase = std::env::var("PRISMQDA_PASSPHRASE").ok().filter(|p| !p.is_empty());
+    match prismqda_api::mcp::Server::open(&project, actor.as_deref(), passphrase, &permission) {
+        Ok(mut server) => {
+            let stdin = std::io::stdin();
+            match server.run(stdin.lock(), std::io::stdout().lock()) {
+                Ok(()) => 0,
+                Err(e) => {
+                    eprintln!("error: {e}");
+                    1
+                }
+            }
+        }
+        Err(e) => {
+            eprintln!("error: {e}");
+            1
+        }
+    }
+}
+
 fn main() {
+    let args: Vec<String> = std::env::args().collect();
+    if args.get(1).map(String::as_str) == Some("mcp") {
+        std::process::exit(assistant_server(&args[2..]));
+    }
     let api = Arc::new(Mutex::new(Api::new(person())));
     keep_backing_up(Arc::clone(&api));
     let started_with = std::env::current_dir()

@@ -2,6 +2,7 @@ import { Button } from 'react-aria-components';
 import { goTo } from '../state/actions';
 import { useApp } from '../state/app';
 import { AiView } from './AiView';
+import { CoachBar } from './CoachBar';
 import { TeamView } from './TeamView';
 import { StatisticsView } from './StatisticsView';
 import { VariablesView } from './VariablesView';
@@ -34,6 +35,10 @@ import { t } from '../i18n';
 export function Frame() {
   const project = useApp((s) => s.project);
   const workspace = useApp((s) => s.workspace);
+  // An instructor's assignment can close pages of the program to the student and keep the coach on (decision 200).
+  const assignment = project?.packet?.assignment ?? null;
+  const closed = (assignment?.closed ?? []).includes(workspace);
+  const shown = closed ? null : workspace;
   // A packet says whom it was made for, so the person who opens it knows whose coding they are making (decision 161).
   const packetLines = [
     ...(project?.packet ? [t('This project is a packet made for {coder}, from "{from}". Code the documents, then close it and send this file back; whoever sent it brings it in with Team > Merge.', { coder: project.packet.coder_name, from: project.packet.from_project })] : []),
@@ -57,6 +62,8 @@ export function Frame() {
 
       <WorkingSetBar />
 
+      {assignment?.coach_locked && workspace === 'code' ? <CoachBar /> : null}
+
       {workspace !== 'code' ? (
         <nav className="bk-pagebar" aria-label={t('Page')}>
           <Button className="bk-back" onPress={() => goTo('code')}>
@@ -65,21 +72,27 @@ export function Frame() {
       ) : null}
 
       <div className="tab-body" data-workspace={workspace}>
-        {workspace === 'home' ? <HomeView /> : null}
-        {workspace === 'data' ? <DataView /> : null}
-        {workspace === 'code' ? <CodeWorkspace /> : null}
-        {workspace === 'codebook' ? <CodebookEditor /> : null}
-        {workspace === 'themes' ? <ThemesView /> : null}
-        {workspace === 'explore' ? <ExploreView /> : null}
-        {workspace === 'autocode' ? <AutoCodeView /> : null}
-        {workspace === 'ai' ? <AiView /> : null}
-        {workspace === 'team' ? <TeamView /> : null}
-        {workspace === 'text' ? <TextAnalyticsView /> : null}
-        {workspace === 'stats' ? <StatisticsView /> : null}
-        {workspace === 'variables' ? <VariablesView /> : null}
-        {workspace === 'mixed' ? <MixedMethodsView /> : null}
-        {workspace === 'import' ? <ImportPage /> : null}
-        {workspace === 'synthesize' ? (
+        {closed ? (
+          <main id="main-content" tabIndex={-1} className="view-page" aria-labelledby="h-closed" data-testid="page-closed">
+            <h2 id="h-closed">{t('This page is closed')}</h2>
+            <p className="help">{t('Your instructor has closed this page for this assignment. It opens again when you work outside the assignment.')}</p>
+          </main>
+        ) : null}
+        {shown === 'home' ? <HomeView /> : null}
+        {shown === 'data' ? <DataView /> : null}
+        {shown === 'code' ? <CodeWorkspace /> : null}
+        {shown === 'codebook' ? <CodebookEditor /> : null}
+        {shown === 'themes' ? <ThemesView /> : null}
+        {shown === 'explore' ? <ExploreView /> : null}
+        {shown === 'autocode' ? <AutoCodeView /> : null}
+        {shown === 'ai' ? <AiView /> : null}
+        {shown === 'team' ? <TeamView /> : null}
+        {shown === 'text' ? <TextAnalyticsView /> : null}
+        {shown === 'stats' ? <StatisticsView /> : null}
+        {shown === 'variables' ? <VariablesView /> : null}
+        {shown === 'mixed' ? <MixedMethodsView /> : null}
+        {shown === 'import' ? <ImportPage /> : null}
+        {shown === 'synthesize' ? (
           <main id="main-content" tabIndex={-1} className="view-page" aria-labelledby="h-memos">
             <h2 id="h-memos">{t('Memos')}</h2>
             <p className="help">{t('Write down what you notice and decide. Memos can be about a coding, a code, a source, or the whole project.')}</p>
@@ -87,9 +100,9 @@ export function Frame() {
             <PassageLinksPage />
           </main>
         ) : null}
-        {workspace === 'report' ? <ReportView /> : null}
-        {workspace === 'privacy' ? <PrivacyView /> : null}
-        {workspace === 'settings' ? <SettingsView /> : null}
+        {shown === 'report' ? <ReportView /> : null}
+        {shown === 'privacy' ? <PrivacyView /> : null}
+        {shown === 'settings' ? <SettingsView /> : null}
       </div>
     </div>
   );

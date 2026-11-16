@@ -7,6 +7,7 @@
 
 mod autocode;
 mod class;
+pub mod mcp;
 mod datatools;
 mod deid;
 mod files;
@@ -2012,6 +2013,15 @@ impl Api {
             "analytics.kwic" => {
                 let a: prismqda_engine::ContextSpec = parse(cmd, args)?;
                 to_json(&self.project()?.keywords_in_context(&a)?)
+            }
+            // Topics and sentiment, from the words of the passages (decision 202).
+            "analytics.topics" => {
+                let a: prismqda_engine::TopicSpec = parse(cmd, args)?;
+                to_json(&self.project()?.topics(&a)?)
+            }
+            "analytics.sentiment" => {
+                let a: prismqda_engine::SentimentSpec = parse(cmd, args)?;
+                to_json(&self.project()?.sentiment(&a)?)
             }
 
             // ---- the data editor: variables of cases, their values, and transformations ----

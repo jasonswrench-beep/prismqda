@@ -60,6 +60,46 @@ export interface CoderPacketInfo {
   coder_local_id: string;
   from_project: string;
   made_at: string;
+  /** What the instructor decided for this assignment (decision 200); absent for a packet made without any. */
+  assignment?: Assignment | null;
+}
+
+/**
+ * What an instructor settled for an assignment, kept in the packet each student is given: whether AI prompt packets are allowed, whether the
+ * coach stays on, and which pages of the program are closed. It guides a class; it is not a lock a determined student could not open.
+ */
+export interface Assignment {
+  title: string;
+  ai_allowed: boolean;
+  coach_locked: boolean;
+  /** The pages (workspaces) closed to the student. */
+  closed: string[];
+}
+
+/** One thing the coach noticed (decision 199). */
+export interface CoachFinding {
+  rule: 'no_definition' | 'used_once' | 'overlap' | 'inconsistent';
+  codes: { id: number; name: string }[];
+  count: number;
+  of: number;
+  phrase: string | null;
+  examples: { source_name: string; start: number; end: number; text: string }[];
+}
+
+export interface CoachReport {
+  coder: { id: number; name: string; role: string };
+  documents: number;
+  codings: number;
+  codes_used: number;
+  rules: { rule: CoachFinding['rule']; findings: number }[];
+  findings: CoachFinding[];
+  notes: string[];
+}
+
+export interface CoachPrompt {
+  text: string;
+  findings: number;
+  left_out: string[];
 }
 
 /** What a packet for a coder holds. */
@@ -867,6 +907,13 @@ export interface WordSpecArgs {
   min_length?: number;
   min_count?: number;
   limit?: number;
+  /** Count the forms of an English word together (decision 202). */
+  stem?: boolean;
+}
+
+export interface WordForm {
+  word: string;
+  count: number;
 }
 
 export interface WordCount {
@@ -874,6 +921,74 @@ export interface WordCount {
   count: number;
   /** In how many documents the word is used. */
   documents: number;
+  /** When forms are counted together and there was more than one: each form and how often it was used. Empty otherwise. */
+  forms: WordForm[];
+}
+
+/** Topics in the passages (decision 202). */
+export interface TopicArgs {
+  source_ids?: number[];
+  case_id?: number;
+  topics?: number;
+  words_per_topic?: number;
+  leave_out_common?: boolean;
+  stem?: boolean;
+}
+
+export interface TopicReport {
+  topics: {
+    number: number;
+    label: string;
+    words: { word: string; weight: number }[];
+    passages: number;
+    share: number;
+    examples: { unit_id: number; source_id: number; source_name: string; start: number; end: number; text: string; strength: number }[];
+  }[];
+  passages_used: number;
+  passages_left_out: number;
+  vocabulary: number;
+  notes: string[];
+}
+
+/** Sentiment of the passages, by the words in them (decision 202). */
+export interface SentimentArgs {
+  source_ids?: number[];
+  case_id?: number;
+  positive_words?: string[];
+  negative_words?: string[];
+  own_words_only?: boolean;
+  examples?: number;
+}
+
+export interface SentimentCounts {
+  positive: number;
+  negative: number;
+  mixed: number;
+  neutral: number;
+}
+
+export interface SentimentReport {
+  passages: number;
+  counts: SentimentCounts;
+  by_document: { name: string; counts: SentimentCounts }[];
+  by_code: { name: string; counts: SentimentCounts }[];
+  most_positive: SentimentPassageRow[];
+  most_negative: SentimentPassageRow[];
+  positive_list: number;
+  negative_list: number;
+  notes: string[];
+}
+
+export interface SentimentPassageRow {
+  unit_id: number;
+  source_id: number;
+  source_name: string;
+  start: number;
+  end: number;
+  text: string;
+  positive_words: string[];
+  negative_words: string[];
+  net: number;
 }
 
 export interface WordFrequencies {
@@ -3294,6 +3409,8 @@ export interface Commands {
   'text.write': { args: { path: string; text: string; replace?: boolean }; result: { path: string; bytes: number } };
   'analytics.words': { args: WordSpecArgs; result: WordFrequencies };
   'analytics.kwic': { args: ContextArgs; result: WordContexts };
+  'analytics.topics': { args: TopicArgs; result: TopicReport };
+  'analytics.sentiment': { args: SentimentArgs; result: SentimentReport };
   'stats.variables': { args: Record<string, never>; result: StatVariables };
   'stats.table': { args: { keys: string[]; include_descendants?: boolean }; result: StatTable };
   'export.script': { args: { path: string; overwrite?: boolean; script: string; data: string }; result: ExportResult & { data_path: string; data_bytes: number } };
@@ -3404,10 +3521,14 @@ export interface Commands {
   'import.qdpx': { args: { path: string; project_path: string; name?: string }; result: { project_path: string; report: QdpxReport } };
   'export.notebook': { args: { path: string; overwrite?: boolean; format: NotebookFileFormat; notebook: NotebookPayload }; result: ExportResult };
   'export.picture': { args: { path: string; overwrite?: boolean; format: 'png' | 'svg'; data: string }; result: ExportResult };
-  'class.packets': { args: { folder: string; students: string[]; source_ids?: number[]; instructions?: string }; result: ClassPacketsReport };
+  'class.packets': { args: { folder: string; students: string[]; source_ids?: number[]; instructions?: string; assignment?: Partial<Assignment> }; result: ClassPacketsReport };
+  'export.class_key': { args: { path: string; instructor_id?: number; source_ids?: number[] }; result: CoderPacketReport };
   'class.collect': { args: { folder: string; passphrase?: string }; result: ClassCollectReport };
   'class.review': { args: ClassReviewArgs; result: ClassReview };
   'export.class_review': { args: ClassReviewArgs & { path: string; overwrite?: boolean }; result: ExportResult & { rows: number } };
+  'assistant.command': { args: Record<string, never>; result: { command: string } };
+  'coach.check': { args: { coder_id?: number; source_ids?: number[] }; result: CoachReport };
+  'coach.prompt': { args: { coder_id?: number; source_ids?: number[] }; result: CoachPrompt };
   'class.side_by_side': { args: ClassReviewArgs & { unit_ids?: number[] }; result: ClassSideBySide };
   'export.class_heat_map': { args: ClassReviewArgs & { path: string; overwrite?: boolean }; result: ExportResult & { rows: number; columns: number } };
   'export.class_side_by_side': { args: ClassReviewArgs & { unit_ids?: number[]; path: string; overwrite?: boolean }; result: ExportResult & { rows: number } };

@@ -11,6 +11,8 @@ import type { WordContexts, WordFrequencies } from '../types';
 import { Notice } from './common';
 import { StaleSet } from './WorkingSet';
 import { Tick } from './Tick';
+import { SentimentTab } from './text/SentimentTab';
+import { TopicsTab } from './text/TopicsTab';
 import { compareText, num, t } from '../i18n';
 
 /**
@@ -19,17 +21,19 @@ import { compareText, num, t } from '../i18n';
  * description is not counted.
  */
 export function TextAnalyticsView() {
-  const [tab, setTab] = useState<'words' | 'context'>('words');
+  const [tab, setTab] = useState<'words' | 'context' | 'topics' | 'sentiment'>('words');
   const [lookup, setLookup] = useState<{ word: string; n: number } | null>(null);
 
   return (
     <main id="main-content" tabIndex={-1} className="view-page text-page" aria-labelledby="h-text">
       <h2 id="h-text">{t('Text Analytics')}</h2>
       <p className="help">{t('Which words your documents use, and where a word is used. A word is a run of letters or digits, written in lower case. Nothing is guessed, and the words that can be left out as common are English ones; turn that off for another language. A picture\'s description is not counted.')}</p>
-      <Tabs selectedKey={tab} onSelectionChange={(k) => setTab(k as 'words' | 'context')} className="bk-editor-tabs">
+      <Tabs selectedKey={tab} onSelectionChange={(k) => setTab(k as 'words' | 'context' | 'topics' | 'sentiment')} className="bk-editor-tabs">
         <TabList aria-label={t('Text Analytics')} className="bk-editor-tablist">
           <Tab id="words" className="bk-tab" data-testid="text-tab-words">{t('Word frequencies')}</Tab>
           <Tab id="context" className="bk-tab" data-testid="text-tab-context">{t('Keywords in context')}</Tab>
+          <Tab id="topics" className="bk-tab" data-testid="text-tab-topics">{t('Topics')}</Tab>
+          <Tab id="sentiment" className="bk-tab" data-testid="text-tab-sentiment">{t('Sentiment')}</Tab>
         </TabList>
         <TabPanel id="words" className="bk-editor-panel">
           <WordsTab
@@ -42,6 +46,12 @@ export function TextAnalyticsView() {
         <TabPanel id="context" className="bk-editor-panel">
           <ContextTab lookup={lookup} />
         </TabPanel>
+        <TabPanel id="topics" className="bk-editor-panel">
+          <TopicsTab />
+        </TabPanel>
+        <TabPanel id="sentiment" className="bk-editor-panel">
+          <SentimentTab />
+        </TabPanel>
       </Tabs>
     </main>
   );
@@ -53,6 +63,7 @@ function WordsTab({ onSee }: { onSee: (word: string) => void }) {
   const [caseId, setCaseId] = useState('');
   const [codeId, setCodeId] = useState('');
   const [common, setCommon] = useState(true);
+  const [stem, setStem] = useState(false);
   const [minLength, setMinLength] = useState('3');
   const [limit, setLimit] = useState('100');
   const [result, setResult] = useState<WordFrequencies | null>(null);
@@ -70,6 +81,7 @@ function WordsTab({ onSee }: { onSee: (word: string) => void }) {
         ...(caseId ? { case_id: Number(caseId) } : {}),
         ...(codeId ? { code_ids: [Number(codeId)] } : {}),
         leave_out_common: common,
+        stem,
         min_length: Math.max(1, Math.floor(Number(minLength)) || 1),
         limit: Math.max(1, Math.floor(Number(limit)) || 100),
       });
@@ -107,6 +119,7 @@ function WordsTab({ onSee }: { onSee: (word: string) => void }) {
         </select>
       </div>
       <Tick isSelected={common} onChange={setCommon} testId="text-common">{t('Leave out common English words (the, and, of, and so on)')}</Tick>
+      <Tick isSelected={stem} onChange={setStem} testId="text-stem">{t('Count the forms of an English word together (connect, connected, connecting)')}</Tick>
       <div className="team-sample">
         <TextField value={minLength} onChange={setMinLength} className="field" type="number">
           <Label>{t('Shortest word, in letters')}</Label>
@@ -135,6 +148,7 @@ function WordsTab({ onSee }: { onSee: (word: string) => void }) {
                     <th scope="col">{t('Times used')}</th>
                     <th scope="col">{t('Share')}</th>
                     <th scope="col">{t('In documents')}</th>
+                    {result.words.some((w) => w.forms.length > 0) ? <th scope="col">{t('Forms counted together')}</th> : null}
                     <th scope="col"><span className="visually-hidden">{t('Bar')}</span></th>
                     <th scope="col"><span className="visually-hidden">{t('Where it is used')}</span></th>
                   </tr>
@@ -146,6 +160,7 @@ function WordsTab({ onSee }: { onSee: (word: string) => void }) {
                       <td>{num(w.count)}</td>
                       <td>{shareOf(w.count, result.counted_words)}</td>
                       <td>{num(w.documents)}</td>
+                      {result.words.some((x) => x.forms.length > 0) ? <td data-testid="text-forms">{w.forms.map((f) => t('{word} ({count})', { word: f.word, count: num(f.count) })).join(', ')}</td> : null}
                       <td aria-hidden="true">
                         <span className="text-bar" style={{ width: `${barWidth(w.count, max)}%` }} />
                       </td>

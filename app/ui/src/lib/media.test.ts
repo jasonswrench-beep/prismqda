@@ -1,10 +1,30 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import type { UnitRow } from '../types';
-import { formatClock, timeForOffset, timedUnits, turnLabel, unitAt } from './media';
+import { formatClock, stepFrames, timecode, timeForOffset, timedUnits, turnLabel, unitAt } from './media';
 
 const unit = (id: number, start: number, end: number, from: number | null, to: number | null): UnitRow => ({
   id, source_id: 1, kind: 'speaker_turn', start, end, speaker: null, parent_id: null, excluded: false, time_start_ms: from, time_end_ms: to,
+});
+
+test('stepping a frame lands on the frame grid, never before the start or after the last frame', () => {
+  assert.equal(stepFrames(1000, 1, 25, null), 1040, 'one frame at 25 a second is 40 ms');
+  assert.equal(stepFrames(1000, -1, 25, null), 960);
+  assert.equal(stepFrames(1013, 1, 25, null), 1040, 'from between two frames it lands on a frame');
+  assert.equal(stepFrames(0, -1, 30, null), 0, 'not before the start');
+  assert.equal(stepFrames(500, 10, 30, null), 833.3333333333334, 'ten frames at 30 a second');
+  assert.equal(stepFrames(1960, 5, 25, 2000), 1960, 'not after the last frame of a two second video (frame 49)');
+  assert.equal(stepFrames(900, 1, 0, null), stepFrames(900, 1, 30, null), 'a frame rate that is not a rate is taken as 30');
+  assert.equal(stepFrames(Number.NaN, 1, 25, null), 40);
+});
+
+test('a timecode counts hours, minutes, seconds and the frame within the second', () => {
+  assert.equal(timecode(0, 25), '0:00:00:00');
+  assert.equal(timecode(1040, 25), '0:00:01:01');
+  assert.equal(timecode(62280, 25), '0:01:02:07');
+  assert.equal(timecode(3_600_000, 30), '1:00:00:00');
+  assert.equal(timecode(999, 30), '0:00:00:29', 'the last frame of the first second');
+  assert.equal(timecode(Number.NaN, 30), '0:00:00:00');
 });
 
 test('a time is written as minutes and seconds, with hours only when there are some', () => {

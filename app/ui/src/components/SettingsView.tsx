@@ -8,6 +8,7 @@ import { browsePath, cleanTypedPath, nativeDialogsAvailable } from '../pickFile'
 import { goTo, resetPanelSizes, resetSettings, setAiMode, setBackupFolder, updateSettings } from '../state/actions';
 import { announce } from '../state/announce';
 import { useApp } from '../state/app';
+import { AssistantCard } from './AssistantCard';
 import { EncryptionPanel } from './EncryptionPanel';
 import { Icon, type IconName } from './Icon';
 import { num, rich, t } from '../i18n';
@@ -217,7 +218,9 @@ function NotBuilt({ what, detail }: { what: string; detail: string }) {
 function AiSection() {
   const project = useApp((s) => s.project);
   const mode = project?.ai_mode ?? 'packet';
-  const locked = project === null || project.read_only;
+  // An assignment that does not allow AI keeps prompt packets closed in the packet it was made for (decision 200).
+  const closedByInstructor = project?.packet?.assignment?.ai_allowed === false;
+  const locked = project === null || project.read_only || closedByInstructor;
   return (
     <>
       <Group id="h-set-ai-how" title={t('How AI is used')}>
@@ -230,9 +233,13 @@ function AiSection() {
       <Group id="h-set-ai-allow" title={t('Prompt packets')} scope={t('This project')}>
         <Check selected={mode !== 'off'} onChange={(on) => void setAiMode(on ? 'packet' : 'off')} disabled={locked}>{t('Allow prompt packets in this project')}</Check>
         <p className="muted">{t('When this is off no packet can be built. The record of packets already built is kept.')}</p>
+        {closedByInstructor ? <p className="muted" data-testid="settings-ai-instructor">{t('Your instructor has turned this off for this assignment, so it cannot be turned on here.')}</p> : null}
         <div className="actions">
           <Button onPress={() => goTo('ai')} data-testid="settings-open-ai">{t('Open the AI Assistant')}</Button>
         </div>
+      </Group>
+      <Group id="h-set-ai-assistant" title={t('Connect an assistant (advanced)')} scope={t('This project')}>
+        <AssistantCard />
       </Group>
       <Group id="h-set-ai-never" title={t('What is never put in a packet')} scope={t('This project')}>
         <ul className="bk-set-list">

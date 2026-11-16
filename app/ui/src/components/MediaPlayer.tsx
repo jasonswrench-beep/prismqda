@@ -5,7 +5,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent, type KeyboardEvent, type RefObject } from 'react';
 import { Button, Checkbox } from 'react-aria-components';
 import { call, mediaUrl, toApiError } from '../bridge';
-import { formatClock, timeForOffset, timedUnits, turnLabel, unitAt } from '../lib/media';
+import { formatClock, FRAME_RATES, stepFrames, timecode, timeForOffset, timedUnits, turnLabel, unitAt } from '../lib/media';
 import { markClip } from '../state/actions';
 import { sliceScalar } from '../offsets';
 import { browseManyFiles, cleanTypedPath, nativeDialogsAvailable } from '../pickFile';
@@ -31,6 +31,8 @@ export function MediaPlayer(props: { data: SourceData; isTranscript: boolean }) 
   const [nowId, setNowId] = useState<number | null>(null);
   const [length, setLength] = useState<number | null>(null);
   const [nowMs, setNowMs] = useState(0);
+  /** The frame rate a person says the video has, for stepping a frame at a time (a page cannot read it from every file). */
+  const [fps, setFps] = useState<number>(30);
   /** When a stretch is being played from a button, the time (in milliseconds) it stops at. */
   const playUntil = useRef<number | null>(null);
   const command = useApp((s) => s.clipCommand);
@@ -147,11 +149,29 @@ export function MediaPlayer(props: { data: SourceData; isTranscript: boolean }) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [command?.tick, media]);
 
-  /** I marks the start of a stretch and O marks its end, while the focus is in the recording's section and not in a field. */
+  /** Steps a video by `frames` frames (a negative number steps back) and leaves it paused there (frame by frame, decision 201). */
+  const stepBy = (frames: number) => {
+    const el = player.current;
+    if (!el || media?.kind !== 'video') return;
+    const known = length !== null && Number.isFinite(length) ? length * 1000 : media.duration_ms;
+    el.pause();
+    playUntil.current = null;
+    const ms = stepFrames(el.currentTime * 1000, frames, fps, known);
+    el.currentTime = ms / 1000;
+    setNowMs(ms);
+    announce(t('Frame {timecode}.', { timecode: timecode(ms, fps) }));
+  };
+
+  /** I marks the start of a stretch and O marks its end, and, on a video, comma and full stop step a frame back and forward (with Shift, ten), while the focus is in the recording's section and not in a field. */
   const onKeys = (e: KeyboardEvent<HTMLElement>) => {
-    if (e.ctrlKey || e.metaKey || e.altKey || isTypingTarget(e.target) || readOnly || !media?.found) return;
+    if (e.ctrlKey || e.metaKey || e.altKey || isTypingTarget(e.target) || !media?.found) return;
     const key = e.key.toLowerCase();
-    if (key !== 'i' && key !== 'o') return;
+    if ((e.key === ',' || e.key === '.' || e.key === '<' || e.key === '>') && media.kind === 'video') {
+      e.preventDefault();
+      stepBy((e.key === ',' || e.key === '<' ? -1 : 1) * (e.shiftKey ? 10 : 1));
+      return;
+    }
+    if (readOnly || (key !== 'i' && key !== 'o')) return;
     const el = player.current;
     if (!el) return;
     e.preventDefault();
@@ -213,6 +233,20 @@ export function MediaPlayer(props: { data: SourceData; isTranscript: boolean }) 
           ) : (
             <audio ref={player as RefObject<HTMLAudioElement>} className="bk-media-element" controls preload="metadata" src={url} aria-label={label} data-testid="media-element" onTimeUpdate={moved} onSeeked={moved} onLoadedMetadata={(e) => setLength(e.currentTarget.duration)} />
           )}
+          {media.kind === 'video' ? (
+            <div className="bk-media-frames" role="group" aria-label={t('Frame by frame')} data-testid="media-frames">
+              <Button onPress={() => stepBy(-1)} data-testid="media-frame-back">{t('Back one frame')}</Button>
+              <Button onPress={() => stepBy(1)} data-testid="media-frame-forward">{t('Forward one frame')}</Button>
+              <label htmlFor="media-fps">{t('Frames a second')}</label>
+              <select id="media-fps" value={fps} onChange={(e) => setFps(Number(e.target.value))} data-testid="media-fps">
+                {FRAME_RATES.map((r) => (
+                  <option key={r} value={r}>{r}</option>
+                ))}
+              </select>
+              <span data-testid="media-timecode" aria-live="off">{t('Frame {timecode}', { timecode: timecode(nowMs, fps) })}</span>
+              <span className="help">{t('Comma and full stop step one frame (with Shift, ten) while the focus is in the recording. Choose the rate the video was made at.')}</span>
+            </div>
+          ) : null}
           <Waveform sourceId={data.id} url={url} sizeBytes={media.size_bytes} version={media.created_at} fileName={media.file_name} durationMs={knownMs} nowMs={nowMs} seek={(ms) => moveTo(ms, false)} />
           {media.found && media.stands_alone ? (
             <ClipTools sourceId={data.id} nowMs={nowMs} lengthMs={knownMs} readOnly={readOnly} seek={(ms) => moveTo(ms, false)} playSpan={playSpan} standsAlone media={{ url, sizeBytes: media.size_bytes, documentName: data.name }} />

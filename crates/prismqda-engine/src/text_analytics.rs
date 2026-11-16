@@ -17,7 +17,7 @@ pub const MAX_WORDS: usize = 5_000;
 pub const MAX_CONTEXTS: usize = 1_000;
 
 /// The common English words left out of a count of words when the person asks for that (and by default).
-const COMMON_WORDS: &str = "a about above after again against all am an and any are aren't as at be because been before being below between both but by can can't cannot could couldn't did didn't do does doesn't doing don't down during each few for from further had hadn't has hasn't have haven't having he he'd he'll he's her here here's hers herself him himself his how how's i i'd i'll i'm i've if in into is isn't it it's its itself let's me more most mustn't my myself no nor not of off on once only or other ought our ours ourselves out over own same shan't she she'd she'll she's should shouldn't so some such than that that's the their theirs them themselves then there there's these they they'd they'll they're they've this those through to too under until up very was wasn't we we'd we'll we're we've were weren't what what's when when's where where's which while who who's whom why why's with won't would wouldn't you you'd you'll you're you've your yours yourself yourselves";
+pub(crate) const COMMON_WORDS: &str = "a about above after again against all am an and any are aren't as at be because been before being below between both but by can can't cannot could couldn't did didn't do does doesn't doing don't down during each few for from further had hadn't has hasn't have haven't having he he'd he'll he's her here here's hers herself him himself his how how's i i'd i'll i'm i've if in into is isn't it it's its itself let's me more most mustn't my myself no nor not of off on once only or other ought our ours ourselves out over own same shan't she she'd she'll she's should shouldn't so some such than that that's the their theirs them themselves then there there's these they they'd they'll they're they've this those through to too under until up very was wasn't we we'd we'll we're we've were weren't what what's when when's where where's which while who who's whom why why's with won't would wouldn't you you'd you'll you're you've your yours yourself yourselves";
 
 fn yes() -> bool {
     true
@@ -34,6 +34,9 @@ fn default_around() -> usize {
 fn default_contexts() -> usize {
     200
 }
+
+/// What is known of a word while the words are counted: how often, in which documents, and in which forms.
+type Tally = (usize, HashSet<i64>, HashMap<String, usize>);
 
 /// What to count.
 #[derive(Debug, Clone, Deserialize)]
@@ -59,20 +62,33 @@ pub struct WordSpec {
     /// List at most this many words (the commonest first).
     #[serde(default = "default_limit")]
     pub limit: usize,
+    /// Count the forms of an English word as one ("connect", "connected", "connecting"), by its stem (decision 202).
+    #[serde(default)]
+    pub stem: bool,
 }
 
 impl Default for WordSpec {
     fn default() -> Self {
-        Self { source_ids: None, case_id: None, code_ids: Vec::new(), leave_out_common: true, min_length: 3, min_count: 0, limit: 100 }
+        Self { source_ids: None, case_id: None, code_ids: Vec::new(), leave_out_common: true, min_length: 3, min_count: 0, limit: 100, stem: false }
     }
+}
+
+/// One form of a word that was counted with others under one stem.
+#[derive(Debug, Clone, PartialEq, Serialize)]
+pub struct WordForm {
+    pub word: String,
+    pub count: usize,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize)]
 pub struct WordCount {
+    /// The word; when forms are counted together, the form used most (the first alphabetically among equals).
     pub word: String,
     pub count: usize,
     /// In how many documents the word is used.
     pub documents: usize,
+    /// When forms are counted together and there was more than one: every form and how often it was used, the commonest first. Empty otherwise.
+    pub forms: Vec<WordForm>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize)]
@@ -128,15 +144,15 @@ pub struct Contexts {
 }
 
 /// A word and where it sits in the text, counted in characters.
-struct Token {
-    word: String,
-    start: usize,
-    end: usize,
+pub(crate) struct Token {
+    pub(crate) word: String,
+    pub(crate) start: usize,
+    pub(crate) end: usize,
 }
 
 /// The words of a text. A word is letters and digits; an apostrophe or hyphen between two of them stays in it ("don't", "well-being"),
 /// and a curly apostrophe is made straight so the same word is counted once.
-fn tokens(text: &str) -> Vec<Token> {
+pub(crate) fn tokens(text: &str) -> Vec<Token> {
     let chars: Vec<char> = text.chars().collect();
     let mut out = Vec::new();
     let mut i = 0;
@@ -216,7 +232,7 @@ impl Project {
         let family = if spec.code_ids.is_empty() { None } else { Some(self.code_family(&spec.code_ids)?) };
         let common: HashSet<&str> = if spec.leave_out_common { COMMON_WORDS.split_whitespace().collect() } else { HashSet::new() };
 
-        let mut counts: HashMap<String, (usize, HashSet<i64>)> = HashMap::new();
+        let mut counts: HashMap<String, Tally> = HashMap::new();
         let (mut total, mut counted, mut documents) = (0usize, 0usize, 0usize);
         for (source_id, _) in self.scoped_sources(&filter)? {
             if self.get_image(source_id)?.is_some() {
@@ -245,13 +261,29 @@ impl Project {
                     continue;
                 }
                 counted += 1;
-                let entry = counts.entry(t.word).or_default();
+                let key = if spec.stem { crate::stem::stem(&t.word) } else { t.word.clone() };
+                let entry = counts.entry(key).or_default();
                 entry.0 += 1;
                 entry.1.insert(source_id);
+                if spec.stem {
+                    *entry.2.entry(t.word).or_default() += 1;
+                }
             }
         }
         let distinct = counts.len();
-        let mut words: Vec<WordCount> = counts.into_iter().filter(|(_, (n, _))| *n >= spec.min_count).map(|(word, (count, docs))| WordCount { word, count, documents: docs.len() }).collect();
+        let mut words: Vec<WordCount> = counts
+            .into_iter()
+            .filter(|(_, (n, _, _))| *n >= spec.min_count)
+            .map(|(word, (count, docs, forms))| {
+                let mut forms: Vec<WordForm> = forms.into_iter().map(|(word, count)| WordForm { word, count }).collect();
+                forms.sort_by(|a, b| b.count.cmp(&a.count).then_with(|| a.word.cmp(&b.word)));
+                let word = forms.first().map(|f| f.word.clone()).unwrap_or(word);
+                if forms.len() < 2 {
+                    forms.clear();
+                }
+                WordCount { word, count, documents: docs.len(), forms }
+            })
+            .collect();
         words.sort_by(|a, b| b.count.cmp(&a.count).then_with(|| a.word.cmp(&b.word)));
         words.truncate(limit);
         Ok(WordFrequencies { words, total_words: total, counted_words: counted, distinct_words: distinct, documents })

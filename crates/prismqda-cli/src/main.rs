@@ -151,6 +151,14 @@ enum Command {
         #[arg(long)]
         project: Option<PathBuf>,
     },
+    /// Let an assistant application that speaks the Model Context Protocol read a project (and, if allowed, propose codings), over a pipe
+    /// to this program, with no network connection (decision 203). The assistant's application starts this; nothing here listens.
+    Mcp {
+        file: PathBuf,
+        /// What the assistant may do: read (the default), or propose (suggest codings, which wait in the review queue).
+        #[arg(long, default_value = "read")]
+        permission: String,
+    },
     /// Print the project file schema: schema/v1.sql, then each later step (schema/v2.sql and so on).
     Schema,
 }
@@ -168,6 +176,7 @@ fn main() -> ExitCode {
 
 fn run(cli: Cli) -> Result<(), String> {
     // Never the account name of the computer: what is recorded on every change goes into the project, and into copies that are shared.
+    let explicit_actor = cli.actor.as_deref().is_some_and(|n| !n.trim().is_empty());
     let actor = cli.actor.filter(|n| !n.trim().is_empty()).unwrap_or_else(|| "cli".to_string());
     let mut opts = OpenOptions::new(actor);
     opts.backup_on_open = cli.backup_on_open;
@@ -310,6 +319,12 @@ fn run(cli: Cli) -> Result<(), String> {
         #[cfg(feature = "dev-server")]
         Command::Serve { port, project } => {
             serve::run(port, &opts.actor, project.as_deref())?;
+        }
+        Command::Mcp { file, permission } => {
+            // Suggestions that are accepted later are coded by this person, so a session that proposes must say who that is.
+            let mut server = prismqda_api::mcp::Server::open(&file, explicit_actor.then_some(opts.actor.as_str()), opts.passphrase.clone(), &permission)?;
+            let stdin = std::io::stdin();
+            server.run(stdin.lock(), std::io::stdout().lock()).map_err(|e| e.to_string())?;
         }
         Command::Schema => print!("{}", schema::published_schema()),
     }

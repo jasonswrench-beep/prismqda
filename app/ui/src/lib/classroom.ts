@@ -50,6 +50,32 @@ export function heatLevel(share: number | null | undefined): 0 | 1 | 2 | 3 | 4 {
   return 4;
 }
 
+/** The pages of the program an instructor can close to the students (the coding page and the settings stay open), with their names. */
+export function closablePages(): { id: string; label: string }[] {
+  return [
+    { id: 'data', label: t('Data') },
+    { id: 'import', label: t('Import Data') },
+    { id: 'codebook', label: t('Codebook Editor') },
+    { id: 'themes', label: t('Themes') },
+    { id: 'explore', label: t('Explore') },
+    { id: 'autocode', label: t('Auto Code') },
+    { id: 'ai', label: t('AI Assistant') },
+    { id: 'team', label: t('Team') },
+    { id: 'text', label: t('Text Analytics') },
+    { id: 'stats', label: t('Statistics') },
+    { id: 'variables', label: t('Variables') },
+    { id: 'mixed', label: t('Mixed Methods') },
+    { id: 'synthesize', label: t('Memos') },
+    { id: 'report', label: t('Report') },
+  ];
+}
+
+/** The file name suggested for the answer key. */
+export function suggestedKeyFile(projectName: string): string {
+  const base = projectName.trim().replace(/[\\/:*?"<>|]/g, '-') || t('Class');
+  return `${base} ${t('answer key')}.pqda`;
+}
+
 /** The file name suggested for a table of the class: the heat map or the side-by-side view. */
 export function suggestedClassTable(projectName: string, what: string): string {
   const base = projectName.trim().replace(/[\\/:*?"<>|]/g, '-') || t('Class');

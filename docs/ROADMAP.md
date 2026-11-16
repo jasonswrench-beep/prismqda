@@ -51,6 +51,8 @@ The author confirmed this cut on 2026-11-05 (decision 44). Where it moves a func
 
 **Teaching mode is in 1.5, first in line.** The author teaches methods and it is the strongest reason for an instructor to adopt the tool, which is why it goes first after 1.0. Keeping it out of 1.0 keeps milestone 5 about a third smaller.
 
+**Release 1.5, built so far (2026-11-16).** Teaching mode (instructor packs with settings, an answer key kept apart, the coach, the class review with a heat map and a side-by-side view, feedback files), stepping a video a frame at a time, the forms of a word, topics and sentiment in Text Analytics (English), and the assistant route (a pipe an assistant application opens; read and propose, never apply). Still ahead: advanced statistics, scanned PDFs, web capture, concept maps, the report builder, and macOS.
+
 ## 3. Order and what can run in parallel
 
 ```

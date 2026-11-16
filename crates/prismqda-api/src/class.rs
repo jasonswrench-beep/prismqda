@@ -3,7 +3,7 @@
 
 use std::path::PathBuf;
 
-use prismqda_engine::{ClassPacketsSpec, ClassReview, ClassReviewSpec, ClassSideBySide, ClassSideBySideSpec};
+use prismqda_engine::{assistant_tools, AssistantPermission, CoachSpec, ClassPacketsSpec,ClassReview, ClassReviewSpec, ClassSideBySide, ClassSideBySideSpec};
 use serde::Deserialize;
 use serde_json::{json, Value};
 
@@ -47,6 +47,52 @@ struct SaveArgs {
     overwrite: bool,
     #[serde(flatten)]
     review: ReviewArgs,
+}
+
+#[derive(Deserialize)]
+struct AssistantToolsArgs {
+    /// `read` (the default) or `propose`.
+    #[serde(default)]
+    permission: Option<String>,
+}
+
+#[derive(Deserialize)]
+struct AssistantCallArgs {
+    tool: String,
+    #[serde(default)]
+    arguments: Value,
+    #[serde(default)]
+    permission: Option<String>,
+    /// The name the assistant application gave itself, kept with what it suggests.
+    #[serde(default)]
+    client: String,
+}
+
+fn permission_of(text: &Option<String>) -> Result<AssistantPermission, ApiError> {
+    match text {
+        Some(p) => Ok(p.parse::<AssistantPermission>()?),
+        None => Ok(AssistantPermission::Read),
+    }
+}
+
+#[derive(Deserialize)]
+struct KeyArgs {
+    /// Where to write the answer key (a `.pqda` file that is not there yet).
+    path: String,
+    /// The coder whose coding is the key. When absent, the person using the program.
+    #[serde(default)]
+    instructor_id: Option<i64>,
+    #[serde(default)]
+    source_ids: Vec<i64>,
+}
+
+#[derive(Deserialize)]
+struct CoachArgs {
+    /// Whose coding to look at. When absent, the person using the program.
+    #[serde(default)]
+    coder_id: Option<i64>,
+    #[serde(default)]
+    source_ids: Vec<i64>,
 }
 
 #[derive(Deserialize)]
@@ -177,6 +223,14 @@ impl Api {
         Ok(self.project()?.class_review(&spec)?)
     }
 
+    fn coach_spec(&mut self, a: &CoachArgs) -> Result<CoachSpec, ApiError> {
+        let coder_id = match a.coder_id {
+            Some(id) => id,
+            None => self.me()?,
+        };
+        Ok(CoachSpec { coder_id, source_ids: a.source_ids.clone() })
+    }
+
     fn class_side_for(&mut self, review: &ReviewArgs, unit_ids: &[i64]) -> Result<ClassSideBySide, ApiError> {
         let spec = ClassSideBySideSpec { review: self.review_spec(review)?, unit_ids: unit_ids.to_vec() };
         Ok(self.project()?.class_side_by_side(&spec)?)
@@ -221,6 +275,58 @@ impl Api {
                 let mut saved = write_file(&target, &students_csv(&review))?;
                 saved["rows"] = json!(review.students.len());
                 Ok(saved)
+            })(),
+            // The assistant route (decision 203): what an assistant connected over the Model Context Protocol may read and propose.
+            "assistant.check" => (|| {
+                self.project()?.assistant_check()?;
+                Ok(json!({ "ok": true }))
+            })(),
+            "assistant.tools" => (|| {
+                let a: AssistantToolsArgs = parse(cmd, args)?;
+                Ok(json!({ "tools": assistant_tools(permission_of(&a.permission)?) }))
+            })(),
+            "assistant.call" => (|| {
+                let a: AssistantCallArgs = parse(cmd, args)?;
+                let permission = permission_of(&a.permission)?;
+                let coder = self.me()?;
+                let arguments = if a.arguments.is_null() { json!({}) } else { a.arguments };
+                Ok(self.project()?.assistant_call(&a.tool, &arguments, permission, &a.client, coder)?)
+            })(),
+            // The answer key, kept apart from the packets (decision 200).
+            "export.class_key" => (|| {
+                let a: KeyArgs = parse(cmd, args)?;
+                if self.project()?.deid_state()?.exports {
+                    return Err(ApiError::new(
+                        "invalid",
+                        "the list of names to replace is applied to exports, and an answer key holds the documents whole; turn that switch off, or replace the names in the project itself first",
+                    ));
+                }
+                let mut path = PathBuf::from(a.path.trim());
+                if path.as_os_str().is_empty() {
+                    return Err(ApiError::new("invalid", "say where the answer key should be saved"));
+                }
+                if path.extension().is_none() {
+                    path.set_extension("pqda");
+                }
+                let instructor_id = match a.instructor_id {
+                    Some(id) => id,
+                    None => self.me()?,
+                };
+                if let Some(folder) = path.parent().filter(|f| !f.as_os_str().is_empty()) {
+                    std::fs::create_dir_all(folder).map_err(|e| ApiError::new("io", format!("cannot make the folder {}: {e}", folder.display())))?;
+                }
+                to_json(&self.project()?.make_class_key(&path, instructor_id, &a.source_ids)?)
+            })(),
+            // Coach mode (decision 199): questions about a person's own coding, and a prompt to take to a chatbot of their choice.
+            "coach.check" => (|| {
+                let a: CoachArgs = parse(cmd, args)?;
+                let spec = self.coach_spec(&a)?;
+                to_json(&self.project()?.coach_check(&spec)?)
+            })(),
+            "coach.prompt" => (|| {
+                let a: CoachArgs = parse(cmd, args)?;
+                let spec = self.coach_spec(&a)?;
+                to_json(&self.project()?.coach_prompt(&spec)?)
             })(),
             // The class heat map and the side-by-side view (decision 198).
             "class.side_by_side" => (|| {

@@ -278,7 +278,7 @@ fn work_in(packet: &Path, which: usize, names: &[&str]) {
 fn a_blind_packet_is_made_for_each_student_and_the_work_comes_back_in_one_step() {
     let mut w = world();
     let folder = w.dir.path().join("packets");
-    let spec = ClassPacketsSpec { students: vec!["Annika".into(), "bohdan".into(), "annika".into(), "Cyrus".into()], source_ids: vec![w.source], instructions: "Code each paragraph with one or two codes.".into() };
+    let spec = ClassPacketsSpec { students: vec!["Annika".into(), "bohdan".into(), "annika".into(), "Cyrus".into()], source_ids: vec![w.source], instructions: "Code each paragraph with one or two codes.".into(), assignment: None };
     let made = w.p.make_class_packets(&folder, "Class", &spec).unwrap();
     assert_eq!((made.made, made.packets.len()), (3, 3));
     assert_eq!(made.repeated, ["annika"]);

@@ -6,6 +6,7 @@ import { announce } from '../state/announce';
 import { useApp } from '../state/app';
 import type { AgreementReport, AgreementRunRow } from '../types';
 import { ClassTab } from './team/Class';
+import { CoachTab } from './team/Coach';
 import { DisagreementsTab } from './team/Disagreements';
 import { MergeTab } from './team/Merge';
 import { PacketsTab } from './team/Packets';
@@ -25,7 +26,9 @@ type Term = '' | 'intercoder_reliability' | 'concordance';
 export function TeamView() {
   const coders = useApp((s) => s.coders);
   const version = useApp((s) => s.dataVersion);
-  const [tab, setTab] = useState<'agreement' | 'disagreements' | 'merge' | 'packets' | 'class'>('agreement');
+  const assignment = useApp((s) => s.project?.packet?.assignment ?? null);
+  // In an assignment whose instructor keeps the coach on, the Team page opens on the coach.
+  const [tab, setTab] = useState<'agreement' | 'disagreements' | 'merge' | 'packets' | 'class' | 'coach'>(assignment?.coach_locked ? 'coach' : 'agreement');
   const [chosen, setChosen] = useState<number[] | null>(null);
   const [mode, setMode] = useState<Mode>('single_label');
   const [units, setUnits] = useState<'all' | 'sample'>('all');
@@ -131,13 +134,14 @@ export function TeamView() {
         </fieldset>
       </section>
 
-      <Tabs selectedKey={tab} onSelectionChange={(k) => setTab(k as 'agreement' | 'disagreements' | 'merge' | 'packets' | 'class')} className="bk-editor-tabs">
+      <Tabs selectedKey={tab} onSelectionChange={(k) => setTab(k as 'agreement' | 'disagreements' | 'merge' | 'packets' | 'class' | 'coach')} className="bk-editor-tabs">
         <TabList aria-label={t('Team')} className="bk-editor-tablist">
           <Tab id="agreement" className="bk-tab" data-testid="team-tab-agreement">{t('Agreement')}</Tab>
           <Tab id="disagreements" className="bk-tab" data-testid="team-tab-disagreements">{t('Disagreements')}</Tab>
           <Tab id="merge" className="bk-tab" data-testid="team-tab-merge">{t('Merge')}</Tab>
           <Tab id="packets" className="bk-tab" data-testid="team-tab-packets">{t('Packets')}</Tab>
           <Tab id="class" className="bk-tab" data-testid="team-tab-class">{t('Class')}</Tab>
+          <Tab id="coach" className="bk-tab" data-testid="team-tab-coach">{t('Coach')}</Tab>
         </TabList>
         <TabPanel id="agreement" className="bk-editor-panel">
       <section className="ac-card" aria-labelledby="h-team-who">
@@ -357,6 +361,9 @@ export function TeamView() {
         </TabPanel>
         <TabPanel id="class" className="bk-editor-panel">
           <ClassTab />
+        </TabPanel>
+        <TabPanel id="coach" className="bk-editor-panel">
+          <CoachTab />
         </TabPanel>
       </Tabs>
     </main>

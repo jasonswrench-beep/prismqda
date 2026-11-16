@@ -4903,6 +4903,43 @@ svg [tabindex]:focus-visible {
   font-size: 0.8rem;
   color: var(--muted);
 }
+/* The coach (decision 199) and the line that keeps it on (decision 200). */
+.coach-tab {
+  display: grid;
+  gap: 1rem;
+}
+.coach-rules,
+.coach-examples {
+  margin: 0.3rem 0;
+  padding-inline-start: 1.2rem;
+}
+.coach-questions {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0.6rem 0;
+  padding-inline-start: 1.4rem;
+}
+.coach-questions p {
+  margin: 0.2rem 0;
+}
+.coach-examples {
+  font-size: 0.9rem;
+}
+.coach-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  margin: 0.4rem 1rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--line);
+  border-inline-start: 4px solid var(--accent);
+  border-radius: 8px;
+  background: var(--panel-2);
+}
+.coach-bar p {
+  margin: 0;
+}
 
 .bk-h4 {
   margin: 1rem 0 0.4rem;

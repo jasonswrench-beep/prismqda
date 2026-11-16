@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 5735,
+  "count": 5870,
   "messages": [
     {
       "id": " and {n} more",
@@ -100,6 +100,16 @@
       ]
     },
     {
+      "id": "'{both}' is in both the positive and the negative words you gave",
+      "blanks": [
+        "both"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/text_models.rs:458"
+      ]
+    },
+    {
       "id": "'{c}' is not one of the groups.",
       "blanks": [
         "c"
@@ -157,7 +167,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2224"
+        "prismqda-api/src/lib.rs:2234"
       ]
     },
     {
@@ -172,6 +182,16 @@
       ]
     },
     {
+      "id": "'{key}' is needed",
+      "blanks": [
+        "key"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/assistant.rs:159"
+      ]
+    },
+    {
       "id": "'{key}' is not a variable",
       "blanks": [
         "key"
@@ -182,6 +202,16 @@
         "prismqda-engine/src/statistics.rs:368",
         "prismqda-engine/src/statistics.rs:372",
         "prismqda-engine/src/statistics.rs:376"
+      ]
+    },
+    {
+      "id": "'{key}' must be a whole number",
+      "blanks": [
+        "key"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/assistant.rs:154"
       ]
     },
     {
@@ -544,7 +574,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2271"
+        "prismqda-api/src/lib.rs:2281"
       ]
     },
     {
@@ -566,6 +596,16 @@
       "engine": true,
       "files": [
         "prismqda-engine/src/statistics.rs:1899"
+      ]
+    },
+    {
+      "id": "'{page}' is not a page that can be closed (the coding page and the settings stay open)",
+      "blanks": [
+        "page"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/packet.rs:74"
       ]
     },
     {
@@ -727,6 +767,37 @@
       "engine": true,
       "files": [
         "prismqda-engine/src/search.rs:107"
+      ]
+    },
+    {
+      "id": "'items' must be a list of suggestions",
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/assistant.rs:325"
+      ]
+    },
+    {
+      "id": "“{a}” and “{b}” were given to the same words {count} times. What does each one add that the other does not?",
+      "blanks": [
+        "a",
+        "b",
+        "count"
+      ],
+      "files": [
+        "components/team/Coach.tsx"
+      ]
+    },
+    {
+      "id": "“{code}” has no definition, and you used it {count} times. How would you tell someone else when to use it?",
+      "forms": {
+        "one": "“{code}” has no definition, and you used it once. How would you tell someone else when to use it?",
+        "other": "“{code}” has no definition, and you used it {count} times. How would you tell someone else when to use it?"
+      },
+      "blanks": [
+        "code"
+      ],
+      "files": [
+        "components/team/Coach.tsx"
       ]
     },
     {
@@ -1160,7 +1231,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:91"
+        "prismqda-api/src/lib.rs:92"
       ]
     },
     {
@@ -1171,7 +1242,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1683"
+        "prismqda-api/src/lib.rs:1684"
       ]
     },
     {
@@ -1182,7 +1253,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1686"
+        "prismqda-api/src/lib.rs:1687"
       ]
     },
     {
@@ -1442,7 +1513,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/merge.rs:268"
+        "prismqda-engine/src/merge.rs:270"
       ]
     },
     {
@@ -1948,6 +2019,7 @@
         "components/ai/Packet.tsx",
         "components/explore/ConceptMap.tsx",
         "components/explore/Portrait.tsx",
+        "components/team/Coach.tsx",
         "lib/agreement.ts",
         "lib/ai.ts",
         "lib/eventWording.ts"
@@ -2083,6 +2155,20 @@
       ],
       "files": [
         "lib/eventWording.ts"
+      ]
+    },
+    {
+      "id": "{count} codings of yours in {documents} looked at, using {codes}.",
+      "forms": {
+        "one": "{count} coding of yours in {documents} looked at, using {codes}.",
+        "other": "{count} codings of yours in {documents} looked at, using {codes}."
+      },
+      "blanks": [
+        "documents",
+        "codes"
+      ],
+      "files": [
+        "components/team/Coach.tsx"
       ]
     },
     {
@@ -2275,6 +2361,7 @@
         "components/explore/Relations.tsx",
         "components/explore/Summary.tsx",
         "components/team/Class.tsx",
+        "components/team/Coach.tsx",
         "lib/ai.ts",
         "lib/autocode.ts",
         "lib/explore.ts",
@@ -2298,7 +2385,8 @@
         "other": "{count} documents are ticked."
       },
       "files": [
-        "components/team/Class.tsx"
+        "components/team/Class.tsx",
+        "components/team/Coach.tsx"
       ]
     },
     {
@@ -2768,6 +2856,43 @@
       ]
     },
     {
+      "id": "{count} passages had too few of those words to be placed.",
+      "forms": {
+        "one": "{count} passage had too few of those words to be placed.",
+        "other": "{count} passages had too few of those words to be placed."
+      },
+      "files": [
+        "components/text/TopicsTab.tsx"
+      ]
+    },
+    {
+      "id": "{count} passages read, with {positive} positive words and {negative} negative words on the lists.",
+      "forms": {
+        "one": "{count} passage read, with {positive} positive words and {negative} negative words on the lists.",
+        "other": "{count} passages read, with {positive} positive words and {negative} negative words on the lists."
+      },
+      "blanks": [
+        "positive",
+        "negative"
+      ],
+      "files": [
+        "components/text/SentimentTab.tsx"
+      ]
+    },
+    {
+      "id": "{count} passages, {share} of those read.",
+      "forms": {
+        "one": "{count} passage, {share} of those read.",
+        "other": "{count} passages, {share} of those read."
+      },
+      "blanks": [
+        "share"
+      ],
+      "files": [
+        "components/text/TopicsTab.tsx"
+      ]
+    },
+    {
       "id": "{count} passed the check and are waiting in the review queue. Nothing is coded until you accept it.",
       "forms": {
         "one": "{count} passed the check and is waiting in the review queue. Nothing is coded until you accept it.",
@@ -3099,6 +3224,16 @@
       ]
     },
     {
+      "id": "{count} topics",
+      "forms": {
+        "one": "{count} topic",
+        "other": "{count} topics"
+      },
+      "files": [
+        "components/text/TopicsTab.tsx"
+      ]
+    },
+    {
       "id": "{count} topics.",
       "forms": {
         "one": "{count} topic.",
@@ -3343,7 +3478,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/project.rs:507"
+        "prismqda-engine/src/project.rs:511"
       ]
     },
     {
@@ -3353,7 +3488,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/project.rs:504"
+        "prismqda-engine/src/project.rs:508"
       ]
     },
     {
@@ -3435,7 +3570,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/class.rs:276"
+        "prismqda-api/src/class.rs:382"
       ]
     },
     {
@@ -3558,7 +3693,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/teaching.rs:104"
+        "prismqda-engine/src/teaching.rs:111"
       ]
     },
     {
@@ -3568,7 +3703,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/teaching.rs:168"
+        "prismqda-engine/src/teaching.rs:175"
       ]
     },
     {
@@ -4896,7 +5031,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/merge.rs:419"
+        "prismqda-engine/src/merge.rs:421"
       ]
     },
     {
@@ -5492,13 +5627,26 @@
       ]
     },
     {
+      "id": "{passages} passages read: {positive} positive, {negative} negative, {mixed} mixed, {neutral} neutral.",
+      "blanks": [
+        "passages",
+        "positive",
+        "negative",
+        "mixed",
+        "neutral"
+      ],
+      "files": [
+        "components/text/SentimentTab.tsx"
+      ]
+    },
+    {
       "id": "{path} is not a PDF",
       "blanks": [
         "path"
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1307"
+        "prismqda-api/src/lib.rs:1308"
       ]
     },
     {
@@ -5733,7 +5881,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2559"
+        "prismqda-api/src/lib.rs:2569"
       ]
     },
     {
@@ -6038,7 +6186,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2675"
+        "prismqda-api/src/lib.rs:2685"
       ]
     },
     {
@@ -6150,6 +6298,17 @@
       "engine": true,
       "files": [
         "prismqda-import/src/text.rs:207"
+      ]
+    },
+    {
+      "id": "{topics} found in {passages} passages, worked out from {words} different words.",
+      "blanks": [
+        "topics",
+        "passages",
+        "words"
+      ],
+      "files": [
+        "components/text/TopicsTab.tsx"
       ]
     },
     {
@@ -6609,6 +6768,16 @@
       ]
     },
     {
+      "id": "{word} ({count})",
+      "blanks": [
+        "word",
+        "count"
+      ],
+      "files": [
+        "components/TextAnalyticsView.tsx"
+      ]
+    },
+    {
       "id": "{x}, {y}: {excerpts}, from {withCode} of {cases}{mean}",
       "blanks": [
         "x",
@@ -6983,6 +7152,12 @@
       ]
     },
     {
+      "id": "<the path of PrismQDA.exe>",
+      "files": [
+        "components/AssistantCard.tsx"
+      ]
+    },
+    {
       "id": "1 coding moved",
       "files": [
         "lib/eventWording.ts"
@@ -7354,6 +7529,12 @@
       ]
     },
     {
+      "id": "A chatbot’s questions (optional)",
+      "files": [
+        "components/team/Coach.tsx"
+      ]
+    },
+    {
       "id": "A class exercise",
       "files": [
         "components/team/Class.tsx"
@@ -7366,7 +7547,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/teaching.rs:101"
+        "prismqda-engine/src/teaching.rs:104"
       ]
     },
     {
@@ -7745,6 +7926,12 @@
       ]
     },
     {
+      "id": "A document, a passage or a code marked do not share is never given, and a search or a count leaves out any document with such a passage.",
+      "files": [
+        "components/AssistantCard.tsx"
+      ]
+    },
+    {
       "id": "A draft built only from the project records: the data, the coding, the coders, agreement, and the software.",
       "files": [
         "components/ExportDialog.tsx"
@@ -7946,7 +8133,7 @@
       "id": "a name for the project history is one to sixty characters, on one line",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1219"
+        "prismqda-api/src/lib.rs:1220"
       ]
     },
     {
@@ -8119,7 +8306,7 @@
       "id": "a passage chosen is not in the documents being compared",
       "engine": true,
       "files": [
-        "prismqda-engine/src/teaching.rs:814"
+        "prismqda-engine/src/teaching.rs:821"
       ]
     },
     {
@@ -8222,7 +8409,7 @@
       "id": "a picture cannot be the new version of a document of words, and a picture's coded areas are tied to the picture they were drawn on; import it as a new document",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2531"
+        "prismqda-api/src/lib.rs:2541"
       ]
     },
     {
@@ -8635,14 +8822,14 @@
       "id": "a spreadsheet becomes several documents and cases, so it cannot be the new version of one document",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2524"
+        "prismqda-api/src/lib.rs:2534"
       ]
     },
     {
       "id": "a spreadsheet or data file needs its columns set up; import it on its own",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2602"
+        "prismqda-api/src/lib.rs:2612"
       ]
     },
     {
@@ -8936,6 +9123,12 @@
       "id": "A word or two, such as “contradicts” or “explains”. The relations you used before and some common ones are offered; any words will do.",
       "files": [
         "components/PassageLinks.tsx"
+      ]
+    },
+    {
+      "id": "A word you give goes on its list and comes off the other, so you can move a word the built-in list puts on the wrong side for your material.",
+      "files": [
+        "components/text/SentimentTab.tsx"
       ]
     },
     {
@@ -9952,6 +10145,7 @@
       "files": [
         "components/AiView.tsx",
         "components/SettingsView.tsx",
+        "lib/classroom.ts",
         "state/actions.ts",
         "state/commands.ts"
       ]
@@ -10001,6 +10195,19 @@
       ]
     },
     {
+      "id": "AI is switched off for this project (Settings > AI Assistant), and that switch closes the assistant route too",
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/assistant.rs:171"
+      ]
+    },
+    {
+      "id": "AI is switched off for this project, which closes this route too. Turn it on above to connect an assistant.",
+      "files": [
+        "components/AssistantCard.tsx"
+      ]
+    },
+    {
       "id": "ai log disclosure methods record prompt packet model",
       "files": [
         "state/commands.ts"
@@ -10017,6 +10224,19 @@
       "id": "AI prompt packets are allowed in this project.",
       "files": [
         "state/actions.ts"
+      ]
+    },
+    {
+      "id": "AI prompt packets are switched off for this project",
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/coach.rs:406"
+      ]
+    },
+    {
+      "id": "AI prompt packets are switched off for this project (Settings).",
+      "files": [
+        "components/team/Coach.tsx"
       ]
     },
     {
@@ -10208,6 +10428,18 @@
       ]
     },
     {
+      "id": "All the passages",
+      "files": [
+        "components/text/SentimentTab.tsx"
+      ]
+    },
+    {
+      "id": "Allow AI prompt packets in the packets",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "Allow prompt packets again",
       "files": [
         "components/AiView.tsx"
@@ -10373,6 +10605,12 @@
       ]
     },
     {
+      "id": "An assistant application on this computer that speaks the Model Context Protocol can be set to start PrismQDA as a pipe to this project. PrismQDA opens no port and connects to nothing: the application starts it and talks to it, and it never reaches out. What the application and its service then do with what they read is theirs, under their own terms, so connect one only if the project’s ethics approval allows it.",
+      "files": [
+        "components/AssistantCard.tsx"
+      ]
+    },
+    {
       "id": "an attribute needs a name",
       "engine": true,
       "files": [
@@ -10492,7 +10730,7 @@
       "id": "anchor examples are not available for coded areas of pictures yet",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1654"
+        "prismqda-api/src/lib.rs:1655"
       ]
     },
     {
@@ -10570,6 +10808,12 @@
       "id": "another document",
       "files": [
         "state/actions.ts"
+      ]
+    },
+    {
+      "id": "answer key",
+      "files": [
+        "lib/classroom.ts"
       ]
     },
     {
@@ -10843,6 +11087,16 @@
       ]
     },
     {
+      "id": "ask for from 2 to {MAX_TOPICS} topics",
+      "blanks": [
+        "MAX_TOPICS"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/text_models.rs:179"
+      ]
+    },
+    {
       "id": "Ask the question now instead",
       "files": [
         "components/explore/Query.tsx"
@@ -10933,6 +11187,16 @@
       ]
     },
     {
+      "id": "at most {MAX_PROPOSALS} suggestions can come in one call",
+      "blanks": [
+        "MAX_PROPOSALS"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/assistant.rs:330"
+      ]
+    },
+    {
       "id": "At most {max} values can mean missing. Write them separated by commas.",
       "blanks": [
         "max"
@@ -11010,6 +11274,7 @@
       "id": "Auto Code",
       "files": [
         "components/AutoCodeView.tsx",
+        "lib/classroom.ts",
         "state/actions.ts",
         "state/commands.ts"
       ]
@@ -11141,6 +11406,12 @@
       ],
       "files": [
         "lib/statistics.ts"
+      ]
+    },
+    {
+      "id": "Back one frame",
+      "files": [
+        "components/MediaPlayer.tsx"
       ]
     },
     {
@@ -11700,9 +11971,21 @@
       ]
     },
     {
+      "id": "By code: the passages given each code",
+      "files": [
+        "components/text/SentimentTab.tsx"
+      ]
+    },
+    {
       "id": "By coder",
       "files": [
         "components/explore/Summary.tsx"
+      ]
+    },
+    {
+      "id": "By document",
+      "files": [
+        "components/text/SentimentTab.tsx"
       ]
     },
     {
@@ -11898,7 +12181,8 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/class.rs:279"
+        "prismqda-api/src/class.rs:316",
+        "prismqda-api/src/class.rs:385"
       ]
     },
     {
@@ -11922,7 +12206,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2360"
+        "prismqda-api/src/lib.rs:2370"
       ]
     },
     {
@@ -11933,10 +12217,10 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1966",
-        "prismqda-api/src/lib.rs:1970",
-        "prismqda-api/src/lib.rs:1977",
-        "prismqda-api/src/lib.rs:1981"
+        "prismqda-api/src/lib.rs:1967",
+        "prismqda-api/src/lib.rs:1971",
+        "prismqda-api/src/lib.rs:1978",
+        "prismqda-api/src/lib.rs:1982"
       ]
     },
     {
@@ -11947,7 +12231,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2566"
+        "prismqda-api/src/lib.rs:2576"
       ]
     },
     {
@@ -11969,7 +12253,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2699"
+        "prismqda-api/src/lib.rs:2709"
       ]
     },
     {
@@ -11980,7 +12264,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2696"
+        "prismqda-api/src/lib.rs:2706"
       ]
     },
     {
@@ -12700,6 +12984,12 @@
       "id": "Check how well several items measure one thing",
       "files": [
         "lib/statistics2.ts"
+      ]
+    },
+    {
+      "id": "Check my coding",
+      "files": [
+        "components/team/Coach.tsx"
       ]
     },
     {
@@ -13444,6 +13734,12 @@
       ]
     },
     {
+      "id": "Choose the instructor, whose coding is the answer.",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "Choose the instructor, whose coding the class is compared with.",
       "files": [
         "components/team/Class.tsx"
@@ -13854,6 +14150,18 @@
       ]
     },
     {
+      "id": "Close the project in PrismQDA before the assistant starts, so the two never write to the file at once. If the project is encrypted, the assistant application must pass the passphrase in the PRISMQDA_PASSPHRASE setting, never on the command line.",
+      "files": [
+        "components/AssistantCard.tsx"
+      ]
+    },
+    {
+      "id": "Close these pages to the students",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "Close this project and go back to the start screen",
       "files": [
         "state/commands.ts"
@@ -13902,6 +14210,13 @@
       ]
     },
     {
+      "id": "Coach",
+      "files": [
+        "components/CoachBar.tsx",
+        "components/TeamView.tsx"
+      ]
+    },
+    {
       "id": "code",
       "files": [
         "lib/conceptMap.ts"
@@ -13921,6 +14236,7 @@
         "components/explore/Summary.tsx",
         "components/team/Class.tsx",
         "components/team/Merge.tsx",
+        "components/text/SentimentTab.tsx",
         "lib/codebookDiff.ts",
         "lib/explore.ts",
         "state/actions.ts",
@@ -14187,6 +14503,7 @@
       "id": "Codebook Editor",
       "files": [
         "components/CodebookEditor.tsx",
+        "lib/classroom.ts",
         "state/actions.ts",
         "state/commands.ts"
       ]
@@ -14535,6 +14852,12 @@
       ]
     },
     {
+      "id": "Codes given to the same words",
+      "files": [
+        "components/team/Coach.tsx"
+      ]
+    },
+    {
       "id": "Codes into variables",
       "files": [
         "components/MixedMethodsView.tsx"
@@ -14608,6 +14931,12 @@
       ]
     },
     {
+      "id": "Codes used once",
+      "files": [
+        "components/team/Coach.tsx"
+      ]
+    },
+    {
       "id": "Codes whose words are shown",
       "files": [
         "components/JointDisplays.tsx"
@@ -14617,6 +14946,12 @@
       "id": "Codes whose words overlap this code’s (by the same coder)",
       "files": [
         "components/explore/Summary.tsx"
+      ]
+    },
+    {
+      "id": "Codes with no definition",
+      "files": [
+        "components/team/Coach.tsx"
       ]
     },
     {
@@ -14902,6 +15237,12 @@
       ]
     },
     {
+      "id": "Comma and full stop step one frame (with Shift, ten) while the focus is in the recording. Choose the rate the video was made at.",
+      "files": [
+        "components/MediaPlayer.tsx"
+      ]
+    },
+    {
       "id": "Command ribbon",
       "files": [
         "components/Ribbon.tsx"
@@ -15184,6 +15525,12 @@
       ]
     },
     {
+      "id": "Connect an assistant (advanced)",
+      "files": [
+        "components/SettingsView.tsx"
+      ]
+    },
+    {
       "id": "Connecting",
       "files": [
         "components/MixedDesign.tsx"
@@ -15256,8 +15603,10 @@
     {
       "id": "Copied",
       "files": [
+        "components/AssistantCard.tsx",
         "components/ai/Log.tsx",
-        "components/ai/Packet.tsx"
+        "components/ai/Packet.tsx",
+        "components/team/Coach.tsx"
       ]
     },
     {
@@ -15310,6 +15659,12 @@
       ]
     },
     {
+      "id": "Copy the prompt",
+      "files": [
+        "components/team/Coach.tsx"
+      ]
+    },
+    {
       "id": "Copy the R code for page {n}",
       "blanks": [
         "n"
@@ -15322,6 +15677,12 @@
       "id": "Copy the report",
       "files": [
         "components/TeamView.tsx"
+      ]
+    },
+    {
+      "id": "Copy the settings",
+      "files": [
+        "components/AssistantCard.tsx"
       ]
     },
     {
@@ -15412,6 +15773,13 @@
       ]
     },
     {
+      "id": "Count the forms of an English word together (connect, connected, connecting)",
+      "files": [
+        "components/TextAnalyticsView.tsx",
+        "components/text/TopicsTab.tsx"
+      ]
+    },
+    {
       "id": "Count the words",
       "files": [
         "components/TextAnalyticsView.tsx"
@@ -15442,7 +15810,7 @@
       "id": "counterexamples are not available for coded areas of pictures yet",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1662"
+        "prismqda-api/src/lib.rs:1663"
       ]
     },
     {
@@ -15783,6 +16151,7 @@
       "files": [
         "components/DataView.tsx",
         "components/StartScreen.tsx",
+        "lib/classroom.ts",
         "state/actions.ts"
       ]
     },
@@ -16351,6 +16720,7 @@
         "components/explore/Matrix.tsx",
         "components/explore/Portrait.tsx",
         "components/explore/Summary.tsx",
+        "components/text/SentimentTab.tsx",
         "lib/explore.ts"
       ]
     },
@@ -16362,6 +16732,16 @@
       "files": [
         "components/ImportPage.tsx",
         "components/explore/shared.tsx"
+      ]
+    },
+    {
+      "id": "document {id} is marked do not share, so it is not given to an assistant",
+      "blanks": [
+        "id"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/assistant.rs:203"
       ]
     },
     {
@@ -16408,6 +16788,8 @@
         "components/WorkingSet.tsx",
         "components/explore/Matrix.tsx",
         "components/explore/Summary.tsx",
+        "components/text/SentimentTab.tsx",
+        "components/text/TopicsTab.tsx",
         "state/commands.ts"
       ]
     },
@@ -17571,7 +17953,9 @@
         "components/TextAnalyticsView.tsx",
         "components/WorkingSet.tsx",
         "components/ai/Packet.tsx",
-        "components/autocode/Setup.tsx"
+        "components/autocode/Setup.tsx",
+        "components/text/SentimentTab.tsx",
+        "components/text/TopicsTab.tsx"
       ]
     },
     {
@@ -17726,6 +18110,12 @@
       "id": "Everything",
       "files": [
         "components/HistoryView.tsx"
+      ]
+    },
+    {
+      "id": "Everything above works without a chatbot. If you want one to put questions to you, this makes a prompt you can copy into a chatbot of your choice. The prompt asks the chatbot to ask questions and not to give you answers or code for you. Making it sends nothing, and what you paste into another service is that service’s to keep under its own terms.",
+      "files": [
+        "components/team/Coach.tsx"
       ]
     },
     {
@@ -17970,6 +18360,7 @@
       "files": [
         "components/ExploreView.tsx",
         "components/StartScreen.tsx",
+        "lib/classroom.ts",
         "state/actions.ts",
         "state/commands.ts"
       ]
@@ -18359,6 +18750,12 @@
       ]
     },
     {
+      "id": "Find the topics",
+      "files": [
+        "components/text/TopicsTab.tsx"
+      ]
+    },
+    {
       "id": "find words phrase",
       "files": [
         "state/commands.ts"
@@ -18632,9 +19029,21 @@
       ]
     },
     {
+      "id": "Forms counted together",
+      "files": [
+        "components/TextAnalyticsView.tsx"
+      ]
+    },
+    {
       "id": "Formula",
       "files": [
         "components/VariableDialogs.tsx"
+      ]
+    },
+    {
+      "id": "Forward one frame",
+      "files": [
+        "components/MediaPlayer.tsx"
       ]
     },
     {
@@ -18674,6 +19083,36 @@
       "id": "Found, on average",
       "files": [
         "components/team/Class.tsx"
+      ]
+    },
+    {
+      "id": "Frame {timecode}",
+      "blanks": [
+        "timecode"
+      ],
+      "files": [
+        "components/MediaPlayer.tsx"
+      ]
+    },
+    {
+      "id": "Frame {timecode}.",
+      "blanks": [
+        "timecode"
+      ],
+      "files": [
+        "components/MediaPlayer.tsx"
+      ]
+    },
+    {
+      "id": "Frame by frame",
+      "files": [
+        "components/MediaPlayer.tsx"
+      ]
+    },
+    {
+      "id": "Frames a second",
+      "files": [
+        "components/MediaPlayer.tsx"
       ]
     },
     {
@@ -18961,7 +19400,7 @@
       "id": "give a word, or the words of a phrase, to look for",
       "engine": true,
       "files": [
-        "prismqda-engine/src/text_analytics.rs:264"
+        "prismqda-engine/src/text_analytics.rs:293"
       ]
     },
     {
@@ -19288,6 +19727,12 @@
       "id": "Groups of the Hosmer-Lemeshow test",
       "files": [
         "lib/statistics2.ts"
+      ]
+    },
+    {
+      "id": "Groups of words that tend to appear in the same passages, found from the words alone. You choose how many. A topic is a way to find passages to read; it is not a finding, and not yet a theme. Another number of topics gives other groups, so try more than one. Nothing leaves this computer.",
+      "files": [
+        "components/text/TopicsTab.tsx"
       ]
     },
     {
@@ -19658,9 +20103,21 @@
       ]
     },
     {
+      "id": "How many passages use positive words, negative words, both, or neither, by a list of English words. A word that follows not, never, no or the like within three words is counted the other way. A list of words cannot tell irony, or a word used in its own way in your field, so use the counts to find passages to read, and read a sample of each kind before relying on them. Nothing leaves this computer.",
+      "files": [
+        "components/text/SentimentTab.tsx"
+      ]
+    },
+    {
       "id": "How many times codes must occur together",
       "files": [
         "components/explore/ConceptMap.tsx"
+      ]
+    },
+    {
+      "id": "How many topics",
+      "files": [
+        "components/text/TopicsTab.tsx"
       ]
     },
     {
@@ -19927,6 +20384,7 @@
       "files": [
         "components/Dashboard.tsx",
         "components/ImportPage.tsx",
+        "lib/classroom.ts",
         "state/actions.ts",
         "state/commands.ts"
       ]
@@ -20540,6 +20998,18 @@
       ]
     },
     {
+      "id": "It can never code anything itself. With the permission to propose it can suggest codings, which wait in the review queue until you accept them.",
+      "files": [
+        "components/AssistantCard.tsx"
+      ]
+    },
+    {
+      "id": "It can read the documents, the codebook, the codings and a search and word counts. It is not given memos or the history of the project.",
+      "files": [
+        "components/AssistantCard.tsx"
+      ]
+    },
+    {
       "id": "It coded {count} places.",
       "forms": {
         "one": "It coded {count} place.",
@@ -20553,6 +21023,12 @@
       "id": "It could not be copied for you. Select the text and press Control and C.",
       "files": [
         "components/ai/Log.tsx"
+      ]
+    },
+    {
+      "id": "It does not run at all while the offline lock is on, while AI is switched off here, or while the list of names to replace is applied to exports.",
+      "files": [
+        "components/AssistantCard.tsx"
       ]
     },
     {
@@ -20574,7 +21050,7 @@
       "id": "it was made by a newer version of PrismQDA",
       "engine": true,
       "files": [
-        "prismqda-engine/src/project.rs:457"
+        "prismqda-engine/src/project.rs:461"
       ]
     },
     {
@@ -20624,6 +21100,15 @@
       "id": "its passages are shown",
       "files": [
         "components/CodebookPane.tsx"
+      ]
+    },
+    {
+      "id": "Its words, the strongest first: {words}.",
+      "blanks": [
+        "words"
+      ],
+      "files": [
+        "components/text/TopicsTab.tsx"
       ]
     },
     {
@@ -20736,7 +21221,7 @@
       "id": "keep between 1 and 50 backups",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1204"
+        "prismqda-api/src/lib.rs:1205"
       ]
     },
     {
@@ -20757,6 +21242,12 @@
       ]
     },
     {
+      "id": "Keep the coach on while the students code",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "Keep the earlier decision",
       "files": [
         "components/team/Disagreements.tsx",
@@ -20773,6 +21264,12 @@
       "id": "Keep this project's for all of them",
       "files": [
         "components/team/Merge.tsx"
+      ]
+    },
+    {
+      "id": "Keep your coding as an answer key",
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -21100,7 +21597,8 @@
     {
       "id": "Leave out common English words (the, and, of, and so on)",
       "files": [
-        "components/TextAnalyticsView.tsx"
+        "components/TextAnalyticsView.tsx",
+        "components/text/TopicsTab.tsx"
       ]
     },
     {
@@ -21180,6 +21678,15 @@
       "id": "Left out of the copy",
       "files": [
         "components/PrivacyView.tsx"
+      ]
+    },
+    {
+      "id": "Left out of the prompt: {things}.",
+      "blanks": [
+        "things"
+      ],
+      "files": [
+        "components/team/Coach.tsx"
       ]
     },
     {
@@ -21542,7 +22049,7 @@
       "id": "list at least one student",
       "engine": true,
       "files": [
-        "prismqda-engine/src/teaching.rs:98"
+        "prismqda-engine/src/teaching.rs:101"
       ]
     },
     {
@@ -21820,6 +22327,12 @@
       ]
     },
     {
+      "id": "Looking for topics…",
+      "files": [
+        "components/text/TopicsTab.tsx"
+      ]
+    },
+    {
       "id": "Looking in every source.",
       "files": [
         "state/actions.ts"
@@ -21836,6 +22349,7 @@
       "files": [
         "components/PrivacyView.tsx",
         "components/TextAnalyticsView.tsx",
+        "components/team/Coach.tsx",
         "components/team/Merge.tsx"
       ]
     },
@@ -22244,6 +22758,12 @@
       "id": "Make the packets",
       "files": [
         "components/team/Class.tsx"
+      ]
+    },
+    {
+      "id": "Make the prompt",
+      "files": [
+        "components/team/Coach.tsx"
       ]
     },
     {
@@ -22717,6 +23237,7 @@
         "components/Dashboard.tsx",
         "components/ExportDialog.tsx",
         "components/Frame.tsx",
+        "lib/classroom.ts",
         "lib/eventWording.ts",
         "state/commands.ts"
       ]
@@ -22926,6 +23447,12 @@
       ]
     },
     {
+      "id": "Mixed",
+      "files": [
+        "components/text/SentimentTab.tsx"
+      ]
+    },
+    {
       "id": "Mixed methods",
       "files": [
         "components/ExportDialog.tsx"
@@ -22935,6 +23462,7 @@
       "id": "Mixed Methods",
       "files": [
         "components/MixedMethodsView.tsx",
+        "lib/classroom.ts",
         "state/actions.ts",
         "state/commands.ts"
       ]
@@ -23035,12 +23563,24 @@
       ]
     },
     {
+      "id": "More negative words (separate them with commas or spaces)",
+      "files": [
+        "components/text/SentimentTab.tsx"
+      ]
+    },
+    {
       "id": "More options for {name}",
       "blanks": [
         "name"
       ],
       "files": [
         "components/StartScreen.tsx"
+      ]
+    },
+    {
+      "id": "More positive words (separate them with commas or spaces)",
+      "files": [
+        "components/text/SentimentTab.tsx"
       ]
     },
     {
@@ -23062,7 +23602,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/teaching.rs:789"
+        "prismqda-engine/src/teaching.rs:796"
       ]
     },
     {
@@ -23072,7 +23612,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/teaching.rs:478"
+        "prismqda-engine/src/teaching.rs:485"
       ]
     },
     {
@@ -23655,9 +24195,21 @@
       ]
     },
     {
+      "id": "Negative",
+      "files": [
+        "components/text/SentimentTab.tsx"
+      ]
+    },
+    {
       "id": "negligible",
       "files": [
         "lib/statistics.ts"
+      ]
+    },
+    {
+      "id": "Neutral",
+      "files": [
+        "components/text/SentimentTab.tsx"
       ]
     },
     {
@@ -24376,7 +24928,7 @@
       "id": "no project is open; create or open one first",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1092"
+        "prismqda-api/src/lib.rs:1093"
       ]
     },
     {
@@ -24612,7 +25164,8 @@
     {
       "id": "None is ticked, so every document is used.",
       "files": [
-        "components/team/Class.tsx"
+        "components/team/Class.tsx",
+        "components/team/Coach.tsx"
       ]
     },
     {
@@ -24930,7 +25483,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/project.rs:515"
+        "prismqda-engine/src/project.rs:519"
       ]
     },
     {
@@ -25111,6 +25664,12 @@
       "id": "Nothing new was needed.",
       "files": [
         "components/MixedDesign.tsx"
+      ]
+    },
+    {
+      "id": "nothing to ask",
+      "files": [
+        "components/team/Coach.tsx"
       ]
     },
     {
@@ -25753,7 +26312,9 @@
         "components/TeamView.tsx",
         "components/TextAnalyticsView.tsx",
         "components/ThemesView.tsx",
-        "components/explore/SavedQueries.tsx"
+        "components/explore/SavedQueries.tsx",
+        "components/text/SentimentTab.tsx",
+        "components/text/TopicsTab.tsx"
       ]
     },
     {
@@ -25833,6 +26394,16 @@
       "files": [
         "components/RetrievedPane.tsx",
         "components/explore/shared.tsx"
+      ]
+    },
+    {
+      "id": "Open {source_name} at this passage",
+      "blanks": [
+        "source_name"
+      ],
+      "files": [
+        "components/text/SentimentTab.tsx",
+        "components/text/TopicsTab.tsx"
       ]
     },
     {
@@ -26069,6 +26640,12 @@
       "files": [
         "components/AutoCodeView.tsx",
         "components/SettingsView.tsx"
+      ]
+    },
+    {
+      "id": "Open the coach",
+      "files": [
+        "components/CoachBar.tsx"
       ]
     },
     {
@@ -26834,7 +27411,8 @@
         "App.tsx",
         "components/ThemesView.tsx",
         "components/explore/Portrait.tsx",
-        "components/explore/Summary.tsx"
+        "components/explore/Summary.tsx",
+        "components/text/SentimentTab.tsx"
       ]
     },
     {
@@ -27280,6 +27858,12 @@
       "files": [
         "lib/statistics.ts",
         "lib/statistics2.ts"
+      ]
+    },
+    {
+      "id": "Positive",
+      "files": [
+        "components/text/SentimentTab.tsx"
       ]
     },
     {
@@ -27932,6 +28516,12 @@
       ]
     },
     {
+      "id": "Put this in the assistant application’s settings for MCP servers",
+      "files": [
+        "components/AssistantCard.tsx"
+      ]
+    },
+    {
       "id": "QDC codebook",
       "files": [
         "components/ExportDialog.tsx"
@@ -28014,7 +28604,13 @@
       "id": "query.update: to change what the query asks, give the draft and the spec together",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1484"
+        "prismqda-api/src/lib.rs:1485"
+      ]
+    },
+    {
+      "id": "Questions about your own coding",
+      "files": [
+        "components/team/Coach.tsx"
       ]
     },
     {
@@ -28232,6 +28828,12 @@
       ]
     },
     {
+      "id": "Read",
+      "files": [
+        "components/AssistantCard.tsx"
+      ]
+    },
+    {
       "id": "Read {file}: {done} of {total} messages translated.",
       "blanks": [
         "file",
@@ -28240,6 +28842,12 @@
       ],
       "files": [
         "components/LanguageDialogs.tsx"
+      ]
+    },
+    {
+      "id": "Read and propose codings",
+      "files": [
+        "components/AssistantCard.tsx"
       ]
     },
     {
@@ -28264,6 +28872,12 @@
       "id": "Read the file",
       "files": [
         "components/DataTools.tsx"
+      ]
+    },
+    {
+      "id": "Read the sentiment",
+      "files": [
+        "components/text/SentimentTab.tsx"
       ]
     },
     {
@@ -28317,7 +28931,8 @@
     {
       "id": "Reading…",
       "files": [
-        "components/LanguageDialogs.tsx"
+        "components/LanguageDialogs.tsx",
+        "components/text/SentimentTab.tsx"
       ]
     },
     {
@@ -29306,6 +29921,7 @@
         "components/ReportView.tsx",
         "components/Ribbon.tsx",
         "components/StartScreen.tsx",
+        "lib/classroom.ts",
         "state/actions.ts",
         "state/commands.ts"
       ]
@@ -30206,6 +30822,12 @@
       ]
     },
     {
+      "id": "Save the answer key",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "Save the change",
       "files": [
         "components/PrivacyView.tsx"
@@ -30382,6 +31004,19 @@
       ],
       "files": [
         "components/LanguageDialogs.tsx"
+      ]
+    },
+    {
+      "id": "Saved {path}: {count} codings of yours.",
+      "forms": {
+        "one": "Saved {path}: {count} coding of yours.",
+        "other": "Saved {path}: {count} codings of yours."
+      },
+      "blanks": [
+        "path"
+      ],
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -30638,13 +31273,20 @@
       ]
     },
     {
+      "id": "Saves your coding of the documents chosen above, and nothing else, as a file of its own to keep apart from the packets. Next term, put it in the folder with the new students’ files and bring them all in together to review the same exercise.",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "Saving…",
       "files": [
         "components/Announcer.tsx",
         "components/Dashboard.tsx",
         "components/ExportDialog.tsx",
         "components/LanguageDialogs.tsx",
-        "components/StatExportDialog.tsx"
+        "components/StatExportDialog.tsx",
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -30710,24 +31352,31 @@
       ]
     },
     {
+      "id": "say where the answer key should be saved",
+      "engine": true,
+      "files": [
+        "prismqda-api/src/class.rs:306"
+      ]
+    },
+    {
       "id": "say where the new project should go",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1984"
+        "prismqda-api/src/lib.rs:1985"
       ]
     },
     {
       "id": "say where the packet should go",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1952"
+        "prismqda-api/src/lib.rs:1953"
       ]
     },
     {
       "id": "say where to save the file",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2661"
+        "prismqda-api/src/lib.rs:2671"
       ]
     },
     {
@@ -30764,21 +31413,21 @@
       "id": "say which folder the feedback files should go in",
       "engine": true,
       "files": [
-        "prismqda-api/src/class.rs:259"
+        "prismqda-api/src/class.rs:365"
       ]
     },
     {
       "id": "say which folder the packets should go in",
       "engine": true,
       "files": [
-        "prismqda-api/src/class.rs:199"
+        "prismqda-api/src/class.rs:253"
       ]
     },
     {
       "id": "say which folder the students' packets are in",
       "engine": true,
       "files": [
-        "prismqda-api/src/class.rs:209"
+        "prismqda-api/src/class.rs:263"
       ]
     },
     {
@@ -30793,7 +31442,7 @@
       "id": "say who the packet is for",
       "engine": true,
       "files": [
-        "prismqda-engine/src/packet.rs:73"
+        "prismqda-engine/src/packet.rs:142"
       ]
     },
     {
@@ -31289,6 +31938,13 @@
       ]
     },
     {
+      "id": "Sentiment",
+      "files": [
+        "components/TextAnalyticsView.tsx",
+        "components/text/SentimentTab.tsx"
+      ]
+    },
+    {
       "id": "Separate names with commas. Their turns are left out of coding.",
       "files": [
         "components/ImportPage.tsx"
@@ -31331,6 +31987,12 @@
       "id": "Settings are back to the standard ones.",
       "files": [
         "state/actions.ts"
+      ]
+    },
+    {
+      "id": "Settings for this assignment (optional)",
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -32420,6 +33082,7 @@
       "files": [
         "components/StartScreen.tsx",
         "components/StatisticsView.tsx",
+        "lib/classroom.ts",
         "state/actions.ts",
         "state/commands.ts"
       ]
@@ -32865,6 +33528,7 @@
       "files": [
         "components/StartScreen.tsx",
         "components/TeamView.tsx",
+        "lib/classroom.ts",
         "state/actions.ts",
         "state/commands.ts"
       ]
@@ -32965,6 +33629,7 @@
       "files": [
         "components/StartScreen.tsx",
         "components/TextAnalyticsView.tsx",
+        "lib/classroom.ts",
         "state/actions.ts",
         "state/commands.ts"
       ]
@@ -33064,7 +33729,7 @@
       "id": "that file is this project itself; choose a copy of it",
       "engine": true,
       "files": [
-        "prismqda-engine/src/merge.rs:259"
+        "prismqda-engine/src/merge.rs:261"
       ]
     },
     {
@@ -33352,6 +34017,19 @@
       ]
     },
     {
+      "id": "the answer key is a person's coding, and this coder is a model",
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/teaching.rs:976"
+      ]
+    },
+    {
+      "id": "The answer key was saved.",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "The answer, exactly as it was pasted",
       "files": [
         "components/ai/Log.tsx"
@@ -33393,7 +34071,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/project.rs:542"
+        "prismqda-engine/src/project.rs:546"
       ]
     },
     {
@@ -33485,7 +34163,7 @@
       "id": "the captions made no document",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2469"
+        "prismqda-api/src/lib.rs:2479"
       ]
     },
     {
@@ -33687,14 +34365,62 @@
       "id": "the clip is not a WAV file",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2285"
+        "prismqda-api/src/lib.rs:2295"
       ]
     },
     {
       "id": "the clip is not valid base 64",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2283"
+        "prismqda-api/src/lib.rs:2293"
+      ]
+    },
+    {
+      "id": "The coach has {count} questions for you.",
+      "forms": {
+        "one": "The coach has {count} question for you.",
+        "other": "The coach has {count} questions for you."
+      },
+      "files": [
+        "components/CoachBar.tsx",
+        "components/team/Coach.tsx"
+      ]
+    },
+    {
+      "id": "The coach has no question for you at the moment.",
+      "files": [
+        "components/CoachBar.tsx"
+      ]
+    },
+    {
+      "id": "The coach has no question for you.",
+      "files": [
+        "components/team/Coach.tsx"
+      ]
+    },
+    {
+      "id": "The coach has no question for you. That does not mean the coding is right; it means these checks found nothing.",
+      "files": [
+        "components/team/Coach.tsx"
+      ]
+    },
+    {
+      "id": "the coach is on the Team page, so that page cannot be closed while the coach is kept on",
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/packet.rs:81"
+      ]
+    },
+    {
+      "id": "The coach is on: your instructor asked for it in this assignment.",
+      "files": [
+        "components/CoachBar.tsx"
+      ]
+    },
+    {
+      "id": "The coach looks at the codings you made and asks about what stands out: a code with no definition, a code you used only once, two codes you gave to the same words again and again, and words you coded in one place and left uncoded in another. It asks questions and gives no answers, and it changes nothing in your project. It reads text only.",
+      "files": [
+        "components/team/Coach.tsx"
       ]
     },
     {
@@ -33850,7 +34576,7 @@
       "id": "the coder's name is longer than 100 characters",
       "engine": true,
       "files": [
-        "prismqda-engine/src/packet.rs:76"
+        "prismqda-engine/src/packet.rs:145"
       ]
     },
     {
@@ -34319,7 +35045,9 @@
         "name"
       ],
       "files": [
-        "components/TextAnalyticsView.tsx"
+        "components/TextAnalyticsView.tsx",
+        "components/text/SentimentTab.tsx",
+        "components/text/TopicsTab.tsx"
       ]
     },
     {
@@ -34332,6 +35060,12 @@
       "id": "The documents to compare on",
       "files": [
         "components/team/Class.tsx"
+      ]
+    },
+    {
+      "id": "The documents to look at",
+      "files": [
+        "components/team/Coach.tsx"
       ]
     },
     {
@@ -34350,7 +35084,7 @@
       "id": "the drawing is not an SVG",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2267"
+        "prismqda-api/src/lib.rs:2277"
       ]
     },
     {
@@ -34674,7 +35408,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2679",
+        "prismqda-api/src/lib.rs:2689",
         "prismqda-api/src/text_files.rs:75"
       ]
     },
@@ -34704,7 +35438,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2644"
+        "prismqda-api/src/lib.rs:2654"
       ]
     },
     {
@@ -34780,7 +35514,7 @@
       "id": "the instructor cannot be one of the students",
       "engine": true,
       "files": [
-        "prismqda-engine/src/teaching.rs:468"
+        "prismqda-engine/src/teaching.rs:475"
       ]
     },
     {
@@ -34793,10 +35527,17 @@
       ]
     },
     {
+      "id": "the instructor has not coded any passage of these documents, so there is no key to keep",
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/teaching.rs:982"
+      ]
+    },
+    {
       "id": "the instructor has not coded any passage of these documents, so there is nothing to compare the students with",
       "engine": true,
       "files": [
-        "prismqda-engine/src/teaching.rs:522"
+        "prismqda-engine/src/teaching.rs:529"
       ]
     },
     {
@@ -35125,8 +35866,22 @@
       "id": "the list of names to replace is applied to exports, and a packet holds the documents whole; turn that switch off, or replace the names in the project itself first",
       "engine": true,
       "files": [
-        "prismqda-api/src/class.rs:192",
-        "prismqda-api/src/lib.rs:1945"
+        "prismqda-api/src/class.rs:246",
+        "prismqda-api/src/lib.rs:1946"
+      ]
+    },
+    {
+      "id": "the list of names to replace is applied to exports, and an answer key holds the documents whole; turn that switch off, or replace the names in the project itself first",
+      "engine": true,
+      "files": [
+        "prismqda-api/src/class.rs:299"
+      ]
+    },
+    {
+      "id": "the list of names to replace is applied to exports, and an assistant would see the documents whole; turn that switch off, or replace the names in the project itself first",
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/assistant.rs:174"
       ]
     },
     {
@@ -35383,6 +36138,18 @@
       ]
     },
     {
+      "id": "The most negative passages",
+      "files": [
+        "components/text/SentimentTab.tsx"
+      ]
+    },
+    {
+      "id": "The most positive passages",
+      "files": [
+        "components/text/SentimentTab.tsx"
+      ]
+    },
+    {
       "id": "The name cannot contain \"{character}\". Windows does not allow \\ / : * ? \" < > | in a file name.",
       "blanks": [
         "character"
@@ -35401,6 +36168,19 @@
       "id": "The name cannot end with a period.",
       "files": [
         "lib/projectPath.ts"
+      ]
+    },
+    {
+      "id": "The name of the assignment",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
+      "id": "the name of the assignment is longer than 100 characters",
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/packet.rs:67"
       ]
     },
     {
@@ -35625,6 +36405,19 @@
       "engine": true,
       "files": [
         "prismqda-engine/src/privacy.rs:89"
+      ]
+    },
+    {
+      "id": "the offline lock is on for this project, so no assistant can be connected to it",
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/assistant.rs:167"
+      ]
+    },
+    {
+      "id": "The offline lock is on for this project, so no assistant can be connected to it.",
+      "files": [
+        "components/AssistantCard.tsx"
       ]
     },
     {
@@ -36064,6 +36857,12 @@
       ]
     },
     {
+      "id": "The path of PrismQDA.exe is shown here in the installed program; use the full path of the program you installed.",
+      "files": [
+        "components/AssistantCard.tsx"
+      ]
+    },
+    {
       "id": "the PDF {file_name} has {count} pages; PrismQDA keeps from 1 to {MAX_PDF_PAGES}",
       "blanks": [
         "file_name",
@@ -36103,7 +36902,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1305"
+        "prismqda-api/src/lib.rs:1306"
       ]
     },
     {
@@ -36113,13 +36912,23 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1303"
+        "prismqda-api/src/lib.rs:1304"
       ]
     },
     {
       "id": "The people, sites, or groups that documents belong to. Press to see them in the data table.",
       "files": [
         "components/Dashboard.tsx"
+      ]
+    },
+    {
+      "id": "the permission is read or propose, not '{other}'",
+      "blanks": [
+        "other"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/assistant.rs:49"
       ]
     },
     {
@@ -36136,14 +36945,14 @@
       "id": "the picture is not a PNG",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2261"
+        "prismqda-api/src/lib.rs:2271"
       ]
     },
     {
       "id": "the picture is not valid base 64",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2259"
+        "prismqda-api/src/lib.rs:2269"
       ]
     },
     {
@@ -36281,7 +37090,7 @@
       "id": "the project has no document to put in a packet",
       "engine": true,
       "files": [
-        "prismqda-engine/src/packet.rs:97"
+        "prismqda-engine/src/packet.rs:170"
       ]
     },
     {
@@ -36339,10 +37148,34 @@
       ]
     },
     {
+      "id": "The prompt",
+      "files": [
+        "components/team/Coach.tsx"
+      ]
+    },
+    {
+      "id": "The prompt could not be copied for you. It is selected: press Control and C to copy it.",
+      "files": [
+        "components/team/Coach.tsx"
+      ]
+    },
+    {
+      "id": "The prompt is made. Nothing has been sent anywhere.",
+      "files": [
+        "components/team/Coach.tsx"
+      ]
+    },
+    {
+      "id": "The prompt was copied. Nothing has left your computer yet.",
+      "files": [
+        "components/team/Coach.tsx"
+      ]
+    },
+    {
       "id": "the QDC format holds a codebook, not coded segments",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2646",
+        "prismqda-api/src/lib.rs:2656",
         "prismqda-export/src/lib.rs:502"
       ]
     },
@@ -36530,7 +37363,7 @@
       "id": "the recording made no document",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2490"
+        "prismqda-api/src/lib.rs:2500"
       ]
     },
     {
@@ -36763,6 +37596,12 @@
       ]
     },
     {
+      "id": "The same words coded in one place and not in another",
+      "files": [
+        "components/team/Coach.tsx"
+      ]
+    },
+    {
       "id": "the sample asked for {size} units, but only {pool} are available",
       "blanks": [
         "size",
@@ -36792,7 +37631,7 @@
       "id": "the script does not say where its data is",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2235"
+        "prismqda-api/src/lib.rs:2245"
       ]
     },
     {
@@ -36873,6 +37712,18 @@
       "id": "The selection does not include any words of a unit.",
       "files": [
         "lib/targets.ts"
+      ]
+    },
+    {
+      "id": "The settings could not be copied for you. Select them and press Control and C.",
+      "files": [
+        "components/AssistantCard.tsx"
+      ]
+    },
+    {
+      "id": "The settings were copied. Nothing has left your computer.",
+      "files": [
+        "components/AssistantCard.tsx"
       ]
     },
     {
@@ -37316,6 +38167,12 @@
       "id": "The suggestion was rejected.",
       "files": [
         "components/ThemeAi.tsx"
+      ]
+    },
+    {
+      "id": "The suggestions you accept are coded by this name.",
+      "files": [
+        "components/AssistantCard.tsx"
       ]
     },
     {
@@ -37939,6 +38796,7 @@
       "files": [
         "components/ExportDialog.tsx",
         "components/ThemesView.tsx",
+        "lib/classroom.ts",
         "state/actions.ts"
       ]
     },
@@ -38064,6 +38922,13 @@
       "id": "There are no variables of cases yet. Add one, or import a spreadsheet with columns for the cases.",
       "files": [
         "components/VariablesView.tsx"
+      ]
+    },
+    {
+      "id": "there are no words to look for: use the built-in list, or give some",
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/text_models.rs:469"
       ]
     },
     {
@@ -38268,7 +39133,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2339"
+        "prismqda-api/src/lib.rs:2349"
       ]
     },
     {
@@ -38345,7 +39210,14 @@
       "id": "there is no student to compare: a student is a human coder other than the instructor, so bring the students' packets in first",
       "engine": true,
       "files": [
-        "prismqda-engine/src/teaching.rs:475"
+        "prismqda-engine/src/teaching.rs:482"
+      ]
+    },
+    {
+      "id": "there is no suggestion in 'items'",
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/assistant.rs:327"
       ]
     },
     {
@@ -38365,6 +39237,16 @@
       "id": "There is no timer and nothing to remember to save, so a crash or a power cut cannot lose more than the change in progress. If a save fails, the status bar says so.",
       "files": [
         "components/SettingsView.tsx"
+      ]
+    },
+    {
+      "id": "there is no tool named '{other}'",
+      "blanks": [
+        "other"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/assistant.rs:287"
       ]
     },
     {
@@ -38409,6 +39291,18 @@
       "engine": true,
       "files": [
         "prismqda-engine/src/proposal.rs:161"
+      ]
+    },
+    {
+      "id": "there is too little text for {k} topics: {n} passages with enough words and {count} different words; ask for fewer topics, or choose more documents",
+      "blanks": [
+        "k",
+        "n",
+        "count"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/text_models.rs:248"
       ]
     },
     {
@@ -38487,6 +39381,12 @@
       "id": "These settings are stored on this computer, not in any project, so every project opens the same way. Reset all settings puts them back to how they were when the program was installed.",
       "files": [
         "components/SettingsView.tsx"
+      ]
+    },
+    {
+      "id": "These settings are written into each packet, and the student is told what they are. They guide a class; they are not a lock against a student who is determined to open the file another way. The coach is on the Team page, so that page stays open while the coach is kept on.",
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -38699,7 +39599,7 @@
       "id": "this document keeps its PDF, and the areas coded on its pages are tied to that file's pages, so another file cannot replace its words; import the new PDF as a new document",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2536"
+        "prismqda-api/src/lib.rs:2546"
       ]
     },
     {
@@ -38748,14 +39648,14 @@
       "id": "this file is over 1.5 GB, more than PrismQDA reads into memory at once",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1979"
+        "prismqda-api/src/lib.rs:1980"
       ]
     },
     {
       "id": "this file is over 64 MB, far more than a codebook holds",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1968"
+        "prismqda-api/src/lib.rs:1969"
       ]
     },
     {
@@ -38765,7 +39665,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2528"
+        "prismqda-api/src/lib.rs:2538"
       ]
     },
     {
@@ -38775,7 +39675,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2500"
+        "prismqda-api/src/lib.rs:2510"
       ]
     },
     {
@@ -38838,7 +39738,7 @@
       "id": "this is the file the document came from, so there is nothing new to carry over",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2542"
+        "prismqda-api/src/lib.rs:2552"
       ]
     },
     {
@@ -38928,7 +39828,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/project.rs:468"
+        "prismqda-engine/src/project.rs:472"
       ]
     },
     {
@@ -39005,6 +39905,12 @@
       "id": "This page is also set to offer the tests of difference, association, and prediction. PrismStatistics does them with more to check and report, and opens the case table made from this project: the variables you see here, and a variable for every code.",
       "files": [
         "components/StatisticsView.tsx"
+      ]
+    },
+    {
+      "id": "This page is closed",
+      "files": [
+        "components/Frame.tsx"
       ]
     },
     {
@@ -39378,7 +40284,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:2482"
+        "prismqda-api/src/lib.rs:2492"
       ]
     },
     {
@@ -39420,6 +40326,13 @@
       "id": "This run in words",
       "files": [
         "components/autocode/Setup.tsx"
+      ]
+    },
+    {
+      "id": "this session may read only; the researcher connected it without the permission to propose",
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/assistant.rs:283"
       ]
     },
     {
@@ -39852,6 +40765,23 @@
       ]
     },
     {
+      "id": "Topic {number}: {label}",
+      "blanks": [
+        "number",
+        "label"
+      ],
+      "files": [
+        "components/text/TopicsTab.tsx"
+      ]
+    },
+    {
+      "id": "Topics",
+      "files": [
+        "components/TextAnalyticsView.tsx",
+        "components/text/TopicsTab.tsx"
+      ]
+    },
+    {
       "id": "Topics, what each strand says, what is in the data, and your mark",
       "files": [
         "components/MixedDesign.tsx"
@@ -40207,14 +41137,14 @@
       "id": "type the full path of the file to write, for example C:\\Documents\\report.pdf",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1318"
+        "prismqda-api/src/lib.rs:1319"
       ]
     },
     {
       "id": "type the full path of the file to write, for example C:\\Pictures\\street.png",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1286"
+        "prismqda-api/src/lib.rs:1287"
       ]
     },
     {
@@ -40265,7 +41195,7 @@
       "id": "type the full path of the PDF, for example C:\\Documents\\report.pdf",
       "engine": true,
       "files": [
-        "prismqda-api/src/lib.rs:1300"
+        "prismqda-api/src/lib.rs:1301"
       ]
     },
     {
@@ -40875,6 +41805,12 @@
       ]
     },
     {
+      "id": "Use only my words, not the built-in list",
+      "files": [
+        "components/text/SentimentTab.tsx"
+      ]
+    },
+    {
       "id": "Use the copy's",
       "files": [
         "components/team/Merge.tsx"
@@ -41146,7 +42082,8 @@
     {
       "id": "Variables",
       "files": [
-        "components/StatisticsView.tsx"
+        "components/StatisticsView.tsx",
+        "lib/classroom.ts"
       ]
     },
     {
@@ -41594,6 +42531,12 @@
       "id": "What takes their place",
       "files": [
         "components/PrivacyView.tsx"
+      ]
+    },
+    {
+      "id": "What the assistant may do",
+      "files": [
+        "components/AssistantCard.tsx"
       ]
     },
     {
@@ -42346,6 +43289,15 @@
       ]
     },
     {
+      "id": "Words that counted: {words}.",
+      "blanks": [
+        "words"
+      ],
+      "files": [
+        "components/text/SentimentTab.tsx"
+      ]
+    },
+    {
       "id": "Words to find",
       "files": [
         "components/PrivacyView.tsx",
@@ -42671,6 +43623,29 @@
       ]
     },
     {
+      "id": "You coded “{phrase}” as “{code}”, and the same words stand uncoded in {count} other places. Is there a difference in meaning, or should they be coded alike?",
+      "forms": {
+        "one": "You coded “{phrase}” as “{code}”, and the same words stand uncoded in one other place. Is there a difference in meaning, or should they be coded alike?",
+        "other": "You coded “{phrase}” as “{code}”, and the same words stand uncoded in {count} other places. Is there a difference in meaning, or should they be coded alike?"
+      },
+      "blanks": [
+        "phrase",
+        "code"
+      ],
+      "files": [
+        "components/team/Coach.tsx"
+      ]
+    },
+    {
+      "id": "You used “{code}” once. Does it stand on its own, or does it belong with another code?",
+      "blanks": [
+        "code"
+      ],
+      "files": [
+        "components/team/Coach.tsx"
+      ]
+    },
+    {
       "id": "Your changes are now recorded under the name {name}.",
       "blanks": [
         "name"
@@ -42683,6 +43658,37 @@
       "id": "Your changes are recorded under the name this program made for you.",
       "files": [
         "state/actions.ts"
+      ]
+    },
+    {
+      "id": "Your instructor has asked that the coach stay on for this assignment, so it is shown while you code.",
+      "files": [
+        "components/team/Coach.tsx"
+      ]
+    },
+    {
+      "id": "Your instructor has closed this page for this assignment. It opens again when you work outside the assignment.",
+      "files": [
+        "components/Frame.tsx"
+      ]
+    },
+    {
+      "id": "your instructor has turned AI prompt packets off for this assignment, so they cannot be turned on here",
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/project.rs:423"
+      ]
+    },
+    {
+      "id": "Your instructor has turned this off for this assignment, so it cannot be turned on here.",
+      "files": [
+        "components/SettingsView.tsx"
+      ]
+    },
+    {
+      "id": "Your instructor has turned this off for this assignment.",
+      "files": [
+        "components/team/Coach.tsx"
       ]
     },
     {
@@ -42707,6 +43713,12 @@
       "id": "Your mark",
       "files": [
         "components/MixedDesign.tsx"
+      ]
+    },
+    {
+      "id": "Your name as you code in this project",
+      "files": [
+        "components/AssistantCard.tsx"
       ]
     },
     {

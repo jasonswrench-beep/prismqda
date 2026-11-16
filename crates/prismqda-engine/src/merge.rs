@@ -159,6 +159,8 @@ pub(crate) struct MergeScope {
     pub(crate) sources: Option<HashSet<i64>>,
     /// Whether to bring the coders, the codings, and the coded areas.
     pub(crate) codings: bool,
+    /// Whose coding to bring, by their id in the project it comes from; `None` for every coder. Only meaningful with `codings`.
+    pub(crate) coders: Option<HashSet<i64>>,
     /// Whether to bring the memos.
     pub(crate) memos: bool,
     /// Whether to link the recordings of the documents that come (a recording is linked by where it is on a computer, so a packet leaves them out).
@@ -171,7 +173,7 @@ pub(crate) struct MergeScope {
 
 impl MergeScope {
     pub(crate) fn all() -> Self {
-        Self { sources: None, codings: true, memos: true, recordings: true, cases: true, choices: MergeChoices::default() }
+        Self { sources: None, codings: true, coders: None, memos: true, recordings: true, cases: true, choices: MergeChoices::default() }
     }
 }
 
@@ -287,7 +289,7 @@ impl Project {
         // ---- coders: the same person is the same local id --------------------------------------------------------------------
         let mut coder_map: HashMap<i64, i64> = HashMap::new();
         let ours: HashMap<String, i64> = self.list_coders()?.into_iter().map(|c| (c.local_id, c.id)).collect();
-        for c in theirs.list_coders()?.into_iter().filter(|_| scope.codings) {
+        for c in theirs.list_coders()?.into_iter().filter(|c| scope.codings && scope.coders.as_ref().is_none_or(|only| only.contains(&c.id))) {
             if let Some(id) = ours.get(&c.local_id) {
                 coder_map.insert(c.id, *id);
                 continue;
