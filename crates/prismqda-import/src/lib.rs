@@ -9,11 +9,13 @@ pub mod codings;
 pub mod docx;
 pub mod email;
 pub mod error;
+pub mod exchange;
 pub mod feed;
 pub mod image;
 pub mod odt;
 pub mod options;
 pub mod pdf;
+pub mod pstat;
 pub mod recording;
 pub mod reference;
 pub mod rtf;
@@ -76,6 +78,8 @@ pub enum Format {
     Tsv,
     Xlsx,
     Sav,
+    /// A project of PrismStatistics (PSTAT-1): its data, opened as a table.
+    Pstat,
     Vtt,
     Srt,
     Json,
@@ -111,6 +115,7 @@ impl Format {
             "tsv" | "tab" => Format::Tsv,
             "xlsx" | "xlsm" => Format::Xlsx,
             "sav" | "zsav" => Format::Sav,
+            "pstat" => Format::Pstat,
             "vtt" => Format::Vtt,
             "srt" => Format::Srt,
             "json" => Format::Json,
@@ -128,6 +133,7 @@ impl Format {
     /// Checks the file's first bytes against its claimed format and says so plainly when they disagree.
     pub fn check_signature(self, bytes: &[u8]) -> Result<()> {
         let ok = match self {
+            // A `.pstat` file says in its own words what is wrong when it is not an archive (see `pstat::read_table`).
             Format::Docx | Format::Odt | Format::Xlsx => bytes.starts_with(b"PK\x03\x04"),
             Format::Pdf => bytes.windows(5).take(1024).any(|w| w == b"%PDF-"),
             Format::Rtf => bytes.starts_with(b"{\\rtf"),
@@ -192,6 +198,7 @@ pub fn open_bytes(file_name: &str, bytes: &[u8], opts: &ImportOptions) -> Result
         Format::Csv => Ok(Opened::Table(spreadsheet::read_csv(bytes, stem, None)?)),
         Format::Tsv => Ok(Opened::Table(spreadsheet::read_csv(bytes, stem, Some(b'\t'))?)),
         Format::Xlsx => Ok(Opened::Table(spreadsheet::read_xlsx(bytes, stem)?)),
+        Format::Pstat => Ok(Opened::Table(pstat::read_table(bytes, stem)?)),
         Format::Sav => {
             let mut table = sav::read_table(bytes)?;
             if table.name.is_empty() {
@@ -205,7 +212,10 @@ pub fn open_bytes(file_name: &str, bytes: &[u8], opts: &ImportOptions) -> Result
                 .map_err(|e| ImportError::format(format!("the file is not valid JSON: {e}")))?;
             // A Reddit export is a list of listings; a YouTube export has a list of comments (the
             // yt-dlp layout) or of items (the YouTube Data API layout).
-            let batch = if reference::looks_like_csl_json(&value) {
+            let batch = if exchange::looks_like_exchange(&value) {
+                // The exchange file of Prism Reference Manager: sources and the excerpts taken from them.
+                exchange::parse_exchange(&value, opts)?
+            } else if reference::looks_like_csl_json(&value) {
                 // A reference library exported as CSL JSON (what reference managers write).
                 reference::parse_csl_json(&value, opts)?
             } else if value.is_array() {
@@ -226,7 +236,7 @@ pub fn open_bytes(file_name: &str, bytes: &[u8], opts: &ImportOptions) -> Result
 pub fn default_source_type(format: Format) -> SourceType {
     match format {
         Format::Pdf => SourceType::Pdf,
-        Format::Csv | Format::Tsv | Format::Xlsx | Format::Sav => SourceType::Survey,
+        Format::Csv | Format::Tsv | Format::Xlsx | Format::Sav | Format::Pstat => SourceType::Survey,
         Format::Vtt | Format::Srt => SourceType::Transcript,
         Format::Json => SourceType::Social,
         Format::Image => SourceType::Other,

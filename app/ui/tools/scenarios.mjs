@@ -43,7 +43,7 @@ export async function runScenarios(ctx) {
   let shotNumber = 0;
   // PRISMQDA_ONLY=images (or language, team, settings, and the other groups listed below) runs the welcome and new-project steps and then only that scenario, to save time while it is worked on.
   const onlyName = process.env.PRISMQDA_ONLY ?? '';
-  const only = onlyName === 'images' || onlyName === 'language' || onlyName === 'team' || onlyName === 'merge' || onlyName === 'themes' || onlyName === 'text' || onlyName === 'stats' || onlyName === 'dataeditor' || onlyName === 'mixed' || onlyName === 'pdf' || onlyName === 'clips' || onlyName === 'class' || onlyName === 'privacy' || onlyName === 'encryption' || onlyName === 'map' || onlyName === 'datatools' || onlyName === 'shots' || onlyName === 'shots2' || onlyName === 'settings' || onlyName === 'scope';
+  const only = onlyName === 'images' || onlyName === 'language' || onlyName === 'team' || onlyName === 'merge' || onlyName === 'themes' || onlyName === 'text' || onlyName === 'stats' || onlyName === 'dataeditor' || onlyName === 'mixed' || onlyName === 'pdf' || onlyName === 'clips' || onlyName === 'class' || onlyName === 'privacy' || onlyName === 'encryption' || onlyName === 'map' || onlyName === 'datatools' || onlyName === 'shots' || onlyName === 'shots2' || onlyName === 'settings' || onlyName === 'scope' || onlyName === 'evaluation';
   let inOnly = false;
   let stepsSeen = 0;
   async function S(name, fn) {
@@ -519,6 +519,9 @@ export async function runScenarios(ctx) {
     } else if (onlyName === 'scope') {
       const { runScope } = await import('./scenarios-scope.mjs');
       await runScope(ctx, api);
+    } else if (onlyName === 'evaluation') {
+      const { runEvaluation } = await import('./scenarios-evaluation.mjs');
+      await runEvaluation(ctx, api);
     } else if (onlyName === 'shots2') {
       const { runShots2 } = await import('./scenarios-shots2.mjs');
       await runShots2(ctx, api);

@@ -23,6 +23,7 @@ import { runThemes } from './scenarios-themes.mjs';
 import { runText } from './scenarios-text.mjs';
 import { runStats } from './scenarios-stats.mjs';
 import { runScope } from './scenarios-scope.mjs';
+import { runEvaluation } from './scenarios-evaluation.mjs';
 import { runDataEditor } from './scenarios-dataeditor.mjs';
 import { runMixed } from './scenarios-mixed.mjs';
 import { runLanguage } from './scenarios-language.mjs';
@@ -214,6 +215,9 @@ export async function runLauncher(ctx, api) {
 
   // Mixed Methods: codes into variables of cases, and the values of a variable into codes.
   await runMixed(ctx, api);
+
+  // What comes in from the other programs of the family: an evaluation kept in PrismStatistics, and the Reference Manager's exchange file.
+  await runEvaluation(ctx, api);
 
   await S('a project that was moved is told so, and Locate finds it again', async () => {
     await api.closeProjectViaMenu();

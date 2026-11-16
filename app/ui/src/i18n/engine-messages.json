@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 646,
+  "count": 653,
   "messages": [
     {
       "template": "'{c}' is not one of the groups.",
@@ -526,6 +526,12 @@
       ]
     },
     {
+      "template": "{left_empty} source{value} in the file had no title, details, abstract, or excerpt, so {value2} left out.",
+      "files": [
+        "prismqda-import/src/exchange.rs:305"
+      ]
+    },
+    {
       "template": "{list_names} {value} a length of time (TIME format); the values were kept as a number of seconds",
       "files": [
         "prismqda-import/src/sav.rs:806"
@@ -565,6 +571,12 @@
       "template": "{name} is a document, not a table of values. Choose a spreadsheet (.xlsx), a text file of values (.csv or .tsv), or an SPSS file (.sav).",
       "files": [
         "prismqda-api/src/datatools.rs:113"
+      ]
+    },
+    {
+      "template": "{named_missing} excerpt{value} named a source that is not in this file, so {value2} here.",
+      "files": [
+        "prismqda-import/src/exchange.rs:272"
       ]
     },
     {
@@ -619,6 +631,12 @@
       "template": "{plural} no value in the container column, so they were put together in one source",
       "files": [
         "prismqda-import/src/social.rs:1240"
+      ]
+    },
+    {
+      "template": "{ranges_skipped} range{value} of missing values could not be written as separate codes, so {value2} not carried: those values are kept as they are.",
+      "files": [
+        "prismqda-import/src/pstat.rs:235"
       ]
     },
     {
@@ -728,6 +746,12 @@
       "template": "{who} has two rows for {obs} (rows {first} and {r} of the table). Remove or merge one of them first, because a table laid across has room for one value.",
       "files": [
         "prismqda-engine/src/datatable.rs:159"
+      ]
+    },
+    {
+      "template": "{without_words} excerpt{value} in the file had neither quoted words nor a note, so {value2} left out.",
+      "files": [
+        "prismqda-import/src/exchange.rs:299"
       ]
     },
     {
@@ -2534,6 +2558,12 @@
       ]
     },
     {
+      "template": "The analyses and results saved in this file by PrismStatistics were not read; only the data was.",
+      "files": [
+        "prismqda-import/src/pstat.rs:232"
+      ]
+    },
+    {
       "template": "the analysis cannot be run: {e}",
       "files": [
         "prismqda-engine/src/stat_notebook.rs:113",
@@ -3571,6 +3601,12 @@
       ]
     },
     {
+      "template": "This file follows the profile \"{profile}\". Only its data was read; the part the profile adds is not read.",
+      "files": [
+        "prismqda-import/src/pstat.rs:229"
+      ]
+    },
+    {
       "template": "this file is over 1.5 GB, more than PrismQDA reads into memory at once",
       "files": [
         "prismqda-api/src/lib.rs:1979"
@@ -3756,7 +3792,13 @@
     {
       "template": "This reference has no abstract, so there is little text to code. Its details are kept as variables of its case.",
       "files": [
-        "prismqda-import/src/reference.rs:849"
+        "prismqda-import/src/reference.rs:856"
+      ]
+    },
+    {
+      "template": "This source has no abstract and no excerpt, so there is little text to code. Its details are kept as variables of its case.",
+      "files": [
+        "prismqda-import/src/exchange.rs:214"
       ]
     },
     {

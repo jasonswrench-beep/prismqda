@@ -678,7 +678,7 @@ fn csl_kind(t: &str) -> String {
     .to_string()
 }
 
-fn csl_reference(v: &Value) -> Reference {
+pub(crate) fn csl_reference(v: &Value) -> Reference {
     let authors = v
         .get("author")
         .and_then(Value::as_array)
@@ -761,8 +761,9 @@ pub fn label(r: &Reference, number: usize) -> String {
     }
 }
 
-fn reference_text(r: &Reference) -> (crate::builder::ParsedText, bool) {
-    let mut b = TextBuilder::new();
+/// Writes a reference's title, details, abstract, and keywords into a text, and says whether it has an abstract. The exchange file of the
+/// Reference Manager goes on from here with the excerpts of the source.
+pub(crate) fn write_reference(b: &mut TextBuilder, r: &Reference) -> bool {
     if !r.title.is_empty() {
         b.push_run(&r.title, RunKind::Heading, Some(1));
         b.paragraph_break();
@@ -816,6 +817,12 @@ fn reference_text(r: &Reference) -> (crate::builder::ParsedText, bool) {
         b.paragraph_break();
         b.push(&format!("Keywords: {}", r.keywords.join("; ")));
     }
+    has_abstract
+}
+
+fn reference_text(r: &Reference) -> (crate::builder::ParsedText, bool) {
+    let mut b = TextBuilder::new();
+    let has_abstract = write_reference(&mut b, r);
     (b.finish(SourceType::Document, UnitKind::Paragraph), has_abstract)
 }
 

@@ -21,6 +21,7 @@ const FORMAT_LABELS: Record<string, (count: number) => string> = {
   ris: (n) => tn(n, { one: 'Reference', other: 'References' }),
   bibtex: (n) => tn(n, { one: 'Reference', other: 'References' }),
   'csl-json': (n) => tn(n, { one: 'Reference', other: 'References' }),
+  'prism-family-exchange': (n) => tn(n, { one: 'Library source', other: 'Library sources' }),
   eml: (n) => tn(n, { one: 'E-mail message', other: 'E-mail messages' }),
   mbox: (n) => tn(n, { one: 'E-mail message', other: 'E-mail messages' }),
   mhtml: (n) => tn(n, { one: 'Saved web page', other: 'Saved web pages' }),

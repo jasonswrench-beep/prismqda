@@ -15,7 +15,7 @@ export const nativeDialogsAvailable = inTauri();
 
 /** What the importers can read, by file ending. Kept beside the engine's list in `Format::from_name`. */
 const IMPORT_ENDINGS = [
-  'txt', 'text', 'md', 'markdown', 'html', 'htm', 'docx', 'odt', 'rtf', 'pdf', 'csv', 'tsv', 'tab', 'xlsx', 'xlsm', 'sav', 'zsav', 'vtt', 'srt', 'json',
+  'txt', 'text', 'md', 'markdown', 'html', 'htm', 'docx', 'odt', 'rtf', 'pdf', 'csv', 'tsv', 'tab', 'xlsx', 'xlsm', 'sav', 'zsav', 'pstat', 'vtt', 'srt', 'json',
   'ris', 'bib', 'bibtex', 'eml', 'mbox', 'mbx', 'mht', 'mhtml', 'rss', 'atom', 'xml',
   'mp3', 'wav', 'm4a', 'aac', 'flac', 'ogg', 'oga', 'opus', 'wma', 'mp4', 'mov', 'avi', 'mkv', 'webm', 'm4v',
   'png', 'jpg', 'jpeg', 'jpe', 'jfif', 'gif', 'webp', 'bmp',
@@ -24,8 +24,8 @@ const IMPORT_ENDINGS = [
 /** The kinds of material on the Import Data page that can be imported, each with the file endings it reads. */
 export type ImportKindId = 'documents' | 'reference' | 'web' | 'email' | 'media' | 'image';
 const KIND_FILTERS: Record<ImportKindId, { name: string; extensions: string[] }> = {
-  documents: { get name() { return t('Documents, spreadsheets, transcripts, and data'); }, extensions: ['txt', 'text', 'md', 'markdown', 'html', 'htm', 'docx', 'odt', 'rtf', 'pdf', 'csv', 'tsv', 'tab', 'xlsx', 'xlsm', 'sav', 'zsav', 'vtt', 'srt', 'json'] },
-  reference: { get name() { return t('Reference library (RIS, BibTeX, CSL JSON)'); }, extensions: ['ris', 'bib', 'bibtex', 'json'] },
+  documents: { get name() { return t('Documents, spreadsheets, transcripts, and data (including a PrismStatistics project)'); }, extensions: ['txt', 'text', 'md', 'markdown', 'html', 'htm', 'docx', 'odt', 'rtf', 'pdf', 'csv', 'tsv', 'tab', 'xlsx', 'xlsm', 'sav', 'zsav', 'pstat', 'vtt', 'srt', 'json'] },
+  reference: { get name() { return t('Reference library (RIS, BibTeX, CSL JSON, or a Reference Manager exchange file)'); }, extensions: ['ris', 'bib', 'bibtex', 'json'] },
   web: { get name() { return t('Saved web pages and news feeds'); }, extensions: ['mht', 'mhtml', 'html', 'htm', 'rss', 'atom', 'xml'] },
   email: { get name() { return t('E-mail messages and mailboxes'); }, extensions: ['eml', 'mbox', 'mbx'] },
   image: { get name() { return t('Pictures (PNG, JPEG, GIF, WebP, BMP)'); }, extensions: ['png', 'jpg', 'jpeg', 'jpe', 'jfif', 'gif', 'webp', 'bmp'] },

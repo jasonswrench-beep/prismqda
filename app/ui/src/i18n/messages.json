@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 5692,
+  "count": 5701,
   "messages": [
     {
       "id": " and {n} more",
@@ -4279,6 +4279,18 @@
       ]
     },
     {
+      "id": "{left_empty} source{value} in the file had no title, details, abstract, or excerpt, so {value2} left out.",
+      "blanks": [
+        "left_empty",
+        "value",
+        "value2"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-import/src/exchange.rs:305"
+      ]
+    },
+    {
       "id": "{length} long",
       "blanks": [
         "length"
@@ -5264,6 +5276,18 @@
       ]
     },
     {
+      "id": "{named_missing} excerpt{value} named a source that is not in this file, so {value2} here.",
+      "blanks": [
+        "named_missing",
+        "value",
+        "value2"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-import/src/exchange.rs:272"
+      ]
+    },
+    {
       "id": "{new_units} added",
       "blanks": [
         "new_units"
@@ -5585,6 +5609,18 @@
       ],
       "files": [
         "components/Reader.tsx"
+      ]
+    },
+    {
+      "id": "{ranges_skipped} range{value} of missing values could not be written as separate codes, so {value2} not carried: those values are kept as they are.",
+      "blanks": [
+        "ranges_skipped",
+        "value",
+        "value2"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-import/src/pstat.rs:235"
       ]
     },
     {
@@ -6502,6 +6538,18 @@
       ],
       "files": [
         "components/JointMore.tsx"
+      ]
+    },
+    {
+      "id": "{without_words} excerpt{value} in the file had neither quoted words nor a note, so {value2} left out.",
+      "blanks": [
+        "without_words",
+        "value",
+        "value2"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-import/src/exchange.rs:299"
       ]
     },
     {
@@ -16375,6 +16423,12 @@
       ]
     },
     {
+      "id": "Documents, spreadsheets, transcripts, and data (including a PrismStatistics project)",
+      "files": [
+        "pickFile.ts"
+      ]
+    },
+    {
       "id": "Documents: {sourcesLabel}",
       "blanks": [
         "sourcesLabel"
@@ -21115,6 +21169,16 @@
       "files": [
         "lib/statistics.ts",
         "lib/statistics2.ts"
+      ]
+    },
+    {
+      "id": "Library sources",
+      "forms": {
+        "one": "Library source",
+        "other": "Library sources"
+      },
+      "files": [
+        "components/ImportPage.tsx"
       ]
     },
     {
@@ -28237,7 +28301,7 @@
       ]
     },
     {
-      "id": "Reference library (RIS, BibTeX, CSL JSON)",
+      "id": "Reference library (RIS, BibTeX, CSL JSON, or a Reference Manager exchange file)",
       "files": [
         "pickFile.ts"
       ]
@@ -32996,6 +33060,13 @@
       "engine": true,
       "files": [
         "prismqda-engine/src/project.rs:419"
+      ]
+    },
+    {
+      "id": "The analyses and results saved in this file by PrismStatistics were not read; only the data was.",
+      "engine": true,
+      "files": [
+        "prismqda-import/src/pstat.rs:232"
       ]
     },
     {
@@ -38422,6 +38493,16 @@
       ]
     },
     {
+      "id": "This file follows the profile \"{profile}\". Only its data was read; the part the profile adds is not read.",
+      "blanks": [
+        "profile"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-import/src/pstat.rs:229"
+      ]
+    },
+    {
       "id": "this file is over 1.5 GB, more than PrismQDA reads into memory at once",
       "engine": true,
       "files": [
@@ -39062,7 +39143,7 @@
       "id": "This reference has no abstract, so there is little text to code. Its details are kept as variables of its case.",
       "engine": true,
       "files": [
-        "prismqda-import/src/reference.rs:849"
+        "prismqda-import/src/reference.rs:856"
       ]
     },
     {
@@ -39113,6 +39194,13 @@
       ],
       "files": [
         "components/Reader.tsx"
+      ]
+    },
+    {
+      "id": "This source has no abstract and no excerpt, so there is little text to code. Its details are kept as variables of its case.",
+      "engine": true,
+      "files": [
+        "prismqda-import/src/exchange.rs:214"
       ]
     },
     {
