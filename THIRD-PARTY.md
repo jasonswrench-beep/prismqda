@@ -354,6 +354,7 @@ PrismQDA is Apache-2.0. These Rust crates are used to build and test it, each un
 | potential_utf | 0.1.6 | Unicode-3.0 |
 | powerfmt | 0.2.1 | MIT OR Apache-2.0 |
 | precomputed-hash | 0.1.1 | MIT |
+| prismqda-stats | 1.0.0 | Apache-2.0 |
 | proc-macro-crate | 1.3.1 | MIT OR Apache-2.0 |
 | proc-macro-crate | 2.0.2 | MIT OR Apache-2.0 |
 | proc-macro-crate | 3.5.0 | MIT OR Apache-2.0 |

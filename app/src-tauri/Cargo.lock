@@ -3475,7 +3475,8 @@ dependencies = [
 
 [[package]]
 name = "prismqda-stats"
-version = "0.1.0"
+version = "1.0.0"
+source = "git+https://github.com/jasonswrench-beep/openstage-core?tag=prismqda-stats-v1.0.0#13b210c820a8ded29818023f593003d869f6cb3a"
 dependencies = [
  "serde",
  "serde_json",

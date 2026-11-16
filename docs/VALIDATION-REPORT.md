@@ -4,6 +4,8 @@ What has been checked against an outside reference, how, and what has not. Writt
 
 **In one sentence:** the agreement coefficients and the statistics procedures that PrismQDA calculates (the probability distributions, descriptives, t tests, one-way analysis of variance, chi-square and Fisher's tests, correlations, the rank-based tests, the tests of counts and distributions, the measures of order, and partial correlation) match R to the precision each reference can give, on invented data that cover the shapes real data take, including ties, zero differences, empty corners, and very large degrees of freedom.
 
+**Where the statistics live (2026-11-15).** The statistics crate, `prismqda-stats`, is kept in the shared core, `github.com/jasonswrench-beep/openstage-core` (its folder `crates/prismqda-stats`), and PrismQDA uses it at the tag `prismqda-stats-v1.0.0`. Every path below that begins `crates/prismqda-stats` is a path in that repository. A change to the crate is made there first, with its R reference test, and PrismQDA moves its tag only with its own tests passing.
+
 ## What is validated
 
 ### Agreement coefficients (`crates/prismqda-stats`)
@@ -258,11 +260,20 @@ Factorial analysis of variance, scales, factor and cluster analysis, and the joi
 
 ## How to run it again
 
+In a checkout of the shared core (the crate's own tests, 92 of them, 71 against R):
+
 ```bash
-cargo test -p prismqda-stats
+cd crates/prismqda-stats
+cargo test
 ```
 
-To remake the reference values (the agreement script needs R with `irr`, `irrCAC`, and `jsonlite`; the other two need only base R and `jsonlite`):
+In PrismQDA, the tests that use the crate through the engine (the ones that compare PrismQDA's own pages and bootstraps with R):
+
+```bash
+cargo test -p prismqda-engine
+```
+
+To remake the reference values (run these in the shared core's checkout; the agreement script needs R with `irr`, `irrCAC`, and `jsonlite`; the other two need only base R and `jsonlite`):
 
 ```bash
 Rscript crates/prismqda-stats/tests/reference/make_agreement_reference.R
@@ -273,7 +284,7 @@ Rscript crates/prismqda-stats/tests/reference/make_ordinal_reference.R
 Rscript crates/prismqda-stats/tests/reference/make_nonparametric_reference.R
 ```
 
-The whole Rust suite (`cargo test --workspace`) runs this check with every build.
+The whole Rust suite (`cargo test --workspace`) runs the engine's use of the crate with every build, and the core's own `node tools/check_all.mjs` runs the crate's tests.
 
 ## What this does not tell you
 

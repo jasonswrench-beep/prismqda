@@ -20,7 +20,7 @@ The one list of what is left. Updated 2026-11-10, after alpha 45 (the section *N
 
 - [x] **Analysis tabs**
   - [x] Statistics (every test checked against R; the plan is the 1.0 column of docs/ROADMAP.md, section 4)
-    - [x] The numbers: distributions, descriptives, t tests, one-way ANOVA, chi-square and Fisher, correlations, Mann-Whitney, Wilcoxon, Kruskal-Wallis with Dunn, p-value adjustments (crates/prismqda-stats, all against R 4.5.3; see docs/VALIDATION-REPORT.md)
+    - [x] The numbers: distributions, descriptives, t tests, one-way ANOVA, chi-square and Fisher, correlations, Mann-Whitney, Wilcoxon, Kruskal-Wallis with Dunn, p-value adjustments (the crate `prismqda-stats`, kept in the shared core since 2026-11-15 and pinned at its tag `prismqda-stats-v1.0.0`; all against R 4.5.3; see docs/VALIDATION-REPORT.md)
     - [x] The data: variables of cases and, for each code, whether a case has it and how many excerpts carry it, one row per case, missing values set aside; codings are never rows (docs/DECISIONS.md 130)
     - [x] The Statistics page: variable list, test chooser that offers only valid tests, the conditions each test depends on, and an output notebook with APA tables, a results sentence, and a plain reading (the notebook is not saved in the project file)
     - [x] Charts for the notebook: histogram, bar, box plot, means with intervals, stacked bars, scatter with a line, residual plot, and normal probability plot, each with a text alternative, a readout, and a table of what is drawn; the numbers behind them against R

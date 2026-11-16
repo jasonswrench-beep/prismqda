@@ -9,7 +9,8 @@ authors.workspace = true
 publish = false
 
 [dependencies]
-prismqda-stats = { version = "0.1.0", path = "../prismqda-stats" }
+# The statistics live in the shared core (github.com/jasonswrench-beep/openstage-core), pinned to a tag. A change to them is made there first.
+prismqda-stats = { git = "https://github.com/jasonswrench-beep/openstage-core", tag = "prismqda-stats-v1.0.0" }
 regex = "1.13.1"
 rusqlite = { version = "0.40.2", features = ["bundled", "backup"] }
 serde = { version = "1.0.229", features = ["derive"] }

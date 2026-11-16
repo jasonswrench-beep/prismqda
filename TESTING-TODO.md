@@ -2,6 +2,16 @@
 
 Everything a program can test is tested by the test suite and the headless browser check. This list is what is left, with what to look for. Nothing here has been done yet. Tick a line and add the date when it has.
 
+## Before beta 2: your own tests (development list of 2026-11-15, item 1)
+
+The five tests only a person can run, in the order that is cheapest first. Each one points to the entry below that says what to do and what to look for; tick it there when it is done and add the date. None of them has been done by a person yet (scripts have driven the installer, the window and a second program's own code, which is not the same thing).
+
+- [ ] **1. The installer's pages.** Run the signed setup by hand and read each wizard page it shows, and its run-after-install box on the last one: is every page worded so that a stranger knows what to press? Entry *Install and start the app on a computer that is not the builder's*, below.
+- [ ] **2. A second computer.** The same setup on a computer that has never had PrismQDA (and one with Windows 10 and one without the WebView2 runtime, if you have them). What it shows for SmartScreen, whether it starts, and whether a project made on the first computer opens on the second. Same entry.
+- [ ] **3. A screen reader.** One NVDA pass, only when you are away or have said go (it logs speech for the whole computer; the log is deleted afterwards). Entry *Screen reader pass with NVDA*; the tables, the Concept Map, the review queue and the recording player have their own lines further down.
+- [ ] **4. A real second coder.** Two people code one pilot sample, then Team > Agreement and Disagreements. Entry *A real second human coder*, and the coder packets in the Team section.
+- [ ] **5. Project exchange with another QDA program.** Export a whole project (Report > Export > The whole project), open it in a QDA program you use, code something there, export it from there, and import it here (Import QDPX); then say what survived. A code book through QDC in the other direction. Entries *Open a QDC codebook in another qualitative analysis program* and the QDPX entries, and `docs/EXCHANGING-PROJECTS.md` for what is carried each way.
+
 ## Before anyone else uses it
 
 - [ ] **Install and start the app on a computer that is not the builder's.** *(2026-11-13: the signed alpha 55 setup was installed over the author's copy and run by script in the real window, with the install, the file type, double clicks, the portable copy and the recording tools passing; what is left is a person, a second computer, and SmartScreen.)* From alpha 54 the installer is signed (right-click the setup file, Properties, Digital Signatures: Jason Wrench, with a timestamp), but Windows SmartScreen may still warn ("Windows protected your PC") for a program it has not seen often; choose "More info", then "Run anyway", and say whether it warned and what it showed as the publisher. Check the install is per user (no administrator prompt), the Start menu entry opens PrismQDA, and uninstalling removes it and leaves the person's `.pqda` files alone.
