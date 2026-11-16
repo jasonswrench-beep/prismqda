@@ -1,6 +1,6 @@
 # PrismQDA
 
-A free, offline Windows tool for qualitative and mixed-methods analysis: hand coding, method-guided workflows, honest reliability, inspectable AI, a statistics module checked against R, and reporting that drafts its own methods appendix.
+A free, offline Windows tool for qualitative and mixed-methods analysis: hand coding, method-guided workflows, honest reliability, inspectable AI, descriptive statistics checked against R (the tests of difference, association, and prediction are done in PrismStatistics, which opens the case table PrismQDA exports), and reporting that drafts its own methods appendix.
 
 What is left to do is in [TODO.md](TODO.md). The full design is in [docs/SPECIFICATION.md](docs/SPECIFICATION.md), and the interface design is [docs/INTERFACE.md](docs/INTERFACE.md). The order to build it in is [docs/ROADMAP.md](docs/ROADMAP.md). Design decisions made while building, and what is still open, are in [docs/DECISIONS.md](docs/DECISIONS.md). The command layer the interface talks to is in [docs/API.md](docs/API.md). What only a person can check is in [TESTING-TODO.md](TESTING-TODO.md).
 

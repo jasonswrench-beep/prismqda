@@ -47,6 +47,8 @@ The author confirmed this cut on 2026-11-05 (decision 44). Where it moves a func
 | Accessibility | WCAG 2.2 AA, keyboard-complete, NVDA and Narrator passes, high-contrast and dark themes, 200 percent text | Other screen readers | |
 | Release | Signed installer, user guide, validation report, DOI, portable mode | Read-only viewer | |
 
+**Statistics since 2026-11-15 (decision 193).** The Statistics page describes to begin with, and the tests of difference, association, and prediction in the row above are offered only when a person asks (a setting on this computer); they are PrismStatistics's work, and PrismQDA sends it the case table (decision 194). The checked code is kept, and removing it for good waits on the author's word.
+
 **Teaching mode is in 1.5, first in line.** The author teaches methods and it is the strongest reason for an instructor to adopt the tool, which is why it goes first after 1.0. Keeping it out of 1.0 keeps milestone 5 about a third smaller.
 
 ## 3. Order and what can run in parallel
