@@ -500,7 +500,7 @@ PrismQDA is built to be used with the keyboard alone and with a screen reader.
 
 ## What is not built yet
 
-- Mixed Methods is built as the book describes it (moving between codes and variables, six joint displays, the design templates, the triangulation matrix, and the integration log). Statistics has descriptions, t tests, one-way analysis of variance, chi-square and Fisher's tests, correlations, and the rank-based tests; its notebook, kept in the project, has no way yet to export a page of notes. Text Analytics has word counts and keywords in context only; stems, topics, and sentiment are not built.
+- Mixed Methods is built as the book describes it (moving between codes and variables, six joint displays, the design templates, the triangulation matrix, and the integration log). Statistics has descriptions, t tests, one-way analysis of variance, chi-square and Fisher's tests, correlations, and the rank-based tests; its notebook, kept in the project, has no way yet to export a page of notes. In Text Analytics, the forms of a word, topics, and sentiment are for English only.
 - For recordings: a waveform that can be zoomed, saving a clip in the recording's own format (clips are WAV files), and a chart of codes over time for one recording. On a PDF page an area is a rectangle; coding the words where they sit on the page layout is not built.
 - For pseudonymizing: a check for details that together identify a person, and rules written as patterns. For encrypted projects: a recovery key, a hardware key, remembering the passphrase, and encrypting single documents.
 - In Team: a tie-breaker role with a sign-in.
