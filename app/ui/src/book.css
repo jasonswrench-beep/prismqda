@@ -4875,6 +4875,34 @@ svg [tabindex]:focus-visible {
   background: var(--panel-2);
   overflow-wrap: anywhere;
 }
+/* The class heat map: the darker the cell, the fewer of the instructor's passages the student found. The number in the cell says the same. */
+.class-heat td {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.class-heat .heat-1 {
+  background: color-mix(in srgb, var(--accent) 7%, var(--panel));
+}
+.class-heat .heat-2 {
+  background: color-mix(in srgb, var(--accent) 13%, var(--panel));
+}
+.class-heat .heat-3 {
+  background: color-mix(in srgb, var(--accent) 20%, var(--panel));
+}
+.class-heat .heat-4 {
+  background: color-mix(in srgb, var(--accent) 27%, var(--panel));
+}
+.class-side-text {
+  min-width: 14rem;
+  max-width: 28rem;
+  font-weight: 400;
+  text-align: start;
+}
+.class-same {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
 
 .bk-h4 {
   margin: 1rem 0 0.4rem;

@@ -157,6 +157,12 @@ export interface ClassHardPassage {
   missed_codes: [{ id: number; name: string }, number][];
 }
 
+/** The class heat map (decision 198): a row for each student and a column for each code the instructor used, the share of that code found. */
+export interface ClassHeatMap {
+  codes: { id: number; name: string }[];
+  rows: { label: string; coder_id: number | null; found: (number | null)[] }[];
+}
+
 export interface ClassReview {
   instructor: { id: number; name: string; role: string };
   anonymous: boolean;
@@ -164,6 +170,7 @@ export interface ClassReview {
   passages_compared: number;
   students: ClassStudentReview[];
   by_code: ClassCodeReview[];
+  heat_map: ClassHeatMap;
   hardest: ClassHardPassage[];
   notes: string[];
 }
@@ -174,6 +181,23 @@ export interface ClassReviewArgs {
   source_ids?: number[];
   anonymous?: boolean;
   hardest?: number;
+}
+
+/** Several students' coding of the same passages, side by side (decision 198). */
+export interface ClassSideBySide {
+  instructor: { id: number; name: string; role: string };
+  anonymous: boolean;
+  students: string[];
+  passages: {
+    unit_id: number;
+    source_name: string;
+    start: number;
+    end: number;
+    text: string;
+    instructor_codes: { id: number; name: string }[];
+    students: { label: string; codes: { id: number; name: string }[]; same: boolean }[];
+  }[];
+  notes: string[];
 }
 
 /** What a list of documents knows about a document that is a picture. */
@@ -3384,6 +3408,9 @@ export interface Commands {
   'class.collect': { args: { folder: string; passphrase?: string }; result: ClassCollectReport };
   'class.review': { args: ClassReviewArgs; result: ClassReview };
   'export.class_review': { args: ClassReviewArgs & { path: string; overwrite?: boolean }; result: ExportResult & { rows: number } };
+  'class.side_by_side': { args: ClassReviewArgs & { unit_ids?: number[] }; result: ClassSideBySide };
+  'export.class_heat_map': { args: ClassReviewArgs & { path: string; overwrite?: boolean }; result: ExportResult & { rows: number; columns: number } };
+  'export.class_side_by_side': { args: ClassReviewArgs & { unit_ids?: number[]; path: string; overwrite?: boolean }; result: ExportResult & { rows: number } };
   'export.class_feedback': { args: ClassReviewArgs & { folder: string; overwrite?: boolean }; result: { folder: string; written: number; files: { student: string; path: string; bytes: number; passages: number }[]; notes: string[] } };
   /** One coded stretch of a recording saved as a WAV file; `data` is the file, as base 64 (the window cuts it from the decoded sound). */
   'export.clip': { args: { path: string; overwrite?: boolean; data: string }; result: ExportResult };

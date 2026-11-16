@@ -1,6 +1,18 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { kappaText, parseStudents, percentText, suggestedClassFolder, suggestedReviewFile } from './classroom';
+import { heatLevel, kappaText, parseStudents, percentText, suggestedClassFolder, suggestedClassTable, suggestedReviewFile } from './classroom';
+
+test('the heat map is shaded darker the fewer of the instructor\'s passages a student found, and not at all when all were', () => {
+  assert.deepEqual([1, 0.9, 0.75, 0.6, 0.5, 0.3, 0.25, 0.1, 0].map(heatLevel), [0, 1, 1, 2, 2, 3, 3, 4, 4]);
+  assert.equal(heatLevel(null), 0, 'nothing to divide is not shaded');
+  assert.equal(heatLevel(undefined), 0);
+  assert.equal(heatLevel(Number.NaN), 0);
+});
+
+test('the file for a table of the class is named for the project, with no character Windows refuses', () => {
+  assert.equal(suggestedClassTable('Riders: 2026', 'class heat map'), 'Riders- 2026 class heat map.csv');
+  assert.match(suggestedClassTable('', 'class side by side'), /class side by side\.csv$/);
+});
 
 test('a pasted list of students is one name to a line, tidied, with a repeated name kept once', () => {
   const { names, repeated } = parseStudents('  Annika   Alder \r\n\r\nBohdan Brandt\n   \nannika alder\nCyrus');

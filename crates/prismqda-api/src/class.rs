@@ -3,7 +3,7 @@
 
 use std::path::PathBuf;
 
-use prismqda_engine::{ClassPacketsSpec, ClassReview, ClassReviewSpec};
+use prismqda_engine::{ClassPacketsSpec, ClassReview, ClassReviewSpec, ClassSideBySide, ClassSideBySideSpec};
 use serde::Deserialize;
 use serde_json::{json, Value};
 
@@ -45,6 +45,26 @@ struct SaveArgs {
     path: String,
     #[serde(default)]
     overwrite: bool,
+    #[serde(flatten)]
+    review: ReviewArgs,
+}
+
+#[derive(Deserialize)]
+struct SideArgs {
+    /// The passages to show, as the review lists them; empty for the hardest ones.
+    #[serde(default)]
+    unit_ids: Vec<i64>,
+    #[serde(flatten)]
+    review: ReviewArgs,
+}
+
+#[derive(Deserialize)]
+struct SideSaveArgs {
+    path: String,
+    #[serde(default)]
+    overwrite: bool,
+    #[serde(default)]
+    unit_ids: Vec<i64>,
     #[serde(flatten)]
     review: ReviewArgs,
 }
@@ -108,14 +128,58 @@ pub(crate) fn students_csv(review: &ClassReview) -> Vec<u8> {
     prismqda_export::write_csv(&header, &rows)
 }
 
+/// The class heat map as a CSV file's bytes: a row for each student, a column for each code, the share of the instructor's passages with the code
+/// in which the student gave it too, in percent.
+pub(crate) fn heat_map_csv(review: &ClassReview) -> Vec<u8> {
+    let mut header = vec!["Student".to_string()];
+    header.extend(review.heat_map.codes.iter().map(|c| format!("{} (% found)", c.name)));
+    let rows: Vec<Vec<String>> = review
+        .heat_map
+        .rows
+        .iter()
+        .map(|r| {
+            let mut row = vec![r.label.clone()];
+            row.extend(r.found.iter().map(|f| percent(*f)));
+            row
+        })
+        .collect();
+    prismqda_export::write_csv(&header, &rows)
+}
+
+/// The side-by-side view as a CSV file's bytes: a row for each passage, the instructor's codes and then each student's.
+pub(crate) fn side_by_side_csv(view: &ClassSideBySide) -> Vec<u8> {
+    let mut header = vec!["Document".to_string(), "Passage".to_string(), "Instructor".to_string()];
+    header.extend(view.students.iter().cloned());
+    let codes = |v: &[prismqda_engine::CodeRef]| v.iter().map(|c| c.name.clone()).collect::<Vec<_>>().join("; ");
+    let rows: Vec<Vec<String>> = view
+        .passages
+        .iter()
+        .map(|p| {
+            let mut row = vec![p.source_name.clone(), p.text.clone(), codes(&p.instructor_codes)];
+            row.extend(p.students.iter().map(|s| codes(&s.codes)));
+            row
+        })
+        .collect();
+    prismqda_export::write_csv(&header, &rows)
+}
+
 impl Api {
-    fn class_review_for(&mut self, a: &ReviewArgs) -> Result<ClassReview, ApiError> {
+    fn review_spec(&mut self, a: &ReviewArgs) -> Result<ClassReviewSpec, ApiError> {
         let instructor_id = match a.instructor_id {
             Some(id) => id,
             None => self.me()?,
         };
-        let spec = ClassReviewSpec { instructor_id, student_ids: a.student_ids.clone(), source_ids: a.source_ids.clone(), anonymous: a.anonymous, hardest: a.hardest.unwrap_or(10) };
+        Ok(ClassReviewSpec { instructor_id, student_ids: a.student_ids.clone(), source_ids: a.source_ids.clone(), anonymous: a.anonymous, hardest: a.hardest.unwrap_or(10) })
+    }
+
+    fn class_review_for(&mut self, a: &ReviewArgs) -> Result<ClassReview, ApiError> {
+        let spec = self.review_spec(a)?;
         Ok(self.project()?.class_review(&spec)?)
+    }
+
+    fn class_side_for(&mut self, review: &ReviewArgs, unit_ids: &[i64]) -> Result<ClassSideBySide, ApiError> {
+        let spec = ClassSideBySideSpec { review: self.review_spec(review)?, unit_ids: unit_ids.to_vec() };
+        Ok(self.project()?.class_side_by_side(&spec)?)
     }
 
     /// The commands of a class exercise; `None` for a command that is not one of them.
@@ -156,6 +220,28 @@ impl Api {
                 let target = export_target(&a.path, "csv", a.overwrite)?;
                 let mut saved = write_file(&target, &students_csv(&review))?;
                 saved["rows"] = json!(review.students.len());
+                Ok(saved)
+            })(),
+            // The class heat map and the side-by-side view (decision 198).
+            "class.side_by_side" => (|| {
+                let a: SideArgs = parse(cmd, args)?;
+                to_json(&self.class_side_for(&a.review, &a.unit_ids)?)
+            })(),
+            "export.class_heat_map" => (|| {
+                let a: SaveArgs = parse(cmd, args)?;
+                let review = self.class_review_for(&a.review)?;
+                let target = export_target(&a.path, "csv", a.overwrite)?;
+                let mut saved = write_file(&target, &heat_map_csv(&review))?;
+                saved["rows"] = json!(review.heat_map.rows.len());
+                saved["columns"] = json!(review.heat_map.codes.len());
+                Ok(saved)
+            })(),
+            "export.class_side_by_side" => (|| {
+                let a: SideSaveArgs = parse(cmd, args)?;
+                let view = self.class_side_for(&a.review, &a.unit_ids)?;
+                let target = export_target(&a.path, "csv", a.overwrite)?;
+                let mut saved = write_file(&target, &side_by_side_csv(&view))?;
+                saved["rows"] = json!(view.passages.len());
                 Ok(saved)
             })(),
             // A Word file of feedback for each student (decision 197): the figures of the review and the passages coded differently, one file each.

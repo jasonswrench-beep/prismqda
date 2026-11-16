@@ -428,3 +428,126 @@ fn a_students_feedback_lists_the_passages_coded_differently_in_the_order_of_the_
     // A student who coded nothing is told of every passage the instructor coded.
     assert_eq!(feedback.students[1].passages.iter().map(|p| p.status.as_str()).collect::<Vec<_>>(), ["left_uncoded"; 4]);
 }
+
+// ---- the heat map and the side-by-side view (decision 198) ----------------------------------------------------------------------
+
+use prismqda_engine::{ClassSideBySideSpec, MAX_SIDE_BY_SIDE};
+
+fn review_spec(w: &W, anonymous: bool) -> ClassReviewSpec {
+    ClassReviewSpec { instructor_id: w.teacher, student_ids: vec![], source_ids: vec![w.source], anonymous, hardest: 10 }
+}
+
+/// The class of the other tests: Annika codes as the instructor did (and one more), Bohdan gives Cost where the instructor gave Access, Cyrus codes nothing.
+fn the_class(w: &mut W) {
+    student(w, "Annika", &[(0, &["Cost"]), (1, &["Access"]), (2, &["Cost", "Access"]), (3, &["Cost"]), (4, &["Cost"])]);
+    student(w, "Bohdan", &[(0, &["Cost"]), (1, &["Cost"]), (2, &["Cost"])]);
+    w.p.add_coder(&NewCoder::human("Cyrus")).unwrap();
+}
+
+#[test]
+fn the_heat_map_has_a_row_for_each_student_and_a_column_for_each_code_the_instructor_used() {
+    let mut w = world();
+    the_class(&mut w);
+    let review = w.p.class_review(&review_spec(&w, false)).unwrap();
+    let map = &review.heat_map;
+    assert_eq!(map.codes.iter().map(|c| c.name.as_str()).collect::<Vec<_>>(), ["Access", "Cost"], "the hardest code first, as in the table of codes");
+    assert_eq!(map.rows.iter().map(|r| r.label.as_str()).collect::<Vec<_>>(), ["Annika", "Bohdan", "Cyrus"]);
+    // Access: the instructor gave it to two passages. Annika found both, Bohdan and Cyrus neither.
+    // Cost: three passages. Annika found all, Bohdan two (he gave it to the instructor's first and third), Cyrus none.
+    let cell = |row: usize, col: usize| map.rows[row].found[col];
+    assert!(near(cell(0, 0), 1.0) && near(cell(0, 1), 1.0));
+    assert!(near(cell(1, 0), 0.0) && near(cell(1, 1), 2.0 / 3.0));
+    assert!(near(cell(2, 0), 0.0) && near(cell(2, 1), 0.0));
+    // The row of a student is the same as the student's own share of codes found by code, and the mean of a column is the table's mean.
+    for (col, code) in map.codes.iter().enumerate() {
+        let table = review.by_code.iter().find(|c| c.code_id == code.id).unwrap();
+        let column: Vec<f64> = map.rows.iter().filter_map(|r| r.found[col]).collect();
+        assert!(near(table.mean_found, column.iter().sum::<f64>() / column.len() as f64), "{}", code.name);
+    }
+    assert!(map.rows.iter().all(|r| r.found.len() == map.codes.len()));
+}
+
+#[test]
+fn an_anonymous_heat_map_names_no_student_and_has_the_same_numbers() {
+    let mut w = world();
+    the_class(&mut w);
+    let named = w.p.class_review(&review_spec(&w, false)).unwrap();
+    let blind = w.p.class_review(&review_spec(&w, true)).unwrap();
+    let json = serde_json::to_string(&blind.heat_map).unwrap();
+    for name in ["Annika", "Bohdan", "Cyrus"] {
+        assert!(!json.contains(name), "{name} is in an anonymous heat map");
+    }
+    assert!(blind.heat_map.rows.iter().all(|r| r.coder_id.is_none()));
+    assert_eq!(blind.heat_map.rows.iter().map(|r| r.label.as_str()).collect::<Vec<_>>(), ["Student 1", "Student 2", "Student 3"]);
+    let key = |m: &prismqda_engine::HeatMap| {
+        let mut v: Vec<Vec<i64>> = m.rows.iter().map(|r| r.found.iter().map(|f| f.map(|x| (x * 1000.0).round() as i64).unwrap_or(-1)).collect()).collect();
+        v.sort();
+        v
+    };
+    assert_eq!(key(&named.heat_map), key(&blind.heat_map), "the same rows in another order");
+    // A row of the blind heat map belongs to the student the blind table row belongs to.
+    for (i, s) in blind.students.iter().enumerate() {
+        assert_eq!(blind.heat_map.rows[i].label, s.label);
+    }
+}
+
+#[test]
+fn a_side_by_side_view_lays_the_instructors_codes_beside_every_students_for_the_hardest_passages() {
+    let mut w = world();
+    the_class(&mut w);
+    let view = w.p.class_side_by_side(&ClassSideBySideSpec { review: review_spec(&w, false), unit_ids: vec![] }).unwrap();
+    assert_eq!(view.students, ["Annika", "Bohdan", "Cyrus"]);
+    assert_eq!(view.passages.len(), 4, "the four passages the instructor coded in this document are each missed by someone");
+    let first = &view.passages[0];
+    assert_eq!(first.text, "The stop is far from my house.", "the hardest first, as in the review");
+    assert_eq!(first.instructor_codes.iter().map(|c| c.name.as_str()).collect::<Vec<_>>(), ["Access"]);
+    let shown: Vec<(&str, Vec<&str>, bool)> = first.students.iter().map(|s| (s.label.as_str(), s.codes.iter().map(|c| c.name.as_str()).collect(), s.same)).collect();
+    assert_eq!(shown, [("Annika", vec!["Access"], true), ("Bohdan", vec!["Cost"], false), ("Cyrus", vec![], false)], "a student who coded nothing is shown with no codes");
+    // The passages and the students are those of the review.
+    let review = w.p.class_review(&review_spec(&w, false)).unwrap();
+    assert_eq!(view.passages.iter().map(|p| p.unit_id).collect::<Vec<_>>(), review.hardest.iter().map(|h| h.unit_id).collect::<Vec<_>>());
+}
+
+#[test]
+fn a_side_by_side_view_of_chosen_passages_keeps_their_order_and_refuses_what_it_cannot_show() {
+    let mut w = world();
+    the_class(&mut w);
+    let units = w.p.list_units(w.source).unwrap();
+    let chosen = vec![units[3].id, units[0].id, units[3].id];
+    let view = w.p.class_side_by_side(&ClassSideBySideSpec { review: review_spec(&w, false), unit_ids: chosen }).unwrap();
+    assert_eq!(view.passages.iter().map(|p| p.text.as_str()).collect::<Vec<_>>(), [RIDERS[3], RIDERS[0]], "in the order named, a passage named twice shown once");
+    // A passage the instructor did not code is shown too: students' codes against none.
+    let extra = w.p.class_side_by_side(&ClassSideBySideSpec { review: review_spec(&w, false), unit_ids: vec![units[4].id] }).unwrap();
+    assert!(extra.passages[0].instructor_codes.is_empty());
+    assert!(extra.passages[0].students.iter().any(|s| !s.codes.is_empty()));
+
+    let nothing = w.p.class_side_by_side(&ClassSideBySideSpec { review: review_spec(&w, false), unit_ids: vec![987_654] });
+    assert!(matches!(nothing, Err(Error::NotFound { what: "passage", .. })), "{nothing:?}");
+    let other_unit = w.p.list_units(w.other).unwrap()[0].id;
+    let outside = w.p.class_side_by_side(&ClassSideBySideSpec { review: review_spec(&w, false), unit_ids: vec![other_unit] });
+    assert!(matches!(outside, Err(Error::Invalid(_))), "a passage of a document that is not being compared: {outside:?}");
+    let too_many = w.p.class_side_by_side(&ClassSideBySideSpec { review: review_spec(&w, false), unit_ids: (1..=(MAX_SIDE_BY_SIDE as i64 + 1)).collect() });
+    assert!(matches!(too_many, Err(Error::Invalid(_))), "{too_many:?}");
+}
+
+#[test]
+fn an_anonymous_side_by_side_view_names_nobody_and_uses_the_reviews_numbers() {
+    let mut w = world();
+    student(&mut w, "Annika Alder", &[(0, &["Cost"])]);
+    student(&mut w, "Bohdan Brandt", &[(0, &["Cost"]), (1, &["Access"])]);
+    student(&mut w, "Cyrus Castellano", &[]);
+    let spec = review_spec(&w, true);
+    let view = w.p.class_side_by_side(&ClassSideBySideSpec { review: spec.clone(), unit_ids: vec![] }).unwrap();
+    let json = serde_json::to_string(&view).unwrap();
+    for name in ["Annika", "Bohdan", "Cyrus", "Alder", "Brandt", "Castellano"] {
+        assert!(!json.contains(name), "{name} is in an anonymous view");
+    }
+    let review = w.p.class_review(&spec).unwrap();
+    assert_eq!(view.students, review.students.iter().map(|s| s.label.clone()).collect::<Vec<_>>(), "Student 2 is the same student here and in the review");
+    assert!(view.notes.iter().any(|n| n.contains("called by number")));
+    // Student 2 of the view coded exactly what the review's row for Student 2 says.
+    for (i, s) in review.students.iter().enumerate() {
+        let same_here = view.passages.iter().filter(|p| p.students[i].same).count();
+        assert!(same_here <= s.same + s.partly + s.different + s.left_uncoded);
+    }
+}

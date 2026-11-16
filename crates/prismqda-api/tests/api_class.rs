@@ -90,6 +90,31 @@ fn a_class_is_given_packets_brings_them_back_and_is_reviewed() {
     assert!(written.contains("Bohdan,2,1,0,1,1,0,1,2,1,33.3,33.3,50.0"), "{written}");
     assert_eq!(api.call("export.class_review", json!({ "path": csv })).unwrap_err().code, "already_exists");
 
+    // The heat map comes with the review, and the side-by-side view and both can be saved as tables (decision 198).
+    let heat = review["heat_map"].clone();
+    assert_eq!(heat["codes"].as_array().unwrap().iter().map(|c| c["name"].as_str().unwrap()).collect::<Vec<_>>(), ["Access", "Cost"], "the hardest code first");
+    assert_eq!(heat["rows"].as_array().unwrap().len(), 2);
+    assert_eq!(heat["rows"][1]["found"], json!([0.0, 0.5]), "Bohdan gave Cost where the instructor gave Access, and found one of the two passages with Cost");
+    let side = ok(&mut api, "class.side_by_side", json!({ "anonymous": true }));
+    assert_eq!(side["students"], json!(["Student 1", "Student 2"]));
+    assert!(!side.to_string().contains("Annika") && !side.to_string().contains("Bohdan"), "{side}");
+    assert_eq!(side["passages"][0]["text"], PARAGRAPHS[1]);
+    assert_eq!(side["passages"].as_array().unwrap().len(), 2, "the two passages some student coded differently");
+    let named = ok(&mut api, "class.side_by_side", json!({ "unit_ids": [side["passages"][1]["unit_id"]] }));
+    assert_eq!(named["passages"].as_array().unwrap().len(), 1);
+    assert_eq!(named["students"], json!(["Annika", "Bohdan"]));
+    assert_eq!(api.call("class.side_by_side", json!({ "unit_ids": [987654] })).unwrap_err().code, "not_found");
+    let heat_file = dir.path().join("heat.csv");
+    let saved = ok(&mut api, "export.class_heat_map", json!({ "path": heat_file }));
+    assert_eq!((saved["rows"].clone(), saved["columns"].clone()), (json!(2), json!(2)));
+    let written = std::fs::read_to_string(&heat_file).unwrap();
+    assert!(written.contains("Student,Access (% found),Cost (% found)") && written.contains("Annika,100.0,100.0") && written.contains("Bohdan,0.0,50.0"), "{written}");
+    assert_eq!(api.call("export.class_heat_map", json!({ "path": heat_file })).unwrap_err().code, "already_exists");
+    let side_file = dir.path().join("side.csv");
+    assert_eq!(ok(&mut api, "export.class_side_by_side", json!({ "path": side_file }))["rows"], 2);
+    let written = std::fs::read_to_string(&side_file).unwrap();
+    assert!(written.contains("Document,Passage,Instructor,Annika,Bohdan") && written.contains("The stop is far from my house.,Access,Access,Cost"), "{written}");
+
     // A Word file of feedback for each student (decision 197), in a folder that is made; a student reads only their own.
     let feedback = dir.path().join("feedback");
     let made = ok(&mut api, "export.class_feedback", json!({ "folder": feedback, "anonymous": true }));

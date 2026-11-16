@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
 import { Button, Input, Label, Text, TextArea, TextField } from 'react-aria-components';
 import { call, toApiError } from '../../bridge';
-import { kappaText, parseStudents, percentText, suggestedClassFolder, suggestedReviewFile } from '../../lib/classroom';
+import { heatLevel, kappaText, parseStudents, percentText, suggestedClassFolder, suggestedClassTable, suggestedReviewFile } from '../../lib/classroom';
 import { browsePath, cleanTypedPath, nativeDialogsAvailable } from '../../pickFile';
 import { announce } from '../../state/announce';
 import { refreshEverything } from '../../state/actions';
 import { useApp } from '../../state/app';
-import type { ClassCollectReport, ClassPacketsReport, ClassReview, ClassReviewArgs, SourceRow } from '../../types';
+import type { ClassCollectReport, ClassPacketsReport, ClassReview, ClassReviewArgs, ClassSideBySide, SourceRow } from '../../types';
 import { Notice } from '../common';
 import { Tick } from '../Tick';
 import { num, t, tn } from '../../i18n';
@@ -22,6 +22,43 @@ function DocumentTicks(props: { legend: string; picked: number[]; setPicked: (id
       ))}
       <p className="help">{picked.length === 0 ? t('None is ticked, so every document is used.') : tn(picked.length, { one: '{count} document is ticked.', other: '{count} documents are ticked.' })}</p>
     </fieldset>
+  );
+}
+
+/** A path to type (or choose) and a button that saves one more table of the review as a CSV file. A file that is there is not replaced. */
+function SaveRow(props: { id: string; label: string; button: string; help: string; suggestion: string; run: (path: string, overwrite: boolean) => Promise<string>; onError: (message: string) => void }) {
+  const { id, label, button, help, suggestion, run, onError } = props;
+  const [path, setPath] = useState('');
+  const [saved, setSaved] = useState<string | null>(null);
+  const go = async () => {
+    onError('');
+    setSaved(null);
+    let target = cleanTypedPath(path);
+    let fromDialog = false;
+    if (target === '') {
+      const picked = await browsePath('export-file', suggestion, 'csv');
+      if (!picked) return onError(t('Type where to save the table, for example C:\\Class\\review.csv'));
+      target = picked;
+      fromDialog = true;
+    }
+    try {
+      const where = await run(target, fromDialog);
+      setSaved(where);
+      announce(t('Saved {path}.', { path: where }));
+    } catch (e) {
+      onError(toApiError(e).message);
+    }
+  };
+  return (
+    <div className="field">
+      <label htmlFor={id}>{label}</label>
+      <div className="bk-location-row">
+        <input id={id} type="text" value={path} onChange={(e) => setPath(e.target.value)} autoComplete="off" spellCheck={false} placeholder={t('C:\\Class\\review.csv')} data-testid={id} />
+        <Button onPress={() => void go()} data-testid={`${id}-button`}>{button}</Button>
+      </div>
+      <span className="help">{help}</span>
+      {saved ? <p role="status" data-testid={`${id}-saved`}>{t('Saved {path}.', { path: saved })}</p> : null}
+    </div>
   );
 }
 
@@ -105,14 +142,31 @@ export function ClassTab() {
   const [review, setReview] = useState<ClassReview | null>(null);
   const [savePath, setSavePath] = useState('');
   const [saved, setSaved] = useState<string | null>(null);
+  const [side, setSide] = useState<ClassSideBySide | null>(null);
+  const [sideBusy, setSideBusy] = useState(false);
   const [feedbackFolder, setFeedbackFolder] = useState('');
   const [feedbackBusy, setFeedbackBusy] = useState(false);
   const [feedback, setFeedback] = useState<{ folder: string; written: number; files: { student: string; path: string; passages: number }[] } | null>(null);
 
   const reviewArgs = (): ClassReviewArgs => ({ ...(instructor !== null ? { instructor_id: instructor } : {}), student_ids: students, source_ids: reviewDocs, anonymous, hardest: Number(hardest) });
+  const showSide = async () => {
+    setReviewError(null);
+    setSideBusy(true);
+    try {
+      const r = await call('class.side_by_side', reviewArgs());
+      setSide(r);
+      announce(tn(r.passages.length, { one: '{count} passage is shown side by side.', other: '{count} passages are shown side by side.' }));
+    } catch (e) {
+      setSide(null);
+      setReviewError(toApiError(e).message);
+    } finally {
+      setSideBusy(false);
+    }
+  };
   const run = async () => {
     setReviewError(null);
     setSaved(null);
+    setSide(null);
     if (instructor === null) return setReviewError(t('Choose the instructor, whose coding the class is compared with.'));
     if (students.length === 0) return setReviewError(t('Choose at least one student. A student is a coder other than the instructor; bring the packets in first.'));
     setReviewing(true);
@@ -295,7 +349,7 @@ export function ClassTab() {
           ))}
         </fieldset>
         <DocumentTicks legend={t('The documents to compare on')} picked={reviewDocs} setPicked={setReviewDocs} sources={sources} testId="class-review-docs" />
-        <Tick isSelected={anonymous} onChange={(on) => { setAnonymous(on); setReview(null); setSaved(null); }} testId="class-anonymous">{t('Call the students “Student 1”, “Student 2” and so on, so the review can be shown to the class (the lists of students above it on this page still show their names)')}</Tick>
+        <Tick isSelected={anonymous} onChange={(on) => { setAnonymous(on); setReview(null); setSaved(null); setSide(null); }} testId="class-anonymous">{t('Call the students “Student 1”, “Student 2” and so on, so the review can be shown to the class (the lists of students above it on this page still show their names)')}</Tick>
         <div className="field">
           <label htmlFor="class-hardest">{t('How many of the hardest passages to list')}</label>
           <select id="class-hardest" value={hardest} onChange={(e) => setHardest(e.target.value)} data-testid="class-hardest">
@@ -377,6 +431,35 @@ export function ClassTab() {
               </table>
             </div>
 
+            {review.heat_map.codes.length > 0 ? (
+              <>
+                <div className="table-wrap" tabIndex={-1}>
+                  <table className="data class-heat" data-testid="class-heat-table">
+                    <caption>{t('Heat map: how much of each code the instructor gave each student found')}</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">{t('Student')}</th>
+                        {review.heat_map.codes.map((c) => (
+                          <th scope="col" key={c.id}>{c.name}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {review.heat_map.rows.map((r) => (
+                        <tr key={r.label} data-testid="class-heat-row">
+                          <th scope="row">{r.label}</th>
+                          {r.found.map((f, i) => (
+                            <td key={review.heat_map.codes[i]?.id ?? i} className={`heat-${heatLevel(f)}`} data-level={heatLevel(f)}>{percentText(f)}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="help">{t('A cell is the share of the instructor’s passages with that code in which the student gave the code too. The darker the cell, the fewer were found; the numbers say the same, so nothing depends on the shading. A dark column is a code the class found hard, and a row of dark cells is a student to look at again.')}</p>
+              </>
+            ) : null}
+
             {review.hardest.length > 0 ? (
               <>
                 <h4 className="bk-h4" id="class-hardest-h">{t('The passages the class coded least like the instructor')}</h4>
@@ -395,6 +478,70 @@ export function ClassTab() {
             ) : (
               <p className="muted" data-testid="class-no-hard">{t('Every student coded every passage the instructor coded in the same way.')}</p>
             )}
+
+            <div className="field" data-testid="class-side-field">
+              <h4 className="bk-h4" id="class-side-h">{t('The same passages side by side')}</h4>
+              <p className="help">{t('Lays the instructor’s codes beside every student’s for the passages listed above, one row for each passage, to talk about in class. When the review calls the students by number, so does this view, and the same number is the same student in both.')}</p>
+              <div className="actions">
+                <Button onPress={() => void showSide()} isDisabled={sideBusy || review.hardest.length === 0} data-testid="class-side">{sideBusy ? t('Laying them out…') : t('Show the passages side by side')}</Button>
+              </div>
+              {side ? (
+                <div data-testid="class-side-result">
+                  <div className="table-wrap" tabIndex={-1}>
+                    <table className="data class-side" data-testid="class-side-table">
+                      <caption>{t('The codes each student gave each passage')}</caption>
+                      <thead>
+                        <tr>
+                          <th scope="col">{t('Passage')}</th>
+                          <th scope="col">{t('Instructor')}</th>
+                          {side.students.map((s) => (
+                            <th scope="col" key={s}>{s}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {side.passages.map((p) => (
+                          <tr key={p.unit_id} data-testid="class-side-row">
+                            <th scope="row" className="class-side-text">{p.text}</th>
+                            <td>{p.instructor_codes.map((c) => c.name).join(', ') || t('none')}</td>
+                            {p.students.map((s) => (
+                              <td key={s.label} data-same={s.same ? 'yes' : 'no'}>
+                                {s.codes.map((c) => c.name).join(', ') || t('none')}
+                                {s.same ? <span className="class-same">{t('same')}</span> : null}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <ul className="class-notes">
+                    {side.notes.map((n) => (
+                      <li key={n}>{n}</li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+            </div>
+
+            <SaveRow
+              id="class-heat-path"
+              label={t('Save the heat map as a file')}
+              button={t('Save the heat map')}
+              help={t('A CSV file with one row for each student and one column for each code, in percent. A file that is already there is not replaced.')}
+              suggestion={suggestedClassTable(project?.name ?? '', t('class heat map'))}
+              run={async (path, overwrite) => (await call('export.class_heat_map', { ...reviewArgs(), path, overwrite })).path}
+              onError={(m) => setReviewError(m === '' ? null : m)}
+            />
+            <SaveRow
+              id="class-side-path"
+              label={t('Save the side-by-side view as a file')}
+              button={t('Save the side-by-side view')}
+              help={t('A CSV file with one row for each passage: its words, the instructor’s codes, and each student’s. A file that is already there is not replaced.')}
+              suggestion={suggestedClassTable(project?.name ?? '', t('class side by side'))}
+              run={async (path, overwrite) => (await call('export.class_side_by_side', { ...reviewArgs(), unit_ids: side ? side.passages.map((p) => p.unit_id) : [], path, overwrite })).path}
+              onError={(m) => setReviewError(m === '' ? null : m)}
+            />
 
             <div className="field">
               <label htmlFor="class-save-path">{t('Save the table of students as a file')}</label>

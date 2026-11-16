@@ -134,6 +134,49 @@ export async function runClass(ctx, api) {
     await axe('the Class tab with the review of a class');
   });
 
+  await S('the heat map shows each code against each student, and the hardest passages can be laid side by side and saved as tables', async () => {
+    const heat = page.getByTestId('class-heat-table');
+    await heat.waitFor();
+    h.equal((await heat.locator('thead th').allInnerTexts()).map((c) => c.trim()), ['Student', 'Access', 'Cost'], 'a column for each code the instructor used, the hardest first');
+    const hrows = page.getByTestId('class-heat-row');
+    h.equal(await hrows.count(), 3, 'a row for each student');
+    const hcells = async (i) => (await hrows.nth(i).locator('td').allInnerTexts()).map((c) => c.trim());
+    h.equal(await hcells(0), ['100%', '100%'], 'Annika found every passage of both codes');
+    h.equal(await hcells(1), ['0%', '50%'], 'Bohdan found none of Access and half of Cost');
+    h.equal(await hcells(2), ['0%', '0%'], 'Cyrus coded nothing');
+    h.equal(await hrows.nth(0).locator('td').first().getAttribute('data-level'), '0', 'a code found every time is not shaded');
+    h.equal(await hrows.nth(2).locator('td').first().getAttribute('data-level'), '4', 'a code found never is the darkest');
+
+    await page.getByTestId('class-side').click();
+    await page.getByTestId('class-side-table').waitFor();
+    const srows = page.getByTestId('class-side-row');
+    h.equal(await srows.count(), 3, 'a row for each passage someone coded differently');
+    const sideHead = (await page.getByTestId('class-side-table').locator('thead th').allInnerTexts()).map((c) => c.trim());
+    h.equal(sideHead, ['Passage', 'Instructor', 'Annika', 'Bohdan', 'Cyrus'], 'the instructor, then each student');
+    const firstRow = (await srows.first().locator('th, td').allInnerTexts()).map((c) => c.replace(/\s+/g, ' ').trim());
+    h.equal(firstRow, ['The stop is far from my house.', 'Access', 'Access same', 'Cost', 'none'], 'the hardest passage with what each gave it, and a student who matched is said to');
+    await page.getByTestId('class-side').scrollIntoViewIfNeeded();
+    await page.screenshot({ path: `${ctx.shots}/class-heat-map.png`, fullPage: true });
+
+    const heatCsv = path.join(workDir, 'class-heat-map.csv');
+    await page.getByTestId('class-heat-path').fill(heatCsv);
+    await page.getByTestId('class-heat-path-button').click();
+    await page.getByTestId('class-heat-path-saved').waitFor();
+    const heatText = fs.readFileSync(heatCsv, 'utf8');
+    h.check(/Student,Access \(% found\),Cost \(% found\)/.test(heatText) && /Annika,100\.0,100\.0/.test(heatText) && /Bohdan,0\.0,50\.0/.test(heatText) && /Cyrus,0\.0,0\.0/.test(heatText), `the heat map file: ${heatText.slice(0, 200)}`);
+    await page.getByTestId('class-heat-path-button').click();
+    await page.getByRole('alert').filter({ hasText: 'already exists' }).waitFor();
+    h.equal(fs.readFileSync(heatCsv, 'utf8'), heatText, 'a second save was refused and the file is as it was');
+
+    const sideCsv = path.join(workDir, 'class-side-by-side.csv');
+    await page.getByTestId('class-side-path').fill(sideCsv);
+    await page.getByTestId('class-side-path-button').click();
+    await page.getByTestId('class-side-path-saved').waitFor();
+    const sideText = fs.readFileSync(sideCsv, 'utf8');
+    h.check(/Document,Passage,Instructor,Annika,Bohdan,Cyrus/.test(sideText) && /The stop is far from my house\.,Access,Access,Cost,/.test(sideText), `the side-by-side file: ${sideText.slice(0, 240)}`);
+    await axe('the Class tab with the heat map and the side-by-side view');
+  });
+
   await S('the students can be shown as numbers, and the table is saved as a CSV file that is never replaced', async () => {
     await page.getByTestId('class-anonymous').click();
     h.equal(await page.getByTestId('class-review-result').count(), 0, 'a review that named the students is not left on the page when the labels change');

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 5714,
+  "count": 5735,
   "messages": [
     {
       "id": " and {n} more",
@@ -2758,6 +2758,16 @@
       ]
     },
     {
+      "id": "{count} passages are shown side by side.",
+      "forms": {
+        "one": "{count} passage is shown side by side.",
+        "other": "{count} passages are shown side by side."
+      },
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "{count} passed the check and are waiting in the review queue. Nothing is coded until you accept it.",
       "forms": {
         "one": "{count} passed the check and is waiting in the review queue. Nothing is coded until you accept it.",
@@ -3425,7 +3435,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/class.rs:190"
+        "prismqda-api/src/class.rs:276"
       ]
     },
     {
@@ -7338,6 +7348,12 @@
       ]
     },
     {
+      "id": "A cell is the share of the instructor’s passages with that code in which the student gave the code too. The darker the cell, the fewer were found; the numbers say the same, so nothing depends on the shading. A dark column is a code the class found hard, and a row of dark cells is a student to look at again.",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "A class exercise",
       "files": [
         "components/team/Class.tsx"
@@ -7633,6 +7649,18 @@
       ],
       "files": [
         "components/CodeDialogs.tsx"
+      ]
+    },
+    {
+      "id": "A CSV file with one row for each passage: its words, the instructor’s codes, and each student’s. A file that is already there is not replaced.",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
+      "id": "A CSV file with one row for each student and one column for each code, in percent. A file that is already there is not replaced.",
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -8085,6 +8113,13 @@
       "engine": true,
       "files": [
         "prismqda-engine/src/passage_links.rs:87"
+      ]
+    },
+    {
+      "id": "a passage chosen is not in the documents being compared",
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/teaching.rs:814"
       ]
     },
     {
@@ -11863,7 +11898,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-api/src/class.rs:193"
+        "prismqda-api/src/class.rs:279"
       ]
     },
     {
@@ -13595,9 +13630,21 @@
       ]
     },
     {
+      "id": "class heat map",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "class review",
       "files": [
         "lib/classroom.ts"
+      ]
+    },
+    {
+      "id": "class side by side",
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -19311,6 +19358,12 @@
       ]
     },
     {
+      "id": "Heat map: how much of each code the instructor gave each student found",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "Hedges' g",
       "files": [
         "lib/statBoot.ts"
@@ -20329,6 +20382,12 @@
       ]
     },
     {
+      "id": "Instructor",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "Instructor’s passages",
       "files": [
         "components/team/Class.tsx"
@@ -20969,6 +21028,18 @@
       "engine": true,
       "files": [
         "prismqda-engine/src/datatable.rs:177"
+      ]
+    },
+    {
+      "id": "Laying them out…",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
+      "id": "Lays the instructor’s codes beside every student’s for the passages listed above, one row for each passage, to talk about in class. When the review calls the students by number, so does this view, and the same number is the same student in both.",
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -22985,13 +23056,23 @@
       ]
     },
     {
+      "id": "more than {MAX_SIDE_BY_SIDE} passages were chosen for one view",
+      "blanks": [
+        "MAX_SIDE_BY_SIDE"
+      ],
+      "engine": true,
+      "files": [
+        "prismqda-engine/src/teaching.rs:789"
+      ]
+    },
+    {
       "id": "more than {MAX_STUDENTS} students were chosen",
       "blanks": [
         "MAX_STUDENTS"
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/teaching.rs:453"
+        "prismqda-engine/src/teaching.rs:478"
       ]
     },
     {
@@ -24501,7 +24582,8 @@
     {
       "id": "none",
       "files": [
-        "components/GridView.tsx"
+        "components/GridView.tsx",
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -26738,6 +26820,12 @@
       "id": "Parts of Mixed Methods",
       "files": [
         "components/MixedMethodsView.tsx"
+      ]
+    },
+    {
+      "id": "Passage",
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -29885,6 +29973,12 @@
       ]
     },
     {
+      "id": "same",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "Same as Windows",
       "files": [
         "components/LanguageBody.tsx"
@@ -30160,6 +30254,18 @@
       ]
     },
     {
+      "id": "Save the heat map",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
+      "id": "Save the heat map as a file",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "Save the list as a key file",
       "files": [
         "components/PrivacyView.tsx"
@@ -30187,6 +30293,18 @@
       "id": "Save the query",
       "files": [
         "components/explore/SavedQueries.tsx"
+      ]
+    },
+    {
+      "id": "Save the side-by-side view",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
+      "id": "Save the side-by-side view as a file",
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -30646,21 +30764,21 @@
       "id": "say which folder the feedback files should go in",
       "engine": true,
       "files": [
-        "prismqda-api/src/class.rs:173"
+        "prismqda-api/src/class.rs:259"
       ]
     },
     {
       "id": "say which folder the packets should go in",
       "engine": true,
       "files": [
-        "prismqda-api/src/class.rs:135"
+        "prismqda-api/src/class.rs:199"
       ]
     },
     {
       "id": "say which folder the students' packets are in",
       "engine": true,
       "files": [
-        "prismqda-api/src/class.rs:145"
+        "prismqda-api/src/class.rs:209"
       ]
     },
     {
@@ -31562,6 +31680,12 @@
       ],
       "files": [
         "components/ThemesView.tsx"
+      ]
+    },
+    {
+      "id": "Show the passages side by side",
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -33746,6 +33870,12 @@
       ]
     },
     {
+      "id": "The codes each student gave each passage",
+      "files": [
+        "components/team/Class.tsx"
+      ]
+    },
+    {
       "id": "The codes in {name}",
       "blanks": [
         "name"
@@ -34650,7 +34780,7 @@
       "id": "the instructor cannot be one of the students",
       "engine": true,
       "files": [
-        "prismqda-engine/src/teaching.rs:443"
+        "prismqda-engine/src/teaching.rs:468"
       ]
     },
     {
@@ -34666,7 +34796,7 @@
       "id": "the instructor has not coded any passage of these documents, so there is nothing to compare the students with",
       "engine": true,
       "files": [
-        "prismqda-engine/src/teaching.rs:497"
+        "prismqda-engine/src/teaching.rs:522"
       ]
     },
     {
@@ -34995,7 +35125,7 @@
       "id": "the list of names to replace is applied to exports, and a packet holds the documents whole; turn that switch off, or replace the names in the project itself first",
       "engine": true,
       "files": [
-        "prismqda-api/src/class.rs:128",
+        "prismqda-api/src/class.rs:192",
         "prismqda-api/src/lib.rs:1945"
       ]
     },
@@ -36579,6 +36709,12 @@
       "id": "The same number and seed draw the same sample again, so the sample can be described in a report.",
       "files": [
         "components/TeamView.tsx"
+      ]
+    },
+    {
+      "id": "The same passages side by side",
+      "files": [
+        "components/team/Class.tsx"
       ]
     },
     {
@@ -38209,7 +38345,7 @@
       "id": "there is no student to compare: a student is a human coder other than the instructor, so bring the students' packets in first",
       "engine": true,
       "files": [
-        "prismqda-engine/src/teaching.rs:450"
+        "prismqda-engine/src/teaching.rs:475"
       ]
     },
     {

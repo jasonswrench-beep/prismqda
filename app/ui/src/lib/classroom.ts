@@ -38,6 +38,24 @@ export function kappaText(kappa: number | null | undefined): string {
   return kappa === null || kappa === undefined || !Number.isFinite(kappa) ? t('not defined') : num(kappa, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
+/**
+ * How dark a cell of the class heat map is, from 0 (every passage with the code was found) to 4 (fewer than a quarter were). The number in the
+ * cell says the same thing; the shading is a help for seeing where the class struggled.
+ */
+export function heatLevel(share: number | null | undefined): 0 | 1 | 2 | 3 | 4 {
+  if (share === null || share === undefined || !Number.isFinite(share) || share >= 1) return 0;
+  if (share >= 0.75) return 1;
+  if (share >= 0.5) return 2;
+  if (share >= 0.25) return 3;
+  return 4;
+}
+
+/** The file name suggested for a table of the class: the heat map or the side-by-side view. */
+export function suggestedClassTable(projectName: string, what: string): string {
+  const base = projectName.trim().replace(/[\\/:*?"<>|]/g, '-') || t('Class');
+  return `${base} ${what}.csv`;
+}
+
 /** The file name suggested for the table of students. */
 export function suggestedReviewFile(projectName: string): string {
   const base = projectName.trim().replace(/[\\/:*?"<>|]/g, '-') || t('Class');

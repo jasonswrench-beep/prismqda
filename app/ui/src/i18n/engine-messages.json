@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 656,
+  "count": 658,
   "messages": [
     {
       "template": "'{c}' is not one of the groups.",
@@ -437,7 +437,7 @@
     {
       "template": "{existing} already exists, so nothing was saved; choose another folder, or say that files may be replaced",
       "files": [
-        "prismqda-api/src/class.rs:190"
+        "prismqda-api/src/class.rs:276"
       ]
     },
     {
@@ -1031,6 +1031,12 @@
       ]
     },
     {
+      "template": "a passage chosen is not in the documents being compared",
+      "files": [
+        "prismqda-engine/src/teaching.rs:814"
+      ]
+    },
+    {
       "template": "a passphrase can be at most {MAX_PASSPHRASE_CHARS} characters",
       "files": [
         "prismqda-engine/src/crypto.rs:78"
@@ -1419,7 +1425,7 @@
     {
       "template": "cannot make the folder {folder}: {e}",
       "files": [
-        "prismqda-api/src/class.rs:193"
+        "prismqda-api/src/class.rs:279"
       ]
     },
     {
@@ -1952,9 +1958,15 @@
       ]
     },
     {
+      "template": "more than {MAX_SIDE_BY_SIDE} passages were chosen for one view",
+      "files": [
+        "prismqda-engine/src/teaching.rs:789"
+      ]
+    },
+    {
       "template": "more than {MAX_STUDENTS} students were chosen",
       "files": [
-        "prismqda-engine/src/teaching.rs:453"
+        "prismqda-engine/src/teaching.rs:478"
       ]
     },
     {
@@ -2457,19 +2469,19 @@
     {
       "template": "say which folder the feedback files should go in",
       "files": [
-        "prismqda-api/src/class.rs:173"
+        "prismqda-api/src/class.rs:259"
       ]
     },
     {
       "template": "say which folder the packets should go in",
       "files": [
-        "prismqda-api/src/class.rs:135"
+        "prismqda-api/src/class.rs:199"
       ]
     },
     {
       "template": "say which folder the students' packets are in",
       "files": [
-        "prismqda-api/src/class.rs:145"
+        "prismqda-api/src/class.rs:209"
       ]
     },
     {
@@ -2874,13 +2886,13 @@
     {
       "template": "the instructor cannot be one of the students",
       "files": [
-        "prismqda-engine/src/teaching.rs:443"
+        "prismqda-engine/src/teaching.rs:468"
       ]
     },
     {
       "template": "the instructor has not coded any passage of these documents, so there is nothing to compare the students with",
       "files": [
-        "prismqda-engine/src/teaching.rs:497"
+        "prismqda-engine/src/teaching.rs:522"
       ]
     },
     {
@@ -2939,7 +2951,7 @@
     {
       "template": "the list of names to replace is applied to exports, and a packet holds the documents whole; turn that switch off, or replace the names in the project itself first",
       "files": [
-        "prismqda-api/src/class.rs:128",
+        "prismqda-api/src/class.rs:192",
         "prismqda-api/src/lib.rs:1945"
       ]
     },
@@ -3523,7 +3535,7 @@
     {
       "template": "there is no student to compare: a student is a human coder other than the instructor, so bring the students' packets in first",
       "files": [
-        "prismqda-engine/src/teaching.rs:450"
+        "prismqda-engine/src/teaching.rs:475"
       ]
     },
     {

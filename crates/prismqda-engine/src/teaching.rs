@@ -374,6 +374,27 @@ pub struct HardPassage {
     pub missed_codes: Vec<(CodeRef, usize)>,
 }
 
+/// One student's row of the class heat map.
+#[derive(Debug, Clone, PartialEq, Serialize)]
+pub struct HeatRow {
+    /// The student's name, or "Student 1" when the review is anonymous.
+    pub label: String,
+    /// Absent when the review is anonymous.
+    pub coder_id: Option<i64>,
+    /// One value for each code of the heat map, in its order: the share of the passages the instructor gave that code in which the student
+    /// gave it too. Absent only when the instructor never gave the code, which no code of the heat map is.
+    pub found: Vec<Option<f64>>,
+}
+
+/// The class heat map (decision 198): the codes the instructor used, hardest for the class first, against the students. A cell is the share
+/// of the instructor's passages with the code in which the student gave the code too, so a column of low numbers is a code the class found
+/// hard and a row of low numbers is a student who needs a second look.
+#[derive(Debug, Clone, PartialEq, Serialize)]
+pub struct HeatMap {
+    pub codes: Vec<CodeRef>,
+    pub rows: Vec<HeatRow>,
+}
+
 #[derive(Debug, Clone, PartialEq, Serialize)]
 pub struct ClassReview {
     pub instructor: CoderInfo,
@@ -385,8 +406,12 @@ pub struct ClassReview {
     pub students: Vec<StudentReview>,
     /// The codes, hardest for the class first.
     pub by_code: Vec<CodeReview>,
+    pub heat_map: HeatMap,
     pub hardest: Vec<HardPassage>,
     pub notes: Vec<String>,
+    /// The students' coders, in the order of `students` (kept inside the engine: an anonymous review does not say who is who).
+    #[serde(skip)]
+    pub(crate) student_order: Vec<i64>,
 }
 
 fn cut(text: &str) -> String {
@@ -560,9 +585,12 @@ impl Project {
         };
         used.sort_unstable();
         let mut by_code: Vec<CodeReview> = Vec::new();
+        // What each student found of each code, in the order the students were given in: the cells of the heat map.
+        let mut cells: HashMap<i64, Vec<Option<f64>>> = HashMap::new();
         for code in used {
             let instructor_passages = compared.iter().filter(|u| by(0, **u).contains(&code)).count();
             let (mut found_shares, mut kappas, mut added) = (Vec::new(), Vec::new(), 0);
+            let mut code_cells: Vec<Option<f64>> = Vec::new();
             for who in 1..=student_ids.len() {
                 let (mut a, mut b, mut c, mut d) = (0, 0, 0, 0);
                 for u in &compared {
@@ -574,6 +602,7 @@ impl Project {
                     }
                 }
                 added += c;
+                code_cells.push(share(a, a + b));
                 if let Some(s) = share(a, a + b) {
                     found_shares.push(s);
                 }
@@ -581,6 +610,7 @@ impl Project {
                     kappas.push(k);
                 }
             }
+            cells.insert(code, code_cells);
             let mean = |v: &[f64]| (!v.is_empty()).then(|| v.iter().sum::<f64>() / v.len() as f64);
             by_code.push(CodeReview {
                 code_id: code,
@@ -650,12 +680,27 @@ impl Project {
         }
 
         // The list is in the order of the labels.
-        let mut students = per_student;
+        let mut display: Vec<usize> = (0..per_student.len()).collect();
         if spec.anonymous {
-            students = order.iter().map(|i| students[*i].clone()).collect();
+            display = order.clone();
         } else {
-            students.sort_by(|a, b| a.label.to_lowercase().cmp(&b.label.to_lowercase()).then(a.coder_id.cmp(&b.coder_id)));
+            display.sort_by(|a, b| per_student[*a].label.to_lowercase().cmp(&per_student[*b].label.to_lowercase()).then(student_ids[*a].cmp(&student_ids[*b])));
         }
+        let students: Vec<StudentReview> = display.iter().map(|i| per_student[*i].clone()).collect();
+        let student_order: Vec<i64> = display.iter().map(|i| student_ids[*i]).collect();
+        // The heat map: the codes the instructor used (the others have no share to show), in the order of `by_code`.
+        let heat_codes: Vec<&CodeReview> = by_code.iter().filter(|c| c.instructor_passages > 0).collect();
+        let heat_map = HeatMap {
+            codes: heat_codes.iter().map(|c| CodeRef { id: c.code_id, name: c.name.clone() }).collect(),
+            rows: display
+                .iter()
+                .map(|i| HeatRow {
+                    label: per_student[*i].label.clone(),
+                    coder_id: per_student[*i].coder_id,
+                    found: heat_codes.iter().map(|c| cells.get(&c.code_id).and_then(|row| row.get(*i).copied()).flatten()).collect(),
+                })
+                .collect(),
+        };
 
         let mut notes = vec!["A passage is a unit of the text as it was imported (a paragraph, a turn, or a sentence). A coder has coded it with a code when a coding of theirs with that code lies in it. A passage a student did not code counts as left uncoded, which is an answer in an exercise.".to_string()];
         let blank = students.iter().filter(|s| s.passages_coded == 0).count();
@@ -673,9 +718,126 @@ impl Project {
             passages_compared: compared.len(),
             students,
             by_code,
+            heat_map,
             hardest,
             notes,
+            student_order,
         })
+    }
+}
+
+// ---- the side-by-side view ----------------------------------------------------------------------------------------------------
+
+/// The most passages one side-by-side view holds.
+pub const MAX_SIDE_BY_SIDE: usize = 30;
+
+/// Which passages to lay side by side, and for which students: the review's own choices, and the passages (the hardest, when none is named).
+#[derive(Debug, Clone)]
+pub struct ClassSideBySideSpec {
+    pub review: ClassReviewSpec,
+    /// The passages (units of the text, as the review lists them); empty for the hardest ones the review lists.
+    pub unit_ids: Vec<i64>,
+}
+
+/// What one student gave one passage.
+#[derive(Debug, Clone, PartialEq, Serialize)]
+pub struct ClassSideBySideStudent {
+    pub label: String,
+    pub codes: Vec<CodeRef>,
+    /// The student gave exactly the codes the instructor did.
+    pub same: bool,
+}
+
+/// One passage with the instructor's codes and every student's.
+#[derive(Debug, Clone, PartialEq, Serialize)]
+pub struct ClassSideBySidePassage {
+    pub unit_id: i64,
+    pub source_name: String,
+    pub start: i64,
+    pub end: i64,
+    pub text: String,
+    pub instructor_codes: Vec<CodeRef>,
+    /// In the order of the review's students.
+    pub students: Vec<ClassSideBySideStudent>,
+}
+
+/// Several students' coding of the same passages, laid out for a class to talk about (decision 198).
+#[derive(Debug, Clone, PartialEq, Serialize)]
+pub struct ClassSideBySide {
+    pub instructor: CoderInfo,
+    pub anonymous: bool,
+    /// The students' labels, in the order of every passage's `students`.
+    pub students: Vec<String>,
+    pub passages: Vec<ClassSideBySidePassage>,
+    pub notes: Vec<String>,
+}
+
+impl Project {
+    /// The coding of the passages chosen (the hardest of the review, when none is chosen), the instructor's and each student's, side by side.
+    /// The students are labelled as the review labels them, so an anonymous view shows "Student 3" and nothing that says whose coding it is.
+    pub fn class_side_by_side(&self, spec: &ClassSideBySideSpec) -> Result<ClassSideBySide> {
+        let review = self.class_review(&spec.review)?;
+        let mut wanted: Vec<i64> = Vec::new();
+        let named = !spec.unit_ids.is_empty();
+        let source: Vec<i64> = if named { spec.unit_ids.clone() } else { review.hardest.iter().map(|h| h.unit_id).collect() };
+        for u in source {
+            if !wanted.contains(&u) {
+                wanted.push(u);
+            }
+        }
+        if named && wanted.len() > MAX_SIDE_BY_SIDE {
+            return Err(Error::Invalid(format!("more than {MAX_SIDE_BY_SIDE} passages were chosen for one view")));
+        }
+        wanted.truncate(MAX_SIDE_BY_SIDE);
+
+        let in_scope: Option<HashSet<i64>> = (!spec.review.source_ids.is_empty()).then(|| spec.review.source_ids.iter().copied().collect());
+        let mut ids = vec![spec.review.instructor_id];
+        ids.extend(&review.student_order);
+        let given = self.codes_by_unit(&ids, false)?;
+        let empty: HashSet<i64> = HashSet::new();
+        let names: HashMap<i64, String> = self.list_codes()?.into_iter().map(|c| (c.id, c.name)).collect();
+        let refs = |set: &HashSet<i64>| -> Vec<CodeRef> {
+            let mut v: Vec<i64> = set.iter().copied().collect();
+            v.sort_unstable();
+            v.into_iter().map(|id| CodeRef { id, name: names.get(&id).cloned().unwrap_or_else(|| id.to_string()) }).collect()
+        };
+        let source_name: HashMap<i64, String> = self.list_sources()?.into_iter().map(|s| (s.id, s.name)).collect();
+
+        let mut passages = Vec::new();
+        for u in wanted {
+            let row: Option<(i64, i64, i64)> = self
+                .conn
+                .query_row("SELECT source_id, start_offset, end_offset FROM unit WHERE id = ?1 AND excluded = 0", [u], |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)))
+                .ok();
+            let Some((source_id, start, end)) = row else { return Err(Error::NotFound { what: "passage", id: u }) };
+            if in_scope.as_ref().is_some_and(|s| !s.contains(&source_id)) {
+                return Err(Error::Invalid("a passage chosen is not in the documents being compared".to_string()));
+            }
+            let mine = given[0].get(&u).unwrap_or(&empty);
+            let students = review
+                .students
+                .iter()
+                .enumerate()
+                .map(|(i, s)| {
+                    let theirs = given[i + 1].get(&u).unwrap_or(&empty);
+                    ClassSideBySideStudent { label: s.label.clone(), codes: refs(theirs), same: theirs == mine }
+                })
+                .collect();
+            passages.push(ClassSideBySidePassage {
+                unit_id: u,
+                source_name: source_name.get(&source_id).cloned().unwrap_or_default(),
+                start,
+                end,
+                text: cut(&self.text_of_span(source_id, start, end)?),
+                instructor_codes: refs(mine),
+                students,
+            });
+        }
+        let mut notes = vec!["Each passage is a unit of the text as it was imported. A student who gave a passage no code is shown with no codes.".to_string()];
+        if review.anonymous {
+            notes.push("The students are called by number, in an order that does not follow their names. A number means the same student in every passage and in the review. A name that is written in the words of a passage is shown as it is written.".to_string());
+        }
+        Ok(ClassSideBySide { instructor: review.instructor.clone(), anonymous: review.anonymous, students: review.students.iter().map(|s| s.label.clone()).collect(), passages, notes })
     }
 }
 
