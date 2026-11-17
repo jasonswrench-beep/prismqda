@@ -53,6 +53,8 @@ The desktop app and its installer (a Windows installer, built on the efficiency 
 powershell -ExecutionPolicy Bypass -File app\BUILD-INSTALLER.ps1
 ```
 
+The script builds only from a clean tree whose latest commit already carries the annotated tag `v<version>` (`git tag -a v<version> -m "PrismQDA <version>"`), so each release tag is the exact commit the build came from; `tools/check-release-commit.ps1` makes that check and has no off switch. For a throwaway setup to try something out, `app\BUILD-INSTALLER.ps1 -TestBuild` skips the check, but it can never sign, and it leaves only a file named `...-TEST-<time>.exe` in `app\src-tauri\target\release\bundle\test` that must not be released.
+
 With `-Sign` the program, the installer's plugins, the uninstaller and the setup file are signed and timestamped with Azure Artifact Signing, and the build fails if any program in the setup is not (`tools/sign_windows.py` and `tools/check_signatures.py`; the header of `app/BUILD-INSTALLER.ps1` lists the four settings and the one-time `az login` it needs). `app\BUILD-PORTABLE.ps1 -Sign` does the same for the portable zip. Without `-Sign` the files are not signed.
 
 A plain `cargo run` in `app/src-tauri` will not show the interface: Tauri's command-line tool (installed with the interface's npm packages) builds it the way the installer needs.

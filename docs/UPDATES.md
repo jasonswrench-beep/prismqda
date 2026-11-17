@@ -44,6 +44,8 @@ gets both, make a new key at once and publish a setup built with it.
 
 ## Making a release that the button offers
 
+0. Raise the version (`app/src-tauri/tauri.conf.json`, `Cargo.toml` and `Cargo.lock`), commit everything, and tag the commit
+   (`git tag -a v<version> -m "PrismQDA <version>"`). The build script refuses to run on anything else (`tools/check-release-commit.ps1`, `CLAUDE.md` rule 3).
 1. Build with the key: set `TAURI_SIGNING_PRIVATE_KEY_PATH` to the `.key` file and `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` to its password, then
    `powershell -ExecutionPolicy Bypass -File app\BUILD-INSTALLER.ps1 -Sign -Updates -NotesFile <the notes, as text>`. The script stops if the key is
    missing or if `PUBKEY` is empty or is not the public half of the key. It signs the finished setup file with the update key and writes `latest.json`

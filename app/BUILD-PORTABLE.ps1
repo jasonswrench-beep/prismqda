@@ -3,7 +3,9 @@
 #   powershell -ExecutionPolicy Bypass -File app\BUILD-PORTABLE.ps1
 #
 # It packs the program that BUILD-INSTALLER.ps1 built (app\src-tauri\target\release\prismqda-app.exe), so build the installer first
-# when the program has changed; this script builds it for you only when there is no program yet. Everything is pinned to CPUs 16 to 31,
+# when the program has changed; this script builds it for you only when there is no program yet. The release guard
+# (tools\check-release-commit.ps1) runs first, as in BUILD-INSTALLER.ps1, and the program must carry the build stamp that script writes for
+# this very commit, or nothing is packed. Everything is pinned to CPUs 16 to 31,
 # the efficiency cores, as the installer script does.
 #
 # -Sign: the program in the zip is signed and timestamped with Azure Artifact Signing, through tools\sign_windows.py (a program the
@@ -23,6 +25,10 @@ $ErrorActionPreference = 'Stop'
 $app = Split-Path -Parent $MyInvocation.MyCommand.Path
 $root = Split-Path -Parent $app
 $dryRun = ($env:OPENSTAGE_SIGN_DRY_RUN -eq '1')
+
+# The release guard (CLAUDE.md, rule 3; tools\check-release-commit.ps1): a clean tree whose HEAD already carries this version's tag.
+$release = & (Join-Path $root 'tools\check-release-commit.ps1')
+
 if ($Sign) {
     $python = (Get-Command python -ErrorAction SilentlyContinue).Source
     if (-not $python) { throw 'python was not found, and signing needs it (tools\sign_windows.py)' }
@@ -37,6 +43,16 @@ if (-not (Test-Path $exe)) {
     & (Join-Path $app 'BUILD-INSTALLER.ps1') -Sign:$Sign
     if ($LASTEXITCODE) { throw 'the program did not build' }
 }
+
+# The program must be the one BUILD-INSTALLER.ps1 built from this tagged commit (it writes the stamp after its build). A program left from
+# another commit, or rebuilt by hand since, is not packed.
+$stamp = Join-Path (Split-Path -Parent $exe) 'prismqda-build-commit.txt'
+if (-not (Test-Path $stamp)) { throw "the program has no build stamp (prismqda-build-commit.txt), so it is not known which commit it came from. Run app\BUILD-INSTALLER.ps1 on $($release.Tag) first." }
+$stampText = Get-Content $stamp -Raw
+$stampCommit = if ($stampText -match '(?m)^commit=(\S+)') { $Matches[1] } else { '' }
+$stampHash = if ($stampText -match '(?m)^program-sha256=(\S+)') { $Matches[1] } else { '' }
+if ($stampCommit -ne $release.Commit) { throw "the program was built from $(if ($stampCommit) { $stampCommit.Substring(0, [Math]::Min(7, $stampCommit.Length)) } else { 'an unknown commit' }), not from $($release.Tag) ($($release.Commit.Substring(0, 7))). Run app\BUILD-INSTALLER.ps1 on $($release.Tag) first." }
+if ($stampHash -ne (Get-FileHash $exe -Algorithm SHA256).Hash.ToLower()) { throw "the program was changed after BUILD-INSTALLER.ps1 built it (its SHA-256 is not the stamped one). Run app\BUILD-INSTALLER.ps1 on $($release.Tag) again." }
 
 $config = Get-Content (Join-Path $app 'src-tauri\tauri.conf.json') -Raw | ConvertFrom-Json
 $version = $config.version
