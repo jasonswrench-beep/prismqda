@@ -25,7 +25,7 @@ pub const ENDPOINT: &str = "https://github.com/jasonswrench-beep/prismqda/releas
 
 /// The public half of the update-signing key (the text of the `.pub` file `tools/make-update-key.ps1` makes). **Empty until that is done**,
 /// and then the updater is "not set up": it cannot connect to anything.
-pub const PUBKEY: &str = "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEUzQkU4RUY1MkMxMURGQkEKUldTNjN4RXM5WTYrNHdWeU9mWkdpUTBWb2w3ek5YMy9YWFpJKzJKSGlxcUtQZTdmK1NDeW5oc28K";
+pub const PUBKEY: &str = "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDhGMTAyRjRCNTRCNDE3M0EKUldRNkY3UlVTeThRanhLandFU0Z4anBQQkhDVmZJQUMwUHpwTUpxbmJFZTVNOFRLK3RYdjQzYmYK";
 
 /// Where to look and what to trust. The built-in one is `Feed::built_in()`; the tests make their own, pointed at a server on this computer.
 #[derive(Clone, Debug)]

@@ -2,6 +2,10 @@
 
 Everything a program can test is tested by the test suite and the headless browser check. This list is what is left, with what to look for. Nothing here has been done yet. Tick a line and add the date when it has.
 
+## Beta 3: the new update key (2026-11-16, decision 204)
+
+- [ ] **Install beta 3 by hand over beta 2, then try the button.** Beta 1 and beta 2 carry the first update key: their **Check for updates** can offer beta 3 and then refuses to install it (look for a plain message, and that nothing is installed). Install beta 3 from the releases page. In beta 3, **Check for updates** should say you are up to date. The first real update through the button (beta 3 to the next version) has not been watched by anyone.
+
 ## Before beta 2: your own tests (development list of 2026-11-15, item 1)
 
 The five tests only a person can run, in the order that is cheapest first. Each one points to the entry below that says what to do and what to look for; tick it there when it is done and add the date. None of them has been done by a person yet (scripts have driven the installer, the window and a second program's own code, which is not the same thing).

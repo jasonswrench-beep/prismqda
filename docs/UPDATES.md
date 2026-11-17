@@ -40,6 +40,8 @@ and puts the public half into `PUBKEY` in `updates.rs`. **Back up that folder an
 are already installed can never be updated again (a new setup file would have to be installed by hand once, and carry a new key). If someone else
 gets both, make a new key at once and publish a setup built with it.
 
+**The key was replaced once (2026-11-16, decision 204).** The password of the first key could not be found, so a second key was made and beta 3 carries its public half. Copies of beta 1 and beta 2 cannot install beta 3 through the button (the signature does not match the key built into them, and nothing is installed); they download the setup from the releases page once. After making a key, check its password at once by signing a small test file (`tauri signer sign -f <the .key file> <a small file>`, with `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` set), and keep the password in a password manager.
+
 ## Making a release that the button offers
 
 1. Build with the key: set `TAURI_SIGNING_PRIVATE_KEY_PATH` to the `.key` file and `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` to its password, then
