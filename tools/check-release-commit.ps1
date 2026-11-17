@@ -9,7 +9,7 @@
 #   1. this folder is the top of a git checkout and `git status` shows nothing: no changed file and no untracked file
 #      (files that .gitignore leaves out, such as app\src-tauri\target, do not count);
 #   2. the version is the same in app\src-tauri\tauri.conf.json, app\src-tauri\Cargo.toml and app\src-tauri\Cargo.lock;
-#   3. the tag v<version> exists, is an annotated tag (git tag -a), and points at HEAD;
+#   3. the tag v<version> exists, points at HEAD, and is an annotated tag (git tag -a);
 #   4. with -ExpectCommit: HEAD is still that commit.
 # On success it prints one line and returns an object with Version, Tag and Commit. It changes nothing and uses no network.
 # It does not read authors or messages: the identity and the no-tool-lines rules (CLAUDE.md, rules 1 and 2) are checked by hand before
@@ -69,12 +69,12 @@ if ($LASTEXITCODE) {
     $carriedText = if ($carried.Count) { "HEAD ($short) carries: $($carried -join ', ')" } else { "HEAD ($short) carries no tag" }
     Stop-Release "the tag $tag does not exist. $carriedText. Tag the commit first:  git tag -a $tag -m `"PrismQDA $confVersion`""
 }
-$tagKind = "$(Invoke-Git cat-file -t $tagRef)".Trim()
-if ($tagKind -ne 'tag') { Stop-Release "$tag is a lightweight tag. Make it an annotated one on this commit (git tag -d $tag, then git tag -a $tag -m `"PrismQDA $confVersion`"); only a tag that was never pushed may be re-made" }
 $tagged = "$(Invoke-Git rev-parse "$tagRef^{commit}")".Trim()
 if ($tagged -ne $head) {
-    Stop-Release "$tag points at $($tagged.Substring(0, 7)) but HEAD is $short, so a build from here would not be the tagged commit. A tag that was never pushed may be re-made on HEAD; a pushed tag never moves, so a change after it needs a new version and a new tag"
+    Stop-Release "$tag already exists and points at $($tagged.Substring(0, 7)), not at HEAD ($short), so a build from here would not be the tagged commit. If $tag was released, raise the version in tauri.conf.json, Cargo.toml and Cargo.lock, commit, and tag that commit with the new version: a pushed tag never moves. Only a tag that was never pushed may be re-made on HEAD (git tag -d $tag, then git tag -a $tag -m `"PrismQDA $confVersion`")"
 }
+$tagKind = "$(Invoke-Git cat-file -t $tagRef)".Trim()
+if ($tagKind -ne 'tag') { Stop-Release "$tag is a lightweight tag. Make it an annotated one on this commit (git tag -d $tag, then git tag -a $tag -m `"PrismQDA $confVersion`"); only a tag that was never pushed may be re-made" }
 
 # 4. After a build: nothing moved.
 if ($ExpectCommit -and $head -ne $ExpectCommit) { Stop-Release "HEAD was $($ExpectCommit.Substring(0, 7)) when the build started and is $short now" }
