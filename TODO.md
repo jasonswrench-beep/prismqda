@@ -16,6 +16,7 @@ Worked through in order, on the shared core as published (`CORE-NOTES.md`; what 
 
 ## What I can build next
 
+- [ ] **Open `.prismtx` files**, the transcript package that Prism Transcribe exports. The format is written up in `docs/PRISMTX.md` in the Prism Transcribe repository (which was being made public on 2026-11-17). **Not built, and not started:** the reader begins with that document (what the package holds, its version, how it names speakers and times, and what the importer must refuse). Until the reader exists, transcripts come in through `.qdpx` (Import QDPX), which already works. When it is built, record the choices in [docs/DECISIONS.md](docs/DECISIONS.md) and list what only a person can try in [TESTING-TODO.md](TESTING-TODO.md).
 - [x] **Sentences built from clauses.** About 90 messages were joined in English word order (the readbacks of a query, parts of history lines, announcements). They are whole sentences now, so a translator can translate them (decision 117). Short labels that add a phrase after a comma ("Name, a person") are left, and a translator is asked which read badly.
 - [x] **Real-window check of recordings and pictures.** Passed on 2026-11-07 over the real window's debug port, with the computer idle for more than ten minutes: the recording address answers a player and seeks, a document with no recording is refused, and a picture is imported through the window's own door and drawn from its own address under the content security policy.
 - [x] **Pictures, not yet built** (in the batch for alpha 22)
