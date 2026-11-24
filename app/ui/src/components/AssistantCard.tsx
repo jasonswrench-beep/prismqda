@@ -76,6 +76,7 @@ export function AssistantCard() {
       <textarea id="assistant-settings" readOnly rows={9} value={shown} data-testid="assistant-settings" />
       {command === null ? <p className="help">{t('The path of PrismQDA.exe is shown here in the installed program; use the full path of the program you installed.')}</p> : null}
       <p className="help">{t('Close the project in PrismQDA before the assistant starts, so the two never write to the file at once. If the project is encrypted, the assistant application must pass the passphrase in the PRISMQDA_PASSPHRASE setting, never on the command line.')}</p>
+      <p className="help" data-testid="assistant-passphrase-note">{t('The passphrase in the PRISMQDA_PASSPHRASE setting is kept in the assistant application’s settings, where other programs that run as the same Windows user can read it. Connect a project with its passphrase only on a computer you control.')}</p>
       <div className="actions">
         <Button onPress={() => void copy()} isDisabled={closed !== null} data-testid="assistant-copy">{copied ? t('Copied') : t('Copy the settings')}</Button>
       </div>

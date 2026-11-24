@@ -116,6 +116,8 @@ export async function runTextModels(ctx, api) {
     const args = read.mcpServers.prismqda.args;
     h.equal([args[0], args[2], args[3]], ['mcp', '--permission', 'read'], 'the settings start the program with mcp, for reading');
     h.equal(args[1], (await rpc('project.info')).path, 'for the open project');
+    const note = await page.getByTestId('assistant-passphrase-note').innerText();
+    if (!/PRISMQDA_PASSPHRASE/.test(note) || !/same Windows user/.test(note) || !/computer you control/.test(note)) throw new Error('the passphrase note is missing or incomplete: ' + note);
     await page.getByTestId('assistant-propose').check();
     await page.getByTestId('assistant-actor').fill('Reader Name');
     const propose = JSON.parse(await page.getByTestId('assistant-settings').inputValue());

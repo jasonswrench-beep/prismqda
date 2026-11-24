@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 5870,
+  "count": 5871,
   "messages": [
     {
       "id": " and {n} more",
@@ -10230,7 +10230,7 @@
       "id": "AI prompt packets are switched off for this project",
       "engine": true,
       "files": [
-        "prismqda-engine/src/coach.rs:406"
+        "prismqda-engine/src/coach.rs:414"
       ]
     },
     {
@@ -19400,7 +19400,7 @@
       "id": "give a word, or the words of a phrase, to look for",
       "engine": true,
       "files": [
-        "prismqda-engine/src/text_analytics.rs:293"
+        "prismqda-engine/src/text_analytics.rs:296"
       ]
     },
     {
@@ -36831,6 +36831,12 @@
       "id": "The passages the class coded least like the instructor",
       "files": [
         "components/team/Class.tsx"
+      ]
+    },
+    {
+      "id": "The passphrase in the PRISMQDA_PASSPHRASE setting is kept in the assistant application’s settings, where other programs that run as the same Windows user can read it. Connect a project with its passphrase only on a computer you control.",
+      "files": [
+        "components/AssistantCard.tsx"
       ]
     },
     {

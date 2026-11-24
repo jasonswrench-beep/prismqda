@@ -201,6 +201,10 @@ fn portable_data_dir(program_dir: &std::path::Path) -> Option<std::path::PathBuf
 /// `PrismQDA.exe mcp <project> [--permission read|propose] [--actor <name>]` (decision 203): an assistant application started the program as its
 /// pipe to a project. There is no window, no port and no network connection, and it runs before anything of the window starts (so the
 /// single-instance plug-in never sees it). Returns the exit code.
+///
+/// An encrypted project's passphrase comes from the `PRISMQDA_PASSPHRASE` environment variable, never from the command line. That variable lives in
+/// the assistant application's own settings, where other programs that run as the same Windows user can read it: a project is connected with its
+/// passphrase only on a computer the person controls (said in Settings > AI Assistant and in the user guide).
 fn assistant_server(args: &[String]) -> i32 {
     let (mut project, mut permission, mut actor) = (None::<PathBuf>, "read".to_string(), None::<String>);
     let mut it = args.iter();

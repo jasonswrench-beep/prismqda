@@ -1359,7 +1359,7 @@
     {
       "template": "AI prompt packets are switched off for this project",
       "files": [
-        "prismqda-engine/src/coach.rs:406"
+        "prismqda-engine/src/coach.rs:414"
       ]
     },
     {
@@ -1906,7 +1906,7 @@
     {
       "template": "give a word, or the words of a phrase, to look for",
       "files": [
-        "prismqda-engine/src/text_analytics.rs:293"
+        "prismqda-engine/src/text_analytics.rs:296"
       ]
     },
     {
