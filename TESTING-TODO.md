@@ -2,6 +2,12 @@
 
 Everything a program can test is tested by the test suite and the headless browser check. This list is what is left, with what to look for. Nothing here has been done yet. Tick a line and add the date when it has.
 
+## Beta 4: the backup key, the version binding, and the passphrase note (2026-11-24, decision 205)
+
+- [ ] **The first update through the button that carries these checks.** From an installed beta 4 (or later) with a newer release in the feed: **Check for updates** should show the notes, **Download and install** should install it, and the program should come back at the new version. This is also the first time anyone watches the button install anything (see the beta 3 line below).
+- [ ] **A rotation has never been run with real installers.** The tests use throwaway keys and a feed on the same computer: a file signed by the backup key installs when the main key does not match, and a third key is refused. Before a rotation is ever needed, rehearse it once on a spare computer with a copy of the program built against a private test feed and two test keys (docs/UPDATES.md, "Rotating the keys"), and look for: the old program accepts the release signed with the old backup key, and the new program refuses one signed with the retired key.
+- [ ] **Settings > AI Assistant shows the note about the passphrase** (a line under the one about closing the project: the `PRISMQDA_PASSPHRASE` setting can be read by other programs that run as the same Windows user). Look at it with a screen reader and at 200 percent text.
+
 ## Beta 3: the new update key (2026-11-16, decision 204)
 
 - [ ] **Install beta 3 by hand over beta 2, then try the button.** Beta 1 and beta 2 carry the first update key: their **Check for updates** can offer beta 3 and then refuses to install it (look for a plain message, and that nothing is installed). Install beta 3 from the releases page. In beta 3, **Check for updates** should say you are up to date. The first real update through the button (beta 3 to the next version) has not been watched by anyone.

@@ -27,6 +27,11 @@ tauri-plugin-dialog = "2"
 # Windows' own certificate store (schannel) instead of a bundled list of root certificates: fewer crates, and a company's own certificates work.
 tauri-plugin-updater = { version = "2", default-features = false, features = ["native-tls", "system-proxy", "zip"] }
 tauri-plugin-single-instance = "2"
+# The update check reads the signed file name out of a signature (updates.rs). All three are crates the updater plugin already brings in, at the
+# same versions, so nothing new is built or downloaded.
+base64 = "0.23"
+minisign-verify = "0.3"
+semver = "1"
 
 [dev-dependencies]
 # The mock runtime lets the tests send real IPC messages through the same command the window uses, with no window.

@@ -34,9 +34,14 @@
 # file, and TAURI_SIGNING_PRIVATE_KEY_PASSWORD at its password if it has one), and `latest.json` is written beside it: the version, the notes
 # (-NotesFile, a text file), the day, the signature, and where the setup file will be (-DownloadBaseUrl, by default the release `v<version>` of the
 # project's repository). The build stops if the key is not there, or if the public key built into the program (PUBKEY in
-# app\src-tauri\src\updates.rs) is empty or is not the public half of that key: such a setup could never update anything.
+# app\src-tauri\src\updates.rs) is empty or is not the public half of that key: such a setup could never update anything (the check is
+# tools\check-update-keys.ps1, which also warns when no backup key, BACKUP_PUBKEY, is built in, and refuses a normal release signed with the backup key).
+#
+# -Rotation -PreviousTag <tag> (with -Updates): the one release that changes the keys (docs\UPDATES.md, "Rotating the keys"). It is signed with the
+# BACKUP key (TAURI_SIGNING_PRIVATE_KEY_PATH names the backup key's file), which must be exactly the BACKUP_PUBKEY of the release <tag> that people have
+# installed, and the source must bring in a new PUBKEY and a new BACKUP_PUBKEY.
 
-param([switch]$Sign, [switch]$Updates, [string]$NotesFile = '', [string]$DownloadBaseUrl = '', [switch]$TestBuild)
+param([switch]$Sign, [switch]$Updates, [string]$NotesFile = '', [string]$DownloadBaseUrl = '', [switch]$TestBuild, [switch]$Rotation, [string]$PreviousTag = '')
 
 $ErrorActionPreference = 'Stop'
 [System.Diagnostics.Process]::GetCurrentProcess().ProcessorAffinity = [IntPtr]4294901760
@@ -68,12 +73,13 @@ $updateKey = $null
 if ($Updates) {
     $updateKey = $env:TAURI_SIGNING_PRIVATE_KEY_PATH
     if (-not $updateKey -or -not (Test-Path $updateKey)) { throw 'TAURI_SIGNING_PRIVATE_KEY_PATH must name the update key file (tools\make-update-key.ps1 makes it)' }
-    if (-not (Test-Path "$updateKey.pub")) { throw "the public half of the update key is not beside it ($updateKey.pub)" }
-    $source = Get-Content (Join-Path $app 'src-tauri\src\updates.rs') -Raw
-    if ($source -notmatch 'pub const PUBKEY: &str = "([^"]*)";') { throw 'PUBKEY was not found in updates.rs' }
-    $built = $Matches[1].Trim()
-    if (-not $built) { throw 'PUBKEY in app\src-tauri\src\updates.rs is empty, so the program would not check for updates at all (tools\make-update-key.ps1 puts it there)' }
-    if ($built -ne (Get-Content "$updateKey.pub" -Raw).Trim()) { throw 'PUBKEY in updates.rs is not the public half of the update key; a program built like that would refuse every update' }
+    # The key about to sign must be the one the program built from this source trusts (tools\check-update-keys.ps1; for a rotation, the backup key
+    # of the release people have installed). It reads only the public half.
+    $keyCheck = @{ KeyFile = $updateKey }
+    if ($Rotation) { $keyCheck.Rotation = $true; $keyCheck.PreviousTag = $PreviousTag }
+    & (Join-Path $root 'tools\check-update-keys.ps1') @keyCheck
+} elseif ($Rotation) {
+    throw '-Rotation is for a release signed for the Check for updates button: use it together with -Updates'
 }
 
 $signConfig = $null
