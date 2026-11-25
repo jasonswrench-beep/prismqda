@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { Button, Input, Label, Text, TextField } from 'react-aria-components';
 import { call, toApiError } from '../bridge';
 import { type Choices, LEVELS, LEVEL_LABELS, ROLE_LABELS, choicesFromSuggestion, mappingFromChoices, setLevel, setRole, validateChoices, type ColumnRole } from '../lib/importMapping';
-import { STATUS_LABELS, alreadyQueued, fileNameOf, importBlocker, outcomeLine, tally, toImport, toRetry, type DuplicateAction, type ItemStatus, type QueueItem } from '../lib/importQueue';
+import { STATUS_LABELS, alreadyQueued, fileNameOf, importBlocker, outcomeLine, tally, toImport, toRetry, withChange, type DuplicateAction, type ItemStatus, type QueueItem } from '../lib/importQueue';
 import { browseManyFiles, listenForFileDrops, nativeDialogsAvailable, cleanTypedPath, type ImportKindId } from '../pickFile';
 import { announce } from '../state/announce';
 import { goTo, refreshCases, refreshSources, reviseDocument, selectSource } from '../state/actions';
@@ -103,7 +103,12 @@ export function ImportPage() {
   itemsRef.current = items;
   const pathBox = useRef<HTMLInputElement>(null);
 
-  const patch = (id: number, change: Partial<Item>) => setItems((all) => all.map((i) => (i.id === id ? { ...i, ...change } : i)));
+  // The page's own copy changes at once, as well as the screen's: the end of an import counts the queue straight after the last file
+  // is in, before the screen has drawn it (it said "3 files imported, 1 waiting" when all four were in).
+  const patch = (id: number, change: Partial<Item>) => {
+    itemsRef.current = withChange(itemsRef.current, id, change);
+    setItems((all) => withChange(all, id, change));
+  };
 
   /** Reads a file to see what is in it, and says what it found (the screen may not have caught up yet, so the caller gets it too). */
   const inspectItem = async (id: number, file: string, options: Options): Promise<Partial<Item>> => {
@@ -383,7 +388,7 @@ export function ImportPage() {
             </li>
           ))}
         </ul>
-        <p className="muted bk-kinds-note" data-testid="kinds-note">{t('Web / News reads pages that a browser saved whole (MHTML), HTML files, and news feeds saved as RSS or Atom files. It does not fetch an address, because PrismQDA makes no network requests of its own: save the page or the feed first. Audio and video come in through the captions beside them: PrismQDA does not turn speech into text. Images are not built yet.')}</p>
+        <p className="muted bk-kinds-note" data-testid="kinds-note">{t('Web / News reads pages that a browser saved whole (MHTML), HTML files, and news feeds saved as RSS or Atom files. It does not fetch an address, because PrismQDA makes no network requests of its own: save the page or the feed first. Audio and video come in through the captions beside them: PrismQDA does not turn speech into text.')}</p>
       </section>
 
       <section aria-labelledby="h-queue" className="bk-import-queue">

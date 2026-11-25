@@ -205,7 +205,7 @@ function CodesToVariables() {
           ) : null}
           {made ? (
             <p className="muted">
-              {t('It is a variable of cases like any other: the Statistics page and a rule can use it. It keeps how it was made, so *Make it again* in the Data editor follows the coding when the coding changes.')}{' '}
+              {t('It is a variable of cases like any other: the Statistics page and a rule can use it. It keeps how it was made, so Make it again in the Data editor follows the coding when the coding changes.')}{' '}
               <Button className="link-button" onPress={() => goTo('variables')} data-testid="mixed-to-editor">{t('Open the Data editor')}</Button>{' '}
               <RecordInLog what={t('Made the variable {name} from the coding of {codes}.', { name: made.variable, codes: chosen.map(nameOf).join(', ') })} testId="mixed-record-quant" />
             </p>

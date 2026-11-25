@@ -18,7 +18,7 @@ import { ExportDialog } from './components/ExportDialog';
 import { ImportFolderDialog } from './components/ImportFolderDialog';
 import { Splash } from './components/Splash';
 import { StartScreen } from './components/StartScreen';
-import { interpretAreaKey } from './lib/shortcuts';
+import { interpretAreaKey, undoesTyping } from './lib/shortcuts';
 import { initApp, undoLast } from './state/actions';
 import { announce } from './state/announce';
 import { watchLaunchPaths } from './state/launch';
@@ -104,9 +104,7 @@ export function App() {
         e.preventDefault();
         void runCommand(commandById(key === 's' ? 'save' : 'repeat-code'));
       } else if (key === 'z') {
-        const el = document.activeElement as HTMLElement | null;
-        const typing = !!el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT' || el.isContentEditable);
-        if (typing || appStore.get().dialog) return;
+        if (undoesTyping(document.activeElement as HTMLElement | null) || appStore.get().dialog) return;
         e.preventDefault();
         void undoLast();
       }

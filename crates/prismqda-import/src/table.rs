@@ -370,7 +370,12 @@ pub fn import_table(table: &Table, mapping: &SurveyMapping, opts: &ImportOptions
         }
         let mut warnings = Vec::new();
         if skipped > 0 {
-            warnings.push(ImportWarning::new("empty_responses", format!("{skipped} rows had no text in this column and were skipped")));
+            // One row is "1 row ... was", not "1 rows ... were" (seen in an import of an evaluation with one comment left blank).
+            warnings.push(if skipped == 1 {
+                ImportWarning::new("empty_responses", "1 row had no text in this column and was skipped")
+            } else {
+                ImportWarning::new("empty_responses", format!("{skipped} rows had no text in this column and were skipped"))
+            });
         }
         if units.is_empty() {
             batch.sources.push(ImportedSource {
@@ -567,8 +572,9 @@ mod tests {
         assert_eq!(b.sources.len(), 2);
         assert_eq!(b.sources[0].name, "Survey 1 - why");
         assert_eq!(b.sources[0].units.len(), 3, "the empty cell is skipped");
-        assert!(b.sources[0].warnings.iter().any(|w| w.kind == "empty_responses"));
+        assert!(b.sources[0].warnings.iter().any(|w| w.kind == "empty_responses" && w.message == "1 row had no text in this column and was skipped"));
         assert_eq!(b.sources[1].units.len(), 2, "blank and empty cells are skipped");
+        assert!(b.sources[1].warnings.iter().any(|w| w.message == "2 rows had no text in this column and were skipped"));
         assert!(b.sources[0].units.iter().all(|u| u.kind == UnitKind::SurveyResponse));
         let first = &b.sources[0];
         let quote: String = first.text.chars().skip(first.units[0].start as usize).take((first.units[0].end - first.units[0].start) as usize).collect();

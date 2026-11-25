@@ -4,7 +4,7 @@ import { buildSegments } from './segments';
 import { assignLanes } from './lanes';
 import { PALETTE, abbreviations, blendOver, colorName, contrastRatio, highlightBackground, highlightColor, nextColor, patternFor, textColorOn, PATTERN_COUNT } from './labels';
 import { buildCodeTree, filterCodeTree, flattenTree, planDrop, planMove, compareCodes, childrenOf, descendantIds, pathLabel } from './tree';
-import { interpretAreaKey, interpretCodebookKey, interpretDocumentKey, SHORTCUT_SECTIONS, type KeyLike } from './shortcuts';
+import { interpretAreaKey, interpretCodebookKey, interpretDocumentKey, SHORTCUT_SECTIONS, undoesTyping, type KeyLike } from './shortcuts';
 import { codedSentence, describeEvent, foldEvents, quoted, categoryOf, formatWhen, type WordingLookups } from './eventWording';
 import { computeCoverage, coveredLength, describeCoverage } from './coverage';
 import { nextUncodedUnit, unitIndexAt, unitIndexForCaret, unitIndicesTouching } from './units';
@@ -285,6 +285,17 @@ test('number keys 1 to 9 pick a favorite; other keys do not', () => {
   assert.equal(interpretDocumentKey(key('1', { ctrlKey: true })), null, 'Ctrl+1 is not ours');
   assert.equal(interpretDocumentKey(key('1', { shiftKey: true })), null);
   assert.equal(interpretDocumentKey(key('1', { isComposing: true })), null, 'no shortcuts while an input method is composing');
+});
+
+test("Ctrl+Z undoes typing in a box, and the project's last change in the document's read-only text", () => {
+  const el = (tagName: string, isContentEditable = false, readonly: string | null = null) => ({ tagName, isContentEditable, getAttribute: (n: string) => (n === 'aria-readonly' ? readonly : null) });
+  assert.equal(undoesTyping(el('INPUT')), true);
+  assert.equal(undoesTyping(el('TEXTAREA')), true);
+  assert.equal(undoesTyping(el('SELECT')), true);
+  assert.equal(undoesTyping(el('DIV', true)), true, 'an area one can type in keeps its own undo');
+  assert.equal(undoesTyping(el('DIV', true, 'true')), false, 'the document text has no typing to undo');
+  assert.equal(undoesTyping(el('BUTTON')), false);
+  assert.equal(undoesTyping(null), false);
 });
 
 test('letter shortcuts', () => {

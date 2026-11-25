@@ -8,7 +8,7 @@ import { describeShape, sameShape } from '../lib/regions';
 import { pathLabel } from '../lib/tree';
 import { sliceScalar } from '../offsets';
 import { changeCodingCode, commandClip, goTo, removeCoding, saveRationale, selectCode, selectCoding, setAnchor, setCodingRating, setPane } from '../state/actions';
-import { appStore, focusApplyBox, lineRangeOf, useApp } from '../state/app';
+import { appStore, focusApplyBox, focusCenter, lineRangeOf, useApp } from '../state/app';
 import type { CodingHistoryEvent, CodingRow, MemoRow } from '../types';
 import { Icon } from './Icon';
 import { PassageLinksSection } from './PassageLinks';
@@ -64,6 +64,12 @@ function SegmentForm({ coding }: { coding: CodingRow }) {
   const area = coding.region ?? null;
   // A stretch of a recording is an area in the lists but is told by its times, and can be played.
   const stretch = area !== null && area.shape === 'span' ? area : null;
+  // Add another code: the box codes what the reader has selected, so the words of this coding are selected first when its document is
+  // the one open (a click in a coded passage selects nothing, and the box then said to select some words first).
+  const addAnotherCode = () => {
+    if (!stretch && !area && appStore.get().currentSourceId === coding.source_id) focusCenter({ start: coding.start, end: coding.end });
+    focusApplyBox();
+  };
   // An area of a page of a PDF is told with its page.
   const onPage = useApp((s) => area !== null && !!s.sources.find((x) => x.id === coding.source_id)?.pdf);
   const lineNumbers = useApp((s) => s.settings.lineNumbers);
@@ -182,7 +188,7 @@ function SegmentForm({ coding }: { coding: CodingRow }) {
         <div className="bk-section-head">
           <h3 id="seg-codes" className="bk-h3">{t('Applied Codes ({count})', { count: applied.length })}</h3>
           {readOnly ? null : (
-            <Button className="icon-button" aria-label={stretch ? t('Add another code to this stretch') : area ? t('Add another code to this area') : t('Add another code to these words')} onPress={() => focusApplyBox()}>
+            <Button className="icon-button" aria-label={stretch ? t('Add another code to this stretch') : area ? t('Add another code to this area') : t('Add another code to these words')} onPress={() => addAnotherCode()}>
               <Icon name="ui-plus" size={18} />
             </Button>
           )}

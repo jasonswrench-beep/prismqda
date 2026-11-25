@@ -464,7 +464,7 @@ function BubbleChart(props: { bubble: Bubble; onEvidence: (e: { title: string; i
   const title = t('{code}: {x} by {y}', { code: b.code, x: b.x.name, y: b.y.name });
   const cols = b.x.categories.length;
   const rows = b.y.categories.length;
-  const m = { l: 120, r: 24, t: 14, b: 96 };
+  const m = { l: 120, r: 24, t: 14, b: 116 };
   const cw = (CANVAS - m.l - m.r) / Math.max(1, cols);
   const rh = Math.max(44, Math.min(76, cw));
   const H = m.t + m.b + rows * rh;

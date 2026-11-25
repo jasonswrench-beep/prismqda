@@ -68,6 +68,24 @@ export function interpretAreaKey(e: KeyLike): 'next' | 'previous' | 'help' | nul
   return null;
 }
 
+/** What the window needs to know of the control that has the focus when Ctrl+Z is pressed. */
+export interface FocusLike {
+  tagName: string;
+  isContentEditable: boolean;
+  getAttribute(name: string): string | null;
+}
+
+/**
+ * Whether Ctrl+Z belongs to the control with the focus (it undoes typing in a box) rather than to the project. The document's
+ * text is an editable area that is read-only (aria-readonly), so it has no typing to undo: there Ctrl+Z undoes the project's
+ * last change, as it does anywhere else.
+ */
+export function undoesTyping(el: FocusLike | null): boolean {
+  if (!el) return false;
+  if (/^(input|textarea|select)$/i.test(el.tagName)) return true;
+  return el.isContentEditable && el.getAttribute('aria-readonly') !== 'true';
+}
+
 export interface ShortcutEntry {
   keys: string;
   does: string;

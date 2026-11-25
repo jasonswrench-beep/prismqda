@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 683,
+  "count": 684,
   "messages": [
     {
       "template": "'{both}' is in both the positive and the negative words you gave",
@@ -425,7 +425,7 @@
     {
       "template": "{conflicts} values differed between rows with the same ID; the first value was kept",
       "files": [
-        "prismqda-import/src/table.rs:479"
+        "prismqda-import/src/table.rs:484"
       ]
     },
     {
@@ -690,7 +690,7 @@
     {
       "template": "{skipped} rows had no text in this column and were skipped",
       "files": [
-        "prismqda-import/src/table.rs:373"
+        "prismqda-import/src/table.rs:377"
       ]
     },
     {
@@ -788,6 +788,12 @@
       "template": "{without_words} excerpt{value} in the file had neither quoted words nor a note, so {value2} left out.",
       "files": [
         "prismqda-import/src/exchange.rs:299"
+      ]
+    },
+    {
+      "template": "1 row had no text in this column and was skipped",
+      "files": [
+        "prismqda-import/src/table.rs:375"
       ]
     },
     {
@@ -1742,7 +1748,7 @@
     {
       "template": "column '{name}' has no text",
       "files": [
-        "prismqda-import/src/table.rs:387"
+        "prismqda-import/src/table.rs:392"
       ]
     },
     {

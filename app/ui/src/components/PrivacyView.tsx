@@ -40,6 +40,8 @@ export function PrivacyView() {
   const [labels, setLabels] = useState<Record<string, string>>({});
   const [preview, setPreview] = useState<DeidPreview | null>(null);
   const [keyPath, setKeyPath] = useState('');
+  /** The key file this page saved last, which replacing the names for good may save again. */
+  const [savedKey, setSavedKey] = useState('');
   const [keyMessage, setKeyMessage] = useState<string | null>(null);
   const [confirm, setConfirm] = useState(false);
   const [outcome, setOutcome] = useState<DeidOutcome | null>(null);
@@ -197,6 +199,7 @@ export function PrivacyView() {
       if (!where) return;
       const r = await call('deid.key', { path: where.path, overwrite: where.dialog });
       setKeyPath(r.path);
+      setSavedKey(r.path);
       setKeyMessage(t('Saved the key ({rows}) to {path}. Keep it apart from the project.', { rows: plural(r.rows, 'row'), path: r.path }));
       announce(t('Saved the key.'));
     });
@@ -221,7 +224,8 @@ export function PrivacyView() {
   const replaceForGood = () =>
     run('apply', async () => {
       const typed = cleanTypedPath(keyPath);
-      const r = await call('deid.apply', { ...(typed !== '' ? { key_path: typed } : {}) });
+      // A key saved here with the button is saved again as the names are replaced; any other file that is there is never replaced.
+      const r = await call('deid.apply', { ...(typed !== '' ? { key_path: typed, ...(typed === savedKey ? { overwrite: true } : {}) } : {}) });
       setOutcome(r);
       setConfirm(false);
       setPreview(null);

@@ -97,6 +97,12 @@ export function toRetry(items: readonly QueueItem[]): QueueItem[] {
   return items.filter((i) => i.status === 'failed');
 }
 
+/** The queue with one item changed. The page keeps its own copy up to date with this as well as the screen's, so that what it counts at
+ * the end of an import includes the file imported last, before the screen has caught up. */
+export function withChange<T extends QueueItem>(items: readonly T[], id: number, change: Partial<T>): T[] {
+  return items.map((i) => (i.id === id ? { ...i, ...change } : i));
+}
+
 /** A path already in the queue (the same file added twice) is not added a second time. */
 export function alreadyQueued(items: readonly QueueItem[], path: string): boolean {
   const key = path.trim().toLowerCase();

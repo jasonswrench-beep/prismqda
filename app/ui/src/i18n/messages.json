@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 5871,
+  "count": 5872,
   "messages": [
     {
       "id": " and {n} more",
@@ -1503,7 +1503,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-import/src/table.rs:479"
+        "prismqda-import/src/table.rs:484"
       ]
     },
     {
@@ -6016,7 +6016,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-import/src/table.rs:373"
+        "prismqda-import/src/table.rs:377"
       ]
     },
     {
@@ -7167,6 +7167,13 @@
       "id": "1 document",
       "files": [
         "components/ClipPlaylist.tsx"
+      ]
+    },
+    {
+      "id": "1 row had no text in this column and was skipped",
+      "engine": true,
+      "files": [
+        "prismqda-import/src/table.rs:375"
       ]
     },
     {
@@ -15184,7 +15191,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-import/src/table.rs:387"
+        "prismqda-import/src/table.rs:392"
       ]
     },
     {
@@ -21032,7 +21039,7 @@
       ]
     },
     {
-      "id": "It is a variable of cases like any other: the Statistics page and a rule can use it. It keeps how it was made, so *Make it again* in the Data editor follows the coding when the coding changes.",
+      "id": "It is a variable of cases like any other: the Statistics page and a rule can use it. It keeps how it was made, so Make it again in the Data editor follows the coding when the coding changes.",
       "files": [
         "components/MixedMethodsView.tsx"
       ]
@@ -40421,7 +40428,7 @@
       ]
     },
     {
-      "id": "This table counts cases. It does not test whether the pattern is more than chance; that belongs to the statistics tools, which are not built yet.",
+      "id": "This table counts cases. It does not test whether the pattern is more than chance; that is the work of PrismStatistics, or of the Statistics page when it shows its tests.",
       "files": [
         "components/explore/Crosstabs.tsx"
       ]
@@ -42275,7 +42282,7 @@
       ]
     },
     {
-      "id": "Web / News reads pages that a browser saved whole (MHTML), HTML files, and news feeds saved as RSS or Atom files. It does not fetch an address, because PrismQDA makes no network requests of its own: save the page or the feed first. Audio and video come in through the captions beside them: PrismQDA does not turn speech into text. Images are not built yet.",
+      "id": "Web / News reads pages that a browser saved whole (MHTML), HTML files, and news feeds saved as RSS or Atom files. It does not fetch an address, because PrismQDA makes no network requests of its own: save the page or the feed first. Audio and video come in through the captions beside them: PrismQDA does not turn speech into text.",
       "files": [
         "components/ImportPage.tsx"
       ]

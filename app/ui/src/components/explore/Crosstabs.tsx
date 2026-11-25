@@ -226,7 +226,7 @@ export function Crosstabs() {
               {table.notes.map((n) => (
                 <li key={n}>{engineText(n)}</li>
               ))}
-              <li>{t('This table counts cases. It does not test whether the pattern is more than chance; that belongs to the statistics tools, which are not built yet.')}</li>
+              <li>{t('This table counts cases. It does not test whether the pattern is more than chance; that is the work of PrismStatistics, or of the Statistics page when it shows its tests.')}</li>
             </ul>
           </div>
         </>

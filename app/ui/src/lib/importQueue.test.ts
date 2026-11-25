@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { alreadyQueued, fileNameOf, importBlocker, outcomeLine, tally, toImport, toRetry, type ItemStatus, type QueueItem } from './importQueue';
+import { alreadyQueued, fileNameOf, importBlocker, outcomeLine, tally, toImport, toRetry, withChange, type ItemStatus, type QueueItem } from './importQueue';
 
 let n = 0;
 const item = (status: ItemStatus, extra: Partial<QueueItem> = {}): QueueItem => ({ id: ++n, path: `C:\\data\\file-${n}.txt`, status, duplicate: 'skip', ...extra });
@@ -34,6 +34,13 @@ test('the outcome is counted and told in one sentence', () => {
   assert.equal(outcomeLine(t), '2 files imported, 1 failed, 1 skipped, 1 waiting.');
   assert.equal(outcomeLine(tally([item('complete')])), '1 file imported.');
   assert.equal(outcomeLine(tally([])), 'Nothing in the queue.');
+});
+
+test('the end of an import counts the file imported last, so four files in say four imported and none waiting', () => {
+  const items = [item('complete'), item('complete'), item('complete'), item('importing')];
+  const after = withChange(items, items[3]!.id, { status: 'complete' });
+  assert.equal(outcomeLine(tally(after)), '4 files imported.');
+  assert.equal(items[3]!.status, 'importing', 'the queue it was given is left as it was');
 });
 
 test('a retry takes only what failed, so what is complete is never imported twice', () => {
