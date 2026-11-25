@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { Button, Dialog, Heading, Modal, ModalOverlay } from 'react-aria-components';
 import { call, toApiError } from '../bridge';
 import { LEVEL_LABELS, LEVELS } from '../lib/importMapping';
+import { shownCell } from '../lib/tableCells';
 import { groupFunctions } from '../lib/variables';
 import { browseManyFiles, browsePath, cleanTypedPath, nativeDialogsAvailable } from '../pickFile';
 import { bumpData } from '../state/actions';
@@ -256,6 +257,8 @@ export function TablesDialog(props: { data: CaseData; onClose: () => void }) {
 
   const setSummary = (i: number, patch: Partial<SummaryRow>) => setSummaries(summaries.map((s, j) => (j === i ? { ...s, ...patch } : s)));
   const fns = groupFunctions();
+  // The summaries of a group table come after the variables that make the groups and the number of cases.
+  const roundedFrom = op === 'groups' ? by.length + 1 : null;
 
   return (
     <ModalOverlay isOpen isDismissable={false} onOpenChange={(open) => !open && props.onClose()} className="overlay">
@@ -376,9 +379,11 @@ export function TablesDialog(props: { data: CaseData; onClose: () => void }) {
             <section aria-labelledby="tables-result-h" data-testid="tables-result" className="ve-preview">
               <h3 id="tables-result-h" className="stats-h4">{t('The table')}</h3>
               <p role="status" data-testid="tables-summary">
-                {tn(table.total_rows, { one: '{count} row', other: '{count} rows' })}
-                {table.total_rows > table.shown_rows ? ` ${t('(the first {shown} are shown here; the file has them all)', { shown: num(table.shown_rows) })}` : ''}
+                {table.total_rows > table.shown_rows
+                  ? tn(table.total_rows, { one: '{count} row (the first {shown} are shown here; the file has them all).', other: '{count} rows (the first {shown} are shown here; the file has them all).' }, { shown: num(table.shown_rows) })
+                  : tn(table.total_rows, { one: '{count} row.', other: '{count} rows.' })}
                 {table.left_out ? ` ${tn(table.left_out, { one: '{count} case is in no group because it has no value in a variable that makes the groups.', other: '{count} cases are in no group because they have no value in a variable that makes the groups.' })}` : ''}
+                {roundedFrom !== null && table.rows.some((r) => r.some((cell, j) => j >= roundedFrom && shownCell(cell) !== cell)) ? ` ${t('The summaries are rounded to two decimals here; the file has them in full.')}` : ''}
               </p>
               <div className="table-wrap" tabIndex={0} role="region" aria-label={t('The table, as far as it is shown')}>
                 <table className="data" data-testid="tables-table">
@@ -394,7 +399,7 @@ export function TablesDialog(props: { data: CaseData; onClose: () => void }) {
                     {table.rows.map((r, i) => (
                       <tr key={i}>
                         {r.map((cell, j) => (
-                          <td key={j}>{cell ?? ''}</td>
+                          <td key={j}>{(roundedFrom !== null && j >= roundedFrom ? shownCell(cell) : cell) ?? ''}</td>
                         ))}
                       </tr>
                     ))}

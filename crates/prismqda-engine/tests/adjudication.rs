@@ -153,6 +153,31 @@ fn undo_takes_a_decision_back_and_puts_the_earlier_one_back() {
 }
 
 #[test]
+fn the_final_layer_counts_words_coded_without_a_unit_in_the_unit_they_lie_in() {
+    use prismqda_engine::SegmentFilter;
+    // As after a merge in a project that codes any words: the owner's codings name no unit, and the merged coder's do.
+    let mut w = world();
+    let (source, rows) = {
+        let source = w.p.list_sources().unwrap()[0].id;
+        (source, w.p.list_units(source).unwrap())
+    };
+    let dan = w.p.add_coder(&NewCoder::human("Dan")).unwrap();
+    // Dan's words are part of the second unit (which Ada and Ben agree is Access) and of the fourth (Cost), coded without a unit.
+    w.p.apply_coding(&NewCoding::new(source, rows[1].start, rows[1].end - 1, w.access, dan)).unwrap();
+    w.p.apply_coding(&NewCoding::new(source, rows[3].start, rows[3].end - 1, w.access, dan)).unwrap();
+    // Words that reach over two units are in neither.
+    w.p.apply_coding(&NewCoding::new(source, rows[0].start, rows[1].end, w.cost, dan)).unwrap();
+    let s = w.p.final_summary().unwrap();
+    assert_eq!((s.decided, s.agreed, s.open, s.without_unit), (0, 1, 3, 1), "Dan agrees on the second unit and differs on the fourth");
+    let seg = w.p.coded_segments(&SegmentFilter { layer: Some("final".into()), ..Default::default() }).unwrap();
+    assert_eq!(seg.len(), 1, "one coding for the unit they agree on, not one for each coder");
+    assert_eq!((seg[0].code_name.as_str(), seg[0].coder_name.as_str()), ("Access", "Ada"));
+    // It says what the disagreements say: the fourth unit is in the queue for Ada and Dan, and the second is not.
+    let queue: Vec<i64> = w.p.disagreements(&[w.ada, dan], false).unwrap().iter().map(|d| d.unit_id).collect();
+    assert_eq!(queue, [rows[3].id]);
+}
+
+#[test]
 fn the_final_layer_is_the_decisions_and_what_the_coders_agreed_on_and_leaves_open_units_out() {
     use prismqda_engine::{ExploreScope as Scope, SegmentFilter};
     let mut w = world();

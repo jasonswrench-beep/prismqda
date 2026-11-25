@@ -2885,14 +2885,20 @@
 }
 .ex-summary-grid {
   display: grid;
-  grid-template-columns: minmax(20rem, 1fr) minmax(20rem, 1.2fr);
+  /* The list needs room for a code's name and its five counts (the Coders column was cut off in a window 1440 wide). */
+  grid-template-columns: minmax(34rem, 1.3fr) minmax(16rem, 1fr);
   gap: 1.2rem;
   align-items: start;
+}
+.ex-summary-table th,
+.ex-summary-table td {
+  padding-inline: 0.5rem;
 }
 .ex-summary-pick {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
+  text-align: start;
 }
 .ex-profile-definition {
   margin: 0.2rem 0 0.6rem;

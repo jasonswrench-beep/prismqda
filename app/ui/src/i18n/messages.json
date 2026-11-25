@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "count": 5872,
+  "count": 5876,
   "messages": [
     {
       "id": " and {n} more",
@@ -953,15 +953,6 @@
       "id": "(on the map)",
       "files": [
         "components/explore/ConceptMap.tsx"
-      ]
-    },
-    {
-      "id": "(the first {shown} are shown here; the file has them all)",
-      "blanks": [
-        "shown"
-      ],
-      "files": [
-        "components/DataTools.tsx"
       ]
     },
     {
@@ -3009,6 +3000,19 @@
       ]
     },
     {
+      "id": "{count} rows (the first {shown} are shown here; the file has them all).",
+      "forms": {
+        "one": "{count} row (the first {shown} are shown here; the file has them all).",
+        "other": "{count} rows (the first {shown} are shown here; the file has them all)."
+      },
+      "blanks": [
+        "shown"
+      ],
+      "files": [
+        "components/DataTools.tsx"
+      ]
+    },
+    {
       "id": "{count} rows could not be read, and were skipped.",
       "forms": {
         "one": "{count} row could not be read, and was skipped.",
@@ -3046,6 +3050,16 @@
       "forms": {
         "one": "{count} row repeated a key an earlier row had, and was not used.",
         "other": "{count} rows repeated a key an earlier row had, and were not used."
+      },
+      "files": [
+        "components/DataTools.tsx"
+      ]
+    },
+    {
+      "id": "{count} rows.",
+      "forms": {
+        "one": "{count} row.",
+        "other": "{count} rows."
       },
       "files": [
         "components/DataTools.tsx"
@@ -4958,7 +4972,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/reliability.rs:325"
+        "prismqda-engine/src/reliability.rs:329"
       ]
     },
     {
@@ -8772,7 +8786,7 @@
       "id": "a sample needs at least one unit",
       "engine": true,
       "files": [
-        "prismqda-engine/src/reliability.rs:189"
+        "prismqda-engine/src/reliability.rs:193"
       ]
     },
     {
@@ -10381,6 +10395,15 @@
       "id": "All of them",
       "files": [
         "components/team/Disagreements.tsx"
+      ]
+    },
+    {
+      "id": "All of these already have {name}.",
+      "blanks": [
+        "name"
+      ],
+      "files": [
+        "state/actions.ts"
       ]
     },
     {
@@ -13533,7 +13556,7 @@
       "engine": true,
       "files": [
         "prismqda-engine/src/adjudication.rs:98",
-        "prismqda-engine/src/reliability.rs:251"
+        "prismqda-engine/src/reliability.rs:255"
       ]
     },
     {
@@ -25054,7 +25077,7 @@
       "id": "no unit was coded by at least two of these coders, so there is nothing to compare",
       "engine": true,
       "files": [
-        "prismqda-engine/src/reliability.rs:285"
+        "prismqda-engine/src/reliability.rs:289"
       ]
     },
     {
@@ -33836,7 +33859,7 @@
       "id": "that run does not exist or is already archived",
       "engine": true,
       "files": [
-        "prismqda-engine/src/reliability.rs:447"
+        "prismqda-engine/src/reliability.rs:451"
       ]
     },
     {
@@ -34599,7 +34622,7 @@
       "id": "the coders used fewer than two different codes, so there is nothing to measure",
       "engine": true,
       "files": [
-        "prismqda-engine/src/reliability.rs:315"
+        "prismqda-engine/src/reliability.rs:319"
       ]
     },
     {
@@ -36067,7 +36090,7 @@
       "id": "the mode should be single_label or per_code",
       "engine": true,
       "files": [
-        "prismqda-engine/src/reliability.rs:258"
+        "prismqda-engine/src/reliability.rs:262"
       ]
     },
     {
@@ -37409,7 +37432,7 @@
       "id": "the reporting term should be intercoder_reliability or concordance",
       "engine": true,
       "files": [
-        "prismqda-engine/src/reliability.rs:262"
+        "prismqda-engine/src/reliability.rs:266"
       ]
     },
     {
@@ -37542,7 +37565,7 @@
       "engine": true,
       "files": [
         "prismqda-engine/src/adjudication.rs:102",
-        "prismqda-engine/src/reliability.rs:255"
+        "prismqda-engine/src/reliability.rs:259"
       ]
     },
     {
@@ -37622,7 +37645,7 @@
       ],
       "engine": true,
       "files": [
-        "prismqda-engine/src/reliability.rs:209"
+        "prismqda-engine/src/reliability.rs:213"
       ]
     },
     {
@@ -38192,6 +38215,12 @@
       "id": "The suggestions:",
       "files": [
         "components/autocode/Setup.tsx"
+      ]
+    },
+    {
+      "id": "The summaries are rounded to two decimals here; the file has them in full.",
+      "files": [
+        "components/DataTools.tsx"
       ]
     },
     {
@@ -39431,6 +39460,15 @@
       "engine": true,
       "files": [
         "prismqda-engine/src/datatable.rs:331"
+      ]
+    },
+    {
+      "id": "These words already have {name}.",
+      "blanks": [
+        "name"
+      ],
+      "files": [
+        "state/actions.ts"
       ]
     },
     {

@@ -181,6 +181,10 @@ fn pct(x: Option<f64>) -> String {
     x.map(|v| format!("{v:.3}")).unwrap_or_else(|| "undefined".to_string())
 }
 
+/// The unit of a coding `c`, in SQL: the unit it names, or, when it names none (words coded in a project that codes any words), the unit it
+/// lies wholly inside (decision 21). Agreement, the disagreements and the final layer must all say the same of a coding.
+pub(crate) const UNIT_OF_CODING: &str = "COALESCE(c.unit_id, (SELECT u.id FROM unit u WHERE u.source_id = c.source_id AND u.start_offset <= c.start_offset AND u.end_offset >= c.end_offset LIMIT 1))";
+
 impl Project {
     /// Draws a random sample of units, the same way every time for the same seed. Units left out of
     /// coding are never drawn. Stratified draws take from each group in proportion to its size.
@@ -511,12 +515,7 @@ impl Project {
         let mut out = Vec::new();
         for coder in coder_ids {
             let mut map: HashMap<i64, HashSet<i64>> = HashMap::new();
-            // A coding belongs to a unit by its unit id, or, when it has none, by lying inside the unit.
-            let mut stmt = self.conn.prepare(
-                "SELECT COALESCE(c.unit_id, (SELECT u.id FROM unit u WHERE u.source_id = c.source_id AND u.start_offset <= c.start_offset AND u.end_offset >= c.end_offset LIMIT 1)),
-                        c.code_id
-                 FROM coding c WHERE c.coder_id = ?1 AND c.layer = 'coder'",
-            )?;
+            let mut stmt = self.conn.prepare(&format!("SELECT {UNIT_OF_CODING}, c.code_id FROM coding c WHERE c.coder_id = ?1 AND c.layer = 'coder'"))?;
             for row in stmt.query_map([coder], |r| Ok((r.get::<_, Option<i64>>(0)?, r.get::<_, i64>(1)?)))? {
                 if let (Some(unit), code) = row? {
                     map.entry(unit).or_default().insert(code);

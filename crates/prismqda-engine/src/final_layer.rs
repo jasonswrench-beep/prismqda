@@ -4,14 +4,16 @@
 //! the coders who coded it gave it the same codes (or only one coder coded it), those codes are final, and are that coder's own codings;
 //! where the coders disagree and nobody has decided, the unit is open and has no final codes yet. Nothing is stored: the layer is worked
 //! out from the codings and the decisions each time it is asked for, so it is always what they say now, and no coder's coding is changed
-//! or counted twice. It covers words coded in a unit; areas of pictures and stretches of recordings are not adjudicated and are not in it,
-//! and neither are words coded without a unit.
+//! or counted twice. It covers words that lie in a unit, whether the coding names the unit or only lies wholly inside it (decision 21, as
+//! agreement and the disagreements do; decision 206), and not words that lie in none. Areas of pictures and stretches of recordings are
+//! settled apart (decision 176).
 
 use std::collections::{BTreeMap, BTreeSet, HashSet};
 
 use serde::Serialize;
 
 use crate::project::Project;
+use crate::reliability::UNIT_OF_CODING;
 use crate::Result;
 
 /// Ids of the codings a decision makes are numbers no coding and no coded area has: below this, made from the unit and the code.
@@ -103,17 +105,18 @@ impl Project {
         type Raw = (i64, i64, i64, i64, i64, i64, String, String, Option<i64>, String);
         let mut by_unit: BTreeMap<i64, Vec<Raw>> = BTreeMap::new();
         {
-            let mut stmt = self.conn.prepare(
-                "SELECT unit_id, id, source_id, start_offset, end_offset, code_id, coder_id, origin, rationale, rating, created_at
-                 FROM coding WHERE layer = 'coder' AND unit_id IS NOT NULL ORDER BY unit_id, coder_id, start_offset, end_offset, id",
-            )?;
+            let mut stmt = self.conn.prepare(&format!(
+                "SELECT {UNIT_OF_CODING}, c.id, c.source_id, c.start_offset, c.end_offset, c.code_id, c.coder_id, c.origin, c.rationale, c.rating, c.created_at
+                 FROM coding c WHERE c.layer = 'coder' ORDER BY c.coder_id, c.start_offset, c.end_offset, c.id"
+            ))?;
             let rows = stmt.query_map([], |r| {
-                Ok((r.get::<_, i64>(0)?, (r.get::<_, i64>(1)?, r.get::<_, i64>(2)?, r.get::<_, i64>(3)?, r.get::<_, i64>(4)?, r.get::<_, i64>(5)?, r.get::<_, i64>(6)?, r.get::<_, String>(7)?, r.get::<_, String>(8)?, r.get::<_, Option<i64>>(9)?, r.get::<_, String>(10)?)))
+                Ok((r.get::<_, Option<i64>>(0)?, (r.get::<_, i64>(1)?, r.get::<_, i64>(2)?, r.get::<_, i64>(3)?, r.get::<_, i64>(4)?, r.get::<_, i64>(5)?, r.get::<_, i64>(6)?, r.get::<_, String>(7)?, r.get::<_, String>(8)?, r.get::<_, Option<i64>>(9)?, r.get::<_, String>(10)?)))
             })?;
             for row in rows {
-                let (unit, raw) = row?;
-                if !decided.contains(&unit) {
-                    by_unit.entry(unit).or_default().push(raw);
+                match row? {
+                    (Some(unit), raw) if !decided.contains(&unit) => by_unit.entry(unit).or_default().push(raw),
+                    (Some(_), _) => {}
+                    (None, _) => out.loose += 1,
                 }
             }
         }
@@ -137,7 +140,6 @@ impl Project {
                 }
             }
         }
-        out.loose = self.conn.query_row("SELECT COUNT(*) FROM coding WHERE layer = 'coder' AND unit_id IS NULL", [], |r| r.get::<_, i64>(0))? as usize;
         out.rows.sort_by_key(|r| (r.source_id, r.start, r.end, r.id));
         Ok(out)
     }

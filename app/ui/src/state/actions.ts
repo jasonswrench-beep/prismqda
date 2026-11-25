@@ -17,6 +17,7 @@ import { describeCount } from '../lib/targets';
 import { nextUncodedUnit, unitIndexForCaret, unitIndicesTouching } from '../lib/units';
 import { OffsetIndex, sliceScalar } from '../offsets';
 import { regionToCoding, sameShape } from '../lib/regions';
+import { notYetCoded, sameWordsWith } from '../lib/recode';
 import { clockText, orderedSpan, spanProblem, spanShort, spanWords } from '../lib/clips';
 import type { AreaShape, SpanShape } from '../types';
 import type { AiAnswerOutcome, AiPacket, AutocodeArgs, ImportOptionsArgs, ReviseResult, AutocodeProposed, CodeEditArgs, CodeRow, CodingRow, DecisionOutcome, PacketArgs, ProjectInfo, ProposalRow, SourceRow } from '../types';
@@ -543,10 +544,16 @@ export async function applyCode(codeId: number, resume?: PendingReplace): Promis
     announce(target.message, 'assertive');
     return false;
   }
+  // A code the words already have from the same coder is not given twice (an area and a stretch are the same).
+  const spans = notYetCoded(d.codings, target.spans, codeId, project.me ?? 0);
+  if (spans.length === 0) {
+    announce(target.spans.length > 1 ? t('All of these already have {name}.', { name: code.name }) : t('These words already have {name}.', { name: code.name }), 'assertive');
+    return false;
+  }
   const made: CodingRow[] = [];
   let lastQuote = '';
   try {
-    for (const span of target.spans) {
+    for (const span of spans) {
       const r = await call('coding.apply', {
         source_id: d.id,
         start: span.start,
@@ -576,7 +583,7 @@ export async function applyCode(codeId: number, resume?: PendingReplace): Promis
     if (made.length > 0) patchCodings((cs) => [...cs, ...made]);
     if (err.code === 'exclusive_group' && !resume) {
       appStore.set({
-        dialog: { kind: 'replace-exclusive', pending: { codeId, message: err.message, spans: target.spans.slice(made.length), skipped: target.skipped } },
+        dialog: { kind: 'replace-exclusive', pending: { codeId, message: err.message, spans: spans.slice(made.length), skipped: target.skipped } },
       });
       announce(t('{message} Choose Replace to take the other code away, or Cancel.', { message: err.message }), 'assertive');
     } else {
@@ -589,7 +596,7 @@ export async function applyCode(codeId: number, resume?: PendingReplace): Promis
   if (resume) await reloadCodings();
   else patchCodings((cs) => [...cs, ...made].sort((a, b) => a.start - b.start || a.end - b.end || a.id - b.id));
   appStore.set({ lastCodeId: codeId, selectedCodingId: made[made.length - 1]?.id ?? null });
-  const allUnits = target.spans.every((s) => s.unit_id !== null);
+  const allUnits = spans.every((s) => s.unit_id !== null);
   let message = made.length === 1 ? codedSentence(lastQuote, code.name) : t('Coded {count} as {name}', { count: allUnits ? tn(made.length, { one: '{count} unit', other: '{count} units' }) : tn(made.length, { one: '{count} part', other: '{count} parts' }), name: code.name });
   if (target.skipped > 0) message = t('{message}. Left out {count} that cannot be coded.', { message, count: tn(target.skipped, { one: '{count} unit', other: '{count} units' }) });
   announce(message);
@@ -863,6 +870,14 @@ export async function removeCoding(id: number): Promise<void> {
 }
 
 export async function changeCodingCode(id: number, codeId: number): Promise<void> {
+  // Two codings of the same words with the same code by the same coder would be one coding counted twice.
+  const st = appStore.get();
+  const here = st.sourceData?.codings.find((c) => c.id === id);
+  if (here && here.code_id !== codeId && sameWordsWith(st.sourceData?.codings ?? [], here, codeId)) {
+    const has = st.codes.find((k) => k.id === codeId)?.name ?? t('the new code');
+    announce(here.region ? t('This area already has {name}.', { name: has }) : t('These words already have {name}.', { name: has }), 'assertive');
+    return;
+  }
   await attempt(async () => {
     await call('coding.change_code', { id, code_id: codeId });
     patchCodings((cs) => cs.map((c) => (c.id === id ? { ...c, code_id: codeId } : c)));
@@ -1391,6 +1406,8 @@ export async function undoLast(): Promise<void> {
       return;
     }
     await refreshEverything();
+    // A coding that the undo took away is not the selected one any more (Retrieved Segments said it was outside the rows shown).
+    appStore.set((s) => (s.selectedCodingId !== null && s.sourceData && !s.sourceData.codings.some((c) => c.id === s.selectedCodingId) ? { selectedCodingId: null } : {}));
     announce(t('Undid: {what}.', { what: r.what ? engineText(r.what) : (r.action ?? t('the last change')) }));
   } catch (e) {
     announce(toApiError(e).message, 'assertive');
