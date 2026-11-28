@@ -68,6 +68,16 @@ cargo run -p prismqda-cli -- --help
 
 The project file extension `.pqda` is provisional; the final one is an open question in section 30 of the specification, and `PROJECT_EXTENSION` in the engine is the one place that changes.
 
+## Shared pieces and what counts as installed
+
+The OpenStage and Prism apps follow one rule for finding things on the computer:
+
+- **Shared pieces live in one fixed folder each, directly under `%ProgramData%`** (found with Windows' known-folder call, not from the environment): the GPU Voice Pack in `%ProgramData%\GPU Voice Pack`, and voice models (speech recognition, voice detection, speaker models and voices) in `%ProgramData%\Voice Models`. Every app and both hubs (OpenStage Hub and Prism Hub) look for them there and nowhere else. A piece counts as installed only when its files are there and its folder can be changed only by the account that installed it, SYSTEM and the Administrators.
+- **Apps are found where they are installed**: in Windows' installed apps list, or in the app's own per-user folder (`%LOCALAPPDATA%\<app name>`). Never on `PATH`.
+- **Runtimes ship inside the app's own installer** (Node.js, Python, a speech engine). Nothing has to be installed separately, and an installed app never falls back to a copy it finds on `PATH`.
+
+PrismQDA uses no shared pieces today. The GPU Voice Pack is made in this repository.
+
 ## License
 
 Apache License 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE). Third-party crates and their licenses are listed in [THIRD-PARTY.md](THIRD-PARTY.md).

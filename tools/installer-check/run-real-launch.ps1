@@ -34,7 +34,9 @@ if (Get-Process -Name 'prismqda-app' -ErrorAction SilentlyContinue) { 'A PrismQD
 $installedExe = Join-Path $env:LOCALAPPDATA 'PrismQDA\prismqda-app.exe'
 if ($Installer) {
     "== installing $Installer silently"
-    $p = Start-Process -FilePath $Installer -ArgumentList '/S' -PassThru -Wait
+    # Into the real folder by name (/D=, last and unquoted as NSIS needs it): without it the installer goes back to the folder it last recorded,
+    # which a trial install elsewhere may have changed, and the copy checked below would then be the old one.
+    $p = Start-Process -FilePath $Installer -ArgumentList "/S /D=$(Join-Path $env:LOCALAPPDATA 'PrismQDA')" -PassThru -Wait
     Check ($p.ExitCode -eq 0) "the installer ended with exit code $($p.ExitCode)"
 }
 Check (Test-Path $installedExe) "the program is installed at $installedExe"
